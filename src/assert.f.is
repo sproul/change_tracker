@@ -1,0 +1,23 @@
+#!/bin/bash
+label="$1"
+t_actual="$2"
+
+t=$TMP/assert.f.is.$$
+
+cat > $t.expected
+
+if ! diff -b "$t.expected" "$t_actual" > "$t.diff"; then
+        echo "FAILED $label: diffs:"
+        cat $t.diff
+        honk expected content was:
+        cat "$t.expected"
+        honk but actual content was:
+        cat "$t_actual"
+        rc=-1
+else
+        rc=0
+        echo "OK $label"
+fi
+rm -f "$t.expected" "$t.diff"
+exit $rc
+exit

@@ -1,0 +1,17 @@
+{
+    "groupId": "",
+    "artifactId": "prototype",
+    "version": "unspecified",
+    "packaging": "zip",
+    "description": "null",
+    "gitRepoName": "ALM:mcs_mobile-cloud-service/mobile-core.git",
+    "gitRepoBranch": "feature_artifactDescriptor",
+    "gitRepoCommitId": "202678da87709d57abbee18c83ad64e91d57bddc",
+    "jenkinsBuildUrl": "null",
+    "jenkinsBuildId": "null",
+    "dependencies": [
+        [
+            
+        ]
+    ]
+}

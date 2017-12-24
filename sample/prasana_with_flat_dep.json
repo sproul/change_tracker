@@ -1,0 +1,42 @@
+{
+    "groupId": "",
+    "artifactId": "prototype",
+    "version": "unspecified",
+    "packaging": "zip",
+    "description": "null",
+    "change_tracker": "slc15mno:11022",
+    "gitRepoName": "ALM:mcs_mobile-cloud-service/mobile-core.git",
+    "gitRepoBranch": "feature_artifactDescriptor",
+    "gitRepoCommitId": "202678da87709d57abbee18c83ad64e91d57bddc",
+    "jenkinsBuildUrl": "null",
+    "jenkinsBuildId": "null",
+    "dependencies": [
+            "dep1_abc" : {
+                "groupId": "",
+                "artifactId": "dep1_abc_prototype",
+                "version": "unspecified",
+                "packaging": "zip",
+                "description": "null",
+                "change_tracker": "slc15abc:11022",
+                "gitRepoName": "ALM:dep1_alm_name/abc.git",
+                "gitRepoBranch": "dep1_feature_artifactDescriptor",
+                "gitRepoCommitId": "1111111111111222222222222222333333333333",
+                "jenkinsBuildUrl": "null",
+                "jenkinsBuildId": "null"
+            },
+            "dep1_xyz" : {
+                "groupId": "",
+                "artifactId": "dep1_xyz_prototype",
+                "version": "unspecified",
+                "packaging": "zip",
+                "description": "null",
+                "change_tracker": "slc15xyz:11022",
+                "gitRepoName": "ALM:dep1_alm_name/xyz.git",
+                "gitRepoBranch": "dep1_feature_artifactDescriptor",
+                "gitRepoCommitId": "202678da87709d57abbee18c83ad64e91d57bddc",
+                "gitRepoCommitId": "3333444444444444444444444444455555555555",
+                "jenkinsBuildUrl": "null",
+                "jenkinsBuildId": "null"
+            }
+        ]
+}
