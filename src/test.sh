@@ -30,7 +30,7 @@ cat <<EOF > $t.1.json
     ]
 }
 EOF
-change_tracker.sh $t.1.json $t.2.json > $t.actual
+change_tracker.sh -v $t.1.json $t.2.json > $t.actual
 cat <<EOF | assert.f.is "test_no_deps" $t.actual
 expected output: change in  src/main/java/com/oracle/syseng/configuration/repository/IntegrationRepositoryImpl.java
 EOF
@@ -40,5 +40,5 @@ EOF
 }
 
 Ruby_change_tracker -test
-test_no_deps_config
+#test_no_deps_config
 exit 0

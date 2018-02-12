@@ -218,6 +218,7 @@ class U
                 attr_accessor :log_indent
                 attr_accessor :mail_mode
                 attr_accessor :test_mode
+                attr_accessor :dry_mode
                 attr_accessor :raise_if_fail
                 attr_accessor :test_exit_code
                 attr_accessor :trace
@@ -308,9 +309,14 @@ class U
                         U.strftime("%H:%M:%S", t)
                 end
                 def system(cmd, input=nil, dir=nil)
-                        puts "U.system(#{cmd}, input=#{input}, dir=#{dir}"
+                        t_preamble = ''
                         if dir
                                 Dir.chdir(dir)
+                                t_preamble << "cd \"#{dir}\"; "
+                        end
+                        puts "#{t_preamble}#{cmd}" if U.trace
+                        if U.dry_mode
+                                return "No output from U.system(#{cmd}) because we are in dry run mode..."
                         end
                         Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
                                 if input
@@ -320,7 +326,7 @@ class U
 
                                 out = stdout.read
                                 err = stderr.read
-                                puts "#{cmd} -> out=#{out}, err=#{err}"
+                                puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace
                                 # http://stackoverflow.com/questions/15023944/how-to-retrieve-exit-status-from-ruby-open3-popen3
                                 if !wait_thr.value.success?
                                         raise "error: bad exit code from #{cmd}: #{err}"
@@ -544,7 +550,7 @@ class U
                         
                         expected.gsub!(/^\s*/, '') if expected.is_a?(String)
                         
-                        if expected != actual
+                        if !expected.eql?(actual)
                                 expected = "nil" if expected==nil
                                 actual   = "nil" if   actual==nil
                                 if caller_msg
@@ -559,7 +565,9 @@ class U
                                 U.assert(false, msg, raise_if_fail)
                                 ok = false
                         else
-                                U.log("U.assert_eq: #{expected} == #{actual} OK") if U.log_level<=U::LOG_ALL
+                                z = "OK U.assert_eq: #{expected} == #{actual}"
+                                U.log(z)
+                                puts U.truncate_string(z)
                                 ok = true
                         end
                         return ok
@@ -599,7 +607,9 @@ class U
                                 if !msg
                                         msg = "assertion failed"
                                 end
-                                msg << " at #{U.t}"
+                                
+                                msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
+                                
                                 if raise_if_fail || U.raise_if_fail
                                         raise Test_assertion.new(msg)
                                 else
@@ -672,7 +682,7 @@ class U
                                 z << s
                                 z.gsub!(/\n/, "#{U.log_indent}\n")
                         end
-                        puts z
+                        puts z if z && z!=''
                 end
                 def test_rolling_avg()
                         avg = 1
@@ -765,7 +775,7 @@ class U
                 def only_child_of(dir)
                         children = Dir.glob("#{dir}/*")
                         raise "expected only one child for dir #{dir}, but seeing #{children.size}" if children.size > 1
-                        raise "expected child for dir #{dir}, but not seeing any" if children.size == 0
+                        raise "expected an only child for dir #{dir}, but did not see any children at all" if children.size == 0
                         children[0]
                 end
                 def file_rewritten_since_last_look(fn)
@@ -826,6 +836,13 @@ class U
                                         end
                                         puts sprintf "%#{numeric_column_header.length}d %s", h[key], key
                                 end
+                        end
+                end
+                def truncate_string(s, max_len=130)
+                        if s.size < max_len
+                                s
+                        else
+                                "#{s.slice(0..max_len)}..."
                         end
                 end
         end

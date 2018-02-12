@@ -6,13 +6,22 @@ require 'net/http'
 require 'json'
 
 class Change_tracker
+        HOST_NAME_DEFAULT = "localhost"
+        PORT_DEFAULT = 11111
+                
         attr_accessor :host_name
         attr_accessor :port
-        def initialize(host_name, port)
+        def initialize(host_name = Change_tracker::HOST_NAME_DEFAULT, port = Change_tracker::PORT_DEFAULT)
                 self.host_name = host_name
-                self.port = port
+                self.port = port.to_s
 	end
-	class << self
+        def to_s()
+                "Change_tracker(#{self.host_name}:#{self.port})"
+        end
+        def eql?(other)
+                self.host_name.eql?(other.host_name) && self.port.eql?(other.port)
+        end
+        class << self
         end
 end
 
@@ -27,6 +36,16 @@ class Git_repo
                 self.global_data_prefix = "git_repo_#{name}."
                 self.user = get("user", "UNUSED")
                 self.pw   = get("pw",   "UNUSED")
+        end
+        def to_s()
+                z = "Git_repo(#{name}"
+                if self.user != "UNUSED" || self.pw != "UNUSED"
+                        z << "(#{self.user}/#{self.pw}"
+                end
+                z
+        end
+        def eql?(other)
+                self.name.eql?(other.name) && self.user.eql?(other.user) && self.pw.eql?(other.pw)
         end
         def get(key, default_val)
                 Global.get(self.global_data_prefix + key, default_val)
@@ -53,6 +72,9 @@ class Json_obj
                         self.h = Hash.new
                 end
         end
+        def to_s()
+                "Json_obj(#{self.h})"
+        end
         def get(key, default_val = nil)
                 if !self.h.has_key?(key)
                         if default_val
@@ -77,6 +99,12 @@ class Git_commit
                 self.branch = branch
                 self.commitId = commitId
         end
+        def eql?(other)
+                other && self.change_tracker.eql?(other.change_tracker) && self.repo.eql?(other.repo) && self.branch.eql?(other.branch) && self.commitId.eql?(other.commitId)
+        end
+        def to_s()
+                "Git_commit(#{self.change_tracker}, #{self.repo}, #{self.branch}, #{self.commitId})"
+        end
         def write_codeline_to_disk()
                 repo.write_codeline_to_disk(self.branch, self.commitId)
         end
@@ -97,7 +125,7 @@ class Git_commit
         end
         def find_commit_for_same_component(compound_commit)
                 compound_commit.commits.each do | commit |
-                        if commit.repo == self.repo
+                        if commit.repo.eql?(self.repo)
                                 return commit
                         end
                 end
@@ -105,11 +133,65 @@ class Git_commit
         end
         class << self
                 def from_hash(h)
-                        change_tracker = h.get("change_tracker", "localhost")
+                        change_tracker_host_and_port = h.get("change_tracker_host_and_port", "localhost:11111")
+                        change_tracker_host, change_tracker_port = change_tracker_host_and_port.split(/:/)
+                        change_tracker = Change_tracker.new(change_tracker_host, change_tracker_port)
                         repoName       = h.get("gitRepoName")
                         branch         = h.get("gitBranch")
                         commitId       = h.get("gitCommitId")
                         Git_commit.new(change_tracker, repoName, branch, commitId)
+                end
+                def test()
+                        ct = Change_tracker.new()
+                        git_repo_name = "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git"
+                        gc1 = Git_commit.new(ct, git_repo_name, "master", "dc68aa99903505da966358f96c95f946901c664b")
+                        gc2 = Git_commit.new(ct, git_repo_name, "master", "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
+                        gc1_file_list = gc1.list_files
+                        gc2_file_list = gc2.list_files
+                        U.assert_eq(713, gc1_file_list.size)
+                        U.assert_eq(713, gc2_file_list.size)
+                        U.assert_eq(".gitignore", gc1_file_list[0])
+                        U.assert_eq(".gitignore", gc2_file_list[0])
+                        U.assert_eq("version.txt", gc1_file_list[712])
+                        U.assert_eq("version.txt", gc2_file_list[712])
+                        gc1_added_or_changed_file_list = gc1.list_files_added_or_updated
+                        gc2_added_or_changed_file_list = gc2.list_files_added_or_updated
+                        U.assert_eq(0, gc1_added_or_changed_file_list.size)
+                        U.assert_eq(1, gc2_added_or_changed_file_list.size)
+                        U.assert_eq("src/main/java/com/oracle/syseng/configuration/repository/IntegrationRepositoryImpl.java", gc2_added_or_changed_file_list[0])
+                        
+                        cc1 = Compound_commit.from_json(<<-EOS)
+                        {
+                        "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b",
+                        "gitRepoName": "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git",
+                        "gitBranch": "master",
+                        "gitCommitId": "dc68aa99903505da966358f96c95f946901c664b",
+                        "dependencies": [] }
+                        EOS
+                        
+                        cc2 = Compound_commit.from_json(<<-EOS)
+                        {
+                        "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
+                        "gitRepoName": "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git",
+                        "gitBranch": "master",
+                        "gitCommitId": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
+                        "dependencies": []}
+                        EOS
+                        
+                        U.assert_eq(1, cc1.commits.size)
+                        U.assert_eq(1, cc2.commits.size)
+                        U.assert_eq(gc1, cc1.commits[0], "cc1 commit")
+                        U.assert_eq(gc2, cc2.commits[0], "cc2 commit")
+                        U.assert_eq([], cc2.find_commits_for_components_that_were_added_since(cc1), "cc2 added commits")
+                        #U.assert_eq([], cc2.find_commits_for_components_that_were_removed_since(cc1), "cc2 removed commits")
+                        U.assert_eq([], cc1.find_commits_for_components_that_were_added_since(cc2), "cc1 added commits")
+                        #U.assert_eq([], cc1.find_commits_for_components_that_were_removed_since(cc2), "cc1 removed commits")
+                        changed_commits1 = cc1.find_commits_for_components_that_changed_since(cc2)
+                        changed_commits2 = cc2.find_commits_for_components_that_changed_since(cc1)
+                        U.assert_eq(1, changed_commits1.size)
+                        U.assert_eq(1, changed_commits2.size)
+                        U.assert_eq(gc1, changed_commits1[0])
+                        U.assert_eq(gc2, changed_commits2[0])
                 end
         end
 end
@@ -243,13 +325,6 @@ class Global
                         FileUtils.mkdir_p(scratch_dir)
                         scratch_dir
                 end
-                def test_system()
-                        U.assert_eq("Fri Jan  1 00:00:00 PST 2010", system("date --date='1/1/2010'"))
-                        puts "OK global"
-                end
-                def test()
-                        test_system()
-                end
         end
 end
 
@@ -259,12 +334,14 @@ j = 0
 while ARGV.size > j do
         arg = ARGV[j]
         case arg
+        when "-dry"
+                U.dry_mode = true
         when "-test"
                 U.test_mode = true
-                Global.test()
+                Git_commit.test()
                 exit
         when "-v"
-                Change_tracker_app.verbose = true
+                U.trace = true
         else
                 if !cms.json_fn1
                         cms.json_fn1 = ARGV[j]
