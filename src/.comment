@@ -1,0 +1,1 @@
+add truncate_string; support git cloning from servers we have had no ssh interaction with; add unit tests

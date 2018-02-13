@@ -1,3 +1,4 @@
+                                print 
 require_relative 'u'
 require 'rubygems'
 require 'fileutils'
@@ -328,6 +329,56 @@ class Global
         end
 end
 
+class Cec_gradle_parser
+	def initialize()
+		
+	end
+	class << self
+                def generate_manifest_url(raw_manifest_line)
+                        z = raw_manifest_line.sub(/  *manifest \"/, '')
+                        z.sub!(/\/\/.*/, '')
+                        z.sub!(/" *$/, '')
+                        if z !~ /^(.*?):manifest:(\d+)\.([^\.]+)\.(\d+)$/
+                                raise "could not understand #{z}"
+                        end
+                        package = $1
+                        n1 = $2.to_i
+                        branch = $3
+                        n2 = $4.to_i
+                        component = package.sub(/.*\./, '')
+                        "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/#{component}/manifest/#{n1}.#{branch}.#{n2}/manifest-#{n1}.#{branch}.#{n2}.pom"
+                end
+                def test_manifest_parse(raw_manifest_line, expected_generated_manifest_url)
+                        actual_generated_manifest_url = generate_manifest_url(raw_manifest_line)
+                        pom_content = U.rest_get(actual_generated_manifest_url)
+                        if pom_content !~ /<dependency>/
+                                raise "did not find dependency for #{actual_generated_manifest_url} from #{raw_manifest_line} (#{pom_content})"
+                        end
+                        U.assert_eq(expected_generated_manifest_url, actual_generated_manifest_url)
+                end
+                def test()
+                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.222\"         //@trigger", "1")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.94\"         //@trigger", "2")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.53\"         //@trigger", "3")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.42\"         //@trigger", "4")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.74\"     //@trigger", "5")
+                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "7")
+                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "8")
+                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.waggle:manifest:1.0.4597\" //@trigger", "12")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.270\"         //@trigger", "13")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.156\"         //@trigger", "14")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.126\"         //@trigger", "15")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.84\"         //@trigger", "16")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.137\"     //@trigger", "17")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.pipeline-common:manifest:1.master_internal.55\" //@trigger", "19")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.webclient:manifest:1.master_internal.8103\"         //@trigger", "21")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "22")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.pipeline-common:manifest:1.master_external.4\" //@trigger", "24")
+                end
+	end
+end
+
+
 cms = Change_tracker_app.new
 
 j = 0
@@ -337,8 +388,13 @@ while ARGV.size > j do
         when "-dry"
                 U.dry_mode = true
         when "-test"
-                U.test_mode = true
-                Git_commit.test()
+                #U.test_mode = true
+                #Git_commit.test()
+                puts "skip U, Git tests"
+                puts "skip U, Git tests"
+                puts "skip U, Git tests"
+                puts "skip U, Git tests"
+                Cec_gradle_parser.test
                 exit
         when "-v"
                 U.trace = true
