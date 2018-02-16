@@ -1,6 +1,6 @@
-                                print 
 require_relative 'u'
 require 'rubygems'
+require 'xmlsimple'
 require 'fileutils'
 require 'pp'
 require 'net/http'
@@ -27,40 +27,68 @@ class Change_tracker
 end
 
 class Git_repo
-        attr_accessor :name
-        attr_accessor :user
-        attr_accessor :pw
+        attr_accessor :project_name
         attr_accessor :global_data_prefix
-
-        def initialize(name)
-                self.name = name
-                self.global_data_prefix = "git_repo_#{name}."
-                self.user = get("user", "UNUSED")
-                self.pw   = get("pw",   "UNUSED")
+        attr_accessor :branch_name
+        attr_accessor :source_control_server
+        
+        def initialize(spec)
+                source_control_type, source_control_server, project_name, branch_name = spec.split(/;/)
+                if source_control_type != "git"
+                        raise "unexpected source_control_type #{source_control_type}"
+                end
+                if branch_name == ""
+                        self.branch_name = nil
+                else
+                        self.branch_name = branch_name
+                end
+                self.project_name = project_name
+                self.global_data_prefix = "git_repo_#{project_name}."
+                self.source_control_server = source_control_server
+                if !Git_repo.codeline_root_parent
+                        Git_repo.codeline_root_parent = Global.get_scratch_dir(self.project_name)
+                end 
         end
         def to_s()
-                z = "Git_repo(#{name}"
-                if self.user != "UNUSED" || self.pw != "UNUSED"
-                        z << "(#{self.user}/#{self.pw}"
-                end
-                z
+                "Git_repo(#{project_name}"
         end
         def eql?(other)
-                self.name.eql?(other.name) && self.user.eql?(other.user) && self.pw.eql?(other.pw)
+                self.project_name.eql?(other.project_name)
         end
-        def get(key, default_val)
+        def get(key, default_val=nil)
                 Global.get(self.global_data_prefix + key, default_val)
         end
-        def write_codeline_to_disk(branch, commitId)
-                codeline_root_parent = Global.get_scratch_dir(self.name)
-                if Dir.entries(codeline_root_parent).size == 2 # only contains ., ..
-                        U.system("git clone #{name}", nil, codeline_root_parent)
+        def get_file(path)
+                fn = "#{Git_repo.codeline_root_parent}/#{self.project_name}/#{path}"
+                if !File.exist?(fn)
+                        raise "could not read #{fn}"
+                end
+                IO.read(fn)
+        end
+        def write_codeline_to_disk(branch, commit_id)
+                username = self.get("#{source_control_server}.username")
+                pw       = self.get("#{source_control_server}.pw")
+                if Dir.entries(Git_repo.codeline_root_parent).size == 2 # only contains ., ..
+                        git_url = "https://#{username}:#{pw}@#{self.source_control_server}/#{project_name}.git"
+                        puts git_url
+                        exit
+                        U.system("git clone #{git_url}", nil, codeline_root_parent)
                 end
                 dir = U.only_child_of(codeline_root_parent)
                 if Dir.entries(dir).size == 2
                         raise "error: expected #{dir} to be populated after cloning"
                 end
                 dir
+        end
+        class << self
+                attr_accessor :codeline_root_parent
+                def test()
+                        gr = Git_repo.new("git;osn.oraclecorp.com:cec-server-integration;;")
+                        gr.write_codeline_to_disk
+                        deps_gradle_content = gr.get_file("deps.gradle")
+                        manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
+                        U.assert(manifest_lines.size > 1)
+                end
         end
 end
 
@@ -93,21 +121,30 @@ class Git_commit
         attr_accessor :change_tracker
         attr_accessor :repo
         attr_accessor :branch
-        attr_accessor :commitId
-        def initialize(change_tracker, repoName, branch, commitId)
+        attr_accessor :commit_id
+        def initialize(change_tracker, repoName, branch, commit_id)
                 self.change_tracker = change_tracker
                 self.repo = Git_repo.new(repoName)
                 self.branch = branch
-                self.commitId = commitId
+                self.commit_id = commit_id
         end
         def eql?(other)
-                other && self.change_tracker.eql?(other.change_tracker) && self.repo.eql?(other.repo) && self.branch.eql?(other.branch) && self.commitId.eql?(other.commitId)
+                other && self.change_tracker.eql?(other.change_tracker) && self.repo.eql?(other.repo) && self.branch.eql?(other.branch) && self.commit_id.eql?(other.commit_id)
         end
         def to_s()
-                "Git_commit(#{self.change_tracker}, #{self.repo}, #{self.branch}, #{self.commitId})"
+                "Git_commit(#{self.change_tracker}, #{self.repo}, #{self.branch}, #{self.commit_id})"
+        end
+        def to_json()
+                z = "{"
+                z << Json_obj.format_pair("change_tracker", self.change_tracker) << ","
+                z << Json_obj.format_pair("repo_name", self.repo.name) << ","
+                z << Json_obj.format_pair("branch_name", self.branch) << ","
+                z << Json_obj.format_pair("commit_id", self.commit_id)
+                z << "}"
+                z
         end
         def write_codeline_to_disk()
-                repo.write_codeline_to_disk(self.branch, self.commitId)
+                repo.write_codeline_to_disk(self.branch, self.commit_id)
         end
         def component_contained_by?(compound_commit)
                 self.find_commit_for_same_component(compound_commit) != nil
@@ -118,7 +155,7 @@ class Git_commit
         end
         def list_files_added_or_updated()
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                repo_system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commitId}")
+                repo_system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}")
         end
         def list_files()
                 # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
@@ -139,12 +176,13 @@ class Git_commit
                         change_tracker = Change_tracker.new(change_tracker_host, change_tracker_port)
                         repoName       = h.get("gitRepoName")
                         branch         = h.get("gitBranch")
-                        commitId       = h.get("gitCommitId")
-                        Git_commit.new(change_tracker, repoName, branch, commitId)
+                        commit_id       = h.get("gitCommitId")
+                        Git_commit.new(change_tracker, repoName, branch, commit_id)
                 end
                 def test()
                         ct = Change_tracker.new()
-                        git_repo_name = "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git"
+                        #git_repo_name = "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git"
+                        git_repo_name = "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config.git;"
                         gc1 = Git_commit.new(ct, git_repo_name, "master", "dc68aa99903505da966358f96c95f946901c664b")
                         gc2 = Git_commit.new(ct, git_repo_name, "master", "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
                         gc1_file_list = gc1.list_files
@@ -198,12 +236,19 @@ class Git_commit
 end
 
 class Compound_commit
-        attr_accessor :commits
+        attr_accessor :top_commit
+        attr_accessor :dependency_commits
         attr_accessor :json_obj
 
-        def initialize(json_obj, commits)
-                self.commits = commits
+        def initialize(json_obj, top_commit, dependency_commits)
+                self.top_commit = top_commit
+                self.dependency_commits = dependency_commits
                 self.json_obj = json_obj
+        end
+        def commits()
+                z = []
+                z << self.top_commit
+                z.concat(self.dependency_commits)
         end
         #def find_commits_for_components_that_were_removed_since(other_compound_commit)
         #        commits_for_components_that_were_removed = []
@@ -249,7 +294,16 @@ class Compound_commit
                 added_files + updated_files
         end
         def to_s()
-                "Compound_commit(#{self.json_obj}/#{self.commits})"
+                "Compound_commit(#{self.json_obj}/#{self.top_commit}/#{self.dependency_commits})"
+        end
+        def to_json()
+                z = "{"
+                z << self.top_commit.to_json
+                self.dependency_commits.each do | dependency_commit |
+                        z << dependency_commit.to_json
+                end
+                z << "}"
+                z
         end
         class << self
                 def from_file(json_fn)
@@ -259,14 +313,24 @@ class Compound_commit
                         from_json(Net::HTTP.get_response(URI.parse(url)).body)
                 end
                 def from_json(json_text)
-                        commits = []
-
                         json_obj = Json_obj.new(json_text)
-                        commits << Git_commit.from_hash(json_obj)
+                        top_commit = Git_commit.from_hash(json_obj)
+                        dependency_commits = []
                         json_obj.get("dependencies", []).each do | dependency |
-                                commits << Git_commit.from_hash(dependency)
+                                dependency_commits << Git_commit.from_hash(dependency)
                         end
-                        Compound_commit.new(json_obj, commits)
+                        Compound_commit.new(json_obj, top_commit, dependency_commits)
+                end
+                def from_descriptor(descriptor)
+                        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
+                        source_control_type, source_control_host, repo_name, branch, commit_id, change_tracker_host_and_port = descriptor.split(/;/)
+                        case source_control_type
+                        when "git"
+                                repo = Git_repo.new(repo_name)
+                                repo.write_codeline_to_disk(branch, commit_id)
+                        else
+                                raise "source control type #{source_control_host} not implemented"
+                        end
                 end
         end
 end
@@ -326,6 +390,10 @@ class Global
                         FileUtils.mkdir_p(scratch_dir)
                         scratch_dir
                 end
+                def test()
+                        U.assert_eq("test.val", Global.get("test.key"))
+                        U.assert_eq("default val", Global.get("test.nonexistent_key", "default val"))
+                end
         end
 end
 
@@ -334,10 +402,37 @@ class Cec_gradle_parser
 		
 	end
 	class << self
+                def to_compound_commit(gradle_deps_fn)
+                        top_commit = Git_commit.new()
+                        dependency_commits = []
+                        IO.readlines(deps_fn).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
+                                pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
+                                pom_content = U.rest_get(pom_url)
+                                h = XmlSimple.xml_in(pom_content)
+                                #pp h
+                                puts "-------------------------------------------------"
+                                puts h["properties"][0]
+                                git_repo_name = h["properties"][0]["git.repo.name"]
+                                git_repo_branch = h["properties"][0]["git.repo.branch"]
+                                git_repo_commit_id = h["properties"][0]["git.repo.commit.id"]
+                                
+                                dependency_commits << Git_commit.new(nil, git_repo_name, git_repo_branch, git_repo_commit_id)
+                                
+                                # jenkins.git-branch # master_external
+                                # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/
+                                # enkins.build-id # 270
+                                
+                                
+                                puts "-------------------------------------------------"
+                                exit
+                        end
+                        Compound_commit.new(nil, top_commit, dependency_commits)
+                end
                 def generate_manifest_url(raw_manifest_line)
                         z = raw_manifest_line.sub(/  *manifest \"/, '')
                         z.sub!(/\/\/.*/, '')
                         z.sub!(/" *$/, '')
+
                         if z !~ /^(.*?):manifest:(\d+)\.([^\.]+)\.(\d+)$/
                                 raise "could not understand #{z}"
                         end
@@ -345,35 +440,50 @@ class Cec_gradle_parser
                         n1 = $2.to_i
                         branch = $3
                         n2 = $4.to_i
+                        
                         component = package.sub(/.*\./, '')
-                        "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/#{component}/manifest/#{n1}.#{branch}.#{n2}/manifest-#{n1}.#{branch}.#{n2}.pom"
+                        
+                        if branch == "master_internal"
+                                top_package_components = "socialnetwork/#{component}"
+                                #top_package_components = "socialnetwork/cef"
+                        else
+                                top_package_components = "cecs/#{component}"
+                                #top_package_components = "cecs/analytics"
+                        end
+                        "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/#{top_package_components}/manifest/#{n1}.#{branch}.#{n2}/manifest-#{n1}.#{branch}.#{n2}.pom"
                 end
                 def test_manifest_parse(raw_manifest_line, expected_generated_manifest_url)
                         actual_generated_manifest_url = generate_manifest_url(raw_manifest_line)
                         pom_content = U.rest_get(actual_generated_manifest_url)
-                        if pom_content !~ /<dependency>/
-                                raise "did not find dependency for #{actual_generated_manifest_url} from #{raw_manifest_line} (#{pom_content})"
+                        if pom_content =~ /"status" : 404,/
+                                puts "I mapped the manifest line"
+                                puts "\t#{raw_manifest_line}\nto\n\t#{actual_generated_manifest_url}"
+                                if expected_generated_manifest_url =~ /^http/
+                                        puts "but\n\t#{expected_generated_manifest_url}\nworks."
+                                end
+                                puts ""
+                                puts ""
+                                raise "did not find dependency for\n#{actual_generated_manifest_url}\nfrom\n#{raw_manifest_line}\n(#{pom_content})"
                         end
                         U.assert_eq(expected_generated_manifest_url, actual_generated_manifest_url)
                 end
                 def test()
-                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.222\"         //@trigger", "1")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.94\"         //@trigger", "2")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.53\"         //@trigger", "3")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.42\"         //@trigger", "4")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.74\"     //@trigger", "5")
-                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "7")
-                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "8")
-                        # 404 test_manifest_parse("  manifest \"com.oracle.socialnetwork.waggle:manifest:1.0.4597\" //@trigger", "12")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.270\"         //@trigger", "13")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.156\"         //@trigger", "14")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.126\"         //@trigger", "15")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.84\"         //@trigger", "16")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.137\"     //@trigger", "17")
-                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.pipeline-common:manifest:1.master_internal.55\" //@trigger", "19")
-                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.webclient:manifest:1.master_internal.8103\"         //@trigger", "21")
-                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "22")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.pipeline-common:manifest:1.master_external.4\" //@trigger", "24")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.222\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/waggle/manifest/1.master_external.222/manifest-1.master_external.222.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.94\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/docs-server/manifest/1.master_external.94/manifest-1.master_external.94.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.53\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/caas/manifest/1.master_external.53/manifest-1.master_external.53.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.42\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/analytics/manifest/1.master_external.42/manifest-1.master_external.42.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.74\"     //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/servercommon/manifest/1.master_external.74/manifest-1.master_external.74.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.270\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/waggle/manifest/1.master_external.270/manifest-1.master_external.270.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.156\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/docs-server/manifest/1.master_external.156/manifest-1.master_external.156.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.126\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/caas/manifest/1.master_external.126/manifest-1.master_external.126.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.84\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/analytics/manifest/1.master_external.84/manifest-1.master_external.84.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.137\"     //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/servercommon/manifest/1.master_external.137/manifest-1.master_external.137.pom")
+                        test_manifest_parse("  manifest \"com.oracle.cecs.pipeline-common:manifest:1.master_external.4\" //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/pipeline-common/manifest/1.master_external.4/manifest-1.master_external.4.pom")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.pipeline-common:manifest:1.master_internal.55\" //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/pipeline-common/manifest/1.master_internal.55/manifest-1.master_internal.55.pom")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.webclient:manifest:1.master_internal.8103\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/webclient/manifest/1.master_internal.8103/manifest-1.master_internal.8103.pom")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/officeaddins/manifest/1.master_internal.161/manifest-1.master_internal.161.pom")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/cef/manifest/1.master_internal.3790/manifest-1.master_internal.3790.pom")
+                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/caas/manifest/1.master_internal.2364/manifest-1.master_internal.2364.pom")
                 end
 	end
 end
@@ -385,15 +495,17 @@ j = 0
 while ARGV.size > j do
         arg = ARGV[j]
         case arg
+        when "-compound_commit_json_of"
+                j += 1
+                compound_commit = Compound_commit.from_descriptor(ARGV[j])
+                print compound_commit.to_json
+                exit
         when "-dry"
                 U.dry_mode = true
         when "-test"
-                #U.test_mode = true
-                #Git_commit.test()
-                puts "skip U, Git tests"
-                puts "skip U, Git tests"
-                puts "skip U, Git tests"
-                puts "skip U, Git tests"
+                U.test_mode = true
+                Global.test
+                Git_commit.test()
                 Cec_gradle_parser.test
                 exit
         when "-v"

@@ -1,10 +1,23 @@
 #!/bin/bash
-t=`mktemp`
-
 Ruby_change_tracker()
 {
         ruby -w change_tracker.rb $* 2>&1 | grep -v 'warning: setting Encoding'
 }
+
+while [ -n "$1" ]; do
+        case "$1" in
+                -deps_of)
+                        Ruby_change_tracker -compound_commit_json_of 'git;osn.oraclecorp.com:cec-server-integration;;;aaaaaabbbbbcccc'
+                        exit
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+
+t=`mktemp`
 
 export PATH=`dirname $0`:$PATH
 
