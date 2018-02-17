@@ -31,22 +31,27 @@ class Git_repo
         attr_accessor :global_data_prefix
         attr_accessor :branch_name
         attr_accessor :source_control_server
+        attr_accessor :source_control_type
+        attr_accessor :change_tracker_host_and_port
         
-        def initialize(spec)
+        def initialize(spec, change_tracker_host_and_port = nil)
+                self.change_tracker_host_and_port = change_tracker_host_and_port
                 source_control_type, source_control_server, project_name, branch_name = spec.split(/;/)
                 if source_control_type != "git"
                         raise "unexpected source_control_type #{source_control_type}"
                 end
+                self.source_control_type = source_control_type
                 if branch_name == ""
                         self.branch_name = nil
                 else
                         self.branch_name = branch_name
                 end
+                raise "empty project name" unless project_name && (project_name != "")
                 self.project_name = project_name
                 self.global_data_prefix = "git_repo_#{project_name}."
                 self.source_control_server = source_control_server
                 if !Git_repo.codeline_root_parent
-                        Git_repo.codeline_root_parent = Global.get_scratch_dir(self.project_name)
+                        Git_repo.codeline_root_parent = Global.get_scratch_dir("git/#{self.source_control_server}")
                 end 
         end
         def to_s()
@@ -65,27 +70,66 @@ class Git_repo
                 end
                 IO.read(fn)
         end
-        def write_codeline_to_disk(branch, commit_id)
-                username = self.get("#{source_control_server}.username")
-                pw       = self.get("#{source_control_server}.pw")
-                if Dir.entries(Git_repo.codeline_root_parent).size == 2 # only contains ., ..
-                        git_url = "https://#{username}:#{pw}@#{self.source_control_server}/#{project_name}.git"
-                        puts git_url
-                        exit
-                        U.system("git clone #{git_url}", nil, codeline_root_parent)
+        def get_credentials()
+                username, pw = Global.get_credentials("#{source_control_server}/#{project_name}", true)
+                if !username
+                        username, pw = Global.get_credentials(source_control_server, true)
                 end
-                dir = U.only_child_of(codeline_root_parent)
-                if Dir.entries(dir).size == 2
-                        raise "error: expected #{dir} to be populated after cloning"
+                return username, pw
+        end
+        def codeline_disk_exist?(branch = nil)
+                root_dir = codeline_disk_root(branch)
+                puts "exist? checking #{root_dir}"
+                # if dir is empty, then there are 2 entries (., ..):
+                return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
+        end
+        def codeline_disk_root(branch)
+                "#{Git_repo.codeline_root_parent}/#{project_name}"
+        end 
+        def codeline_disk_remove()
+                root_dir = codeline_disk_root(branch)
+                FileUtils.rm_rf(root_dir)
+        end
+        def codeline_disk_write(branch = nil, commit_id = nil)
+                root_dir = codeline_disk_root(branch)
+                if !codeline_disk_exist?
+                        root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
+                        FileUtils.mkdir_p(root_parent)
+                        
+                        username, pw = self.get_credentials
+                        if !username
+                                git_arg = "git@#{self.source_control_server}:#{project_name}.git"
+                        else
+                                username_pw = "#{username}"
+                                if pw != ""
+                                        username_pw << ":#{pw}"
+                                end
+                                git_arg = "https://#{username_pw}@#{self.source_control_server}/#{project_name}.git"
+                        end
+                        puts "codeline_disk_write cloning #{git_arg}..."
+                        #puts "temporarily copying from HOME until auth is fixed..."
+                        U.system("git clone \"#{git_arg}\"", nil, root_parent)
+                        #U.system("cp -pr $HOME/cec/#{File.basename(project_name)} #{root_dir}", nil, root_dir)
                 end
-                dir
+                if !codeline_disk_exist?
+                        raise "error: #{self} does not exist on disk after supposed clone"
+                end
+                root_dir
         end
         class << self
                 attr_accessor :codeline_root_parent
+                def test_clean()
+                        gr = Git_repo.new(TEST_REPO_NAME)
+                        gr.codeline_disk_remove
+                        U.assert(!gr.codeline_disk_exist?)
+                end
                 def test()
-                        gr = Git_repo.new("git;osn.oraclecorp.com:cec-server-integration;;")
-                        gr.write_codeline_to_disk
+                        gr = Git_repo.new("git;git.osn.oraclecorp.com;osn/cec-server-integration;;")
+                        gr.codeline_disk_write
+                        U.assert(gr.codeline_disk_exist?)
                         deps_gradle_content = gr.get_file("deps.gradle")
+                        U.assert(deps_gradle_content)
+                        U.assert(deps_gradle_content != "")
                         manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
                         U.assert(manifest_lines.size > 1)
                 end
@@ -113,6 +157,9 @@ class Json_obj
                         end
                 end
                 h[key]
+        end
+        def has_key?(key)
+                h.has_key?(key)
         end
 end
 
@@ -143,14 +190,14 @@ class Git_commit
                 z << "}"
                 z
         end
-        def write_codeline_to_disk()
-                repo.write_codeline_to_disk(self.branch, self.commit_id)
+        def codeline_disk_write()
+                repo.codeline_disk_write(self.branch, self.commit_id)
         end
         def component_contained_by?(compound_commit)
                 self.find_commit_for_same_component(compound_commit) != nil
         end
         def repo_system_as_list(cmd)
-                local_codeline_root_dir = self.write_codeline_to_disk
+                local_codeline_root_dir = self.codeline_disk_write
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
         def list_files_added_or_updated()
@@ -170,6 +217,7 @@ class Git_commit
                 return nil
         end
         class << self
+                TEST_REPO_NAME = "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;"
                 def from_hash(h)
                         change_tracker_host_and_port = h.get("change_tracker_host_and_port", "localhost:11111")
                         change_tracker_host, change_tracker_port = change_tracker_host_and_port.split(/:/)
@@ -181,10 +229,8 @@ class Git_commit
                 end
                 def test()
                         ct = Change_tracker.new()
-                        #git_repo_name = "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git"
-                        git_repo_name = "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config.git;"
-                        gc1 = Git_commit.new(ct, git_repo_name, "master", "dc68aa99903505da966358f96c95f946901c664b")
-                        gc2 = Git_commit.new(ct, git_repo_name, "master", "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
+                        gc1 = Git_commit.new(ct, TEST_REPO_NAME, "master", "dc68aa99903505da966358f96c95f946901c664b")
+                        gc2 = Git_commit.new(ct, TEST_REPO_NAME, "master", "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
                         gc1_file_list = gc1.list_files
                         gc2_file_list = gc2.list_files
                         U.assert_eq(713, gc1_file_list.size)
@@ -198,11 +244,10 @@ class Git_commit
                         U.assert_eq(0, gc1_added_or_changed_file_list.size)
                         U.assert_eq(1, gc2_added_or_changed_file_list.size)
                         U.assert_eq("src/main/java/com/oracle/syseng/configuration/repository/IntegrationRepositoryImpl.java", gc2_added_or_changed_file_list[0])
-                        
                         cc1 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b",
-                        "gitRepoName": "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git",
+                        "gitRepoName": "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;",
                         "gitBranch": "master",
                         "gitCommitId": "dc68aa99903505da966358f96c95f946901c664b",
                         "dependencies": [] }
@@ -211,7 +256,7 @@ class Git_commit
                         cc2 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "gitRepoName": "git@orahub.oraclecorp.com:faiza.bounetta/promotion-config.git",
+                        "gitRepoName": "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;",
                         "gitBranch": "master",
                         "gitCommitId": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
                         "dependencies": []}
@@ -326,8 +371,8 @@ class Compound_commit
                         source_control_type, source_control_host, repo_name, branch, commit_id, change_tracker_host_and_port = descriptor.split(/;/)
                         case source_control_type
                         when "git"
-                                repo = Git_repo.new(repo_name)
-                                repo.write_codeline_to_disk(branch, commit_id)
+                                repo = Git_repo.new(repo_name, change_tracker_host_and_port)
+                                repo.codeline_disk_write(branch, commit_id)
                         else
                                 raise "source control type #{source_control_host} not implemented"
                         end
@@ -384,15 +429,33 @@ class Global
                         data.get(key, default_value)
                 end
                 def get_scratch_dir(key)
+                        raise "bad key" unless key
                         scratch_dir_root = get("scratch_dir", "/scratch/change_tracker.tmp")
                         key = key.gsub(/[^\w]/, "_")
                         scratch_dir = scratch_dir_root + "/" + key
                         FileUtils.mkdir_p(scratch_dir)
                         scratch_dir
                 end
+                def has_key?(key)
+                        data.has_key?(key)
+                end
+                def get_credentials(key, ok_if_nonexistent = false)
+                        u_key = "#{key}.username"
+                        pw_key = "#{key}.pw"
+                        if has_key?(u_key)
+                                return get(u_key), get(pw_key)
+                        elsif ok_if_nonexistent
+                                return nil
+                        else
+                                raise "cannot find credentials for #{key}"
+                        end
+                end
                 def test()
                         U.assert_eq("test.val", Global.get("test.key"))
                         U.assert_eq("default val", Global.get("test.nonexistent_key", "default val"))
+                        username, pw = Global.get_credentials("test_server")
+                        U.assert_eq("some_username", username)
+                        U.assert_eq("some_pw",       pw)
                 end
         end
 end
@@ -495,6 +558,8 @@ j = 0
 while ARGV.size > j do
         arg = ARGV[j]
         case arg
+        when "-test_clean"
+                Git_repo.test_clean
         when "-compound_commit_json_of"
                 j += 1
                 compound_commit = Compound_commit.from_descriptor(ARGV[j])
@@ -505,6 +570,7 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 Global.test
+                Git_repo.test
                 Git_commit.test()
                 Cec_gradle_parser.test
                 exit

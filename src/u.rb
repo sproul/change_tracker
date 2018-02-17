@@ -314,7 +314,7 @@ class U
                                 Dir.chdir(dir)
                                 t_preamble << "cd \"#{dir}\"; "
                         end
-                        puts "#{t_preamble}#{cmd}" if U.trace
+                        puts "#{t_preamble}#{cmd}" #if U.trace
                         if U.dry_mode
                                 return "No output from U.system(#{cmd}) because we are in dry run mode..."
                         end
