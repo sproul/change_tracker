@@ -51,20 +51,22 @@ class Git_repo
                 self.global_data_prefix = "git_repo_#{project_name}."
                 self.source_control_server = source_control_server
                 if !Git_repo.codeline_root_parent
-                        Git_repo.codeline_root_parent = Global.get_scratch_dir("git/#{self.source_control_server}")
+                        Git_repo.codeline_root_parent = Global.get_scratch_dir("git")
                 end 
         end
         def to_s()
                 "Git_repo(#{project_name}"
         end
         def eql?(other)
-                self.project_name.eql?(other.project_name)
+                self.project_name.eql?(other.project_name) &&
+                self.change_tracker_host_and_port.eql?(other.change_tracker_host_and_port) &&
+                self.branch_name.eql?(other.branch_name)
         end
         def get(key, default_val=nil)
                 Global.get(self.global_data_prefix + key, default_val)
         end
         def get_file(path)
-                fn = "#{Git_repo.codeline_root_parent}/#{self.project_name}/#{path}"
+                fn = "#{self.codeline_disk_root}/#{path}"
                 if !File.exist?(fn)
                         raise "could not read #{fn}"
                 end
@@ -77,21 +79,21 @@ class Git_repo
                 end
                 return username, pw
         end
-        def codeline_disk_exist?(branch = nil)
-                root_dir = codeline_disk_root(branch)
-                puts "exist? checking #{root_dir}"
+        def codeline_disk_exist?()
+                root_dir = codeline_disk_root()
+                # puts "exist? checking #{root_dir}"
                 # if dir is empty, then there are 2 entries (., ..):
                 return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
         end
-        def codeline_disk_root(branch)
-                "#{Git_repo.codeline_root_parent}/#{project_name}"
+        def codeline_disk_root()
+                "#{Git_repo.codeline_root_parent}/#{self.source_control_server}/#{project_name}"
         end 
         def codeline_disk_remove()
-                root_dir = codeline_disk_root(branch)
+                root_dir = codeline_disk_root()
                 FileUtils.rm_rf(root_dir)
         end
-        def codeline_disk_write(branch = nil, commit_id = nil)
-                root_dir = codeline_disk_root(branch)
+        def codeline_disk_write(commit_id = nil)
+                root_dir = codeline_disk_root()
                 if !codeline_disk_exist?
                         root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
                         FileUtils.mkdir_p(root_parent)
@@ -118,6 +120,11 @@ class Git_repo
         end
         class << self
                 attr_accessor :codeline_root_parent
+                def make_spec(source_control_type, source_control_host, repo_name, branch=nil, change_tracker_host_and_port=nil)
+                        branch = "" unless branch
+                        change_tracker_host_and_port = "" unless change_tracker_host_and_port
+                        "#{source_control_type};#{source_control_host};#{repo_name};#{branch};#{change_tracker_host_and_port}"
+                end
                 def test_clean()
                         gr = Git_repo.new(TEST_REPO_NAME)
                         gr.codeline_disk_remove
@@ -165,33 +172,27 @@ end
 
 
 class Git_commit
-        attr_accessor :change_tracker
         attr_accessor :repo
-        attr_accessor :branch
         attr_accessor :commit_id
-        def initialize(change_tracker, repoName, branch, commit_id)
-                self.change_tracker = change_tracker
-                self.repo = Git_repo.new(repoName)
-                self.branch = branch
+        def initialize(repo_spec, commit_id)
+                self.repo = Git_repo.new(repo_spec)
                 self.commit_id = commit_id
         end
         def eql?(other)
-                other && self.change_tracker.eql?(other.change_tracker) && self.repo.eql?(other.repo) && self.branch.eql?(other.branch) && self.commit_id.eql?(other.commit_id)
+                other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
         end
         def to_s()
-                "Git_commit(#{self.change_tracker}, #{self.repo}, #{self.branch}, #{self.commit_id})"
+                "Git_commit(#{self.repo}, #{self.commit_id})"
         end
         def to_json()
                 z = "{"
-                z << Json_obj.format_pair("change_tracker", self.change_tracker) << ","
-                z << Json_obj.format_pair("repo_name", self.repo.name) << ","
-                z << Json_obj.format_pair("branch_name", self.branch) << ","
+                z << Json_obj.format_pair("repo_spec", self.repo) << ","
                 z << Json_obj.format_pair("commit_id", self.commit_id)
                 z << "}"
                 z
         end
         def codeline_disk_write()
-                repo.codeline_disk_write(self.branch, self.commit_id)
+                repo.codeline_disk_write(self.commit_id)
         end
         def component_contained_by?(compound_commit)
                 self.find_commit_for_same_component(compound_commit) != nil
@@ -219,18 +220,17 @@ class Git_commit
         class << self
                 TEST_REPO_NAME = "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;"
                 def from_hash(h)
-                        change_tracker_host_and_port = h.get("change_tracker_host_and_port", "localhost:11111")
-                        change_tracker_host, change_tracker_port = change_tracker_host_and_port.split(/:/)
-                        change_tracker = Change_tracker.new(change_tracker_host, change_tracker_port)
-                        repoName       = h.get("gitRepoName")
+                        change_tracker_host_and_port = h.get("change_tracker_host_and_port", "")
+                        source_control_server_and_repo_name = h.get("gitRepoName")
                         branch         = h.get("gitBranch")
                         commit_id       = h.get("gitCommitId")
-                        Git_commit.new(change_tracker, repoName, branch, commit_id)
+                        source_control_server, repo_name = source_control_server_and_repo_name.split(/:/)
+                        repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch, change_tracker_host_and_port)
+                        Git_commit.new(repo_spec, commit_id)
                 end
                 def test()
-                        ct = Change_tracker.new()
-                        gc1 = Git_commit.new(ct, TEST_REPO_NAME, "master", "dc68aa99903505da966358f96c95f946901c664b")
-                        gc2 = Git_commit.new(ct, TEST_REPO_NAME, "master", "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
+                        gc1 = Git_commit.new(TEST_REPO_NAME, "dc68aa99903505da966358f96c95f946901c664b")
+                        gc2 = Git_commit.new(TEST_REPO_NAME, "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
                         gc1_file_list = gc1.list_files
                         gc2_file_list = gc2.list_files
                         U.assert_eq(713, gc1_file_list.size)
@@ -247,7 +247,7 @@ class Git_commit
                         cc1 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b",
-                        "gitRepoName": "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;",
+                        "gitRepoName": "#{TEST_REPO_NAME}",
                         "gitBranch": "master",
                         "gitCommitId": "dc68aa99903505da966358f96c95f946901c664b",
                         "dependencies": [] }
@@ -256,7 +256,7 @@ class Git_commit
                         cc2 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "gitRepoName": "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;",
+                        "gitRepoName": "#{TEST_REPO_NAME}",
                         "gitBranch": "master",
                         "gitCommitId": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
                         "dependencies": []}
@@ -366,13 +366,14 @@ class Compound_commit
                         end
                         Compound_commit.new(json_obj, top_commit, dependency_commits)
                 end
-                def from_descriptor(descriptor)
+                def from_descriptor(repo_spec)
                         # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
-                        source_control_type, source_control_host, repo_name, branch, commit_id, change_tracker_host_and_port = descriptor.split(/;/)
+                        source_control_type, source_control_host, repo_name, branch, commit_id, change_tracker_host_and_port = repo_spec.split(/;/)
                         case source_control_type
                         when "git"
-                                repo = Git_repo.new(repo_name, change_tracker_host_and_port)
-                                repo.codeline_disk_write(branch, commit_id)
+                                repo_spec = Git_repo.make_spec(source_control_host, repo_name, branch)
+                                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
+                                repo.codeline_disk_write(commit_id)
                         else
                                 raise "source control type #{source_control_host} not implemented"
                         end
@@ -466,7 +467,7 @@ class Cec_gradle_parser
 	end
 	class << self
                 def to_compound_commit(gradle_deps_fn)
-                        top_commit = Git_commit.new()
+                        top_commit = Git_commit.new() # should be additional args -- ie, to find gradle_deps_fn, you had to know repo/branch/commit_id etc
                         dependency_commits = []
                         IO.readlines(deps_fn).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
@@ -475,11 +476,13 @@ class Cec_gradle_parser
                                 #pp h
                                 puts "-------------------------------------------------"
                                 puts h["properties"][0]
-                                git_repo_name = h["properties"][0]["git.repo.name"]
+                                git_repo_source_control_server_and_name = h["properties"][0]["git.repo.name"]
                                 git_repo_branch = h["properties"][0]["git.repo.branch"]
                                 git_repo_commit_id = h["properties"][0]["git.repo.commit.id"]
                                 
-                                dependency_commits << Git_commit.new(nil, git_repo_name, git_repo_branch, git_repo_commit_id)
+                                source_control_server, repo_name = git_repo_source_control_server_and_name.split(/:/)
+                                repo_spec = Git_repo.make_spec(source_control_server, repo_name, git_repo_branch)
+                                dependency_commits << Git_commit.new(repo_spec, git_repo_commit_id)
                                 
                                 # jenkins.git-branch # master_external
                                 # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/

@@ -1,6 +1,7 @@
 #!/bin/bash
 Ruby_change_tracker()
 {
+        export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=0"
         ruby -w change_tracker.rb $* 2>&1 | grep -v 'warning: setting Encoding'
 }
 
