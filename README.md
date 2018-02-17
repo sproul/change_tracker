@@ -124,3 +124,27 @@ To minimize redundancy, the tool will support "including" JSON via URL. For the 
             "dep1_xyz" : "http://some_oracle_server/dep1_xyz.json"
         ]
 }
+
+
+The objects used to model the problem:
+
+class Change_tracker -- a Change_tracker instance runs on a host and is aware of some set of source control creds
+class Git_repo -- a source control server for which we have credentials
+class Git_commit -- a commit point for a particular git controlled product
+class Compound_commit -- a set of commits (normally a top level product and its dependencies)
+class Change_tracker_app -- answers questions by relaying queries to Change_tracker instances (possibly itself) as needed
+
+
+Yes.   They all follow a certain pattern.  This resolves to:
+
+https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/servercommon/manifest/1.master_external.4/manifest-1.master_external.4.pom
+
+which no longer exists -- this is quite old.   a newer version can be found at:
+
+https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/servercommon/manifest/1.master_external.274/manifest-1.master_external.274.pom
+
+replace 'servercommon' with the component name, master_external with the branch name, and '274' with the version in deps.gradle for different POMs.
+
+-Steve
+On 02/07/2018 10:34 PM, Nelson Sproul wrote:
+Here
