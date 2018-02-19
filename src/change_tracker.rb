@@ -9,13 +9,13 @@ require 'json'
 class Change_tracker
         HOST_NAME_DEFAULT = "localhost"
         PORT_DEFAULT = 11111
-                
+
         attr_accessor :host_name
         attr_accessor :port
         def initialize(host_name = Change_tracker::HOST_NAME_DEFAULT, port = Change_tracker::PORT_DEFAULT)
                 self.host_name = host_name
                 self.port = port.to_s
-	end
+        end
         def to_s()
                 "Change_tracker(#{self.host_name}:#{self.port})"
         end
@@ -23,123 +23,6 @@ class Change_tracker
                 self.host_name.eql?(other.host_name) && self.port.eql?(other.port)
         end
         class << self
-        end
-end
-
-class Git_repo
-        attr_accessor :project_name
-        attr_accessor :global_data_prefix
-        attr_accessor :branch_name
-        attr_accessor :source_control_server
-        attr_accessor :source_control_type
-        attr_accessor :change_tracker_host_and_port
-        
-        def initialize(spec, change_tracker_host_and_port = nil)
-                self.change_tracker_host_and_port = change_tracker_host_and_port
-                source_control_type, source_control_server, project_name, branch_name = spec.split(/;/)
-                if source_control_type != "git"
-                        raise "unexpected source_control_type #{source_control_type}"
-                end
-                self.source_control_type = source_control_type
-                if branch_name == ""
-                        self.branch_name = nil
-                else
-                        self.branch_name = branch_name
-                end
-                raise "empty project name" unless project_name && (project_name != "")
-                self.project_name = project_name
-                self.global_data_prefix = "git_repo_#{project_name}."
-                self.source_control_server = source_control_server
-                if !Git_repo.codeline_root_parent
-                        Git_repo.codeline_root_parent = Global.get_scratch_dir("git")
-                end 
-        end
-        def to_s()
-                "Git_repo(#{project_name}"
-        end
-        def eql?(other)
-                self.project_name.eql?(other.project_name) &&
-                self.change_tracker_host_and_port.eql?(other.change_tracker_host_and_port) &&
-                self.branch_name.eql?(other.branch_name)
-        end
-        def get(key, default_val=nil)
-                Global.get(self.global_data_prefix + key, default_val)
-        end
-        def get_file(path)
-                fn = "#{self.codeline_disk_root}/#{path}"
-                if !File.exist?(fn)
-                        raise "could not read #{fn}"
-                end
-                IO.read(fn)
-        end
-        def get_credentials()
-                username, pw = Global.get_credentials("#{source_control_server}/#{project_name}", true)
-                if !username
-                        username, pw = Global.get_credentials(source_control_server, true)
-                end
-                return username, pw
-        end
-        def codeline_disk_exist?()
-                root_dir = codeline_disk_root()
-                # puts "exist? checking #{root_dir}"
-                # if dir is empty, then there are 2 entries (., ..):
-                return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
-        end
-        def codeline_disk_root()
-                "#{Git_repo.codeline_root_parent}/#{self.source_control_server}/#{project_name}"
-        end 
-        def codeline_disk_remove()
-                root_dir = codeline_disk_root()
-                FileUtils.rm_rf(root_dir)
-        end
-        def codeline_disk_write(commit_id = nil)
-                root_dir = codeline_disk_root()
-                if !codeline_disk_exist?
-                        root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
-                        FileUtils.mkdir_p(root_parent)
-                        
-                        username, pw = self.get_credentials
-                        if !username
-                                git_arg = "git@#{self.source_control_server}:#{project_name}.git"
-                        else
-                                username_pw = "#{username}"
-                                if pw != ""
-                                        username_pw << ":#{pw}"
-                                end
-                                git_arg = "https://#{username_pw}@#{self.source_control_server}/#{project_name}.git"
-                        end
-                        puts "codeline_disk_write cloning #{git_arg}..."
-                        #puts "temporarily copying from HOME until auth is fixed..."
-                        U.system("git clone \"#{git_arg}\"", nil, root_parent)
-                        #U.system("cp -pr $HOME/cec/#{File.basename(project_name)} #{root_dir}", nil, root_dir)
-                end
-                if !codeline_disk_exist?
-                        raise "error: #{self} does not exist on disk after supposed clone"
-                end
-                root_dir
-        end
-        class << self
-                attr_accessor :codeline_root_parent
-                def make_spec(source_control_type, source_control_host, repo_name, branch=nil, change_tracker_host_and_port=nil)
-                        branch = "" unless branch
-                        change_tracker_host_and_port = "" unless change_tracker_host_and_port
-                        "#{source_control_type};#{source_control_host};#{repo_name};#{branch};#{change_tracker_host_and_port}"
-                end
-                def test_clean()
-                        gr = Git_repo.new(TEST_REPO_NAME)
-                        gr.codeline_disk_remove
-                        U.assert(!gr.codeline_disk_exist?)
-                end
-                def test()
-                        gr = Git_repo.new("git;git.osn.oraclecorp.com;osn/cec-server-integration;;")
-                        gr.codeline_disk_write
-                        U.assert(gr.codeline_disk_exist?)
-                        deps_gradle_content = gr.get_file("deps.gradle")
-                        U.assert(deps_gradle_content)
-                        U.assert(deps_gradle_content != "")
-                        manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
-                        U.assert(manifest_lines.size > 1)
-                end
         end
 end
 
@@ -168,28 +51,175 @@ class Json_obj
         def has_key?(key)
                 h.has_key?(key)
         end
+        class << self
+                def format_pair(key, val)
+                        z = "\"#{key}\" : "
+                        if val.class.method_defined? :to_json
+                                z << val.to_json
+                        end
+                        z
+                end
+        end
 end
 
+class Git_repo
+        DEFAULT_BRANCH = "master"
+        
+        attr_accessor :project_name
+        attr_accessor :global_data_prefix
+        attr_accessor :branch_name
+        attr_accessor :source_control_server
+        attr_accessor :source_control_type
+        attr_accessor :change_tracker_host_and_port
+
+        def initialize(repo_spec, change_tracker_host_and_port = nil)
+                self.change_tracker_host_and_port = change_tracker_host_and_port
+                source_control_type, source_control_server, project_name, branch_name = repo_spec.split(/;/)
+                if source_control_type != "git"
+                        raise "unexpected source_control_type #{source_control_type} from #{repo_spec}"
+                end
+                self.source_control_type = source_control_type
+                if !branch_name || branch_name == ""
+                        self.branch_name = DEFAULT_BRANCH
+                else
+                        self.branch_name = branch_name
+                end
+                raise "empty project name" unless project_name && (project_name != "")
+                self.project_name = project_name
+                self.global_data_prefix = "git_repo_#{project_name}."
+                self.source_control_server = source_control_server
+                if !Git_repo.codeline_root_parent
+                        Git_repo.codeline_root_parent = Global.get_scratch_dir("git")
+                end
+        end
+        def spec()
+                Git_repo.make_spec(source_control_server, project_name, branch_name, change_tracker_host_and_port)
+        end
+        def to_s()
+                spec
+        end
+        def eql?(other)
+                self.project_name.eql?(other.project_name) &&
+                self.change_tracker_host_and_port.eql?(other.change_tracker_host_and_port) &&
+                self.branch_name.eql?(other.branch_name)
+        end
+        def get(key, default_val=nil)
+                Global.get(self.global_data_prefix + key, default_val)
+        end
+        def get_project_name_prefix()
+                project_name.sub(/\/.*/, '')
+        end
+        def get_file(path)
+                fn = "#{self.codeline_disk_root}/#{path}"
+                if !File.exist?(fn)
+                        raise "could not read #{fn}"
+                end
+                IO.read(fn)
+        end
+        def get_credentials()
+                username, pw = Global.get_credentials("#{source_control_server}/#{project_name}", true)
+                if !username
+                        username, pw = Global.get_credentials(source_control_server, true)
+                end
+                return username, pw
+        end
+        def codeline_disk_exist?()
+                root_dir = codeline_disk_root()
+                # puts "exist? checking #{root_dir}"
+                # if dir is empty, then there are 2 entries (., ..):
+                return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
+        end
+        def codeline_disk_root()
+                "#{Git_repo.codeline_root_parent}/#{self.source_control_server}/#{project_name}"
+        end
+        def codeline_disk_remove()
+                root_dir = codeline_disk_root()
+                FileUtils.rm_rf(root_dir)
+        end
+        def codeline_disk_write(commit_id = nil)
+                root_dir = codeline_disk_root()
+                if !codeline_disk_exist?
+                        root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
+                        FileUtils.mkdir_p(root_parent)
+
+                        username, pw = self.get_credentials
+                        if !username
+                                git_arg = "git@#{self.source_control_server}:#{project_name}.git"
+                        else
+                                username_pw = "#{username}"
+                                if pw != ""
+                                        username_pw << ":#{pw}"
+                                end
+                                git_arg = "https://#{username_pw}@#{self.source_control_server}/#{project_name}.git"
+                        end
+                        puts "codeline_disk_write cloning #{git_arg}..."
+                        #puts "temporarily copying from HOME until auth is fixed..."
+                        U.system("git clone \"#{git_arg}\"", nil, root_parent)
+                        #U.system("cp -pr $HOME/cec/#{File.basename(project_name)} #{root_dir}", nil, root_dir)
+                end
+                if !codeline_disk_exist?
+                        raise "error: #{self} does not exist on disk after supposed clone"
+                end
+                root_dir
+        end
+        class << self
+                attr_accessor :codeline_root_parent
+                def make_spec(source_control_server, repo_name, branch=DEFAULT_BRANCH, change_tracker_host_and_port=nil)
+                        source_control_type = "git"
+                        raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
+                        raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
+                        branch = "" unless branch
+                        change_tracker_host_and_port = "" unless change_tracker_host_and_port
+                        "#{source_control_type};#{source_control_server};#{repo_name};#{branch};#{change_tracker_host_and_port}"
+                end
+                def test_clean()
+                        gr = Git_repo.new(TEST_REPO_NAME)
+                        gr.codeline_disk_remove
+                        U.assert(!gr.codeline_disk_exist?)
+                end
+                def test()
+                        gr = Git_repo.new("git;git.osn.oraclecorp.com;osn/cec-server-integration;;")
+                        gr.codeline_disk_write
+                        U.assert(gr.codeline_disk_exist?)
+                        deps_gradle_content = gr.get_file("deps.gradle")
+                        U.assert(deps_gradle_content)
+                        U.assert(deps_gradle_content != "")
+                        manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
+                        U.assert(manifest_lines.size > 1)
+                        #  
+                        # I think maybe we don't need json support for this obj
+                        #json = gr.to_json
+                        #gr2 = Git_repo.from_json(json)
+                        #U.assert_eq(gr, gr2, "json copy")
+                end
+        end
+end
 
 class Git_commit
         attr_accessor :repo
         attr_accessor :commit_id
-        def initialize(repo_spec, commit_id)
-                self.repo = Git_repo.new(repo_spec)
+        def initialize(repo_expr, commit_id)
+                if repo_expr.is_a? String
+                        repo_spec = repo_expr
+                        self.repo = Git_repo.new(repo_spec)
+                elsif repo_expr.is_a? Git_repo
+                        self.repo = repo_expr
+                else
+                        raise "unexpected repo type #{repo.class}"
+                end
                 self.commit_id = commit_id
         end
         def eql?(other)
                 other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
         end
         def to_s()
-                "Git_commit(#{self.repo}, #{self.commit_id})"
+                "Git_commit(#{self.repo.spec}, #{self.commit_id})"
         end
         def to_json()
-                z = "{"
-                z << Json_obj.format_pair("repo_spec", self.repo) << ","
-                z << Json_obj.format_pair("commit_id", self.commit_id)
-                z << "}"
-                z
+                h = Hash.new
+                h["repo_spec"] = repo.to_s
+                h["commit_id"] = commit_id
+                JSON.generate(h)
         end
         def codeline_disk_write()
                 repo.codeline_disk_write(self.commit_id)
@@ -218,19 +248,35 @@ class Git_commit
                 return nil
         end
         class << self
-                TEST_REPO_NAME = "git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;"
+                TEST_SOURCE_SERVER_AND_PROJECT_NAME = "orahub.oraclecorp.com;faiza.bounetta/promotion-config"
+                TEST_REPO_SPEC = "git;#{TEST_SOURCE_SERVER_AND_PROJECT_NAME};"
                 def from_hash(h)
-                        change_tracker_host_and_port = h.get("change_tracker_host_and_port", "")
-                        source_control_server_and_repo_name = h.get("gitRepoName")
-                        branch         = h.get("gitBranch")
-                        commit_id       = h.get("gitCommitId")
-                        source_control_server, repo_name = source_control_server_and_repo_name.split(/:/)
-                        repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch, change_tracker_host_and_port)
+                        if h.has_key?("gitRepoName")
+                                # puts "fh: #{h}"
+                                # fh: Json_obj({"gitUItoCommit"=>"https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b", "gitRepoName"=>"orahub.oraclecorp.com;faiza.bounetta/promotion-config", "gitBranch"=>"master", "gitCommitId"=>"dc68aa99903505da966358f96c95f946901c664b", "dependencies"=>[]})
+                                change_tracker_host_and_port = h.get("change_tracker_host_and_port", "")
+                                source_control_server_and_repo_name = h.get("gitRepoName")
+                                branch         = h.get("gitBranch")
+                                commit_id      = h.get("gitCommitId")
+                                source_control_server, repo_name = source_control_server_and_repo_name.split(/;/)
+                                repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch, change_tracker_host_and_port)
+                        else
+                                repo_spec = h.get("repo_spec")
+                                commit_id = h.get("commit_id")
+                        end
+                        Git_commit.new(repo_spec, commit_id)
+                end
+                def from_json(json_text)
+                        json_obj = Json_obj.new(json_text)
+                        # puts "gc from_json: #{json_text}"
+                        # gc fromjson: {"repo_spec" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id" : "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}
+                        repo_spec = json_obj.get("repo_spec")
+                        commit_id = json_obj.get("commit_id")
                         Git_commit.new(repo_spec, commit_id)
                 end
                 def test()
-                        gc1 = Git_commit.new(TEST_REPO_NAME, "dc68aa99903505da966358f96c95f946901c664b")
-                        gc2 = Git_commit.new(TEST_REPO_NAME, "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
+                        gc1 = Git_commit.new(TEST_REPO_SPEC, "dc68aa99903505da966358f96c95f946901c664b")
+                        gc2 = Git_commit.new(TEST_REPO_SPEC, "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
                         gc1_file_list = gc1.list_files
                         gc2_file_list = gc2.list_files
                         U.assert_eq(713, gc1_file_list.size)
@@ -247,19 +293,17 @@ class Git_commit
                         cc1 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b",
-                        "gitRepoName": "#{TEST_REPO_NAME}",
-                        "gitBranch": "master",
-                        "gitCommitId": "dc68aa99903505da966358f96c95f946901c664b",
-                        "dependencies": [] }
+                        "top_commit_repo": "#{TEST_REPO_SPEC}",
+                        "top_commit_id": "dc68aa99903505da966358f96c95f946901c664b",
+                        "deps": [] }
                         EOS
                         
                         cc2 = Compound_commit.from_json(<<-EOS)
                         {
                         "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "gitRepoName": "#{TEST_REPO_NAME}",
-                        "gitBranch": "master",
-                        "gitCommitId": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "dependencies": []}
+                        "top_commit_repo": "#{TEST_REPO_SPEC}",
+                        "top_commit_id": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
+                        "deps": []}
                         EOS
                         
                         U.assert_eq(1, cc1.commits.size)
@@ -276,6 +320,16 @@ class Git_commit
                         U.assert_eq(1, changed_commits2.size)
                         U.assert_eq(gc1, changed_commits1[0])
                         U.assert_eq(gc2, changed_commits2[0])
+                        test_json
+                end
+                def test_json()
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        gc = Git_commit.new(repo_spec, valentine_commit_id)
+                        json = gc.to_json
+                        U.assert_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json)
+                        gc2 = Git_commit.from_json(json)
+                        U.assert_eq(gc, gc2, "test ability to export to json, then import from that json back to the same object")
                 end
         end
 end
@@ -283,12 +337,34 @@ end
 class Compound_commit
         attr_accessor :top_commit
         attr_accessor :dependency_commits
-        attr_accessor :json_obj
 
-        def initialize(json_obj, top_commit, dependency_commits)
+        def initialize(top_commit, dependency_commits)
                 self.top_commit = top_commit
                 self.dependency_commits = dependency_commits
-                self.json_obj = json_obj
+        end
+        def eql?(other)
+                self.top_commit.eql?(other.top_commit) && dependency_commits.eql?(other.dependency_commits)
+
+                #if !self.top_commit.eql?(other.top_commit)
+                #        return false
+                #end
+                #if dependency_commits.size != other.dependency_commits.size
+                #        return false
+                #end
+        end
+        def to_json()
+                h = Hash.new
+                h["top_commit_repo"] = top_commit.repo.spec
+                h["top_commit_id"] = top_commit.commit_id
+                dependency_commits_hash_array = []
+                h["deps"] = dependency_commits_hash_array
+                dependency_commits.each do | commit |
+                        commit_h = Hash.new
+                        commit_h["repo_spec"] = commit.repo.spec
+                        commit_h["commit_id"] = commit.commit_id
+                        dependency_commits_hash_array << commit_h
+                end
+                JSON.generate(h)
         end
         def commits()
                 z = []
@@ -339,44 +415,75 @@ class Compound_commit
                 added_files + updated_files
         end
         def to_s()
-                "Compound_commit(#{self.json_obj}/#{self.top_commit}/#{self.dependency_commits})"
-        end
-        def to_json()
-                z = "{"
-                z << self.top_commit.to_json
-                self.dependency_commits.each do | dependency_commit |
-                        z << dependency_commit.to_json
+                z = "Compound_commit(#{self.top_commit}/["
+                self.dependency_commits.each do | commit |
+                        z << " " << commit.to_s
                 end
-                z << "}"
+                z << "]"
                 z
         end
         class << self
+                def from_descriptor(repo_spec)
+                        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
+                        source_control_type, source_control_server, repo_name, branch, commit_id, change_tracker_host_and_port = repo_spec.split(/;/)
+                        case source_control_type
+                        when "git"
+                                repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch)
+                                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
+                                repo.codeline_disk_write(commit_id)
+                        else
+                                raise "source control type #{source_control_server} not implemented"
+                        end
+                end
                 def from_file(json_fn)
                         from_json(IO.read(json_fn))
+                end
+                def from_json(json_text)
+                        h = JSON.parse(json_text)
+                        # fj: {"gitUItoCommit"=>"https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b", "top_commit_repo"=>"git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;", "top_commit_id"=>"dc68aa99903505da966358f96c95f946901c664b", "deps"=>[]}
+                        # puts "fj: #{h}"
+                        
+                        top_commit_repo_spec = h["top_commit_repo"]
+                        raise "no top_commit_repo in #{h}" unless top_commit_repo_spec
+                        
+                        top_commit_id = h["top_commit_id"]
+                        raise "no top_commit_id in #{h}" unless top_commit_id
+
+                        top_commit = Git_commit.new(top_commit_repo_spec, top_commit_id)
+                        
+                        dependency_commits_hash_array = h["deps"]
+                        raise "no deps array in #{h}" unless dependency_commits_hash_array
+                        
+                        dependency_commits = []
+                        dependency_commits_hash_array.each do | dependency_h |
+                                repo_spec = dependency_h["repo_spec"]
+                                commit_id = dependency_h["commit_id"]
+                                raise "no repo_spec in #{dependency_h}" unless repo_spec
+                                raise "no commit_id in #{dependency_h}" unless commit_id
+                                dependency_commits << Git_commit.new(repo_spec, commit_id)
+                        end
+                        Compound_commit.new(top_commit, dependency_commits)
+                end
+                def from_spec(repo_spec, commit_id)
+                        gr = Git_repo.new(repo_spec)
+                        top_commit = Git_commit.new(gr, commit_id)
+                        gr.codeline_disk_write
+                        deps_gradle_content = gr.get_file("deps.gradle")
+                        commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, gr)
+                        Compound_commit.new(top_commit, commits)
                 end
                 def from_url(url_to_json)
                         from_json(Net::HTTP.get_response(URI.parse(url)).body)
                 end
-                def from_json(json_text)
-                        json_obj = Json_obj.new(json_text)
-                        top_commit = Git_commit.from_hash(json_obj)
-                        dependency_commits = []
-                        json_obj.get("dependencies", []).each do | dependency |
-                                dependency_commits << Git_commit.from_hash(dependency)
-                        end
-                        Compound_commit.new(json_obj, top_commit, dependency_commits)
-                end
-                def from_descriptor(repo_spec)
-                        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
-                        source_control_type, source_control_host, repo_name, branch, commit_id, change_tracker_host_and_port = repo_spec.split(/;/)
-                        case source_control_type
-                        when "git"
-                                repo_spec = Git_repo.make_spec(source_control_host, repo_name, branch)
-                                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
-                                repo.codeline_disk_write(commit_id)
-                        else
-                                raise "source control type #{source_control_host} not implemented"
-                        end
+                def test()
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        cc = Compound_commit.from_spec(repo_spec, valentine_commit_id)
+                        U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
+                        json = cc.to_json
+                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;osn/caas;master_external;","commit_id":"90f08f6882382e0134191ca2a993191c2a2f5b48"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"df0b3e6e89828d13ea4da081e46a613c3beb661f"}]}', json)
+                        cc2 = Compound_commit.from_json(json)
+                        U.assert_eq(cc, cc2, "json copy")
                 end
         end
 end
@@ -466,33 +573,31 @@ class Cec_gradle_parser
 		
 	end
 	class << self
-                def to_compound_commit(gradle_deps_fn)
-                        top_commit = Git_commit.new() # should be additional args -- ie, to find gradle_deps_fn, you had to know repo/branch/commit_id etc
+                def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
-                        IO.readlines(deps_fn).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
+                        gradle_deps_text.split(/\n/).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
                                 pom_content = U.rest_get(pom_url)
                                 h = XmlSimple.xml_in(pom_content)
-                                #pp h
-                                puts "-------------------------------------------------"
-                                puts h["properties"][0]
-                                git_repo_source_control_server_and_name = h["properties"][0]["git.repo.name"]
-                                git_repo_branch = h["properties"][0]["git.repo.branch"]
-                                git_repo_commit_id = h["properties"][0]["git.repo.commit.id"]
+                                # {"git.repo.name"=>["caas.git"], "git.repo.branch"=>["master_external"], "git.repo.commit.id"=>["90f08f6882382e0134191ca2a993191c2a2f5b48"], "git.commit-id"=>["caas.git:90f08f6882382e0134191ca2a993191c2a2f5b48"], "jenkins.git-branch"=>["master_external"], "jenkins.build-url"=>["https://osnci.us.oracle.com/job/caas.build.pl.master_external/528/"], "jenkins.build-id"=>["2018-02-16_21:51:53"]}
+                                # puts h["properties"][0]
                                 
-                                source_control_server, repo_name = git_repo_source_control_server_and_name.split(/:/)
-                                repo_spec = Git_repo.make_spec(source_control_server, repo_name, git_repo_branch)
+                                git_project_basename = h["properties"][0]["git.repo.name"][0] # e.g., caas.git
+                                git_repo_branch = h["properties"][0]["git.repo.branch"][0]
+                                git_repo_commit_id = h["properties"][0]["git.repo.commit.id"][0]
+                                
+                                repo_name = "#{gr.get_project_name_prefix}/#{git_project_basename.sub(/.git/, '')}"
+                                repo_spec = Git_repo.make_spec(gr.source_control_server, repo_name, git_repo_branch)
                                 dependency_commits << Git_commit.new(repo_spec, git_repo_commit_id)
                                 
                                 # jenkins.git-branch # master_external
                                 # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/
-                                # enkins.build-id # 270
-                                
-                                
-                                puts "-------------------------------------------------"
-                                exit
+                                # jenkins.build-id # 270
                         end
-                        Compound_commit.new(nil, top_commit, dependency_commits)
+                        if dependency_commits.empty?
+                                raise "could not find deps in #{gradle_deps_text}"
+                        end 
+                        dependency_commits
                 end
                 def generate_manifest_url(raw_manifest_line)
                         z = raw_manifest_line.sub(/  *manifest \"/, '')
@@ -573,8 +678,9 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 Global.test
+                Git_commit.test
                 Git_repo.test
-                Git_commit.test()
+                Compound_commit.test
                 Cec_gradle_parser.test
                 exit
         when "-v"
