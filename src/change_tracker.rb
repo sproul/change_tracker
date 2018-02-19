@@ -423,18 +423,6 @@ class Compound_commit
                 z
         end
         class << self
-                def from_descriptor(repo_spec)
-                        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
-                        source_control_type, source_control_server, repo_name, branch, commit_id, change_tracker_host_and_port = repo_spec.split(/;/)
-                        case source_control_type
-                        when "git"
-                                repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch)
-                                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
-                                repo.codeline_disk_write(commit_id)
-                        else
-                                raise "source control type #{source_control_server} not implemented"
-                        end
-                end
                 def from_file(json_fn)
                         from_json(IO.read(json_fn))
                 end
@@ -464,7 +452,25 @@ class Compound_commit
                         end
                         Compound_commit.new(top_commit, dependency_commits)
                 end
-                def from_spec(repo_spec, commit_id)
+                #def from_descriptor(repo_spec)
+                #        # i.e., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
+                #        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99
+                #        source_control_type, source_control_server, repo_name, branch, change_tracker_host_and_port, commit_id = repo_spec.split(/;/)
+                #        case source_control_type
+                #        when "git"
+                #                repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch, change_tracker_host_and_port)
+                #                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
+                #                repo.codeline_disk_write(commit_id)
+                #        else
+                #                raise "source control type #{source_control_server} not implemented"
+                #        end
+                #end
+                def from_spec(repo_spec_and_commit_id)
+                        if repo_spec_and_commit_id !~ /(.*);([^;]+)$/
+                                raise "could not parse #{repo_spec_and_commit_id}"
+                        end
+                        repo_spec, commit_id = $1, $2;
+                        
                         gr = Git_repo.new(repo_spec)
                         top_commit = Git_commit.new(gr, commit_id)
                         gr.codeline_disk_write
@@ -478,12 +484,15 @@ class Compound_commit
                 def test()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        cc = Compound_commit.from_spec(repo_spec, valentine_commit_id)
+                        cc = Compound_commit.from_spec("#{repo_spec};#{valentine_commit_id}")
                         U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
                         json = cc.to_json
                         U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;osn/caas;master_external;","commit_id":"90f08f6882382e0134191ca2a993191c2a2f5b48"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"df0b3e6e89828d13ea4da081e46a613c3beb661f"}]}', json)
                         cc2 = Compound_commit.from_json(json)
                         U.assert_eq(cc, cc2, "json copy")
+                        
+                        cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
+                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;osn/caas;master_external;","commit_id":"90f08f6882382e0134191ca2a993191c2a2f5b48"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"df0b3e6e89828d13ea4da081e46a613c3beb661f"}]}', cc9.to_json)
                 end
         end
 end
@@ -576,6 +585,10 @@ class Cec_gradle_parser
                 def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
                         gradle_deps_text.split(/\n/).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
+                                
+                                # raw_manifest_line=  manifest "com.oracle.cecs.caas:manifest:1.master_external.528"         //@trigger
+                                # puts "raw_manifest_line=#{raw_manifest_line}"
+                                
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
                                 pom_content = U.rest_get(pom_url)
                                 h = XmlSimple.xml_in(pom_content)
@@ -670,7 +683,7 @@ while ARGV.size > j do
                 Git_repo.test_clean
         when "-compound_commit_json_of"
                 j += 1
-                compound_commit = Compound_commit.from_descriptor(ARGV[j])
+                compound_commit = Compound_commit.from_spec(ARGV[j])
                 print compound_commit.to_json
                 exit
         when "-dry"
