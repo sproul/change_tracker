@@ -92,6 +92,9 @@ class Git_repo
                         Git_repo.codeline_root_parent = Global.get_scratch_dir("git")
                 end
         end
+        def latest_commit_id()
+                U.system("git log --pretty=format:'%H' -n 1", nil, codeline_disk_root)
+        end
         def spec()
                 Git_repo.make_spec(source_control_server, project_name, branch_name, change_tracker_host_and_port)
         end
@@ -152,10 +155,12 @@ class Git_repo
                                 end
                                 git_arg = "https://#{username_pw}@#{self.source_control_server}/#{project_name}.git"
                         end
-                        puts "codeline_disk_write cloning #{git_arg}..."
-                        #puts "temporarily copying from HOME until auth is fixed..."
-                        U.system("git clone \"#{git_arg}\"", nil, root_parent)
-                        #U.system("cp -pr $HOME/cec/#{File.basename(project_name)} #{root_dir}", nil, root_dir)
+                        if branch_name && branch_name != DEFAULT_BRANCH
+                                branch_arg = "-b \"#{branch_name}\""
+                        else
+                                branch_arg = ""
+                        end
+                        U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
                 end
                 if !codeline_disk_exist?
                         raise "error: #{self} does not exist on disk after supposed clone"
@@ -344,13 +349,6 @@ class Compound_commit
         end
         def eql?(other)
                 self.top_commit.eql?(other.top_commit) && dependency_commits.eql?(other.dependency_commits)
-
-                #if !self.top_commit.eql?(other.top_commit)
-                #        return false
-                #end
-                #if dependency_commits.size != other.dependency_commits.size
-                #        return false
-                #end
         end
         def to_json()
                 h = Hash.new
@@ -466,12 +464,14 @@ class Compound_commit
                 #        end
                 #end
                 def from_spec(repo_spec_and_commit_id)
-                        if repo_spec_and_commit_id !~ /(.*);([^;]+)$/
+                        if repo_spec_and_commit_id !~ /(.*);([^;]*)$/
                                 raise "could not parse #{repo_spec_and_commit_id}"
                         end
                         repo_spec, commit_id = $1, $2;
-                        
                         gr = Git_repo.new(repo_spec)
+                        if commit_id == ""
+                                commit_id = gr.latest_commit_id
+                        end
                         top_commit = Git_commit.new(gr, commit_id)
                         gr.codeline_disk_write
                         deps_gradle_content = gr.get_file("deps.gradle")
@@ -491,6 +491,8 @@ class Compound_commit
                         cc2 = Compound_commit.from_json(json)
                         U.assert_eq(cc, cc2, "json copy")
                         
+                        cc_latest = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
+                        U.assert(cc_latest && cc_latest != "")
                         cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
                         U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;osn/caas;master_external;","commit_id":"90f08f6882382e0134191ca2a993191c2a2f5b48"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"df0b3e6e89828d13ea4da081e46a613c3beb661f"}]}', cc9.to_json)
                 end

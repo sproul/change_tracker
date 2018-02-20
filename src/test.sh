@@ -8,6 +8,7 @@ Ruby_change_tracker()
 while [ -n "$1" ]; do
         case "$1" in
                 -deps_of)
+                        # UNUSED
                         Ruby_change_tracker -compound_commit_json_of 'git;osn.oraclecorp.com:cec-server-integration;;;aaaaaabbbbbcccc'
                         exit
                 ;;
@@ -54,5 +55,6 @@ EOF
 }
 
 Ruby_change_tracker -test
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
 #test_no_deps_config
 exit 0
