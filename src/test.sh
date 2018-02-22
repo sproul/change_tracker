@@ -2,22 +2,8 @@
 Ruby_change_tracker()
 {
         export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=0"
-        ruby -w change_tracker.rb $* 2>&1 | grep -v 'warning: setting Encoding'
+        ruby -w cli_main.rb $* 2>&1 | grep -v 'warning: setting Encoding'
 }
-
-while [ -n "$1" ]; do
-        case "$1" in
-                -deps_of)
-                        # UNUSED
-                        Ruby_change_tracker -compound_commit_json_of 'git;osn.oraclecorp.com:cec-server-integration;;;aaaaaabbbbbcccc'
-                        exit
-                ;;
-                *)
-                        break
-                ;;
-        esac
-        shift
-done
 
 t=`mktemp`
 
