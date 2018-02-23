@@ -30,21 +30,21 @@ get '/list_bug_IDs_between' do
                 #puts Json_obj.array_of_json_to_s(changes, true)
                 puts changes
                 exit
-                get '/list_changed_files_between' do
+                get '/list_files_changed_between' do
                 j += 1
                 compound_commit1 = Compound_commit.from_spec(ARGV[j])
                 j += 1
                 compound_commit2 = Compound_commit.from_spec(ARGV[j])
-                changed_files = compound_commit2.list_changed_files_since(compound_commit1)
+                changed_files = compound_commit2.list_files_changed_since(compound_commit1)
                 #puts Json_obj.array_of_json_to_s(changed_files, true)
                 puts changed_files
                 exit
-                get '/list_changed_files_between_no_deps' do
+                get '/list_files_changed_between_no_deps' do
                 j += 1
                 commit1 = Git_commit.from_spec(ARGV[j])
                 j += 1
                 commit2 = Git_commit.from_spec(ARGV[j])
-                changed_files = commit2.list_changed_files_since(commit1)
+                changed_files = commit2.list_files_changed_since(commit1)
                 #puts Json_obj.array_of_json_to_s(changed_files, true)
                 puts changed_files
                 exit

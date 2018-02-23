@@ -329,7 +329,8 @@ class U
                                 puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace
                                 # http://stackoverflow.com/questions/15023944/how-to-retrieve-exit-status-from-ruby-open3-popen3
                                 if !wait_thr.value.success?
-                                        raise "error: bad exit code from #{cmd}: #{err}"
+                                        z = "error: bad exit code from\n#{t_preamble}#{cmd}\n#{err}"
+                                        raise z
                                 end
                                 out
                         end
@@ -565,7 +566,12 @@ class U
                                 U.assert(false, msg, raise_if_fail)
                                 ok = false
                         else
-                                z = "OK U.assert_eq: #{expected} == #{actual}"
+                                z = "OK "
+                                if caller_msg
+                                        z << caller_msg
+                                else
+                                        z << "U.assert_eq: #{expected} == #{actual}"
+                                end
                                 U.log(z)
                                 puts U.truncate_string(z)
                                 ok = true

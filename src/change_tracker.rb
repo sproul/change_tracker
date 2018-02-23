@@ -108,7 +108,7 @@ class Git_repo
                 end
         end
         def latest_commit_id()
-                U.system("git log --pretty=format:'%H' -n 1", nil, self.codeline_disk_root)
+                self.system("git log --pretty=format:'%H' -n 1")
         end
         def spec()
                 Git_repo.make_spec(source_control_server, project_name, branch_name, change_tracker_host_and_port)
@@ -182,6 +182,16 @@ class Git_repo
                 end
                 root_dir
         end
+        def system_as_list(cmd)
+                local_codeline_root_dir = self.codeline_disk_write
+                raise "no codeline for #{self}" unless local_codeline_root_dir
+                U.system_as_list(cmd, nil, local_codeline_root_dir)
+        end
+        def system(cmd)
+                local_codeline_root_dir = self.codeline_disk_write
+                raise "no codeline for #{self}" unless local_codeline_root_dir
+                U.system(cmd, nil, local_codeline_root_dir)
+        end
         class << self
                 attr_accessor :codeline_root_parent
                 def make_spec(source_control_server, repo_name, branch=DEFAULT_BRANCH, change_tracker_host_and_port=nil)
@@ -232,8 +242,7 @@ class Git_commit
                 self.comment = comment
         end
         def list_changes_since(other_compound_commit)
-                repo.codeline_disk_write
-                change_lines = U.system_as_list("git log --pretty=format:'%H %s' #{other_compound_commit.commit_id}..#{commit_id}", nil, repo.codeline_disk_root)
+                change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_compound_commit.commit_id}..#{commit_id}")
 
                 change_lines.map.each do | change_line |
                         raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)/
@@ -242,12 +251,12 @@ class Git_commit
                 end
         end
         def list_changed_files()
-                [ self.repo.spec, U.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}", self.repo.codeline_disk_root) ]
+                [ self.repo.spec, repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}") ]
         end
-        def list_changed_files_since(other_compound_commit)
+        def list_files_changed_since(other_compound_commit)
                 changes = list_changes_since(other_compound_commit)
-                changed_files_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
-                return changed_files_with_duplicates.uniq
+                files_changed_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
+                return files_changed_with_duplicates.uniq
         end
         def eql?(other)
                 other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
@@ -279,17 +288,13 @@ class Git_commit
         def component_contained_by?(compound_commit)
                 self.find_commit_for_same_component(compound_commit) != nil
         end
-        def repo_system_as_list(cmd)
-                local_codeline_root_dir = self.codeline_disk_write
-                U.system_as_list(cmd, nil, local_codeline_root_dir)
-        end
         def list_files_added_or_updated()
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                repo_system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}")
+                repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}")
         end
         def list_files()
                 # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
-                repo_system_as_list("git ls-tree --full-tree -r HEAD --name-only")
+                repo.system_as_list("git ls-tree --full-tree -r HEAD --name-only")
         end
         def list_bug_IDs_since(other_commit)
                 changes = list_changes_since(other_commit)
@@ -360,6 +365,65 @@ class Git_commit
                         end
                         group1_hits
                 end
+                def list_files_changed_between(commit_spec1, commit_spec2)
+                        commit1 = Git_commit.from_spec(commit_spec1)
+                        commit2 = Git_commit.from_spec(commit_spec2)
+                        return commit2.list_files_changed_since(commit1)
+                end
+                def test_list_changes_since()
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        gc1 = Git_commit.from_spec(compound_spec1)
+                        gc2 = Git_commit.from_spec(compound_spec2)
+                        changes = gc2.list_changes_since(gc1)
+                        changes2 = Git_commit.list_changes_between(compound_spec1, compound_spec2)
+                        U.assert_eq(changes, changes2, "Git_commit.test_list_changes_since - vfy same result from wrapper 0")
+
+                        g1b = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
+                        g1a = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
+
+                        U.assert_eq([gc2, g1b, g1a], changes)
+                end
+                def test_list_files_changed_since()
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        gc1 = Git_commit.from_spec(compound_spec1)
+                        gc2 = Git_commit.from_spec(compound_spec2)
+                        
+                        changed_files = gc2.list_files_changed_since(gc1)
+                        changed_files2 = Git_commit.list_files_changed_between(compound_spec1, compound_spec2)
+                        U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 1")
+                        U.assert_eq(["git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", ["component.properties", "deps.gradle"]], changed_files, "Git_commit.test_list_files_changed_since")
+                end
+                def test_json()
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        gc = Git_commit.new(repo_spec, valentine_commit_id)
+                        json = gc.to_json
+                        U.assert_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json)
+                        gc2 = Git_commit.from_json(json)
+                        U.assert_eq(gc, gc2, "test ability to export to json, then import from that json back to the same object")
+                end
+                def test_list_bug_IDs_since()
+                        # I noticed that for the commits in this range, there is a recurring automated comment "caas.build.pl.master/3013/" -- so
+                        # I thought I would reset the pattern to treat that number like a bug ID for the purposes of the test.
+                        # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
+                        saved_bug_id_regexp = Compound_commit.bug_id_regexp_val
+                        begin
+                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
+                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                                gc1 = Git_commit.from_spec(compound_spec1)
+                                gc2 = Git_commit.from_spec(compound_spec2)
+                                Compound_commit.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
+                                bug_IDs = gc2.list_bug_IDs_since(gc1)
+                                U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
+                                
+                                bug_IDs2 = Compound_commit.list_bug_IDs_between(compound_spec1, compound_spec2)
+                                U.assert_eq(bug_IDs, bug_IDs2, "verify same result  from list_bug_IDs_between wrapper")
+                        ensure
+                                Compound_commit.bug_id_regexp_val = saved_bug_id_regexp
+                        end
+                end
                 def test()
                         gc1 = Git_commit.new(TEST_REPO_SPEC, "dc68aa99903505da966358f96c95f946901c664b")
                         gc2 = Git_commit.new(TEST_REPO_SPEC, "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
@@ -409,46 +473,7 @@ class Git_commit
                         test_json
                         test_list_changes_since()
                         test_list_bug_IDs_since()
-                end
-                def test_list_changes_since()
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                        gc1 = Git_commit.from_spec(compound_spec1)
-                        gc2 = Git_commit.from_spec(compound_spec2)
-                        changes = gc2.list_changes_since(gc1)
-                        changed_files = gc2.list_changed_files_since(gc1)
-
-                        g1b = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
-                        g1a = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
-
-                        U.assert_eq([gc2, g1b, g1a], changes)
-                        U.assert_eq(["git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", ["component.properties", "deps.gradle"]], changed_files)
-                end
-                def test_json()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        gc = Git_commit.new(repo_spec, valentine_commit_id)
-                        json = gc.to_json
-                        U.assert_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json)
-                        gc2 = Git_commit.from_json(json)
-                        U.assert_eq(gc, gc2, "test ability to export to json, then import from that json back to the same object")
-                end
-                def test_list_bug_IDs_since()
-                        # I noticed that for the commits in this range, there is a recurring automated comment "caas.build.pl.master/3013/" -- so
-                        # I thought I would reset the pattern to treat that number like a bug ID for the purposes of the test.
-                        # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
-                        saved_bug_id_regexp = Compound_commit.bug_id_regexp_val
-                        begin
-                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                                gc1 = Git_commit.from_spec(compound_spec1)
-                                gc2 = Git_commit.from_spec(compound_spec2)
-                                Compound_commit.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
-                                bug_IDs = gc2.list_bug_IDs_since(gc1)
-                                U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
-                        ensure
-                                Compound_commit.bug_id_regexp_val = saved_bug_id_regexp
-                        end
+                        test_list_files_changed_since()
                 end
         end
 end
@@ -483,10 +508,10 @@ class Compound_commit
                 z << self.top_commit
                 z.concat(self.dependency_commits)
         end
-        def list_changed_files_since(other_compound_commit)
+        def list_files_changed_since(other_compound_commit)
                 changes = list_changes_since(other_compound_commit)
-                changed_files_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
-                return changed_files_with_duplicates.uniq
+                files_changed_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
+                return files_changed_with_duplicates.uniq
         end
         def list_changes_since(other_compound_commit)
                 pairs = get_pairs_of_commits_with_matching_repo(other_compound_commit)
@@ -567,10 +592,10 @@ class Compound_commit
                         compound_commit2 = Compound_commit.from_spec(compound_commit_spec2)
                         return compound_commit2.list_changes_since(compound_commit1)
                 end
-                def list_changed_files_between(compound_commit_spec1, compound_commit_spec2)
+                def list_files_changed_between(compound_commit_spec1, compound_commit_spec2)
                         compound_commit1 = Compound_commit.from_spec(compound_commit_spec1)
                         compound_commit2 = Compound_commit.from_spec(compound_commit_spec2)
-                        return compound_commit2.list_changed_files_since(compound_commit1)
+                        return compound_commit2.list_files_changed_since(compound_commit1)
                 end
                 def bug_id_regexp()
                         if !Compound_commit.bug_id_regexp_val
@@ -621,44 +646,49 @@ class Compound_commit
                 #                raise "source control type #{source_control_server} not implemented"
                 #        end
                 #end
-                def from_spec(repo_spec_and_commit_id)
+                def from_spec(repo_spec_and_commit_id, dependency_commits=nil)
                         top_commit = Git_commit.from_spec(repo_spec_and_commit_id)
-                        gr = top_commit.repo
-                        gr.codeline_disk_write
-                        deps_gradle_content = gr.get_file("deps.gradle")
-                        commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, gr)
-                        Compound_commit.new(top_commit, commits)
+                        if !dependency_commits
+                                begin
+                                        gr = top_commit.repo
+                                        gr.codeline_disk_write
+                                        deps_gradle_content = gr.get_file("deps.gradle")
+                                        dependency_commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, gr)
+                                rescue Object => emsg_obj
+                                        raise "autodiscover of dependencies failed trying to understand deps.gradle: #{emsg_obj.to_s}"
+                                end
+                        end
+                        Compound_commit.new(top_commit, dependency_commits)
                 end
                 def from_url(url_to_json)
                         from_json(Net::HTTP.get_response(URI.parse(url)).body)
                 end
-                def test()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        cc = Compound_commit.from_spec("#{repo_spec};#{valentine_commit_id}")
-                        U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
-                        json = cc.to_json
-                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', json, "dependency_gather1")
-                        cc2 = Compound_commit.from_json(json)
-                        U.assert_eq(cc, cc2, "json copy dependency_gather1")
-
-                        cc_latest = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
-                        U.assert(cc_latest && cc_latest != "")
-                        cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
-                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', cc9.to_json)
-                        test_list_changes_since()
-                        test_list_bug_IDs_since()
-                end
                 def test_list_changes_since()
-                        gc1 = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64")
-                        gc2 = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e")
-                        changes = gc2.list_changes_since(gc1)
-                        changed_files = gc2.list_changed_files_since(gc1)
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cc1 = Compound_commit.from_spec(compound_spec1)
+                        cc2 = Compound_commit.from_spec(compound_spec2)
+                        
+                        gc2 = Git_commit.from_spec(compound_spec2)
+
+                        changes = cc2.list_changes_since(cc1)
+                        changes2 = Compound_commit.list_changes_between(compound_spec1, compound_spec2)
+                        U.assert_eq(changes, changes2, "vfy same result from wrapper 2a")
 
                         g1b = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
                         g1a = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
                         U.assert_eq([gc2, g1b, g1a], changes)
+                end
+                def test_list_files_changed_since()
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cc1 = Compound_commit.from_spec(compound_spec1)
+                        cc2 = Compound_commit.from_spec(compound_spec2)
+                        
+                        changed_files = cc2.list_files_changed_since(cc1)
+                        changed_files2 = Compound_commit.list_files_changed_between(compound_spec1, compound_spec2)
+                        U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
                         U.assert_eq(["git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", ["component.properties", "deps.gradle"]], changed_files)
                 end
                 def test_list_bug_IDs_since()
@@ -677,6 +707,24 @@ class Compound_commit
                         ensure
                                 Compound_commit.bug_id_regexp_val = saved_bug_id_regexp
                         end
+                end
+                def test()
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        cc = Compound_commit.from_spec("#{repo_spec};#{valentine_commit_id}")
+                        U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
+                        json = cc.to_json
+                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', json, "dependency_gather1")
+                        cc2 = Compound_commit.from_json(json)
+                        U.assert_eq(cc, cc2, "json copy dependency_gather1")
+
+                        cc_latest = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
+                        U.assert(cc_latest && cc_latest != "")
+                        cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
+                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', cc9.to_json)
+                        test_list_changes_since()
+                        test_list_bug_IDs_since()
+                        test_list_files_changed_since()
                 end
         end
 end
@@ -856,7 +904,7 @@ class Cec_gradle_parser
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/officeaddins/manifest/1.master_internal.161/manifest-1.master_internal.161.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/cef/manifest/1.master_internal.3790/manifest-1.master_internal.3790.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/caas/manifest/1.master_internal.2364/manifest-1.master_internal.2364.pom")
-                        U.assert_eq("last", "last", "final")
+                        puts "EOT"
                 end
         end
 end

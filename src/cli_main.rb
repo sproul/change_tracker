@@ -1,5 +1,6 @@
 require_relative 'u'
 require_relative 'change_tracker'
+require_relative 'json_change_tracker'
 
 cms = Change_tracker_app.new
 
@@ -10,7 +11,7 @@ while ARGV.size > j do
         when "-test_clean"
                 Git_repo.test_clean
         when "-compound_commit_json_of"
-                puts Compound_commit.from_spec(ARGV[j+1])
+                puts Compound_commit.from_spec(ARGV[j+1]).to_json
                 exit
         when "-conf"
                 j += 1
@@ -26,14 +27,15 @@ while ARGV.size > j do
         when "-list_changes_between_no_deps"
                 Git_commit.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
-        when "-list_changed_files_between"
-                puts Compound_commit.list_changed_files_between(ARGV[j+1], ARGV[j+2])
+        when "-list_files_changed_between"
+                puts Compound_commit.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
-        when "-list_changed_files_between_no_deps"
-                puts Git_commit.list_changed_files_between(ARGV[j+1], ARGV[j+2])
+        when "-list_files_changed_between_no_deps"
+                puts Git_commit.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-test"
                 U.test_mode = true
+                Json_change_tracker.test
                 Global.test
                 Git_commit.test
                 Git_repo.test
