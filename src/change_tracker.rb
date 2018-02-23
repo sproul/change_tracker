@@ -184,6 +184,7 @@ class Git_repo
         end
         def system_as_list(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
+                #puts "cd #{local_codeline_root_dir}; #{cmd}"
                 raise "no codeline for #{self}" unless local_codeline_root_dir
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
@@ -483,7 +484,11 @@ class Compound_commit
         attr_accessor :dependency_commits
 
         def initialize(top_commit, dependency_commits)
-                self.top_commit = top_commit
+                if top_commit.is_a?(String)
+                        self.top_commit = Git_commit.from_spec(top_commit)
+                else
+                        self.top_commit = top_commit
+                end
                 self.dependency_commits = dependency_commits
         end
         def eql?(other)
@@ -506,7 +511,9 @@ class Compound_commit
         def commits()
                 z = []
                 z << self.top_commit
-                z.concat(self.dependency_commits)
+                z = z.concat(self.dependency_commits)
+                puts "z=#{z}"
+                z
         end
         def list_files_changed_since(other_compound_commit)
                 changes = list_changes_since(other_compound_commit)
@@ -596,6 +603,33 @@ class Compound_commit
                         compound_commit1 = Compound_commit.from_spec(compound_commit_spec1)
                         compound_commit2 = Compound_commit.from_spec(compound_commit_spec2)
                         return compound_commit2.list_files_changed_since(compound_commit1)
+                end
+                def list_last_changes(repo_spec, n)
+                        gr = Git_repo.new(repo_spec)
+                        # Example log entry:
+                        # 
+                        # "commit 22ab587dd9741430c408df1f40dbacd56c657c3f"
+                        # "Author: osnbt on socialdev Jenkins <ade-generic-osnbt_ww@oracle.com>"
+                        # "Date:   Tue Feb 20 09:28:24 2018 -0800"
+                        # ""
+                        # "    New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/"
+                        # "    and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+                        # "    "
+                        # "    The deps.gradle file, component.properties and any other @autoupdate files listed in deps.gradle"
+                        # "    have been automatically updated to consume these dynamic dependencies."
+                        commit_log_entries = gr.system_as_list("git log --oneline -n #{n} --pretty=format:'%H:%s'")
+                        commits = []
+                        commit_log_entries.each do | commit_log_entry |
+                                if commit_log_entry !~ /^([a-f0-9]+):(.*)/m
+                                        raise "could not understand #{commit_log_entry}"
+                                else
+                                        commit_id, comment = $1, $2
+                                        commit = Git_commit.new(gr, commit_id)
+                                        commit.comment = comment
+                                        commits << commit
+                                end
+                        end
+                        commits
                 end
                 def bug_id_regexp()
                         if !Compound_commit.bug_id_regexp_val
@@ -708,6 +742,10 @@ class Compound_commit
                                 Compound_commit.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
+                def test_json_export()
+                        json = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
+                        U.assert_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}], json, "Compound_commit.test_json_export")
+                end
                 def test()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
@@ -725,6 +763,7 @@ class Compound_commit
                         test_list_changes_since()
                         test_list_bug_IDs_since()
                         test_list_files_changed_since()
+                        test_json_export()
                 end
         end
 end

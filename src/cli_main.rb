@@ -33,6 +33,13 @@ while ARGV.size > j do
         when "-list_files_changed_between_no_deps"
                 puts Git_commit.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
+        when "-list_last_changes"
+                puts "["
+                Compound_commit.list_last_changes(ARGV[j+1], ARGV[j+2].to_i).each do | cc |
+                        puts cc.to_json
+                end
+                puts "]"
+                exit
         when "-test"
                 U.test_mode = true
                 Json_change_tracker.test
