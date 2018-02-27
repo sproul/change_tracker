@@ -175,6 +175,11 @@ class Git_repo
                         else
                                 branch_arg = ""
                         end
+                        # from Steve mail -- not sure if I've accounted for everything already...
+                        # git clone ...
+                        # git checkout master
+                        # git pull      # may not be necessary
+                        # 
                         U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
                 end
                 if !codeline_disk_exist?
@@ -512,7 +517,7 @@ class Compound_commit
                 z = []
                 z << self.top_commit
                 z = z.concat(self.dependency_commits)
-                puts "z=#{z}"
+                #puts "z=#{z}"
                 z
         end
         def list_files_changed_since(other_compound_commit)
@@ -687,6 +692,7 @@ class Compound_commit
                                         gr = top_commit.repo
                                         gr.codeline_disk_write
                                         deps_gradle_content = gr.get_file("deps.gradle")
+                                        #puts "xxxx: #{deps_gradle_content}"
                                         dependency_commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, gr)
                                 rescue Object => emsg_obj
                                         raise "autodiscover of dependencies failed trying to understand deps.gradle: #{emsg_obj.to_s}"
@@ -855,10 +861,10 @@ class Cec_gradle_parser
         class << self
                 def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
-                        gradle_deps_text.split(/\n/).grep(/^ *manifest\s+"com./).each do | raw_manifest_line |
+                        gradle_deps_text.split(/\n/).grep(/^\s*manifest\s+"com./).each do | raw_manifest_line |
 
                                 # raw_manifest_line=  manifest "com.oracle.cecs.caas:manifest:1.master_external.528"         //@trigger
-                                # puts "raw_manifest_line=#{raw_manifest_line}"
+                                #puts "raw_manifest_line=#{raw_manifest_line}"
 
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
                                 pom_content = U.rest_get(pom_url)
