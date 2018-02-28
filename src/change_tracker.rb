@@ -190,6 +190,7 @@ class Git_repo
                 U.system(cmd, nil, local_codeline_root_dir)
         end
         class << self
+                TEST_REPO_NAME = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;"
                 attr_accessor :codeline_root_parent
                 def make_spec(source_control_server, repo_name, branch=DEFAULT_BRANCH, change_tracker_host_and_port=nil)
                         source_control_type = "git"
@@ -205,7 +206,7 @@ class Git_repo
                         U.assert(!gr.codeline_disk_exist?)
                 end
                 def test()
-                        gr = Git_repo.new("git;git.osn.oraclecorp.com;osn/cec-server-integration;;")
+                        gr = Git_repo.new(TEST_REPO_NAME)
                         gr.codeline_disk_write
                         U.assert(gr.codeline_disk_exist?)
                         deps_gradle_content = gr.get_file("deps.gradle")
