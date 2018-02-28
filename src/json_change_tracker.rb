@@ -75,7 +75,7 @@ class Json_change_tracker
                         else
                                 raise "did not know how to interpret op '#{op}'"
                         end
-
+                        
                         z = nil
                         x.each do | elt |
                                 if !z
@@ -83,11 +83,9 @@ class Json_change_tracker
                                 else
                                         z << ",\n"
                                 end
-                                z << elt.to_json
-                                #puts "z=#{z}"
+                                z << "\t" << elt.to_json
                         end
                         z << "\n]\n"
-                        #puts "final z=#{z}"
                         z
                 end
                 def test_assert_result_from_json(json, expected_result, title=nil)
@@ -95,7 +93,7 @@ class Json_change_tracker
                         if !title
                                 title = "from #{json}"
                         end
-                        U.assert_eq(expected_result, actual_result, title)
+                        U.assert_json_eq(expected_result, actual_result, title)
                 end
                 def test_bad_json()
                         cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -115,13 +113,7 @@ class Json_change_tracker
                         cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
                         z = %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}", "cspec2" : "#{cspec2}" }]
-                        #puts z
-                        test_assert_result_from_json(z, %Q[[
-                        {"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"06c85af5cfa00b0e8244d723517f8c3777d7b77e","comment":"New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"},
-{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"22ab587dd9741430c408df1f40dbacd56c657c3f","comment":"New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"},
-{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"7dfff5f400b3011ae2c4aafac286d408bce11504","comment":"New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"}
-]
-], "close neighbors list changes")
+                        test_assert_result_from_json(z, %Q[[{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"06c85af5cfa00b0e8244d723517f8c3777d7b77e","comment":"New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"}, {"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"22ab587dd9741430c408df1f40dbacd56c657c3f","comment":"New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"}, {"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"7dfff5f400b3011ae2c4aafac286d408bce11504","comment":"New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"} ] ], "close neighbors list changes")
                 end
                 def test()
                         puts "skipping test_bad_json"

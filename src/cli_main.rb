@@ -11,7 +11,7 @@ while ARGV.size > j do
         when "-test_clean"
                 Git_repo.test_clean
         when "-compound_commit_json_of"
-                puts Compound_commit.from_spec(ARGV[j+1]).to_json
+                puts JSON.pretty_generate(Compound_commit.from_spec(ARGV[j+1]))
                 exit
         when "-conf"
                 j += 1

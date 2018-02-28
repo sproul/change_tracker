@@ -66,15 +66,6 @@ class Json_obj
         def has_key?(key)
                 h.has_key?(key)
         end
-        class << self
-                def format_pair(key, val)
-                        z = "\"#{key}\" : "
-                        if val.class.method_defined? :to_json
-                                z << val.to_json
-                        end
-                        z
-                end
-        end
 end
 
 class Git_repo
@@ -247,20 +238,21 @@ class Git_commit
                 self.commit_id = commit_id
                 self.comment = comment
         end
-        def list_changes_since(other_compound_commit)
-                change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_compound_commit.commit_id}..#{commit_id}")
-
+        def list_changes_since(other_commit)
+                change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_commit.commit_id}..#{commit_id}")
+                commits = []
                 change_lines.map.each do | change_line |
                         raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)/
                         change_id, comment = $1, $2
-                        Git_commit.from_spec("#{repo.spec};#{change_id}", comment)
+                        commits << Git_commit.from_spec("#{repo.spec};#{change_id}", comment)
                 end
+                commits
         end
         def list_changed_files()
                 [ self.repo.spec, repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}") ]
         end
-        def list_files_changed_since(other_compound_commit)
-                changes = list_changes_since(other_compound_commit)
+        def list_files_changed_since(other_commit)
+                changes = list_changes_since(other_commit)
                 files_changed_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
                 return files_changed_with_duplicates.uniq
         end
@@ -286,7 +278,7 @@ class Git_commit
                 if comment
                         h["comment"] = comment
                 end
-                JSON.generate(h)
+                JSON.pretty_generate(h)
         end
         def codeline_disk_write()
                 repo.codeline_disk_write(self.commit_id)
@@ -406,7 +398,7 @@ class Git_commit
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         gc = Git_commit.new(repo_spec, valentine_commit_id)
                         json = gc.to_json
-                        U.assert_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json)
+                        U.assert_json_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json, 'Git_commit.test_json')
                         gc2 = Git_commit.from_json(json)
                         U.assert_eq(gc, gc2, "test ability to export to json, then import from that json back to the same object")
                 end
@@ -472,10 +464,10 @@ class Git_commit
                         #U.assert_eq([], cc1.find_commits_for_components_that_were_removed_since(cc2), "cc1 removed commits")
                         changed_commits1 = cc1.find_commits_for_components_that_changed_since(cc2)
                         changed_commits2 = cc2.find_commits_for_components_that_changed_since(cc1)
-                        U.assert_eq(1, changed_commits1.size)
-                        U.assert_eq(1, changed_commits2.size)
-                        U.assert_eq(gc1, changed_commits1[0])
-                        U.assert_eq(gc2, changed_commits2[0])
+                        U.assert_eq(1, changed_commits1.size, 'cc1 size ck')
+                        U.assert_eq(1, changed_commits2.size, 'cc2 size ck')
+                        U.assert_eq(gc1, changed_commits1[0], 'gc1 json ck')
+                        U.assert_eq(gc2, changed_commits2[0], 'gc2 json ck')
                         test_json
                         test_list_changes_since()
                         test_list_bug_IDs_since()
@@ -511,7 +503,7 @@ class Compound_commit
                         commit_h["commit_id"] = commit.commit_id
                         dependency_commits_hash_array << commit_h
                 end
-                JSON.generate(h)
+                JSON.pretty_generate(h)
         end
         def commits()
                 z = []
@@ -750,7 +742,7 @@ class Compound_commit
                 end
                 def test_json_export()
                         json = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
-                        U.assert_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}], json, "Compound_commit.test_json_export")
+                        U.assert_json_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}], json, "Compound_commit.test_json_export")
                 end
                 def test()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
@@ -758,14 +750,14 @@ class Compound_commit
                         cc = Compound_commit.from_spec("#{repo_spec};#{valentine_commit_id}")
                         U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
                         json = cc.to_json
-                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', json, "dependency_gather1")
+                        U.assert_json_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', json, "dependency_gather1")
                         cc2 = Compound_commit.from_json(json)
                         U.assert_eq(cc, cc2, "json copy dependency_gather1")
 
                         cc_latest = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
                         U.assert(cc_latest && cc_latest != "")
                         cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
-                        U.assert_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', cc9.to_json)
+                        U.assert_json_eq('{ "top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", "top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99", "deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;", "commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"}, { "repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;", "commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"} ] }', cc9.to_json, "cc9.to_json")
                         test_list_changes_since()
                         test_list_bug_IDs_since()
                         test_list_files_changed_since()

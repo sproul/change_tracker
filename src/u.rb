@@ -546,6 +546,32 @@ class U
                         actual_output = method.call(input)
                         U.assert_eq(expected_output, actual_output, "test transforming #{input}")
                 end
+                def assert_json_eq(expected, actual, caller_msg=nil, raise_if_fail=false)
+                        emsg = nil
+                        expected_json_obj = JSON.parse(expected)
+                        begin
+                                actual_json_obj = JSON.parse(actual)
+                                if expected_json_obj == actual_json_obj
+                                        U.assert_eq(expected_json_obj, actual_json_obj, caller_msg, raise_if_fail)
+                                        return
+                                end
+                                if expected_json_obj.eql?(actual_json_obj)
+                                        # submit same arg twice to force success:
+                                        U.assert_eq(expected_json_obj, expected_json_obj, caller_msg, raise_if_fail)
+                                        return
+                                end
+                                pretty_expected_json = JSON.pretty_generate(expected_json_obj)
+                                pretty_actual_json = JSON.pretty_generate(actual_json_obj)
+                                U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
+                        rescue Object => emsg_obj
+                                emsg = emsg_obj.to_s
+                        end
+                        # if we get here, that means actual_json was probably not legal
+                        if !caller_msg
+                                caller_msg = "json comparison (#{actual}): #{emsg}"
+                        end
+                        U.assert_eq(expected, actual, caller_msg, raise_if_fail)
+                end
                 def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false)
                         U.init unless U.log_level
                         
