@@ -6,6 +6,30 @@ require 'pp'
 require 'net/http'
 require 'json'
 
+class Error_record < Exception
+        attr_accessor :emsg
+        attr_accessor :http_response_code
+        def initialize(emsg, http_response_code=nil)
+                self.emsg = emsg + "\n" + Thread.current.backtrace.join("\n")
+                self.http_response_code = http_response_code
+	end
+        class << self
+                attr_accessor :emsg
+                attr_accessor :http_response_code
+        end
+end
+
+class Error_holder
+        attr_accessor :error
+        def exception()
+                self.error
+        end
+        def raise(emsg, http_response_code=nil)
+                self.error = Error_record.new(msg, http_response_code)
+                Kernel.raise self
+        end
+end
+
 class Change_tracker
         HOST_NAME_DEFAULT = "localhost"
         PORT_DEFAULT = 11111
@@ -68,7 +92,7 @@ class Json_obj
         end
 end
 
-class Git_repo
+class Git_repo < Error_holder
         DEFAULT_BRANCH = "master"
 
         attr_accessor :project_name
@@ -82,7 +106,7 @@ class Git_repo
                 self.change_tracker_host_and_port = change_tracker_host_and_port
                 source_control_type, source_control_server, project_name, branch_name = repo_spec.split(/;/)
                 if source_control_type != "git"
-                        raise "unexpected source_control_type #{source_control_type} from #{repo_spec}"
+                        self.raise("unexpected source_control_type #{source_control_type} from #{repo_spec}", 501)
                 end
                 self.source_control_type = source_control_type
                 if !branch_name || branch_name == ""
@@ -90,7 +114,7 @@ class Git_repo
                 else
                         self.branch_name = branch_name
                 end
-                raise "empty project name" unless project_name && (project_name != "")
+                self.raise("empty project name") unless project_name && (project_name != "")
                 self.project_name = project_name
                 self.global_data_prefix = "git_repo_#{project_name}."
                 self.source_control_server = source_control_server
@@ -121,7 +145,7 @@ class Git_repo
         def get_file(path)
                 fn = "#{self.codeline_disk_root}/#{path}"
                 if !File.exist?(fn)
-                        raise "could not read #{fn}"
+                        self.raise "could not read #{fn}"
                 end
                 IO.read(fn)
         end
@@ -174,19 +198,19 @@ class Git_repo
                         U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
                 end
                 if !codeline_disk_exist?
-                        raise "error: #{self} does not exist on disk after supposed clone"
+                        self.raise "error: #{self} does not exist on disk after supposed clone"
                 end
                 root_dir
         end
         def system_as_list(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
                 #puts "cd #{local_codeline_root_dir}; #{cmd}"
-                raise "no codeline for #{self}" unless local_codeline_root_dir
+                self.raise "no codeline for #{self}" unless local_codeline_root_dir
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
         def system(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
-                raise "no codeline for #{self}" unless local_codeline_root_dir
+                self.raise "no codeline for #{self}" unless local_codeline_root_dir
                 U.system(cmd, nil, local_codeline_root_dir)
         end
         class << self
@@ -194,8 +218,8 @@ class Git_repo
                 attr_accessor :codeline_root_parent
                 def make_spec(source_control_server, repo_name, branch=DEFAULT_BRANCH, change_tracker_host_and_port=nil)
                         source_control_type = "git"
-                        raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
-                        raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
+                        self.raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
+                        self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
                         branch = "" unless branch
                         change_tracker_host_and_port = "" unless change_tracker_host_and_port
                         "#{source_control_type};#{source_control_server};#{repo_name};#{branch};#{change_tracker_host_and_port}"
@@ -223,7 +247,7 @@ class Git_repo
         end
 end
 
-class Git_commit
+class Git_commit < Error_holder
         attr_accessor :repo
         attr_accessor :commit_id
         attr_accessor :comment  # only set if this object populated by a call to git log
@@ -234,7 +258,7 @@ class Git_commit
                 elsif repo_expr.is_a? Git_repo
                         self.repo = repo_expr
                 else
-                        raise "unexpected repo type #{repo.class}"
+                        self.raise "unexpected repo type #{repo.class}"
                 end
                 self.commit_id = commit_id
                 self.comment = comment
@@ -243,7 +267,7 @@ class Git_commit
                 change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_commit.commit_id}..#{commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
-                        raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)/
+                        self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)/
                         change_id, comment = $1, $2
                         commits << Git_commit.from_spec("#{repo.spec};#{change_id}", comment)
                 end
@@ -269,7 +293,7 @@ class Git_commit
                 z
         end
         def to_s_with_comment()
-                raise "comment not set" unless comment
+                self.raise "comment not set" unless comment
                 to_s
         end
         def to_json()
@@ -477,7 +501,7 @@ class Git_commit
         end
 end
 
-class Compound_commit
+class Compound_commit < Error_holder
         attr_accessor :top_commit
         attr_accessor :dependency_commits
 
@@ -795,7 +819,7 @@ class Change_tracker_app
         end
 end
 
-class Global
+class Global < Error_holder
         class << self
                 attr_accessor :data_json_fn
                 attr_accessor :data
@@ -847,7 +871,7 @@ class Global
         end
 end
 
-class Cec_gradle_parser
+class Cec_gradle_parser < Error_holder
         def initialize()
 
         end
