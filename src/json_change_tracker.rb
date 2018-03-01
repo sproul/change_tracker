@@ -50,12 +50,7 @@ class Json_change_tracker
         def usage(emsg)
                 z = ''
                 z << emsg << "\n"
-                z << "Example usage:\n"
-                if self.op && Json_change_tracker.examples_by_op.has_key?(self.op)
-                        z << Json_change_tracker.examples_by_op[self.op] << "\n"
-                else
-                        z << Json_change_tracker.usage_full_examples
-                end
+                z << Json_change_tracker.examples(self.op)
                 z
         end
         def system_error(emsg)
@@ -115,25 +110,29 @@ class Json_change_tracker
                 attr_accessor :examples_by_op
                 attr_accessor :usage_full_examples
                 def init()
-                        Json_change_tracker.examples_by_op = Hash.new
-                        Json_change_tracker.examples_by_op["list_bug_IDs_between"] = "@@ example of list_bug_IDs_between"
-                        Json_change_tracker.examples_by_op["list_changes_between"] = "@@ example of list_changes_between"
-                        Json_change_tracker.examples_by_op["list_files_changed_between"] = "@@ example of list_files_changed_between"
-
-                        z = ""
-                        Json_change_tracker.examples_by_op.values.each do | example |
-                                z << example << "\n"
+                        if !Json_change_tracker.examples_by_op
+                                Json_change_tracker.examples_by_op = Hash.new
+                                Json_change_tracker.examples_by_op["list_bug_IDs_between"] = "@@ example of list_bug_IDs_between\n"
+                                Json_change_tracker.examples_by_op["list_changes_between"] = "@@ example of list_changes_between\n"
+                                Json_change_tracker.examples_by_op["list_files_changed_between"] = "@@ example of list_files_changed_between\n"
+                                
+                                z = ""
+                                Json_change_tracker.examples_by_op.values.each do | example |
+                                        z << example
+                                end
+                                Json_change_tracker.usage_full_examples = z
+                                STDOUT.sync     # always flush immediately
                         end
-                        Json_change_tracker.usage_full_examples = z
-                        STDOUT.sync     # always flush immediately
                 end
                 def examples(example_op=nil)
-                        if !example_op
-                                Json_change_tracker.usage_full_examples
+                        init
+                        z = "Example usage:\n"
+                        if !example_op || !Json_change_tracker.examples_by_op.has_key?(example_op)
+                                z << Json_change_tracker.usage_full_examples
                         else
-                                raise "could not find examples for op #{example_op}" unless Json_change_tracker.examples_by_op.has_key?(example_op)
-                                Json_change_tracker.examples_by_op[example_op]
+                                z << Json_change_tracker.examples_by_op[example_op]
                         end
+                        z
                 end
                 def test_assert_result_from_json(json, expected_result, title)
                         http_response_code, actual_result = Json_change_tracker.new.go(json)
@@ -152,14 +151,14 @@ class Json_change_tracker
                         cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
                         #cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
-                        test_error_result_from_json(400, %Q[{ "op" : "some_nonexistent_op" }], "did not know how to interpret op 'some_nonexistent_op'\nExample usage:\n#{Json_change_tracker.usage_full_examples}\n@@ example of list_bug_IDs_between\n@@ example of list_changes_between\n@@ example of list_files_changed_between\n", "nonexistent op")
-                        test_error_result_from_json(400, "whatever", "trouble parsing \"whatever\": 757: unexpected token at 'whatever'\nExample usage:\n#{Json_change_tracker.usage_full_examples}", "ridiculous null request")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_bug_IDs_between" }], "did not find anything for key 'cspec1'\nExample usage:\n@@ example of list_bug_IDs_between\n", "no cspec1")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_bug_IDs_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\nExample usage:\n@@ example of list_bug_IDs_between\n", "no cspec2")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_changes_between" }], "did not find anything for key 'cspec1'\nExample usage:\n@@ example of list_changes_between\n", "no cspec1 1")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\nExample usage:\n@@ example of list_changes_between\n", "no cspec2 3")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_files_changed_between" }], "did not find anything for key 'cspec1'\nExample usage:\n@@ example of list_files_changed_between\n", "no cspec1 3")
-                        test_error_result_from_json(400, %Q[{ "op" : "list_files_changed_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\nExample usage:\n@@ example of list_files_changed_between\n", "no cspec2 4")
+                        test_error_result_from_json(400, %Q[{ "op" : "some_nonexistent_op" }], "did not know how to interpret op 'some_nonexistent_op'\n#{Json_change_tracker.examples}", "nonexistent op")
+                        test_error_result_from_json(400, "whatever", "trouble parsing \"whatever\": 757: unexpected token at 'whatever'\n#{Json_change_tracker.examples}", "ridiculous null request")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_bug_IDs_between" }], "did not find anything for key 'cspec1'\n#{Json_change_tracker.examples("list_bug_IDs_between")}", "no cspec1")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_bug_IDs_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\n#{Json_change_tracker.examples("list_bug_IDs_between")}", "no cspec2")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_changes_between" }], "did not find anything for key 'cspec1'\n#{Json_change_tracker.examples("list_changes_between")}", "no cspec1 1")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\n#{Json_change_tracker.examples("list_changes_between")}", "no cspec2 3")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_files_changed_between" }], "did not find anything for key 'cspec1'\n#{Json_change_tracker.examples("list_files_changed_between")}", "no cspec1 3")
+                        test_error_result_from_json(400, %Q[{ "op" : "list_files_changed_between", "cspec1" : "#{cspec1}" }], "did not find anything for key 'cspec2'\n#{Json_change_tracker.examples("list_files_changed_between")}", "no cspec2 4")
                 end
                 def test_list_changes_close_neighbors()
                         cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -178,7 +177,6 @@ cd "/scratch/change_tracker/git/git.osn.oraclecorp.com/osn"; git clone  "git@git
 GitLab: The project you were looking for could not be found.
 fatal: The remote end hung up unexpectedly
 ], "close neighbors list changes")
-                        test_error_result_from_json(400, %Q[{ "op" : "some_nonexistent_op" }], "did not know how to interpret op 'some_nonexistent_op'\nExample usage:\n#{Json_change_tracker.usage_full_examples}\n@@ example of list_bug_IDs_between\n@@ example of list_changes_between\n@@ example of list_files_changed_between\n", "nonexistent op")
                 end
                 def test()
                         test_bad_json
