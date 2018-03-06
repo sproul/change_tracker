@@ -53,9 +53,14 @@ class Json_change_tracker
                 z << Json_change_tracker.examples(self.op)
                 z
         end
-        def system_error(emsg)
+        def system_error(emsg, backtrace=nil)
                 # nicer formatting could be implemented here to make the error more presentable in the browser:
-                "Error encountered: #{emsg}"
+                z = "Error encountered: #{emsg}"
+                if backtrace
+                        z << "#{backtrace.join("\n")}\n"
+                end
+
+                z
         end
         def go(json_text)
                 http_response_code = 200
@@ -90,7 +95,7 @@ class Json_change_tracker
                         # https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                         # 500 server error
                         # 501 not impl
-                        return 500, system_error(e_obj.to_s)
+                        return 500, system_error(e_obj.to_s, e_obj.backtrace)
                 rescue User_error => e_obj
                         return 400, usage(e_obj.emsg)
                 end
@@ -144,6 +149,9 @@ class Json_change_tracker
                 end
                 def test_error_result_from_json(expected_http_response_code, json_input, expected_result, title)
                         actual_http_response_code, actual_result = Json_change_tracker.new.go(json_input)
+                        
+                        actual_result.gsub!(/:\d+:/, ":NNN:")
+                        
                         U.assert_eq(expected_http_response_code, actual_http_response_code, "#{title} HTTP response code")
                         U.assert_eq(expected_result, actual_result, title)
                 end
@@ -204,16 +212,32 @@ class Json_change_tracker
                         cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
                         z = %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}", "cspec2" : "#{cspec2}" }]
-                        test_error_result_from_json(500, z, %Q[Error encountered: autodiscover of dependencies failed trying to understand deps.gradle: error: bad exit code from
+                        expected = %Q[Error encountered: error: bad exit code from
                         cd "/scratch/change_tracker/git/git.osn.oraclecorp.com/osn"; git clone  "git@git.osn.oraclecorp.com:osn/cec-server-integrationXXXXX.git"
                         GitLab: The project you were looking for could not be found.
                         fatal: The remote end hung up unexpectedly
-                        ], "close neighbors list changes")
+                        
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:NNN:in `block in system'
+                        /opt/sensu/embedded/lib/ruby/2.0.0/open3.rb:NNN:in `popen_run'
+                        /opt/sensu/embedded/lib/ruby/2.0.0/open3.rb:NNN:in `popen3'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:NNN:in `system'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `codeline_disk_write'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `unreliable_autodiscovery_of_dependencies_from_build_configuration'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `from_spec'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `get_Compound_commit'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `get_Compound_commit_pair'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `go'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test_error_result_from_json'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test_nonexistent_codeline'
+                        /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test'
+                        cli_main.rb:NNN:in `<main>'
+                        ]
+                        test_error_result_from_json(500, z, expected, "nonexistent codeline")
                 end
                 def test()
+                        test_nonexistent_codeline
                         test_bad_json
                         test_list_changes_close_neighbors
-                        test_nonexistent_codeline
                 end
         end
 end
