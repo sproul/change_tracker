@@ -10,9 +10,33 @@ class Error_record < Exception
         attr_accessor :emsg
         attr_accessor :http_response_code
         def initialize(emsg, http_response_code=nil)
-                self.emsg = emsg + "\n" + Thread.current.backtrace.join("\n")
+                self.emsg = emsg # If we want to encapsulate stack trace in emsg, add this:              + "\n" + self.current_backtrace
                 self.http_response_code = http_response_code
-	end
+        end
+        def current_backtrace()
+                # get stack, but don't include Error_record frames
+                z = ""
+                skipping_initial_error_record_frames = true
+                Thread.current.backtrace.each do | frame |
+                        if skipping_initial_error_record_frames
+                                if frame =~ /:in `raise'$/
+                                        skipping_initial_error_record_frames = false
+                                end
+                        else
+                                z << frame << "\n"
+                        end
+                end
+                z
+        end
+        def to_s()
+                z = "Error_record("
+                if self.http_response_code
+                        z << "http_response_code=#{self.http_response_code}, "
+                else
+                        z << ""
+                end
+                z << "emsg=#{self.emsg})"
+        end
         class << self
                 attr_accessor :emsg
                 attr_accessor :http_response_code
@@ -25,7 +49,7 @@ class Error_holder
                 self.error
         end
         def raise(emsg, http_response_code=nil)
-                self.error = Error_record.new(msg, http_response_code)
+                self.error = Error_record.new(emsg, http_response_code)
                 Kernel.raise self
         end
 end
@@ -49,6 +73,78 @@ class Change_tracker
         class << self
         end
 end
+
+class File_set
+        attr_accessor :repo
+        attr_accessor :file_list
+        def initialize(repo, file_list)
+                self.repo = repo
+                self.file_list = file_list.sort
+        end
+        def to_json()
+                h = Hash.new
+                h[self.repo.spec] = file_list
+                h.to_json
+        end
+end
+
+class File_sets
+        attr_accessor :file_sets
+        def initialize()
+                self.file_sets = Hash.new
+        end
+        def add_set(file_set)
+                fsrs = file_set.repo.spec
+                if self.file_sets.has_key?(fsrs)
+                        self.file_sets[fsrs] = (self.file_sets[fsrs] + file_set.file_list).uniq.sort
+                else
+                        self.file_sets[fsrs] = file_set.file_list
+                end
+        end
+        def add_sets(other_fs)
+                other_fs.file_sets.each do | set |
+                        self.add_set(set)
+                end
+        end
+        def eql?(other)
+                if self.file_sets.size != other.file_sets.size
+                        return false
+                end
+                self.file_sets.keys.each do | repo |
+                        if !self.file_sets[repo].eql?(other.file_sets[repo])
+                                return false
+                        end
+                end
+                return true
+        end
+        def to_json()
+                self.file_sets.to_json
+        end
+        class << self
+                TEST_REPO_NAME1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;"
+                TEST_REPO_NAME2 = "git;git.osn.oraclecorp.com;osn/cec-else;;"
+                
+                def test()
+                        r1 = Git_repo.new(TEST_REPO_NAME1)
+                        r2 = Git_repo.new(TEST_REPO_NAME2)
+                        fs1 = File_set.new(r1, ["a", "b"])
+                        fs2 = File_set.new(r1, ["a", "b"])
+                        fs3 = File_set.new(r2, ["a", "z"])
+                        fss1 = File_sets.new
+                        fss1.add_set(fs1)
+                        fss2 = File_sets.new
+                        fss2.add_set(fs1)
+                        U.assert_eq(fss1, fss2, "File_sets.test0")
+                        fss2.add_set(fs2)
+                        U.assert_eq(fss1, fss2, "File_sets.test1")
+                        fss2.add_set(File_set.new(r1, ["c", "b"]))
+                        U.assert_json_eq({r1.spec => ["a", "b", "c"]}, fss2, "File_sets.test2")
+                        fss2.add_set(fs3)
+                        U.assert_json_eq({r1.spec => ["a", "b", "c"], r2.spec => ["a", "z"]}, fss2, "File_sets.test3")
+                end
+        end
+end
+
 
 class Json_obj
         attr_accessor :h
@@ -142,12 +238,20 @@ class Git_repo < Error_holder
         def get_project_name_prefix()
                 project_name.sub(/\/.*/, '')
         end
-        def get_file(path)
+        def get_file(path, commit_id)
                 fn = "#{self.codeline_disk_root}/#{path}"
-                if !File.exist?(fn)
-                        self.raise "could not read #{fn}"
+                # for current synced file, you can execute the following, but really I need to be able to pull out content by commit_id:
+                #if !File.exist?(fn)
+                #self.raise "could not read #{fn}"
+                #end
+                #IO.read(fn)
+
+                saved_file_by_commit = "#{fn}.___#{commit_id}"
+                if !File.exist?(saved_file_by_commit)
+                        cmd = "git show #{commit_id}:#{path} > #{saved_file_by_commit}"
+                        self.system(cmd)
                 end
-                IO.read(fn)
+                IO.read(saved_file_by_commit)
         end
         def get_credentials()
                 username, pw = Global.get_credentials("#{source_control_server}/#{project_name}", true)
@@ -194,7 +298,7 @@ class Git_repo < Error_holder
                         # git clone ...
                         # git checkout master
                         # git pull      # may not be necessary
-                        # 
+                        #
                         U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
                 end
                 if !codeline_disk_exist?
@@ -233,7 +337,7 @@ class Git_repo < Error_holder
                         gr = Git_repo.new(TEST_REPO_NAME)
                         gr.codeline_disk_write
                         U.assert(gr.codeline_disk_exist?)
-                        deps_gradle_content = gr.get_file("deps.gradle")
+                        deps_gradle_content = gr.get_file("deps.gradle", "2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
                         U.assert(deps_gradle_content)
                         U.assert(deps_gradle_content != "")
                         manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
@@ -263,6 +367,12 @@ class Git_commit < Error_holder
                 self.commit_id = commit_id
                 self.comment = comment
         end
+        def unreliable_autodiscovery_of_dependencies_from_build_configuration()
+                self.repo.codeline_disk_write
+                deps_gradle_content = self.repo.get_file("deps.gradle", self.commit_id)
+                dependency_commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, self.repo)
+                dependency_commits
+        end
         def list_changes_since(other_commit)
                 change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_commit.commit_id}..#{commit_id}")
                 commits = []
@@ -274,12 +384,15 @@ class Git_commit < Error_holder
                 commits
         end
         def list_changed_files()
-                [ self.repo.spec, repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}") ]
+                File_set.new(self.repo, repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}"))
         end
         def list_files_changed_since(other_commit)
-                changes = list_changes_since(other_commit)
-                files_changed_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
-                return files_changed_with_duplicates.uniq
+                commits = list_changes_since(other_commit)
+                fss = File_sets.new
+                commits.each do | commit |
+                        fss.add_set(commit.list_changed_files)
+                end
+                return fss
         end
         def eql?(other)
                 other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
@@ -412,11 +525,11 @@ class Git_commit < Error_holder
                         compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                         gc1 = Git_commit.from_spec(compound_spec1)
                         gc2 = Git_commit.from_spec(compound_spec2)
-                        
+
                         changed_files = gc2.list_files_changed_since(gc1)
                         changed_files2 = Git_commit.list_files_changed_between(compound_spec1, compound_spec2)
                         U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 1")
-                        U.assert_eq(["git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", ["component.properties", "deps.gradle"]], changed_files, "Git_commit.test_list_files_changed_since")
+                        U.assert_json_eq({"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;" => ["component.properties", "deps.gradle"]}, changed_files, "Git_commit.test_list_files_changed_since")
                 end
                 def test_json()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
@@ -440,7 +553,7 @@ class Git_commit < Error_holder
                                 Compound_commit.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
                                 bug_IDs = gc2.list_bug_IDs_since(gc1)
                                 U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
-                                
+
                                 bug_IDs2 = Compound_commit.list_bug_IDs_between(compound_spec1, compound_spec2)
                                 U.assert_eq(bug_IDs, bug_IDs2, "verify same result  from list_bug_IDs_between wrapper")
                         ensure
@@ -448,6 +561,9 @@ class Git_commit < Error_holder
                         end
                 end
                 def test()
+                        test_list_bug_IDs_since()
+                        test_list_changes_since()
+
                         gc1 = Git_commit.new(TEST_REPO_SPEC, "dc68aa99903505da966358f96c95f946901c664b")
                         gc2 = Git_commit.new(TEST_REPO_SPEC, "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1")
                         gc1_file_list = gc1.list_files
@@ -494,8 +610,6 @@ class Git_commit < Error_holder
                         U.assert_eq(gc1, changed_commits1[0], 'gc1 json ck')
                         U.assert_eq(gc2, changed_commits2[0], 'gc2 json ck')
                         test_json
-                        test_list_changes_since()
-                        test_list_bug_IDs_since()
                         test_list_files_changed_since()
                 end
         end
@@ -538,9 +652,12 @@ class Compound_commit < Error_holder
                 z
         end
         def list_files_changed_since(other_compound_commit)
-                changes = list_changes_since(other_compound_commit)
-                files_changed_with_duplicates = changes.inject([]){|files_changed, commit| files_changed + commit.list_changed_files}
-                return files_changed_with_duplicates.uniq
+                commits = list_changes_since(other_compound_commit)
+                fss = File_sets.new
+                commits.each do | commit |
+                        fss.add_set(commit.list_changed_files)
+                end
+                return fss
         end
         def list_changes_since(other_compound_commit)
                 pairs = get_pairs_of_commits_with_matching_repo(other_compound_commit)
@@ -629,7 +746,7 @@ class Compound_commit < Error_holder
                 def list_last_changes(repo_spec, n)
                         gr = Git_repo.new(repo_spec)
                         # Example log entry:
-                        # 
+                        #
                         # "commit 22ab587dd9741430c408df1f40dbacd56c657c3f"
                         # "Author: osnbt on socialdev Jenkins <ade-generic-osnbt_ww@oracle.com>"
                         # "Date:   Tue Feb 20 09:28:24 2018 -0800"
@@ -705,15 +822,7 @@ class Compound_commit < Error_holder
                 def from_spec(repo_spec_and_commit_id, dependency_commits=nil)
                         top_commit = Git_commit.from_spec(repo_spec_and_commit_id)
                         if !dependency_commits
-                                begin
-                                        gr = top_commit.repo
-                                        gr.codeline_disk_write
-                                        deps_gradle_content = gr.get_file("deps.gradle")
-                                        #puts "xxxx: #{deps_gradle_content}"
-                                        dependency_commits = Cec_gradle_parser.to_dep_commits(deps_gradle_content, gr)
-                                rescue Object => emsg_obj
-                                        raise "autodiscover of dependencies failed trying to understand deps.gradle: #{emsg_obj.to_s}"
-                                end
+                                dependency_commits = top_commit.unreliable_autodiscovery_of_dependencies_from_build_configuration
                         end
                         Compound_commit.new(top_commit, dependency_commits)
                 end
@@ -725,7 +834,7 @@ class Compound_commit < Error_holder
                         compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                         cc1 = Compound_commit.from_spec(compound_spec1)
                         cc2 = Compound_commit.from_spec(compound_spec2)
-                        
+
                         gc2 = Git_commit.from_spec(compound_spec2)
 
                         changes = cc2.list_changes_since(cc1)
@@ -735,18 +844,28 @@ class Compound_commit < Error_holder
                         g1b = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
                         g1a = Git_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
-                        U.assert_eq([gc2, g1b, g1a], changes)
+                        #U.assert_eq([gc2, g1b, g1a], changes)  # apparently array == gets resolved in terms of string comparisons; this fails here because the actual values have non-nil comment fields
+                        U.assert_eq(gc2, changes[0], "test_list_changes_since.0")
+                        U.assert_eq(g1b, changes[1], "test_list_changes_since.1")
+                        U.assert_eq(g1a, changes[2], "test_list_changes_since.2")
                 end
                 def test_list_files_changed_since()
                         compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
                         compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                         cc1 = Compound_commit.from_spec(compound_spec1)
                         cc2 = Compound_commit.from_spec(compound_spec2)
-                        
+
                         changed_files = cc2.list_files_changed_since(cc1)
+                        
                         changed_files2 = Compound_commit.list_files_changed_between(compound_spec1, compound_spec2)
                         U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
-                        U.assert_eq(["git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", ["component.properties", "deps.gradle"]], changed_files)
+                        
+                        expected_changed_files = {
+                        "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;" => [ "component.properties", "deps.gradle"],
+                        "git;git.osn.oraclecorp.com;ccs/caas;master;" => [ "component.properties", "deps.gradle"]
+                        }
+                        
+                        U.assert_json_eq(expected_changed_files, changed_files)
                 end
                 def test_list_bug_IDs_since()
                         # I noticed that for the commits in this range, there is a recurring automated comment "caas.build.pl.master/3013/" -- so
@@ -767,25 +886,27 @@ class Compound_commit < Error_holder
                 end
                 def test_json_export()
                         json = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
-                        U.assert_json_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}], json, "Compound_commit.test_json_export")
+                        U.assert_json_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id":"2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}], json, "Compound_commit.test_json_export")
                 end
                 def test()
+                        test_list_files_changed_since()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         cc = Compound_commit.from_spec("#{repo_spec};#{valentine_commit_id}")
                         U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
                         json = cc.to_json
-                        U.assert_json_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;","commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;","commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]}', json, "dependency_gather1")
+                        U.assert_json_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id":"2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}', json, "dependency_gather1")
+
                         cc2 = Compound_commit.from_json(json)
                         U.assert_eq(cc, cc2, "json copy dependency_gather1")
 
                         cc_latest = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
                         U.assert(cc_latest && cc_latest != "")
                         cc9 = Compound_commit.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
-                        U.assert_json_eq('{ "top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;", "top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99", "deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master;", "commit_id":"a1466659536cf2225eadf56f43972a25e9ee1bed"}, { "repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master;", "commit_id":"749581bac1d93cda036d33fbbdbe95f7bd0987bf"} ] }', cc9.to_json, "cc9.to_json")
+                        U.assert_json_eq(%Q[{"top_commit_repo": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id": "2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps": [{"repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id": "2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec": "git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id": "aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}], cc9.to_json, "cc9.to_json")
+
                         test_list_changes_since()
                         test_list_bug_IDs_since()
-                        test_list_files_changed_since()
                         test_json_export()
                 end
         end
@@ -876,18 +997,22 @@ class Cec_gradle_parser < Error_holder
 
         end
         class << self
+                attr_accessor :trace_autodiscovery
+                
                 def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
                         gradle_deps_text.split(/\n/).grep(/^\s*manifest\s+"com./).each do | raw_manifest_line |
 
                                 # raw_manifest_line=  manifest "com.oracle.cecs.caas:manifest:1.master_external.528"         //@trigger
-                                #puts "raw_manifest_line=#{raw_manifest_line}"
-
+                                puts "Cec_gradle_parser.to_dep_commits: raw_manifest_line=#{raw_manifest_line}" if trace_autodiscovery
+                                
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
+                                puts "Cec_gradle_parser.to_dep_commits: resolved to pom_url=#{pom_url}" if trace_autodiscovery
                                 pom_content = U.rest_get(pom_url)
+                                puts "Cec_gradle_parser.to_dep_commits: ready to parse pom_content=#{pom_content}" if trace_autodiscovery
                                 h = XmlSimple.xml_in(pom_content)
                                 # {"git.repo.name"=>["caas.git"], "git.repo.branch"=>["master_external"], "git.repo.commit.id"=>["90f08f6882382e0134191ca2a993191c2a2f5b48"], "git.commit-id"=>["caas.git:90f08f6882382e0134191ca2a993191c2a2f5b48"], "jenkins.git-branch"=>["master_external"], "jenkins.build-url"=>["https://osnci.us.oracle.com/job/caas.build.pl.master_external/528/"], "jenkins.build-id"=>["2018-02-16_21:51:53"]}
-                                # puts h["properties"][0]
+                                puts %Q[Cec_gradle_parser.to_dep_commits: parsed pom xml, and seeing h["properties"][0]=#{h["properties"][0]}] if trace_autodiscovery
 
                                 git_project_basename = h["properties"][0]["git.repo.name"][0] # e.g., caas.git
                                 git_repo_branch = h["properties"][0]["git.repo.branch"][0]
@@ -899,9 +1024,11 @@ class Cec_gradle_parser < Error_holder
                                         repo_name = "#{gr.get_project_name_prefix}/#{git_project_basename}"
                                 end
                                 repo_name.sub!(/.git$/, '')
-                                
                                 repo_spec = Git_repo.make_spec(gr.source_control_server, repo_name, git_repo_branch)
-                                dependency_commits << Git_commit.new(repo_spec, git_repo_commit_id)
+                                dependency_commit = Git_commit.new(repo_spec, git_repo_commit_id)
+                                dependency_commits << dependency_commit
+                                
+                                puts "Cec_gradle_parser.to_dep_commits: dep repo_name=#{repo_name} (commit #{git_repo_commit_id}), resolved to dep #{dependency_commit}" if trace_autodiscovery
 
                                 # jenkins.git-branch # master_external
                                 # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/
@@ -966,7 +1093,6 @@ class Cec_gradle_parser < Error_holder
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/officeaddins/manifest/1.master_internal.161/manifest-1.master_internal.161.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/cef/manifest/1.master_internal.3790/manifest-1.master_internal.3790.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/caas/manifest/1.master_internal.2364/manifest-1.master_internal.2364.pom")
-                        puts "EOT"
                 end
         end
 end

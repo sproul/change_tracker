@@ -115,7 +115,7 @@ class Json_change_tracker
                                 Json_change_tracker.examples_by_op["list_bug_IDs_between"] = "@@ example of list_bug_IDs_between\n"
                                 Json_change_tracker.examples_by_op["list_changes_between"] = "@@ example of list_changes_between\n"
                                 Json_change_tracker.examples_by_op["list_files_changed_between"] = "@@ example of list_files_changed_between\n"
-                                
+
                                 z = ""
                                 Json_change_tracker.examples_by_op.values.each do | example |
                                         z << example
@@ -165,7 +165,39 @@ class Json_change_tracker
                         cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
                         z = %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}", "cspec2" : "#{cspec2}" }]
-                        test_assert_result_from_json(z, %Q[[{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"06c85af5cfa00b0e8244d723517f8c3777d7b77e","comment":"New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"}, {"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"22ab587dd9741430c408df1f40dbacd56c657c3f","comment":"New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"}, {"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"7dfff5f400b3011ae2c4aafac286d408bce11504","comment":"New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"} ] ], "close neighbors list changes")
+                        expected = %Q[[
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+                        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+                        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+                        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master;",
+                        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master;",
+                        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master;",
+                        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+                        }
+                        ]]
+                        test_assert_result_from_json(z, expected, "close neighbors list changes")
                 end
                 def test_nonexistent_codeline()
                         cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integrationXXXXX;;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -173,10 +205,10 @@ class Json_change_tracker
 
                         z = %Q[{ "op" : "list_changes_between", "cspec1" : "#{cspec1}", "cspec2" : "#{cspec2}" }]
                         test_error_result_from_json(500, z, %Q[Error encountered: autodiscover of dependencies failed trying to understand deps.gradle: error: bad exit code from
-cd "/scratch/change_tracker/git/git.osn.oraclecorp.com/osn"; git clone  "git@git.osn.oraclecorp.com:osn/cec-server-integrationXXXXX.git"
-GitLab: The project you were looking for could not be found.
-fatal: The remote end hung up unexpectedly
-], "close neighbors list changes")
+                        cd "/scratch/change_tracker/git/git.osn.oraclecorp.com/osn"; git clone  "git@git.osn.oraclecorp.com:osn/cec-server-integrationXXXXX.git"
+                        GitLab: The project you were looking for could not be found.
+                        fatal: The remote end hung up unexpectedly
+                        ], "close neighbors list changes")
                 end
                 def test()
                         test_bad_json

@@ -10,7 +10,7 @@ Encoding.default_internal = Encoding::UTF_8
 
 class SortedArray < Array
         attr_accessor :inverted
-        
+
         def reverse_automatic_sorting()
                 self.inverted = true
                 self.sort{|a,b| b<=>a }
@@ -209,7 +209,7 @@ class U
         LOG_WARNING = 3
         LOG_ERROR = 4
         LOG_ALWAYS = 5
-        
+
         MAIL_MODE_MOCK = 0
         MAIL_MODE_SMTP = 1
         MAIL_MODE_TEST = 2
@@ -371,7 +371,7 @@ class U
 
                         lines = U.mail_mode("abc@x.com", "some subject", "mail about xyz@x.com\n and other stuff about def@x.com\n", false)
                         U.assert_eq("To: abc@x.com\n", lines[0])
-                        
+
                         lines = U.mail_mode("abc@x.com", "some subject", "mail about xyz@x.com\n and other stuff about def@x.com\n", false)
                         U.assert_eq("To: abc@x.com, xyz@x.com, def@x.com\n", lines[0])
                 end
@@ -410,7 +410,7 @@ class U
                                 print z if U.mail_mode == U::MAIL_MODE_MOCK
                                 return z
                         when U::MAIL_MODE_SMTP
-                   raise "IMPL"
+                                raise "IMPL"
                         else
                                 raise "bad U.mail_mode#{U.mail_mode}"
                         end
@@ -547,7 +547,15 @@ class U
                         U.assert_eq(expected_output, actual_output, "test transforming #{input}")
                 end
                 def assert_json_eq(expected, actual, caller_msg=nil, raise_if_fail=false)
-                        emsg = nil
+                        if !caller_msg
+                                caller_msg = "json comparison (#{actual})"
+                        end
+                        if !actual.is_a?(String)
+                                actual = actual.to_json
+                        end
+                        if !expected.is_a?(String)
+                                expected = expected.to_json
+                        end
                         expected_json_obj = JSON.parse(expected)
                         begin
                                 actual_json_obj = JSON.parse(actual)
@@ -563,33 +571,48 @@ class U
                                 pretty_expected_json = JSON.pretty_generate(expected_json_obj)
                                 pretty_actual_json = JSON.pretty_generate(actual_json_obj)
                                 U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
+                                return
                         rescue Object => emsg_obj
-                                emsg = emsg_obj.to_s
-                        end
-                        # if we get here, that means actual_json was probably not legal
-                        if !caller_msg
-                                caller_msg = "json comparison (#{actual}): #{emsg}"
+                                caller_msg += ": #{emsg_obj.to_s}"
                         end
                         U.assert_eq(expected, actual, caller_msg, raise_if_fail)
                 end
-                def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false)
-                        U.init unless U.log_level
-                        
-                        expected.gsub!(/^\s*/, '') if expected.is_a?(String)
-                        
-                        if !expected.eql?(actual)
-                                expected = "nil" if expected==nil
-                                actual   = "nil" if   actual==nil
-                                if caller_msg
-                                        caller_msg = "#{caller_msg}: "
-                                end
-                                multiline = (expected =~ /\n/)
-                                if multiline
-                                        msg = "MISMATCH: #{caller_msg}expected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
+                def calling_frame_to_s()
+                        # assume that it is all test plumbing in module U, and so what we want is the location of the caller outside the module
+                        skipping_initial_U_frames = true
+                        frame_that_asserted = nil
+                        previous_frames = ""
+                        caller.each do | frame |
+                                if skipping_initial_U_frames
+                                        if frame !~ /u.rb:/
+                                                skipping_initial_U_frames = false
+                                                frame_that_asserted = frame
+                                        end 
                                 else
-                                        msg = "MISMATCH: #{caller_msg}expected:\n#{expected}\nactual:\n#{actual}\n"
+                                        previous_frames << frame << "\n"
                                 end
-                                U.assert(false, msg, raise_if_fail)
+                        end
+                        return frame_that_asserted, previous_frames
+                end
+                def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false, silent_if_fail=false)
+                        U.init unless U.log_level
+
+                        expected.gsub!(/^\s*/, '') if expected.is_a?(String)
+
+                        if !expected.eql?(actual)
+                                if !silent_if_fail
+                                        expected = "nil" if expected==nil
+                                        actual   = "nil" if   actual==nil
+                                        if caller_msg
+                                                caller_msg = "#{caller_msg}: "
+                                        end
+                                        frame_that_asserted, previous_frames = U.calling_frame_to_s
+                                        msg = "#{frame_that_asserted}: MISMATCH: #{caller_msg}"
+                                        # treat everything as if it is multiline to make it easier for nmidnight to parse
+                                        msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
+                                        msg += previous_frames
+                                        U.assert(false, msg, raise_if_fail)
+                                end
                                 ok = false
                         else
                                 z = "OK "

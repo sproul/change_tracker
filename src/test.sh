@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ -z "$1" ]; then
+        default_op=test
+else
+        default_op=''
+fi
 # ct  for general access to the cli
 # ctc for general access to the json interface
 
@@ -44,7 +49,7 @@ EOF
 
 }
 
-Ruby_change_tracker -test
+Ruby_change_tracker $default_op $*
 #Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
 #Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;" 500
 

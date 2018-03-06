@@ -42,13 +42,18 @@ while ARGV.size > j do
                 exit
         when "-test"
                 U.test_mode = true
-                Json_change_tracker.test
-                Global.test
-                Git_commit.test
-                Git_repo.test
+                STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
+                File_sets.test
                 Compound_commit.test
+                Git_commit.test
+                Global.test
+                Git_repo.test
                 Cec_gradle_parser.test
+                Json_change_tracker.test
+                puts "EOT"
                 exit
+        when "-trace_autodiscovery"
+                Cec_gradle_parser.trace_autodiscovery = true
         when "-v"
                 U.trace = true
         else
