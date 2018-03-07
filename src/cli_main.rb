@@ -42,7 +42,6 @@ while ARGV.size > j do
                 exit
         when "-test"
                 U.test_mode = true
-                STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
                 Json_change_tracker.test
                 File_sets.test
                 Compound_commit.test

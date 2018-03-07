@@ -6,6 +6,8 @@ require 'pp'
 require 'net/http'
 require 'json'
 
+STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
+
 class Error_record < Exception
         attr_accessor :emsg
         attr_accessor :http_response_code

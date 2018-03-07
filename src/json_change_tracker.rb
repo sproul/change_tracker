@@ -17,6 +17,9 @@ class Json_change_tracker
         def initialize()
                 Json_change_tracker.init()
         end
+        def error_msg(emsg)
+                "<h3>Error: <font color=red>#{emsg}</font></h3>"
+        end
         def exception()
                 self.error
         end
@@ -48,14 +51,26 @@ class Json_change_tracker
                 return cc1, cc2
         end
         def usage(emsg)
-                z = ''
-                z << emsg << "\n"
+                z = start_html_page()
+                z << error_msg(emsg)
                 z << Json_change_tracker.examples(self.op)
                 z
         end
+        def start_html_page()
+                %Q[<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!doctype html>
+                <head>
+                <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+                <title>Change tracker</title>
+                </head>
+                <body bgcolor=\"#CCCCCC\"><font face=arial>]
+        end
+        def end_html_page()
+                "</font></body></html>"
+        end
         def system_error(emsg, backtrace=nil)
                 # nicer formatting could be implemented here to make the error more presentable in the browser:
-                z = "Error encountered: #{emsg}"
+                z = start_html_page
+                z << "<h4>Error encountered: " << error_msg(emsg)
                 if backtrace
                         z << "#{backtrace.join("\n")}\n"
                 end
@@ -63,6 +78,9 @@ class Json_change_tracker
                 z
         end
         def go(json_text)
+                if !json_text
+                        return 400, usage("json_text is a required argument")
+                end
                 http_response_code = 200
                 self.op = nil    # in case the parse fails...
                 h = nil
@@ -74,6 +92,7 @@ class Json_change_tracker
                 if !h
                         return 400, usage("trouble parsing \"#{json_text}\": #{emsg}")
                 end
+                json_output = nil
                 begin
                         self.op = get(h, "op")
                         case self.op
@@ -86,6 +105,7 @@ class Json_change_tracker
                         when "list_files_changed_between"
                                 cc1, cc2 = get_Compound_commit_pair(h)
                                 x = cc2.list_files_changed_since(cc1)
+                                json_output = x.to_json
                         else
                                 return 400, usage("did not know how to interpret op '#{op}'")
                         end
@@ -99,17 +119,21 @@ class Json_change_tracker
                 rescue User_error => e_obj
                         return 400, usage(e_obj.emsg)
                 end
-                z = nil
-                x.each do | elt |
-                        if !z
-                                z = "[\n"
-                        else
-                                z << ",\n"
+                if !json_output
+                        x.each do | elt |
+                                if !json_output
+                                        json_output = "[\n"
+                                else
+                                        json_output << ",\n"
+                                end
+                                json_output << "\t" << elt.to_json
                         end
-                        z << "\t" << elt.to_json
+                        if !json_output
+                                json_output = "["
+                        end
+                        json_output << "\n]\n"
                 end
-                z << "\n]\n"
-                return http_response_code, z
+                return http_response_code, json_output
         end
         class << self
                 attr_accessor :examples_by_op
@@ -117,9 +141,11 @@ class Json_change_tracker
                 def init()
                         if !Json_change_tracker.examples_by_op
                                 Json_change_tracker.examples_by_op = Hash.new
-                                Json_change_tracker.examples_by_op["list_bug_IDs_between"] = "@@ example of list_bug_IDs_between\n"
-                                Json_change_tracker.examples_by_op["list_changes_between"] = "@@ example of list_changes_between\n"
-                                Json_change_tracker.examples_by_op["list_files_changed_between"] = "@@ example of list_files_changed_between\n"
+                                Json_change_tracker.examples_by_op["list_bug_IDs_between"] = init_example_for_op("list_bug_IDs_between", "http://slcipcn:4567/?json=%7B%20%22op%22%20%3A%20%22list_bug_IDs_between%22%2C%20%22cspec1%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%20%22cspec2%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%20%7D%20", %Q[{ "op" : "list_bug_IDs_between", "cspec1" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64", "cspec1_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec2_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec2" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
+                                
+                                Json_change_tracker.examples_by_op["list_changes_between"] = init_example_for_op("list_changes_between", "http://slcipcn:4567/?json=%7B%20%20%22op%22%20%3A%20%22list_changes_between%22%2C%20%20%22cspec1%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%20%20%22cspec2%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%20%20%7D%20", %Q[{ "op" : "list_changes_between", "cspec1" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64", "cspec1_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec2" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e", "cspec2_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }])
+                                
+                                Json_change_tracker.examples_by_op["list_files_changed_between"] = init_example_for_op("list_files_changed_between", "http://slcipcn:4567/?json=%7B%20%22op%22%20%3A%20%22list_files_changed_between%22%2C%20%20%22cspec1%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%20%20%22cspec2%22%20%3A%20%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%20%20%7D%20", %Q[{ "op" : "list_files_changed_between", "cspec1" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64", "cspec1_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec2_deps" : [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec2" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
 
                                 z = ""
                                 Json_change_tracker.examples_by_op.values.each do | example |
@@ -129,9 +155,18 @@ class Json_change_tracker
                                 STDOUT.sync     # always flush immediately
                         end
                 end
+                def init_example_for_op(op, url_example, json_example)
+                        json_obj = JSON.parse(json_example)
+                        pretty_printed_json_example = JSON.pretty_generate(json_obj)
+                        
+                        z = "<h4>#{op} operation:</h4>"
+                        z << "<h5>Example URL:</h5><a href='#{url_example}'>#{url_example}</a>\n"
+                        z << "<h5>Example JSON:</h5><pre>#{pretty_printed_json_example}\n</pre>\n"
+                        z
+                end
                 def examples(example_op=nil)
                         init
-                        z = "Example usage:\n"
+                        z = "\n<h3>Example usage:</h3>\n"
                         if !example_op || !Json_change_tracker.examples_by_op.has_key?(example_op)
                                 z << Json_change_tracker.usage_full_examples
                         else
@@ -151,6 +186,14 @@ class Json_change_tracker
                         actual_http_response_code, actual_result = Json_change_tracker.new.go(json_input)
                         
                         actual_result.gsub!(/:\d+:/, ":NNN:")
+                        actual_result.gsub!(/cli_main.rb:.*/, "\n")     #       stack frame contains <main> which is confusing
+                        actual_result.gsub!(/<title>.*?<\/title>/, "")  #       strip out HTML
+                        actual_result.gsub!(/<h3>Error: /, "")          #       strip out HTML
+                        actual_result.gsub!(/<.*?>/, "")                #       strip out HTML
+                        actual_result.gsub!(/\s*$/, "")                 #       strip out extra white space
+                        actual_result.gsub!(/^\s*/, "")                 #       strip out extra white space
+                        actual_result.gsub!(/$/, "\n")                  #       end w/ a newline
+                        actual_result.gsub!(/\n+/, "\n")                #       strip out extra white space
                         
                         U.assert_eq(expected_http_response_code, actual_http_response_code, "#{title} HTTP response code")
                         U.assert_eq(expected_result, actual_result, title)
@@ -230,7 +273,6 @@ class Json_change_tracker
                         /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test_error_result_from_json'
                         /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test_nonexistent_codeline'
                         /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test'
-                        cli_main.rb:NNN:in `<main>'
                         ]
                         test_error_result_from_json(500, z, expected, "nonexistent codeline")
                 end
