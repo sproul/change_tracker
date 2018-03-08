@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!doctype html>
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>Change tracker</title>
+    <script src="jquery-3.1.1.js"></script>
+</head>
+<body bgcolor="#CCCCCC"><font face=arial>
+<script type="text/javascript">
+    function submit_json()
+    {
+        var json = $('#json_textarea').val()
+        url = "/?pretty=true&json=" + escape(json)
+        var ct_iframe = $('#ct_iframe')
+        ct_iframe.attr('src', url)
+    }
+    function init()
+    {
+        document.xform.json_textarea.focus()
+    }
+    onload=init
+</script>
+
+Enter JSON here to be submitted to the change tracker application
+<form name="xform">
+        <textarea name=q id='json_textarea' cols=140 rows=20></textarea>
+        <br>
+        <input type=button value=Submit onclick='submit_json()'>
+        <br>
+        <iframe id='ct_iframe' height="100% " width="100%">
+</form>
+</body>
+</html>

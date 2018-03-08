@@ -383,13 +383,17 @@ class U
                         end
                         return nil
                 end
-                def file_tmp_name(base_name='', ext='', dir=nil)
+                def file_tmp_name(base_name='', ext='', dir=nil, content=nil)
                         id = Thread.current.hash * Time.now.to_i % 2**32
-                        name = "%s%d.%s" % [base_name, id, ext]
+                        fn = "%s%d.%s" % [base_name, id, ext]
                         if !dir
                                 dir = ENV["TMP"]
                         end
-                        dir ? File.join(dir, name) : name
+                        fn = (dir ? File.join(dir, fn) : fn)
+                        if content
+                                File.write(fn, content)
+                        end
+                        fn
                 end
                 def rest_get(url)
                         resp = Net::HTTP.get_response(URI.parse(url))
@@ -577,14 +581,17 @@ class U
                         end
                         U.assert_eq(expected, actual, caller_msg, raise_if_fail)
                 end
-                def calling_frame_to_s()
-                        # assume that it is all test plumbing in module U, and so what we want is the location of the caller outside the module
+                def asserting_frame_to_s()
+                        # this is to support elisp which finds/changes the first caller in the chain that asserts some expected string value.
+                        # 
+                        # assume that it is all test plumbing in module U (and any additional methods which contain the string 'assert'),
+                        # and so what we want is the location of the caller just above U.* and *assert*
                         skipping_initial_U_frames = true
                         frame_that_asserted = nil
                         previous_frames = ""
                         caller.each do | frame |
                                 if skipping_initial_U_frames
-                                        if frame !~ /u.rb:/
+                                        if frame !~ /u.rb:/ && frame !~ /assert_/
                                                 skipping_initial_U_frames = false
                                                 frame_that_asserted = frame
                                         end 
@@ -593,6 +600,14 @@ class U
                                 end
                         end
                         return frame_that_asserted, previous_frames
+                end
+                def diff(s1, s2)
+                        fn1 = file_tmp_name("U.diff_f1", nil, nil, s1)
+                        fn2 = file_tmp_name("U.diff_f2", nil, nil, s2)
+                        diff_output = `diff #{fn1} #{fn2}`
+                        FileUtils.rm(fn1)
+                        FileUtils.rm(fn2)
+                        diff_output
                 end
                 def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false, silent_if_fail=false)
                         U.init unless U.log_level
@@ -606,10 +621,15 @@ class U
                                         if caller_msg
                                                 caller_msg = "#{caller_msg}: "
                                         end
-                                        frame_that_asserted, previous_frames = U.calling_frame_to_s
+                                        frame_that_asserted, previous_frames = U.asserting_frame_to_s
                                         msg = "#{frame_that_asserted}: MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
                                         msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
+                                        if expected.lines.count > 2
+                                                msg += "========================================================================================================"
+                                                msg += U.diff(expected, actual)
+                                                msg += "========================================================================================================"
+                                        end
                                         msg += previous_frames
                                         U.assert(false, msg, raise_if_fail)
                                 end
@@ -826,6 +846,7 @@ class U
                         #
 
                         puts "OK u"
+                        raise "lksdfjjjjjjjjjjjjjjj"
                 end
                 def only_child_of(dir)
                         children = Dir.glob("#{dir}/*")
