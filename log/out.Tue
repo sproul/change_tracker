@@ -1,0 +1,78 @@
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:8: warning: setting Encoding.default_external
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:9: warning: setting Encoding.default_internal
+SERVER: == Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+SERVER: 127.0.0.1 - - [06/Mar/2018:13:30:36 -0800] "GET /exit HTTP/1.1" 1 - 0.0152
+SERVER: == Sinatra has ended his set (crowd applauds)
+SERVER: Thin web server (v1.6.3 codename Protein Powder)
+SERVER: Maximum connections set to 1024
+SERVER: Listening on 0.0.0.0:4567, CTRL+C to stop
+SERVER: Stopping ...
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:8: warning: setting Encoding.default_external
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:9: warning: setting Encoding.default_internal
+SERVER: == Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+SERVER: Thin web server (v1.6.3 codename Protein Powder)
+SERVER: Maximum connections set to 1024
+SERVER: Listening on 0.0.0.0:4567, CTRL+C to stop
+SERVER: here comes pp request..., url=http://slcipcm:4567
+SERVER: 
+SERVER: #<Sinatra::Request:0x00000000ffb9c8
+SERVER:  @env=
+SERVER:   {"SERVER_SOFTWARE"=>"thin 1.6.3 codename Protein Powder",
+SERVER:    "SERVER_NAME"=>"slcipcm",
+SERVER:    "rack.input"=>#<StringIO:0x00000001350cb8>,
+SERVER:    "rack.version"=>[1, 0],
+SERVER:    "rack.errors"=>#<IO:<STDERR>>,
+SERVER:    "rack.multithread"=>true,
+SERVER:    "rack.multiprocess"=>false,
+SERVER:    "rack.run_once"=>false,
+SERVER:    "REQUEST_METHOD"=>"GET",
+SERVER:    "REQUEST_PATH"=>"/",
+SERVER:    "PATH_INFO"=>"/",
+SERVER:    "REQUEST_URI"=>"/",
+SERVER:    "HTTP_VERSION"=>"HTTP/1.1",
+SERVER:    "HTTP_HOST"=>"slcipcm:4567",
+SERVER:    "HTTP_CONNECTION"=>"keep-alive",
+SERVER:    "HTTP_USER_AGENT"=>
+SERVER:     "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
+SERVER:    "HTTP_UPGRADE_INSECURE_REQUESTS"=>"1",
+SERVER:    "HTTP_ACCEPT"=>
+SERVER:     "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+SERVER:    "HTTP_ACCEPT_ENCODING"=>"gzip, deflate",
+SERVER:    "HTTP_ACCEPT_LANGUAGE"=>"en-US,en;q=0.9",
+SERVER:    "GATEWAY_INTERFACE"=>"CGI/1.2",
+SERVER:    "SERVER_PORT"=>"4567",
+SERVER:    "QUERY_STRING"=>"",
+SERVER:    "SERVER_PROTOCOL"=>"HTTP/1.1",
+SERVER:    "rack.url_scheme"=>"http",
+SERVER:    "SCRIPT_NAME"=>"",
+SERVER:    "REMOTE_ADDR"=>"10.148.119.93",
+SERVER:    "async.callback"=>#<Method: Thin::Connection#post_process>,
+SERVER:    "async.close"=>#<EventMachine::DefaultDeferrable:0x00000000d23750>,
+SERVER:    "sinatra.commonlogger"=>true,
+SERVER:    "rack.logger"=>
+SERVER:     #<Logger:0x00000000fa4218
+SERVER:      @default_formatter=
+SERVER:       #<Logger::Formatter:0x00000000fa41c8 @datetime_format=nil>,
+SERVER:      @formatter=nil,
+SERVER:      @level=1,
+SERVER:      @logdev=
+SERVER:       #<Logger::LogDevice:0x00000000fa4178
+SERVER:        @dev=#<IO:<STDERR>>,
+SERVER:        @filename=nil,
+SERVER:        @mutex=
+SERVER:         #<Logger::LogDevice::LogDeviceMutex:0x00000000fa4150
+SERVER:          @mon_count=0,
+SERVER:          @mon_mutex=#<Mutex:0x00000000fa4100>,
+SERVER:          @mon_owner=nil>,
+SERVER:        @shift_age=nil,
+SERVER:        @shift_size=nil>,
+SERVER:      @progname=nil>,
+SERVER:    "rack.request.query_string"=>"",
+SERVER:    "rack.request.query_hash"=>{},
+SERVER:    "sinatra.route"=>"GET /"},
+SERVER:  @params={}>
+SERVER: 10.148.119.93 - - [06/Mar/2018:13:32:42 -0800] "GET / HTTP/1.1" 400 3363 0.0291
+SERVER: 10.148.119.93 - - [06/Mar/2018:13:32:42 -0800] "GET /favicon.ico HTTP/1.1" 404 471 0.0016
+SERVER: 127.0.0.1 - - [06/Mar/2018:13:35:58 -0800] "GET /exit HTTP/1.1" 1 - 0.0061
+SERVER: Stopping ...
+SERVER: == Sinatra has ended his set (crowd applauds)

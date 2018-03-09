@@ -601,13 +601,30 @@ class U
                         end
                         return frame_that_asserted, previous_frames
                 end
-                def diff(s1, s2)
+                def diff(s1, s2, ignore_leading_white_space=false)
                         fn1 = file_tmp_name("U.diff_f1", nil, nil, s1)
                         fn2 = file_tmp_name("U.diff_f2", nil, nil, s2)
-                        diff_output = `diff #{fn1} #{fn2}`
-                        FileUtils.rm(fn1)
-                        FileUtils.rm(fn2)
+                        if ignore_leading_white_space
+                                diff_arg="-w"
+                        else
+                                diff_arg=""
+                        end
+                        cmd = "diff #{diff_arg} #{fn1} #{fn2}"
+                        puts "cmd=#{cmd}"
+                        diff_output = `#{cmd}`
+                        #FileUtils.rm(fn1)
+                        #FileUtils.rm(fn2)
                         diff_output
+                end
+                def diff_possibly_ignoring_leading_white_space(s1, s2)
+                        # non-white-space diffs are nearly always the most interesting; if 'diff -w' shows such diffs, then show them.  Otherwise, execute a normal sensitive diff.
+                        # I'm trying to avoid obscuring the interesting diffs w/ the more common, but often insignificant, white space diffs
+                        out = diff(s1, s2, true)
+                        puts "d1=#{out}"
+                        if out == ""
+                                out = diff(s1, s2)
+                        end
+                        out
                 end
                 def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false, silent_if_fail=false)
                         U.init unless U.log_level
@@ -627,7 +644,7 @@ class U
                                         msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
                                         if expected.lines.count > 2
                                                 msg += "========================================================================================================"
-                                                msg += U.diff(expected, actual)
+                                                msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
                                                 msg += "========================================================================================================"
                                         end
                                         msg += previous_frames

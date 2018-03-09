@@ -2,31 +2,64 @@
 <head>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <title>Change tracker</title>
-    <script src="jquery-3.1.1.js"></script>
 </head>
 <body bgcolor="#CCCCCC"><font face=arial>
+<script src="/jquery-3.1.1.js"></script>
 <script type="text/javascript">
-    function submit_json()
+    var op
+    
+    function set_url_span(url)
     {
-        var json = $('#json_textarea').val()
-        url = "/?pretty=true&json=" + escape(json)
+        var h = "URL to execute the query above:<br><a href='" + url + "'>" + url + "</a>"
+        var f = $('#url_span')
+        f.html(h)
+    }
+    function submit_json(op_parm)
+    {
+        op = op_parm
+        var json1 = $('#json_textarea1').val().replace(/[ \t\n]/g, '')
+        var json2 = $('#json_textarea2').val().replace(/[ \t\n]/g, '')
+        var web_root = window.location.href.replace('/ui.htm', '')
+        url = web_root + "/?pretty=true&op=" + op + "&json1=" + escape(json1) + "&json2=" + escape(json2)
         var ct_iframe = $('#ct_iframe')
         ct_iframe.attr('src', url)
+        set_url_span(url)
     }
     function init()
     {
-        document.xform.json_textarea.focus()
+        document.xform.q1.value = '{\n'
+        + '  "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64",\n'
+        + '  "cspec_deps": [\n'
+        + '    "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed",\n'
+        + '    "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"\n'
+        + '  ]\n'
+        + '}\n'
+        document.xform.q2.value = '{\n'
+        + '  "cspec_deps": [\n'
+        + '    "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed",\n'
+        + '    "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"\n'
+        + '  ],\n'
+        + '  "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"\n'
+        + '}'
+        document.xform.json_textarea1.focus()
     }
     onload=init
 </script>
 
-Enter JSON here to be submitted to the change tracker application
 <form name="xform">
-        <textarea name=q id='json_textarea' cols=140 rows=20></textarea>
+        Enter JSON here describing the <b>starting</b> point ("cspec1") set of commit IDs
+        <textarea name=q1 id='json_textarea1' cols=140 rows=12></textarea><br>
+        Enter JSON here describing the <b>ending</b> point ("cspec2") set of commit IDs
+        <textarea name=q2 id='json_textarea2' cols=140 rows=12></textarea><br>
+                        
+        <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'>
+                        
+        <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'>
+                        
+        <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'>
         <br>
-        <input type=button value=Submit onclick='submit_json()'>
-        <br>
-        <iframe id='ct_iframe' height="100% " width="100%">
+        <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
+        <span id='url_span'></span>
 </form>
 </body>
 </html>

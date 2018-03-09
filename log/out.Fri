@@ -1,0 +1,983 @@
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+127.0.0.1 - - [09/Mar/2018:10:38:30 -0800] "GET /exit HTTP/1.1" 1 - 0.0071
+Stopping ...
+== Sinatra has ended his set (crowd applauds)
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+deps=[#<Git_commit:0x000000017fab60 @repo=#<Git_repo:0x000000017ecb78 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000017fa778 @repo=#<Git_repo:0x000000017faa48 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000017f9828 @repo=#<Git_repo:0x000000017f9cb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000017f9238 @repo=#<Git_repo:0x000000017f9670 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+
+]
+10.159.238.200 - - [09/Mar/2018:10:38:47 -0800] "GET /?pretty=true&op=list_bug_IDs_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 4 0.1089
+deps=[#<Git_commit:0x00000001a64c70 @repo=#<Git_repo:0x00000001a64ec8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a647e8 @repo=#<Git_repo:0x00000001a64b80 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a6b368 @repo=#<Git_repo:0x00000001a6b660 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a6afa8 @repo=#<Git_repo:0x00000001a6b1d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:53 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0925
+deps=[#<Git_commit:0x00000001a78400 @repo=#<Git_repo:0x00000001a786a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a7fe58 @repo=#<Git_repo:0x00000001a78310 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a7ea30 @repo=#<Git_repo:0x00000001a7ee18 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a7e5d0 @repo=#<Git_repo:0x00000001a7e828 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+{
+  "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;": [
+    "component.properties",
+    "deps.gradle"
+  ]
+}
+10.159.238.200 - - [09/Mar/2018:10:38:56 -0800] "GET /?pretty=true&op=list_files_changed_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 122 0.1588
+deps=[#<Git_commit:0x00000001a97238 @repo=#<Git_repo:0x00000001a97530 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a96ec8 @repo=#<Git_repo:0x00000001a97148 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a961a8 @repo=#<Git_repo:0x00000001a96428 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a95e38 @repo=#<Git_repo:0x00000001a960b8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:59 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0888
+deps=[#<Git_commit:0x00000001aa51a8 @repo=#<Git_repo:0x00000001aa5658 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001aa4b90 @repo=#<Git_repo:0x00000001aa5018 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001aaba80 @repo=#<Git_repo:0x00000001aabda0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001aab3f0 @repo=#<Git_repo:0x00000001aab8a0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:59 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0889
+deps=[#<Git_commit:0x00000001ac3a90 @repo=#<Git_repo:0x00000001ac3d60 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ac3720 @repo=#<Git_repo:0x00000001ac3950 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001ac29d8 @repo=#<Git_repo:0x00000001ac2c58 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ac25f0 @repo=#<Git_repo:0x00000001ac28c0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:59 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1233
+deps=[#<Git_commit:0x000000014f4038 @repo=#<Git_repo:0x000000014f42e0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000014fb5e0 @repo=#<Git_repo:0x000000014fbbd0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000014f9948 @repo=#<Git_repo:0x000000014fa078 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000014f89d0 @repo=#<Git_repo:0x000000014f95d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:59 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0908
+deps=[#<Git_commit:0x000000016e1120 @repo=#<Git_repo:0x000000016e1468 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000016e0cc0 @repo=#<Git_repo:0x000000016e0fb8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000016ef3b0 @repo=#<Git_repo:0x000000016efa40 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000016eed70 @repo=#<Git_repo:0x000000016ef1d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:38:59 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0840
+deps=[#<Git_commit:0x0000000172bb80 @repo=#<Git_repo:0x0000000172bef0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000172b518 @repo=#<Git_repo:0x0000000172ba90 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001729880 @repo=#<Git_repo:0x00000001729c18 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001728958 @repo=#<Git_repo:0x00000001728d40 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:00 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0971
+deps=[#<Git_commit:0x000000017ee928 @repo=#<Git_repo:0x000000017eecc0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000017ee450 @repo=#<Git_repo:0x000000017ee770 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000017ed258 @repo=#<Git_repo:0x000000017ed730 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000017ecc40 @repo=#<Git_repo:0x000000017ed000 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:00 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0954
+deps=[#<Git_commit:0x0000000183ab70 @repo=#<Git_repo:0x0000000183ae68 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000183a6c0 @repo=#<Git_repo:0x0000000183aa08 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001839888 @repo=#<Git_repo:0x00000001839b30 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001839540 @repo=#<Git_repo:0x00000001839798 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:00 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0845
+deps=[#<Git_commit:0x0000000187b968 @repo=#<Git_repo:0x0000000187be18 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000187b328 @repo=#<Git_repo:0x0000000187b7d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001879a50 @repo=#<Git_repo:0x00000001879de8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000018795a0 @repo=#<Git_repo:0x00000001879960 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:00 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0932
+deps=[#<Git_commit:0x000000018dd2f8 @repo=#<Git_repo:0x000000018dd708 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000018dc920 @repo=#<Git_repo:0x000000018dcfd8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000018e46c0 @repo=#<Git_repo:0x000000018e5980 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000018f78d8 @repo=#<Git_repo:0x000000018f7f90 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:00 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0918
+deps=[#<Git_commit:0x000000019c1020 @repo=#<Git_repo:0x000000019c14a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000019c0b48 @repo=#<Git_repo:0x000000019c0e90 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000019c7740 @repo=#<Git_repo:0x000000019c7b78 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000019c7290 @repo=#<Git_repo:0x000000019c75b0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0833
+deps=[#<Git_commit:0x00000001a65cb0 @repo=#<Git_repo:0x00000001a66408 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a65648 @repo=#<Git_repo:0x00000001a65af8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a64298 @repo=#<Git_repo:0x00000001a646a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a6bf98 @repo=#<Git_repo:0x00000001a640e0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1210
+deps=[#<Git_commit:0x00000001a7f548 @repo=#<Git_repo:0x00000001a7f980 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a7efd0 @repo=#<Git_repo:0x00000001a7f318 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a7def0 @repo=#<Git_repo:0x00000001a7e1c0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a7dba8 @repo=#<Git_repo:0x00000001a7de00 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0871
+deps=[#<Git_commit:0x00000001a97f58 @repo=#<Git_repo:0x00000001a943d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a97b20 @repo=#<Git_repo:0x00000001a97e40 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001a96d10 @repo=#<Git_repo:0x00000001a96f90 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001a96928 @repo=#<Git_repo:0x00000001a96c20 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0942
+deps=[#<Git_commit:0x00000001aabf08 @repo=#<Git_repo:0x00000001aa4050 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001aabaf8 @repo=#<Git_repo:0x00000001aabda0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001aa9e10 @repo=#<Git_repo:0x00000001aaa1d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001aa9708 @repo=#<Git_repo:0x00000001aa9bb8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1005
+deps=[#<Git_commit:0x00000001ac4170 @repo=#<Git_repo:0x00000001ac4530 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001acb588 @repo=#<Git_repo:0x00000001ac90d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001acac28 @repo=#<Git_repo:0x00000001acaf98 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001aca7a0 @repo=#<Git_repo:0x00000001acaa48 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:01 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0882
+deps=[#<Git_commit:0x00000001ae0b40 @repo=#<Git_repo:0x00000001ae1040 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ae7d00 @repo=#<Git_repo:0x00000001ae05c8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001ae53c0 @repo=#<Git_repo:0x00000001ae5eb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ae4948 @repo=#<Git_repo:0x00000001ae5050 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1135
+deps=[#<Git_commit:0x00000001aff4a0 @repo=#<Git_repo:0x00000001aff860 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001afec80 @repo=#<Git_repo:0x00000001aff2e8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001afddd0 @repo=#<Git_repo:0x00000001afe078 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001afda10 @repo=#<Git_repo:0x00000001afdcb8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0911
+deps=[#<Git_commit:0x00000001b14850 @repo=#<Git_repo:0x00000001b14b70 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001b14418 @repo=#<Git_repo:0x00000001b14738 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001b1b5b0 @repo=#<Git_repo:0x00000001b1b880 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001b1b178 @repo=#<Git_repo:0x00000001b1b470 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0838
+deps=[#<Git_commit:0x00000001ca04f8 @repo=#<Git_repo:0x00000001ca09d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001cadb80 @repo=#<Git_repo:0x00000001ca0368 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001cae9e0 @repo=#<Git_repo:0x00000001caeda0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001cae558 @repo=#<Git_repo:0x00000001cae8a0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1009
+deps=[#<Git_commit:0x00000001ce5ee0 @repo=#<Git_repo:0x00000001ce61b0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ce5af8 @repo=#<Git_repo:0x00000001ce5d50 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001ce4cc0 @repo=#<Git_repo:0x00000001ce4fe0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ce4900 @repo=#<Git_repo:0x00000001ce4ba8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0977
+deps=[#<Git_commit:0x00000001d2d1c8 @repo=#<Git_repo:0x00000001d2d448 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d2ce80 @repo=#<Git_repo:0x00000001d2d0d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001d2c2c8 @repo=#<Git_repo:0x00000001d2c548 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d37e48 @repo=#<Git_repo:0x00000001d2c160 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:02 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0967
+deps=[#<Git_commit:0x00000001d4e738 @repo=#<Git_repo:0x00000001d4ea58 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d4e2d8 @repo=#<Git_repo:0x00000001d4e5f8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001d4d4a0 @repo=#<Git_repo:0x00000001d4d770 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d4d040 @repo=#<Git_repo:0x00000001d4d338 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:03 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0914
+deps=[#<Git_commit:0x00000001d6c710 @repo=#<Git_repo:0x00000001d6ccb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d6c170 @repo=#<Git_repo:0x00000001d6c5f8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001d706d0 @repo=#<Git_repo:0x00000001d71530 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001d93db0 @repo=#<Git_repo:0x00000001d70400 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:03 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0919
+deps=[#<Git_commit:0x00000001dd8140 @repo=#<Git_repo:0x00000001dd8410 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001de7d48 @repo=#<Git_repo:0x00000001dd8028 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001de6fb0 @repo=#<Git_repo:0x00000001de71e0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001de6c18 @repo=#<Git_repo:0x00000001de6ec0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:03 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0973
+deps=[#<Git_commit:0x00000001e228f8 @repo=#<Git_repo:0x00000001e22bc8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e22470 @repo=#<Git_repo:0x00000001e22790 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001e216b0 @repo=#<Git_repo:0x00000001e21958 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e212a0 @repo=#<Git_repo:0x00000001e21570 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0920
+deps=[#<Git_commit:0x00000001e5e3f8 @repo=#<Git_repo:0x00000001e5e6a0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e5e010 @repo=#<Git_repo:0x00000001e5e2e0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001e5d368 @repo=#<Git_repo:0x00000001e5d610 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e5cfd0 @repo=#<Git_repo:0x00000001e5d250 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1111
+deps=[#<Git_commit:0x00000001e806d8 @repo=#<Git_repo:0x00000001e809a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e80390 @repo=#<Git_repo:0x00000001e805c0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001e87730 @repo=#<Git_repo:0x00000001e879b0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001e873e8 @repo=#<Git_repo:0x00000001e87640 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0835
+deps=[#<Git_commit:0x00000001ea1068 @repo=#<Git_repo:0x00000001ea14f0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ea09b0 @repo=#<Git_repo:0x00000001ea0dc0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001ec76a0 @repo=#<Git_repo:0x00000001ec7970 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ec7308 @repo=#<Git_repo:0x00000001ec7538 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0864
+deps=[#<Git_commit:0x00000001efae10 @repo=#<Git_repo:0x00000001efb068 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001efaaa0 @repo=#<Git_repo:0x00000001efad20 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001ef9d58 @repo=#<Git_repo:0x00000001ef9fb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001ef9998 @repo=#<Git_repo:0x00000001ef9c40 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0951
+deps=[#<Git_commit:0x00000001f134d8 @repo=#<Git_repo:0x00000001f137a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001f12d08 @repo=#<Git_repo:0x00000001f133e8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001f10d78 @repo=#<Git_repo:0x00000001f112f0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001f105f8 @repo=#<Git_repo:0x00000001f10b48 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:04 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1001
+deps=[#<Git_commit:0x00000001f6de60 @repo=#<Git_repo:0x00000001f6e0b8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001f6daf0 @repo=#<Git_repo:0x00000001f6dd70 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001f6cd80 @repo=#<Git_repo:0x00000001f6d050 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001f6ca10 @repo=#<Git_repo:0x00000001f6cc90 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:05 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0948
+deps=[#<Git_commit:0x00000001fbf850 @repo=#<Git_repo:0x00000001fbfad0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001fbf490 @repo=#<Git_repo:0x00000001fbf710 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001fbe838 @repo=#<Git_repo:0x00000001fbea68 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001fbe4a0 @repo=#<Git_repo:0x00000001fbe6f8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:05 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0994
+deps=[#<Git_commit:0x000000025235a8 @repo=#<Git_repo:0x000000025237d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000002523288 @repo=#<Git_repo:0x000000025234b8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000025226f8 @repo=#<Git_repo:0x00000002522928 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000025223b0 @repo=#<Git_repo:0x000000025225e0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:05 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0900
+deps=[#<Git_commit:0x000000026cd070 @repo=#<Git_repo:0x000000026cd2c8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000026ccd00 @repo=#<Git_repo:0x000000026ccf30 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000026cc0f8 @repo=#<Git_repo:0x000000026cc378 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000026d3d80 @repo=#<Git_repo:0x000000026d3fb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0967
+deps=[#<Git_commit:0x0000000271b810 @repo=#<Git_repo:0x0000000271bc48 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000271b248 @repo=#<Git_repo:0x0000000271b6a8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000002719ec0 @repo=#<Git_repo:0x0000000271a280 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000002719920 @repo=#<Git_repo:0x00000002719d58 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0952
+deps=[#<Git_commit:0x000000027b92b8 @repo=#<Git_repo:0x000000027b94e8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000027b8f98 @repo=#<Git_repo:0x000000027b91c8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000027b8390 @repo=#<Git_repo:0x000000027b8660 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000027c0b80 @repo=#<Git_repo:0x000000027b81b0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0893
+deps=[#<Git_commit:0x000000027e9620 @repo=#<Git_repo:0x000000027e9850 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000027e9300 @repo=#<Git_repo:0x000000027e9530 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x000000027e8590 @repo=#<Git_repo:0x000000027e8838 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000027e81d0 @repo=#<Git_repo:0x000000027e84a0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0951
+deps=[#<Git_commit:0x00000002811a58 @repo=#<Git_repo:0x00000002811d50 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000028115f8 @repo=#<Git_repo:0x000000028118a0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000002810478 @repo=#<Git_repo:0x00000002810900 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000028134e8 @repo=#<Git_repo:0x00000002813ec0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1060
+deps=[#<Git_commit:0x007f482403c208 @repo=#<Git_repo:0x007f482403c438 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f4824043e90 @repo=#<Git_repo:0x007f482403c118 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x007f48240433a0 @repo=#<Git_repo:0x007f48240435d0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f4824043080 @repo=#<Git_repo:0x007f48240432b0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0922
+deps=[#<Git_commit:0x007f481402a540 @repo=#<Git_repo:0x007f481402a770 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f481402a220 @repo=#<Git_repo:0x007f481402a450 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x007f4814029730 @repo=#<Git_repo:0x007f4814029960 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f4814029410 @repo=#<Git_repo:0x007f4814029640 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:06 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1004
+deps=[#<Git_commit:0x007f4800028b50 @repo=#<Git_repo:0x007f4800028d80 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f4800028830 @repo=#<Git_repo:0x007f4800028a60 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x007f4800033cd0 @repo=#<Git_repo:0x007f4800033f00 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x007f48000339b0 @repo=#<Git_repo:0x007f4800033be0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:07 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.14,r75
+deps=[#<Git_commit:0x00000001501fd0 @repo=#<Git_repo:0x00000001503768 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000015000e0 @repo=#<Git_repo:0x00000001501328 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x0000000150b4b8 @repo=#<Git_repo:0x0000000150bf58 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001509fa0 @repo=#<Git_repo:0x0000000150b1c0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:07 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0989
+deps=[#<Git_commit:0x000000016ecd90 @repo=#<Git_repo:0x000000016ed0d8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x000000016ec660 @repo=#<Git_repo:0x000000016ecc00 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000001702ed8 @repo=#<Git_repo:0x00000001703360 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000001702848 @repo=#<Git_repo:0x00000001702d70 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:07 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0874
+deps=[#<Git_commit:0x0000000172f0a0 @repo=#<Git_repo:0x0000000172f370 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000172ec40 @repo=#<Git_repo:0x0000000172efb0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x0000000172d160 @repo=#<Git_repo:0x0000000172d700 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x0000000172caf8 @repo=#<Git_repo:0x0000000172cfa8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:39:08 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.1049
+127.0.0.1 - - [09/Mar/2018:10:41:02 -0800] "GET /exit HTTP/1.1" 1 - 0.0022
+Stopping ...
+== Sinatra has ended his set (crowd applauds)
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+deps=[#<Git_commit:0x00000000b82928 @repo=#<Git_repo:0x00000000b838f0 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000000b82590 @repo=#<Git_repo:0x00000000b827e8 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000000b815a0 @repo=#<Git_repo:0x00000000b81a00 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000000b80fb0 @repo=#<Git_repo:0x00000000b81398 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+
+]
+10.159.238.200 - - [09/Mar/2018:10:41:22 -0800] "GET /?pretty=true&op=list_bug_IDs_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 4 0.1119
+deps=[#<Git_commit:0x00000000dece20 @repo=#<Git_repo:0x00000000ded078 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000000deca38 @repo=#<Git_repo:0x00000000decd30 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+deps=[#<Git_commit:0x00000000df3540 @repo=#<Git_repo:0x00000000df3950 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="ccs/caas", @global_data_prefix="git_repo_ccs/caas.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="a1466659536cf2225eadf56f43972a25e9ee1bed", @comment=nil>, #<Git_commit:0x00000000df3180 @repo=#<Git_repo:0x00000000df3450 @change_tracker_host_and_port=nil, @source_control_type="git", @branch_name="master", @project_name="osn/cef", @global_data_prefix="git_repo_osn/cef.", @source_control_server="git.osn.oraclecorp.com">, @commit_id="749581bac1d93cda036d33fbbdbe95f7bd0987bf", @comment=nil>]
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  }
+]
+10.159.238.200 - - [09/Mar/2018:10:41:25 -0800] "GET /?pretty=true&op=list_changes_between&json1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&json2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 200 1187 0.0947
+127.0.0.1 - - [09/Mar/2018:10:41:45 -0800] "GET /exit HTTP/1.1" 1 - 0.0069
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...
+== Sinatra has ended his set (crowd applauds)
