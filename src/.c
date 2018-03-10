@@ -1,0 +1,1 @@
+support http indirection to gather JSON

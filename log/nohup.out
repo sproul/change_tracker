@@ -390,3 +390,36 @@ Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Fri..
 + sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
 + ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
 + exit
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Fri...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Fri...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ exit
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Fri...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Fri...
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb

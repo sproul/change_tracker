@@ -47,19 +47,19 @@
 </script>
 
 <form name="xform">
-        Enter JSON here describing the <b>starting</b> point ("cspec1") set of commit IDs
-        <textarea name=q1 id='json_textarea1' cols=140 rows=12></textarea><br>
-        Enter JSON here describing the <b>ending</b> point ("cspec2") set of commit IDs
-        <textarea name=q2 id='json_textarea2' cols=140 rows=12></textarea><br>
+    <h5>Change tracker</h5>
+    The change tracker application <b>CT</b> answers some questions about how some software under test <b>SUT</b> has evolved over a span of time. The start and end of that span of time are described by two sets of commit specifications.  A commit specification, or <b>cspec</b>, identifies a source control repo and commit ID from that repo.  A <b>cspec set</b>, or set of cspecs, describes a moment in the source control history of an SUT spanning multiple source control repositories.  Cspec sets are described by JSON, or by a URL to a JSON file on a web server, or by a hybrid of JSON containing URLs pointing at further JSON (potentially going many levels before fully resolving).  See the <a href=doc.htm>CT doc</a> for examples.
+    cspec_set1: the <b>starting</b> point
+    <textarea name=q1 id='json_textarea1' cols=140 rows=12></textarea><br>
+    cspec_set2: the <b>ending</b> point
+    <textarea name=q2 id='json_textarea2' cols=140 rows=12></textarea><br>
                         
-        <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'>
-                        
-        <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'>
-                        
-        <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'>
-        <br>
-        <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
-        <span id='url_span'></span>
+    <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'/>
+    <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'/>
+    <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'/>
+    <br>
+    <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
+    <span id='url_span'></span>
 </form>
 </body>
 </html>

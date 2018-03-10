@@ -7,6 +7,6 @@
 export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 cd `dirname $0`
-ruby -wS change_tracker.rb $* 2>&1 | grep -v 'warning: setting Encoding'
+ruby -wS change_tracker.rb $* 2>&1 | sed -e '/warning: setting Encoding/d' -e '/: warning: Insecure world writable dir/d'
 exit
 bx $dp/git/change_tracker/src/change_tracker.sh 

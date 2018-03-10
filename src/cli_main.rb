@@ -11,7 +11,7 @@ while ARGV.size > j do
         when "-test_clean"
                 Git_repo.test_clean
         when "-compound_commit_json_of"
-                puts JSON.pretty_generate(Compound_commit.from_spec(ARGV[j+1]))
+                puts JSON.pretty_generate(Cspec_set.from_spec(ARGV[j+1]))
                 exit
         when "-conf"
                 j += 1
@@ -19,23 +19,23 @@ while ARGV.size > j do
         when "-dry"
                 U.dry_mode = true
         when "-list_bug_IDs_between"
-                puts Compound_commit.list_bug_IDs_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_bug_IDs_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_changes_between"
-                puts Compound_commit.list_changes_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_changes_between_no_deps"
-                Git_commit.list_changes_between(ARGV[j+1], ARGV[j+2])
+                Git_cspec.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_files_changed_between"
-                puts Compound_commit.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_files_changed_between_no_deps"
-                puts Git_commit.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                puts Git_cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_last_changes"
                 puts "["
-                Compound_commit.list_last_changes(ARGV[j+1], ARGV[j+2].to_i).each do | cc |
+                Cspec_set.list_last_changes(ARGV[j+1], ARGV[j+2].to_i).each do | cc |
                         puts cc.to_json
                 end
                 puts "]"
@@ -44,8 +44,8 @@ while ARGV.size > j do
                 U.test_mode = true
                 Json_change_tracker.test
                 File_sets.test
-                Compound_commit.test
-                Git_commit.test
+                Cspec_set.test
+                Git_cspec.test
                 Global.test
                 Git_repo.test
                 Cec_gradle_parser.test

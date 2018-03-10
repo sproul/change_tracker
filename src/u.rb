@@ -610,17 +610,15 @@ class U
                                 diff_arg=""
                         end
                         cmd = "diff #{diff_arg} #{fn1} #{fn2}"
-                        puts "cmd=#{cmd}"
                         diff_output = `#{cmd}`
-                        #FileUtils.rm(fn1)
-                        #FileUtils.rm(fn2)
+                        FileUtils.rm(fn1)
+                        FileUtils.rm(fn2)
                         diff_output
                 end
                 def diff_possibly_ignoring_leading_white_space(s1, s2)
                         # non-white-space diffs are nearly always the most interesting; if 'diff -w' shows such diffs, then show them.  Otherwise, execute a normal sensitive diff.
                         # I'm trying to avoid obscuring the interesting diffs w/ the more common, but often insignificant, white space diffs
                         out = diff(s1, s2, true)
-                        puts "d1=#{out}"
                         if out == ""
                                 out = diff(s1, s2)
                         end
@@ -642,7 +640,7 @@ class U
                                         msg = "#{frame_that_asserted}: MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
                                         msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
-                                        if expected.lines.count > 2
+                                        if expected.respond_to?(:lines) && expected.lines.count > 2
                                                 msg += "========================================================================================================"
                                                 msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
                                                 msg += "========================================================================================================"
