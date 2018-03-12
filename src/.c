@@ -1,0 +1,1 @@
+support http indirection to gather JSON, remove change_tracker host/port from repo_spec

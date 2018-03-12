@@ -222,6 +222,7 @@ class U
                 attr_accessor :raise_if_fail
                 attr_accessor :test_exit_code
                 attr_accessor :trace
+                attr_accessor :trace_calls_to_system
                 @@t = nil
 
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
@@ -314,7 +315,7 @@ class U
                                 Dir.chdir(dir)
                                 t_preamble << "cd \"#{dir}\"; "
                         end
-                        puts "#{t_preamble}#{cmd}" if U.trace
+                        puts "#{t_preamble}#{cmd}" if U.trace || U.trace_calls_to_system
                         if U.dry_mode
                                 return "No output from U.system(#{cmd}) because we are in dry run mode..."
                         end
@@ -326,7 +327,7 @@ class U
 
                                 out = stdout.read
                                 err = stderr.read
-                                puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace
+                                puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace || U.trace_calls_to_system
                                 # http://stackoverflow.com/questions/15023944/how-to-retrieve-exit-status-from-ruby-open3-popen3
                                 if !wait_thr.value.success?
                                         z = "error: bad exit code from\n#{t_preamble}#{cmd}\n#{err}"

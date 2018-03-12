@@ -50,8 +50,10 @@ EOF
 }
 
 Ruby_change_tracker $default_op $*
-#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
-#Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;" 500
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+#Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/cec-server-integration;;" 500
 
 #test_no_deps_config
 exit 0

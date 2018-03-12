@@ -11,7 +11,7 @@ while ARGV.size > j do
         when "-test_clean"
                 Git_repo.test_clean
         when "-compound_commit_json_of"
-                puts JSON.pretty_generate(Cspec_set.from_spec(ARGV[j+1]))
+                puts Cspec_set.from_repo_and_commit_id(ARGV[j+1]).to_json
                 exit
         when "-conf"
                 j += 1
@@ -43,9 +43,9 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 Json_change_tracker.test
-                File_sets.test
                 Cspec_set.test
                 Git_cspec.test
+                File_sets.test
                 Global.test
                 Git_repo.test
                 Cec_gradle_parser.test
@@ -53,6 +53,8 @@ while ARGV.size > j do
                 exit
         when "-trace_autodiscovery"
                 Cec_gradle_parser.trace_autodiscovery = true
+        when "-tcs"
+                U.trace_calls_to_system = true
         when "-v"
                 U.trace = true
         else

@@ -1,0 +1,8 @@
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `require_relative': cannot load such file -- /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u (LoadError)
+	from /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `<top (required)>'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `require_relative'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `<main>'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `require_relative': cannot load such file -- /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u (LoadError)
+	from /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `<top (required)>'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `require_relative'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `<main>'

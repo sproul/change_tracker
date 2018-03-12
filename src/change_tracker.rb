@@ -129,8 +129,8 @@ class File_sets
                 self.file_sets.to_json
         end
         class << self
-                TEST_REPO_NAME1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;"
-                TEST_REPO_NAME2 = "git;git.osn.oraclecorp.com;osn/cec-else;;"
+                TEST_REPO_NAME1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;"
+                TEST_REPO_NAME2 = "git;git.osn.oraclecorp.com;osn/cec-else;"
 
                 def test()
                         r1 = Git_repo.new(TEST_REPO_NAME1)
@@ -208,7 +208,13 @@ class Git_repo < Error_holder
 
         def initialize(repo_spec, change_tracker_host_and_port = nil)
                 self.change_tracker_host_and_port = change_tracker_host_and_port
-                source_control_type, source_control_server, project_name, branch_name = repo_spec.split(/;/)
+                # type         ;  host   ; proj     ;brnch
+                if repo_spec !~ /^(\w+);([-\w\.]+);([-\.\w\/]+);(\w*)$/
+                        self.raise("cannot understand repo spec #{repo_spec}", 500)
+                end
+                # git;git.osn.oraclecorp.com;osn/cec-server-integration;master
+                # type;  host               ; proj                     ;branch
+                self.source_control_type, self.source_control_server, self.project_name, self.branch_name = $1,$2,$3,$4
                 if source_control_type != "git"
                         self.raise("unexpected source_control_type #{source_control_type} from #{repo_spec}", 501)
                 end
@@ -316,7 +322,6 @@ class Git_repo < Error_holder
         end
         def system_as_list(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
-                #puts "cd #{local_codeline_root_dir}; #{cmd}"
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
@@ -326,7 +331,7 @@ class Git_repo < Error_holder
                 U.system(cmd, nil, local_codeline_root_dir)
         end
         class << self
-                TEST_REPO_NAME = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;"
+                TEST_REPO_NAME = "git;git.osn.oraclecorp.com;osn/cec-server-integration;"
                 attr_accessor :codeline_root_parent
                 def make_spec(source_control_server, repo_name, branch=DEFAULT_BRANCH, change_tracker_host_and_port=nil)
                         source_control_type = "git"
@@ -334,7 +339,7 @@ class Git_repo < Error_holder
                         self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
                         branch = "" unless branch
                         change_tracker_host_and_port = "" unless change_tracker_host_and_port
-                        "#{source_control_type};#{source_control_server};#{repo_name};#{branch};#{change_tracker_host_and_port}"
+                        "#{source_control_type};#{source_control_server};#{repo_name};#{branch}"        #       ;#{change_tracker_host_and_port}"
                 end
                 def test_clean()
                         gr = Git_repo.new(TEST_REPO_NAME)
@@ -350,11 +355,6 @@ class Git_repo < Error_holder
                         U.assert(deps_gradle_content != "")
                         manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
                         U.assert(manifest_lines.size > 1)
-                        #
-                        # I think maybe we don't need json support for this obj
-                        #json = gr.to_json
-                        #gr2 = Git_repo.from_json(json)
-                        #U.assert_eq(gr, gr2, "json copy")
                 end
         end
 end
@@ -385,9 +385,9 @@ class Git_cspec < Error_holder
                 change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_commit.commit_id}..#{commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
-                        self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)/
+                        self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
                         change_id, comment = $1, $2
-                        commits << Git_cspec.from_spec("#{repo.spec};#{change_id}", comment)
+                        commits << Git_cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
                 end
                 commits
         end
@@ -429,8 +429,8 @@ class Git_cspec < Error_holder
         def codeline_disk_write()
                 repo.codeline_disk_write(self.commit_id)
         end
-        def component_contained_by?(compound_commit)
-                self.find_commit_for_same_component(compound_commit) != nil
+        def component_contained_by?(cspec_set)
+                self.find_commit_for_same_component(cspec_set) != nil
         end
         def list_files_added_or_updated()
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
@@ -445,21 +445,24 @@ class Git_cspec < Error_holder
                 bug_IDs = Git_cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
                 bug_IDs
         end
-        def find_commit_for_same_component(compound_commit)
-                compound_commit.commits.each do | commit |
+        def find_commit_for_same_component(cspec_set)
+                cspec_set.commits.each do | commit |
                         if commit.repo.eql?(self.repo)
                                 return commit
                         end
                 end
                 return nil
         end
+        def repo_and_commit_id()
+                "#{self.repo.spec};#{self.commit_id}"
+        end
         class << self
                 TEST_SOURCE_SERVER_AND_PROJECT_NAME = "orahub.oraclecorp.com;faiza.bounetta/promotion-config"
                 TEST_REPO_SPEC = "git;#{TEST_SOURCE_SERVER_AND_PROJECT_NAME};"
 
                 def list_changes_between(commit_spec1, commit_spec2)
-                        commit1 = Git_cspec.from_spec(commit_spec1)
-                        commit2 = Git_cspec.from_spec(commit_spec2)
+                        commit1 = Git_cspec.from_repo_and_commit_id(commit_spec1)
+                        commit2 = Git_cspec.from_repo_and_commit_id(commit_spec2)
                         return commit2.list_changes_since(commit1)
                 end
                 def from_hash(h)
@@ -478,24 +481,42 @@ class Git_cspec < Error_holder
                         end
                         Git_cspec.new(repo_spec, commit_id)
                 end
-                def from_json(json_text)
-                        json_obj = Json_obj.new(json_text)
-                        # puts "gc from_json: #{json_text}"
-                        # gc fromjson: {"repo_spec" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id" : "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}
+                def from_s(s, arg_name="Git_cspec.from_s")
+                        if s.start_with?('http')
+                                url = s
+                                return from_s(U.rest_get(url), "#{arg_name} => #{url}")
+                        end
+                        json_text = s
+                        begin
+                                json_obj = Json_obj.new(json_text)
+                        rescue JSON::ParserError => jpe
+                                Error_holder.raise("trouble parsing #{arg_name} \"#{s}\": #{jpe.to_s}", 400)
+                        end
+                        # puts "gc from_s: #{json_text}"
+                        # gc fromjson: {"repo_spec" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;master","commit_id" : "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}
                         repo_spec = json_obj.get("repo_spec")
                         commit_id = json_obj.get("commit_id")
                         Git_cspec.new(repo_spec, commit_id)
                 end
-                def from_spec(cspec_string, comment=nil)
-                        if cspec_string !~ /(.*);([^;]*)$/
-                                raise "could not parse #{cspec_string}"
+                def from_repo_and_commit_id(repo_and_commit_id, comment=nil)
+                        if repo_and_commit_id !~ /(.*);([^;]*)$/
+                                raise "could not parse #{repo_and_commit_id}"
                         end
-                        repo_spec, commit_id = $1, $2;
+                        repo_spec, commit_id = $1, $2
                         gr = Git_repo.new(repo_spec)
                         if commit_id == ""
                                 commit_id = gr.latest_commit_id
                         end
                         Git_cspec.new(gr, commit_id, comment)
+                end
+                def is_repo_and_commit_id?(s)
+                        # git;git.osn.oraclecorp.com;osn/cec-server-integration;master;aaaaaaaaaaaa
+                        # type         ;  host   ; proj     ;brnch;commit_id
+                        if s =~ /^(\w+);([-\w\.]+);([-\w\.\/]+);(\w*);(\w+)$/
+                                true
+                        else
+                                false
+                        end
                 end
                 def grep_group1(commits, regexp)
                         raise "no regexp" unless regexp
@@ -510,42 +531,42 @@ class Git_cspec < Error_holder
                         group1_hits
                 end
                 def list_files_changed_between(commit_spec1, commit_spec2)
-                        commit1 = Git_cspec.from_spec(commit_spec1)
-                        commit2 = Git_cspec.from_spec(commit_spec2)
+                        commit1 = Git_cspec.from_repo_and_commit_id(commit_spec1)
+                        commit2 = Git_cspec.from_repo_and_commit_id(commit_spec2)
                         return commit2.list_files_changed_since(commit1)
                 end
                 def test_list_changes_since()
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                        gc1 = Git_cspec.from_spec(compound_spec1)
-                        gc2 = Git_cspec.from_spec(compound_spec2)
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        gc1 = Git_cspec.from_repo_and_commit_id(compound_spec1)
+                        gc2 = Git_cspec.from_repo_and_commit_id(compound_spec2)
                         changes = gc2.list_changes_since(gc1)
                         changes2 = Git_cspec.list_changes_between(compound_spec1, compound_spec2)
                         U.assert_eq(changes, changes2, "Git_cspec.test_list_changes_since - vfy same result from wrapper 0")
 
-                        g1b = Git_cspec.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
-                        g1a = Git_cspec.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
+                        g1b = Git_cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
+                        g1a = Git_cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
                         U.assert_eq([gc2, g1b, g1a], changes)
                 end
                 def test_list_files_changed_since()
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                        gc1 = Git_cspec.from_spec(compound_spec1)
-                        gc2 = Git_cspec.from_spec(compound_spec2)
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        gc1 = Git_cspec.from_repo_and_commit_id(compound_spec1)
+                        gc2 = Git_cspec.from_repo_and_commit_id(compound_spec2)
 
                         changed_files = gc2.list_files_changed_since(gc1)
                         changed_files2 = Git_cspec.list_files_changed_between(compound_spec1, compound_spec2)
                         U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 1")
-                        U.assert_json_eq({"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;" => ["component.properties", "deps.gradle"]}, changed_files, "Git_cspec.test_list_files_changed_since")
+                        U.assert_json_eq({"git;git.osn.oraclecorp.com;osn/cec-server-integration;master" => ["component.properties", "deps.gradle"]}, changed_files, "Git_cspec.test_list_files_changed_since")
                 end
                 def test_json()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         gc = Git_cspec.new(repo_spec, valentine_commit_id)
                         json = gc.to_json
-                        U.assert_json_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json, 'Git_cspec.test_json')
-                        gc2 = Git_cspec.from_json(json)
+                        U.assert_json_eq('{"repo_spec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master","commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99"}', json, 'Git_cspec.test_json')
+                        gc2 = Git_cspec.from_s(json)
                         U.assert_eq(gc, gc2, "test ability to export to json, then import from that json back to the same object")
                 end
                 def test_list_bug_IDs_since()
@@ -554,10 +575,10 @@ class Git_cspec < Error_holder
                         # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
                         saved_bug_id_regexp = Cspec_set.bug_id_regexp_val
                         begin
-                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                                gc1 = Git_cspec.from_spec(compound_spec1)
-                                gc2 = Git_cspec.from_spec(compound_spec2)
+                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                                gc1 = Git_cspec.from_repo_and_commit_id(compound_spec1)
+                                gc2 = Git_cspec.from_repo_and_commit_id(compound_spec2)
                                 Cspec_set.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
                                 bug_IDs = gc2.list_bug_IDs_since(gc1)
                                 U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
@@ -569,6 +590,9 @@ class Git_cspec < Error_holder
                         end
                 end
                 def test()
+                        U.assert_eq(true, Git_cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"), "Git_cspec.is_repo_and_commit_id")
+                        U.assert_eq(true, Git_cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"), "Git_cspec.is_repo_and_commit_id 2")
+                        
                         test_list_bug_IDs_since()
                         test_list_changes_since()
 
@@ -587,20 +611,16 @@ class Git_cspec < Error_holder
                         U.assert_eq(0, gc1_added_or_changed_file_list.size)
                         U.assert_eq(1, gc2_added_or_changed_file_list.size)
                         U.assert_eq("src/main/java/com/oracle/syseng/configuration/repository/IntegrationRepositoryImpl.java", gc2_added_or_changed_file_list[0])
-                        cc1 = Cspec_set.from_json(<<-EOS)
+                        cc1 = Cspec_set.from_s(<<-EOS)
                         {
-                        "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b",
-                        "top_commit_repo": "#{TEST_REPO_SPEC}",
-                        "top_commit_id": "dc68aa99903505da966358f96c95f946901c664b",
-                        "deps": [] }
+                        "cspec": "#{TEST_REPO_SPEC};dc68aa99903505da966358f96c95f946901c664b",
+                        "cspec_deps": [] }
                         EOS
 
-                        cc2 = Cspec_set.from_json(<<-EOS)
+                        cc2 = Cspec_set.from_s(<<-EOS)
                         {
-                        "gitUItoCommit": "https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "top_commit_repo": "#{TEST_REPO_SPEC}",
-                        "top_commit_id": "42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
-                        "deps": []}
+                        "cspec": "#{TEST_REPO_SPEC};42f2d95f008ea14ea3bb4487dba8e3e74ce992a1",
+                        "cspec_deps": []}
                         EOS
 
                         U.assert_eq(1, cc1.commits.size)
@@ -629,7 +649,7 @@ class Cspec_set < Error_holder
 
         def initialize(top_commit, dependency_commits)
                 if top_commit.is_a?(String)
-                        self.top_commit = Git_cspec.from_spec(top_commit)
+                        self.top_commit = Git_cspec.from_repo_and_commit_id(top_commit)
                 else
                         self.top_commit = top_commit
                 end
@@ -640,35 +660,30 @@ class Cspec_set < Error_holder
         end
         def to_json()
                 h = Hash.new
-                h["top_commit_repo"] = top_commit.repo.spec
-                h["top_commit_id"] = top_commit.commit_id
-                dependency_commits_hash_array = []
-                h["deps"] = dependency_commits_hash_array
-                dependency_commits.each do | commit |
-                        commit_h = Hash.new
-                        commit_h["repo_spec"] = commit.repo.spec
-                        commit_h["commit_id"] = commit.commit_id
-                        dependency_commits_hash_array << commit_h
+                h["cspec"] = top_commit.repo_and_commit_id
+                cspec_deps = []
+                self.dependency_commits.each do | commit |
+                        cspec_deps << commit.repo_and_commit_id
                 end
+                h["cspec_deps"] = cspec_deps
                 JSON.pretty_generate(h)
         end
         def commits()
                 z = []
                 z << self.top_commit
                 z = z.concat(self.dependency_commits)
-                #puts "z=#{z}"
                 z
         end
-        def list_files_changed_since(other_compound_commit)
-                commits = list_changes_since(other_compound_commit)
+        def list_files_changed_since(other_cspec_set)
+                commits = list_changes_since(other_cspec_set)
                 fss = File_sets.new
                 commits.each do | commit |
                         fss.add_set(commit.list_changed_files)
                 end
                 return fss
         end
-        def list_changes_since(other_compound_commit)
-                pairs = get_pairs_of_commits_with_matching_repo(other_compound_commit)
+        def list_changes_since(other_cspec_set)
+                pairs = get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 changes = []
                 pairs.each do | pair |
                         commit0 = pair[0]
@@ -677,43 +692,43 @@ class Cspec_set < Error_holder
                 end
                 changes
         end
-        def get_pairs_of_commits_with_matching_repo(other_compound_commit)
+        def get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 pairs = []
                 self.commits.each do | commit |
-                        previous_commit_for_same_component = commit.find_commit_for_same_component(other_compound_commit)
+                        previous_commit_for_same_component = commit.find_commit_for_same_component(other_cspec_set)
                         if previous_commit_for_same_component
                                 pairs << [ previous_commit_for_same_component, commit ]
                         end
                 end
                 pairs
         end
-        def list_bug_IDs_since(other_compound_commit)
-                changes = list_changes_since(other_compound_commit)
+        def list_bug_IDs_since(other_cspec_set)
+                changes = list_changes_since(other_cspec_set)
                 bug_IDs = Git_cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
                 bug_IDs
         end
-        def find_commits_for_components_that_were_added_since(other_compound_commit)
+        def find_commits_for_components_that_were_added_since(other_cspec_set)
                 commits_for_components_that_were_added = []
                 self.commits.each do | commit |
-                        if !commit.component_contained_by?(other_compound_commit)
+                        if !commit.component_contained_by?(other_cspec_set)
                                 commits_for_components_that_were_added << commit
                         end
                 end
                 commits_for_components_that_were_added
         end
-        def find_commits_for_components_that_changed_since(other_compound_commit)
+        def find_commits_for_components_that_changed_since(other_cspec_set)
                 commits_for_components_that_changed = []
                 self.commits.each do | commit |
-                        previous_commit_for_same_component = commit.find_commit_for_same_component(other_compound_commit)
+                        previous_commit_for_same_component = commit.find_commit_for_same_component(other_cspec_set)
                         if previous_commit_for_same_component
                                 commits_for_components_that_changed << commit
                         end
                 end
                 commits_for_components_that_changed
         end
-        def list_files_added_or_updated_since(other_compound_commit)
-                commits_for_components_that_were_added   = self.find_commits_for_components_that_were_added_since(other_compound_commit)
-                commits_which_were_updated               = self.find_commits_for_components_that_changed_since(other_compound_commit)
+        def list_files_added_or_updated_since(other_cspec_set)
+                commits_for_components_that_were_added   = self.find_commits_for_components_that_were_added_since(other_cspec_set)
+                commits_which_were_updated               = self.find_commits_for_components_that_changed_since(other_cspec_set)
 
                 added_files = []
                 commits_for_components_that_were_added.each do | commit |
@@ -737,45 +752,20 @@ class Cspec_set < Error_holder
         class << self
                 attr_accessor :bug_id_regexp_val
 
-                def from_s(s, arg_name="cspec_set")
-                        if s.start_with?('http')
-                                url = s
-                                s = U.rest_get(url)
-                        end
-                        begin
-                                h = JSON.parse(s)
-                        rescue JSON::ParserError => jpe
-                                Error_holder.raise("trouble parsing #{arg_name} \"#{s}\": #{jpe.to_s}", 400)
-                        end
-                        cspec = h["cspec"]
-                        Error_holder.raise("expected a value for JSON key 'cspec' in #{s}", 400) unless cspec
-                        deps_key = h["cspec_deps"]
-                        if !h.has_key?("cspecs_deps")
-                                # executes auto-discovery in this case
-                                return Cspec_set.from_spec(cspec)
-                        else
-                                array_of_dep_cspec = h[deps_key]
-                                deps = []
-                                array_of_dep_cspec.each do | dep_cspec |
-                                        deps << Git_cspec.from_spec(dep_cspec)
-                                end
-                        end
-                        Cspec_set.new(cspec, deps)
+                def list_bug_IDs_between(cspec_set_s1, cspec_set_s2)
+                        cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
+                        cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                        return cspec_set2.list_bug_IDs_since(cspec_set1)
                 end
-                def list_bug_IDs_between(compound_commit_spec1, compound_commit_spec2)
-                        compound_commit1 = Cspec_set.from_spec(compound_commit_spec1)
-                        compound_commit2 = Cspec_set.from_spec(compound_commit_spec2)
-                        return compound_commit2.list_bug_IDs_since(compound_commit1)
+                def list_changes_between(cspec_set_s1, cspec_set_s2)
+                        cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
+                        cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                        return cspec_set2.list_changes_since(cspec_set1)
                 end
-                def list_changes_between(compound_commit_spec1, compound_commit_spec2)
-                        compound_commit1 = Cspec_set.from_spec(compound_commit_spec1)
-                        compound_commit2 = Cspec_set.from_spec(compound_commit_spec2)
-                        return compound_commit2.list_changes_since(compound_commit1)
-                end
-                def list_files_changed_between(compound_commit_spec1, compound_commit_spec2)
-                        compound_commit1 = Cspec_set.from_spec(compound_commit_spec1)
-                  compound_commit2 = Cspec_set.from_spec(compound_commit_spec2)
-                        return compound_commit2.list_files_changed_since(compound_commit1)
+                def list_files_changed_between(cspec_set_s1, cspec_set_s2)
+                        cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
+                        cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                        return cspec_set2.list_files_changed_since(cspec_set1)
                 end
                 def list_last_changes(repo_spec, n)
                         gr = Git_repo.new(repo_spec)
@@ -793,7 +783,7 @@ class Cspec_set < Error_holder
                         commit_log_entries = gr.system_as_list("git log --oneline -n #{n} --pretty=format:'%H:%s'")
                         commits = []
                         commit_log_entries.each do | commit_log_entry |
-                                if commit_log_entry !~ /^([a-f0-9]+):(.*)/m
+                                if commit_log_entry !~ /^([a-f0-9]+):(.*)$/m
                                         raise "could not understand #{commit_log_entry}"
                                 else
                                         commit_id, comment = $1, $2
@@ -812,71 +802,63 @@ class Cspec_set < Error_holder
                         Cspec_set.bug_id_regexp_val
                 end
                 def from_file(json_fn)
-                        from_json(IO.read(json_fn))
+                        from_s(IO.read(json_fn))
                 end
-                def from_json(json_text)
-                        h = JSON.parse(json_text)
-                        # fj: {"gitUItoCommit"=>"https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b", "top_commit_repo"=>"git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;", "top_commit_id"=>"dc68aa99903505da966358f96c95f946901c664b", "deps"=>[]}
-                        # puts "fj: #{h}"
-
-                        top_commit_repo_spec = h["top_commit_repo"]
-                        raise "no top_commit_repo in #{h}" unless top_commit_repo_spec
-
-                        top_commit_id = h["top_commit_id"]
-                        raise "no top_commit_id in #{h}" unless top_commit_id
-
-                        top_commit = Git_cspec.new(top_commit_repo_spec, top_commit_id)
-
-                        dependency_commits_hash_array = h["deps"]
-                        raise "no deps array in #{h}" unless dependency_commits_hash_array
-
-                        dependency_commits = []
-                        dependency_commits_hash_array.each do | dependency_h |
-                                repo_spec = dependency_h["repo_spec"]
-                                commit_id = dependency_h["commit_id"]
-                                raise "no repo_spec in #{dependency_h}" unless repo_spec
-                                raise "no commit_id in #{dependency_h}" unless commit_id
-                                dependency_commits << Git_cspec.new(repo_spec, commit_id)
+                def from_s(s, arg_name="Cspec_set.from_s")
+                        if s.start_with?('http')
+                                url = s
+                                return from_s(U.rest_get(url), "#{arg_name} => #{url}")
                         end
-                        Cspec_set.new(top_commit, dependency_commits)
+                        deps = nil
+                        if Git_cspec.is_repo_and_commit_id?(s)
+                                repo_and_commit_id = s
+                        else
+                                if s !~ /\{/
+                                        Error_holder.raise("expecting JSON, but I see no hash in #{s}", 400)
+                                end
+                                begin
+                                        h = JSON.parse(s)
+                                rescue JSON::ParserError => jpe
+                                        Error_holder.raise("trouble parsing #{arg_name} \"#{s}\": #{jpe.to_s}", 400)
+                                end
+                                repo_and_commit_id = h["cspec"]
+                                Error_holder.raise("expected a value for JSON key 'cspec' in #{s}", 400) unless repo_and_commit_id
+                                if h.has_key?("cspec_deps")
+                                        array_of_dep_cspec = h["cspec_deps"]
+                                        deps = []
+                                        array_of_dep_cspec.each do | dep_cspec |
+                                                deps << Git_cspec.from_repo_and_commit_id(dep_cspec)
+                                        end
+                                end
+                        end
+                        if !deps
+                                # executes auto-discovery in this case
+                                return Cspec_set.from_repo_and_commit_id(repo_and_commit_id)
+                        end
+                        cs = Cspec_set.new(repo_and_commit_id, deps)
+                        cs
                 end
-                #def from_descriptor(repo_spec)
-                #        # i.e., git;git.osn.oraclecorp.com;osn/cec-server-integration;branch_name;change_tracker_host:change_tracker_port;aaaaaabbbbbcccc
-                #        # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99
-                #        source_control_type, source_control_server, repo_name, branch, change_tracker_host_and_port, commit_id = repo_spec.split(/;/)
-                #        case source_control_type
-                #        when "git"
-                #                repo_spec = Git_repo.make_spec(source_control_server, repo_name, branch, change_tracker_host_and_port)
-                #                repo = Git_repo.new(repo_spec, change_tracker_host_and_port)
-                #                repo.codeline_disk_write(commit_id)
-                #        else
-                #                raise "source control type #{source_control_server} not implemented"
-                #        end
-                #end
-                def from_spec(cspec_string, dependency_commits=nil)
-                        top_commit = Git_cspec.from_spec(cspec_string)
+                def from_repo_and_commit_id(repo_and_commit_id, dependency_commits=nil)
+                        top_commit = Git_cspec.from_repo_and_commit_id(repo_and_commit_id)
                         if !dependency_commits
                                 dependency_commits = top_commit.unreliable_autodiscovery_of_dependencies_from_build_configuration
                         end
                         Cspec_set.new(top_commit, dependency_commits)
                 end
-                def from_url(url_to_json)
-                        from_json(Net::HTTP.get_response(URI.parse(url)).body)
-                end
                 def test_list_changes_since()
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                        cc1 = Cspec_set.from_spec(compound_spec1)
-                        cc2 = Cspec_set.from_spec(compound_spec2)
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
 
-                        gc2 = Git_cspec.from_spec(compound_spec2)
+                        gc2 = Git_cspec.from_repo_and_commit_id(compound_spec2)
 
                         changes = cc2.list_changes_since(cc1)
                         changes2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
                         U.assert_eq(changes, changes2, "vfy same result from wrapper 2a")
 
-                        g1b = Git_cspec.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;22ab587dd9741430c408df1f40dbacd56c657c3f")
-                        g1a = Git_cspec.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;7dfff5f400b3011ae2c4aafac286d408bce11504")
+                        g1b = Git_cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
+                        g1a = Git_cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
                         #U.assert_eq([gc2, g1b, g1a], changes)  # apparently array == gets resolved in terms of string comparisons; this fails here because the actual values have non-nil comment fields
                         U.assert_eq(gc2, changes[0], "test_list_changes_since.0")
@@ -884,19 +866,19 @@ class Cspec_set < Error_holder
                         U.assert_eq(g1a, changes[2], "test_list_changes_since.2")
                 end
                 def test_list_files_changed_since()
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                        cc1 = Cspec_set.from_spec(compound_spec1)
-                        cc2 = Cspec_set.from_spec(compound_spec2)
-
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
+             
                         changed_files = cc2.list_files_changed_since(cc1)
                         
                         changed_files2 = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
                         U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
                         
                         expected_changed_files = {
-                        "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;" => [ "component.properties", "deps.gradle"],
-                        "git;git.osn.oraclecorp.com;ccs/caas;master;" => [ "component.properties", "deps.gradle"]
+                        "git;git.osn.oraclecorp.com;osn/cec-server-integration;master" => [ "component.properties", "deps.gradle"],
+                        "git;git.osn.oraclecorp.com;ccs/caas;master" => [ "component.properties", "deps.gradle"]
                         }
                         
                         U.assert_json_eq(expected_changed_files, changed_files)
@@ -907,10 +889,10 @@ class Cspec_set < Error_holder
                         # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
                         saved_bug_id_regexp = Cspec_set.bug_id_regexp_val
                         begin
-                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;6b5ed0226109d443732540fee698d5d794618b64"
-                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-                                gc1 = Cspec_set.from_spec(compound_spec1)
-                                gc2 = Cspec_set.from_spec(compound_spec2)
+                                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
+                                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                                gc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
+                                gc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
                                 Cspec_set.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
                                 bug_IDs = gc2.list_bug_IDs_since(gc1)
                                 U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
@@ -919,29 +901,27 @@ class Cspec_set < Error_holder
                         end
                 end
                 def test_json_export()
-                        json = Cspec_set.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
-                        U.assert_json_eq(%Q[{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id":"2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}], json, "Cspec_set.test_json_export")
+                        json = Cspec_set.from_s("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
+                        U.assert_json_eq(%Q[{"cspec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99","cspec_deps":["git;git.osn.oraclecorp.com;ccs/caas;master_external;2ec7af608aac74da543ce581de9b7e0de2e52dd3","git;git.osn.oraclecorp.com;osn/cef;master_external;aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"]}], json, "Cspec_set.test_json_export")
                 end
                 def test()
+                        test_json_export()
                         test_list_files_changed_since()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
-                        cc = Cspec_set.from_spec("#{repo_spec};#{valentine_commit_id}")
+                        cc = Cspec_set.from_repo_and_commit_id("#{repo_spec};#{valentine_commit_id}")
                         U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
                         json = cc.to_json
-                        U.assert_json_eq('{"top_commit_repo":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id":"2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps":[{"repo_spec":"git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id":"2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec":"git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id":"aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}', json, "dependency_gather1")
+                        U.assert_json_eq('{"cspec":"git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99","cspec_deps":["git;git.osn.oraclecorp.com;ccs/caas;master_external;2ec7af608aac74da543ce581de9b7e0de2e52dd3","git;git.osn.oraclecorp.com;osn/cef;master_external;aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"]}', json, "dependency_gather1")
 
-                        cc2 = Cspec_set.from_json(json)
+                        cc2 = Cspec_set.from_s(json)
                         U.assert_eq(cc, cc2, "json copy dependency_gather1")
 
-                        cc_latest = Cspec_set.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;")
-                        U.assert(cc_latest && cc_latest != "")
-                        cc9 = Cspec_set.from_spec("git;git.osn.oraclecorp.com;osn/cec-server-integration;;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
-                        U.assert_json_eq(%Q[{"top_commit_repo": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;","top_commit_id": "2bc0b1a58a9277e97037797efb93a2a94c9b6d99","deps": [{"repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master_external;","commit_id": "2ec7af608aac74da543ce581de9b7e0de2e52dd3"},{"repo_spec": "git;git.osn.oraclecorp.com;osn/cef;master_external;","commit_id": "aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"}]}], cc9.to_json, "cc9.to_json")
+                        cc9 = Cspec_set.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
+                        U.assert_json_eq(%Q[{"cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99","cspec_deps": ["git;git.osn.oraclecorp.com;ccs/caas;master_external;2ec7af608aac74da543ce581de9b7e0de2e52dd3", "git;git.osn.oraclecorp.com;osn/cef;master_external;aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"]}], cc9.to_json, "cc9.to_json")
 
                         test_list_changes_since()
                         test_list_bug_IDs_since()
-                        test_json_export()
                 end
         end
 end
@@ -964,9 +944,9 @@ class Change_tracker_app
                 if !json_fn2
                         usage('missing VERSION_JSON_FILE2')
                 end
-                compound_commit1 = Cspec_set.from_file(json_fn1)
-                compound_commit2 = Cspec_set.from_file(json_fn2)
-                compound_commit2.list_files_added_or_updated_since(compound_commit1).each do | changed_file |
+                cspec_set1 = Cspec_set.from_file(json_fn1)
+                cspec_set2 = Cspec_set.from_file(json_fn2)
+                cspec_set2.list_files_added_or_updated_since(cspec_set1).each do | changed_file |
                         puts changed_file
                 end
         end
