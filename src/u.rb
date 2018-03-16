@@ -214,6 +214,7 @@ class U
         MAIL_MODE_SMTP = 1
         MAIL_MODE_TEST = 2
         class << self
+                attr_accessor :assertion_labels
                 attr_accessor :log_level
                 attr_accessor :log_indent
                 attr_accessor :mail_mode
@@ -221,6 +222,7 @@ class U
                 attr_accessor :dry_mode
                 attr_accessor :raise_if_fail
                 attr_accessor :test_exit_code
+                attr_accessor :initial_working_directory
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
                 @@t = nil
@@ -231,6 +233,8 @@ class U
                         U.eval_f(ENV["HOME"] + "/.ruby_u", true)
                         U.log_level = U::LOG_ERROR
                         U.init_default_t_if_needed()
+                        U.assertion_labels = Hash.new
+                        U.initial_working_directory = Dir.getwd
                         U.test_exit_code = 0
                 end
                 def eval_f(fn, ok_if_nonexistent=false)
@@ -551,7 +555,42 @@ class U
                         actual_output = method.call(input)
                         U.assert_eq(expected_output, actual_output, "test transforming #{input}")
                 end
-                def assert_json_eq(expected, actual, caller_msg=nil, raise_if_fail=false)
+                def cook(s)
+                        s.gsub(/[^-\w]/, '_').sub(/^_/, '').sub(/_$/, '')
+                end
+                def test_can_fn(s)
+                        if U.initial_working_directory != Dir.getwd
+                                if !U.initial_working_directory
+                                        raise "no value for U.initial_working_directory"
+                                end
+                                Dir.chdir(U.initial_working_directory)    # apparently we chdir'ed at some point; chdir back so relative path to test is valid
+                        end
+                        if !Dir.exist?("test")
+                                raise "expected test dir, but did not see one in #{Dir.pwd}"
+                        end
+                        "test/#{U.cook(s)}"
+                end
+                def assert_json_eq_f(actual, caller_msg, raise_if_fail=false)
+                        canon_fn = test_can_fn(caller_msg)
+                        if File.exist?(canon_fn)
+                                expected = IO.read(canon_fn)
+                                assert_json_eq(expected, actual, caller_msg, raise_if_fail)
+                        else
+                                puts "assert_json_eq_f writing #{canon_fn}..."
+                                File.write(canon_fn, actual)
+                        end
+                end
+                def assert_eq_f(actual, caller_msg, raise_if_fail=false)
+                        canon_fn = test_can_fn(caller_msg)
+                        if File.exist?(canon_fn)
+                                expected = IO.read(canon_fn)
+                                assert_eq(expected, actual, caller_msg, raise_if_fail)
+                        else
+                                puts "assert_eq_f writing #{canon_fn}..."
+                                File.write(canon_fn, actual)
+                        end
+                end
+                def assert_json_eq(expected, actual, caller_msg, raise_if_fail=false)
                         if !caller_msg
                                 caller_msg = "json comparison (#{actual})"
                         end
@@ -625,9 +664,13 @@ class U
                         end
                         out
                 end
-                def assert_eq(expected, actual, caller_msg=nil, raise_if_fail=false, silent_if_fail=false)
+                def assert_eq(expected, actual, caller_msg, raise_if_fail=false, silent_if_fail=false)
                         U.init unless U.log_level
-
+                        if U.assertion_labels.has_key?(caller_msg)
+                                raise "U.assert_eq: caller_msg parm must be unique, '#{caller_msg}' used > 1 time"
+                        end
+                        U.assertion_labels[caller_msg] = true
+                        
                         expected.gsub!(/^\s*/, '') if expected.is_a?(String)
 
                         if !expected.eql?(actual)

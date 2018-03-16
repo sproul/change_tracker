@@ -1,0 +1,7 @@
+{
+  "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99",
+  "cspec_deps": [
+    "git;git.osn.oraclecorp.com;ccs/caas;master_external;2ec7af608aac74da543ce581de9b7e0de2e52dd3",
+    "git;git.osn.oraclecorp.com;osn/cef;master_external;aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c"
+  ]
+}

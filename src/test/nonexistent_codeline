@@ -1,0 +1,16 @@
+Error encountered: error: bad exit code from
+cd "/scratch/change_tracker/git/git.osn.oraclecorp.com/osn"; git clone  "git@git.osn.oraclecorp.com:osn/cec-server-integrationXXXXX.git"
+GitLab: The project you were looking for could not be found.
+fatal: The remote end hung up unexpectedly
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:NNN:in `block in system'
+/opt/sensu/embedded/lib/ruby/2.0.0/open3.rb:NNN:in `popen_run'
+/opt/sensu/embedded/lib/ruby/2.0.0/open3.rb:NNN:in `popen3'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:NNN:in `system'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `codeline_disk_write'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `unreliable_autodiscovery_of_dependencies_from_build_configuration'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `from_repo_and_commit_id'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/change_tracker.rb:NNN:in `from_s'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `go'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `assert_error_result_from_s'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test_nonexistent_codeline'
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:NNN:in `test'

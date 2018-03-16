@@ -22,11 +22,9 @@ end
 
 def log_request()
         url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}#{request.env['QUERY_STRING']}"
-        puts "log vvvvvvvvvvvvvvvvvvvvv: #{url}"
 end
 
 get '/' do
-        puts "hiiiiiiiiiii"
         if ! Json_change_tracker.initialized
                 Json_change_tracker.init("#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}")
         end

@@ -42,8 +42,11 @@ while ARGV.size > j do
                 exit
         when "-test"
                 U.test_mode = true
-                Json_change_tracker.test
+                U.init
+                Json_change_tracker.init()
+
                 Cspec_set.test
+                Json_change_tracker.test
                 Git_cspec.test
                 File_sets.test
                 Global.test
@@ -51,6 +54,8 @@ while ARGV.size > j do
                 Cec_gradle_parser.test
                 puts "EOT"
                 exit
+        when "-tad"
+                Cec_gradle_parser.trace_autodiscovery = true
         when "-trace_autodiscovery"
                 Cec_gradle_parser.trace_autodiscovery = true
         when "-tcs"

@@ -37,7 +37,7 @@ Start_sinatra()
         export log_root=$ct_root/log
         mkdir -p $log_root
         export log_fn=$log_root/out.`date +'%a'`
-        
+        touch $log_fn
         nohup $0 --Start_sinatra_logged 2>&1 >> $log_root/nohup.out &
         tail -f $log_fn | sed -e 's/^/SERVER: /' &
 }
