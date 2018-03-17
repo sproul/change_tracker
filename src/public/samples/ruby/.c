@@ -1,1 +1,0 @@
-add ruby sample code to connect to CT
