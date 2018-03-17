@@ -57,7 +57,8 @@ class Json_change_tracker
                 if backtrace
                         z << "#{backtrace.join("\n")}\n"
                 end
-
+                z << "<p>See the <a href=doc.htm                target='_blank'>Change Tracker doc</a> for information and examples of valid inputs."
+                z << "<p>See the <a href=samples/index.html     target='_blank'>Change Tracker sample page</a> for information and examples of CT client code."
                 z
         end
         def go(op, cspec_set1, cspec_set2, pretty=false)

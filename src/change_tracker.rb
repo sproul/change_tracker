@@ -391,8 +391,14 @@ class Git_cspec < Error_holder
                 end
                 self.commit_id = commit_id
                 self.comment = comment
+                puts "Git_cspec.new(#{self.repo_and_commit_id})" if Cec_gradle_parser.trace_autodiscovery
         end
         def unreliable_autodiscovery_of_dependencies_from_build_configuration()
+                if !Git_cspec.autodiscovered_deps
+                        Git_cspec.autodiscovered_deps = Hash.new
+                elsif Git_cspec.autodiscovered_deps.has_key?(self.repo_and_commit_id)
+                        return Git_cspec.autodiscovered_deps[self.repo_and_commit_id]
+                end
                 self.repo.codeline_disk_write
                 deps_gradle_content = self.repo.get_file("deps.gradle", self.commit_id)
                 if deps_gradle_content
@@ -401,6 +407,7 @@ class Git_cspec < Error_holder
                         dependency_commits = []
                 end
                 puts "unreliable_autodiscovery_of_dependencies_from_build_configuration returns #{dependency_commits}" if Cec_gradle_parser.trace_autodiscovery
+                Git_cspec.autodiscovered_deps[self.repo_and_commit_id] = dependency_commits
                 dependency_commits
         end
         def list_changes_since(other_commit)
@@ -481,6 +488,7 @@ class Git_cspec < Error_holder
         class << self
                 TEST_SOURCE_SERVER_AND_PROJECT_NAME = "orahub.oraclecorp.com;faiza.bounetta/promotion-config"
                 TEST_REPO_SPEC = "git;#{TEST_SOURCE_SERVER_AND_PROJECT_NAME};"
+                attr_accessor :autodiscovered_deps      #       not for performance so much as to make an infinite loop of dependencies impossible
 
                 def auto_discover_requested_in__repo_and_commit_id(repo_and_commit_id)
                         (repo_and_commit_id =~ AUTODISCOVER_REGEX)
@@ -1119,6 +1127,7 @@ class Cec_gradle_parser < Error_holder
                                 repo_spec = Git_repo.make_spec(gr.source_control_server, repo_name, git_repo_branch)
                                 dependency_commit = Git_cspec.new(repo_spec, git_repo_commit_id)
                                 dependency_commits << dependency_commit
+                                dependency_commits += dependency_commit.unreliable_autodiscovery_of_dependencies_from_build_configuration
                                 
                                 puts "Cec_gradle_parser.to_dep_commits: dep repo_name=#{repo_name} (commit #{git_repo_commit_id}), resolved to dep #{dependency_commit}" if trace_autodiscovery
 

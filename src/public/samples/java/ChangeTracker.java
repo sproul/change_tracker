@@ -18,7 +18,7 @@ public class ChangeTracker {
     }
 	private static String execute_op(String op, String cspec_set1, String cspec_set2) throws Exception {
         StringBuilder result = new StringBuilder();
-        String url_string = ChangeTracker.server_host_and_port + "?op=" + op + urlEncodeParm("cspec_set1", cspec_set1) + urlEncodeParm("cspec_set2", cspec_set2);
+        String url_string = ChangeTracker.server_host_and_port + "?pretty=true&op=" + op + urlEncodeParm("cspec_set1", cspec_set1) + urlEncodeParm("cspec_set2", cspec_set2);
         URL url = new URL(url_string);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");

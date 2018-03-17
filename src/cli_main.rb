@@ -62,6 +62,8 @@ while ARGV.size > j do
                 U.trace_calls_to_system = true
         when "-v"
                 U.trace = true
+                U.trace_calls_to_system = true
+                Cec_gradle_parser.trace_autodiscovery = true
         else
                 if !cms.json_fn1
                         cms.json_fn1 = ARGV[j]
