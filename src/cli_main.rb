@@ -2,6 +2,8 @@ require_relative 'u'
 require_relative 'change_tracker'
 require_relative 'json_change_tracker'
 
+STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
+
 cms = Change_tracker_app.new
 
 j = 0
