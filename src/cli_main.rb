@@ -9,7 +9,7 @@ while ARGV.size > j do
         arg = ARGV[j]
         case arg
         when "-test_clean"
-                Git_repo.test_clean
+                Repo.test_clean
         when "-compound_commit_json_of"
                 puts Cspec_set.from_repo_and_commit_id(ARGV[j+1]).to_json
                 exit
@@ -25,13 +25,13 @@ while ARGV.size > j do
                 puts Cspec_set.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_changes_between_no_deps"
-                Git_cspec.list_changes_between(ARGV[j+1], ARGV[j+2])
+                Cspec.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_files_changed_between"
                 puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_files_changed_between_no_deps"
-                puts Git_cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
         when "-list_last_changes"
                 puts "["
@@ -47,10 +47,10 @@ while ARGV.size > j do
 
                 Cspec_set.test
                 Json_change_tracker.test
-                Git_cspec.test
+                Cspec.test
                 File_sets.test
                 Global.test
-                Git_repo.test
+                Repo.test
                 Cec_gradle_parser.test
                 puts "EOT"
                 exit
