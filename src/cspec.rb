@@ -35,17 +35,10 @@ class Cspec < Error_holder
                 dependency_commits
         end
         def list_changes_since(other_commit)
-                change_lines = repo.system_as_list("git log --pretty=format:'%H %s' #{other_commit.commit_id}..#{commit_id}")
-                commits = []
-                change_lines.map.each do | change_line |
-                        self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
-                        change_id, comment = $1, $2
-                        commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
-                end
-                commits
+                return self.repo.vcs.list_changes_since(self, other_commit)
         end
         def list_changed_files()
-                File_set.new(self.repo, repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}"))
+                self.repo.vcs.list_changed_files(self.commit_id)
         end
         def list_files_changed_since(other_commit)
                 commits = list_changes_since(other_commit)
@@ -80,18 +73,21 @@ class Cspec < Error_holder
                 JSON.pretty_generate(h)
         end
         def codeline_disk_write()
-                repo.codeline_disk_write(self.commit_id)
+                if !self.repo.codeline_disk_exist?
+                        self.repo.codeline_disk_write(self.commit_id)
+                end
+                if !self.repo.codeline_disk_exist?
+                        self.raise "error: #{self} does not exist on disk after supposed clone"
+                end
         end
         def component_contained_by?(cspec_set)
                 self.find_commit_for_same_component(cspec_set) != nil
         end
         def list_files_added_or_updated()
-                # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                repo.system_as_list("git diff-tree --no-commit-id --name-only -r #{self.commit_id}")
+                repo.vcs.list_files_added_or_updated(self.commit_id)
         end
         def list_files()
-                # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
-                repo.system_as_list("git ls-tree --full-tree -r HEAD --name-only")
+                repo.vcs.list_files
         end
         def list_bug_IDs_since(other_commit)
                 changes = list_changes_since(other_commit)

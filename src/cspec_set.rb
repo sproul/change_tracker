@@ -139,7 +139,7 @@ class Cspec_set < Error_holder
                 # "    "
                 # "    The deps.gradle file, component.properties and any other @autoupdate files listed in deps.gradle"
                 # "    have been automatically updated to consume these dynamic dependencies."
-                commit_log_entries = gr.system_as_list("git log --oneline -n #{n} --pretty=format:'%H:%s'")
+                commit_log_entries = gr.vcs.list_last_changes(n)
                 commits = []
                 commit_log_entries.each do | commit_log_entry |
                         if commit_log_entry !~ /^([a-f0-9]+):(.*)$/m
