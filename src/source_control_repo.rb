@@ -23,7 +23,7 @@ class Repo < Error_holder
                 end
                 self.source_control_type = source_control_type
                 if !branch_name || branch_name == ""
-                        self.branch_name = Version_control_system::DEFAULT_BRANCH
+                        self.branch_name = Git_version_control_system::DEFAULT_BRANCH
                 else
                         self.branch_name = branch_name
                 end
@@ -34,7 +34,7 @@ class Repo < Error_holder
                 if !Repo.codeline_root_parent
                         Repo.codeline_root_parent = Global.get_scratch_dir("git")
                 end
-                self.vcs = Version_control_system.new(self)
+                self.vcs = Version_control_system.from_repo(self)
         end
         def latest_commit_id()
                 self.vcs.latest_commit_id
@@ -82,7 +82,9 @@ class Repo < Error_holder
         def codeline_disk_write(commit_id = nil)
                 root_dir = codeline_disk_root()
                 if !codeline_disk_exist?
-                        self.vcs.codeline_disk_write(root_dir, commit_id)
+                        root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
+                        FileUtils.mkdir_p(root_parent)
+                        self.vcs.codeline_disk_write(root_parent, root_dir, commit_id)
                 end
                 root_dir
         end
@@ -99,7 +101,7 @@ class Repo < Error_holder
         class << self
                 TEST_REPO_NAME = "git;git.osn.oraclecorp.com;osn/cec-server-integration;"
                 attr_accessor :codeline_root_parent
-                def make_spec(source_control_server, repo_name, branch=Version_control_system.DEFAULT_BRANCH, change_tracker_host_and_port=nil)
+                def make_spec(source_control_server, repo_name, branch=Git_version_control_system.DEFAULT_BRANCH, change_tracker_host_and_port=nil)
                         source_control_type = "git"
                         self.raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
                         self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
