@@ -36,9 +36,6 @@ class Repo < Error_holder
                 end
                 self.vcs = Version_control_system.from_repo(self)
         end
-        def latest_commit_id()
-                self.vcs.latest_commit_id
-        end
         def spec()
                 Repo.make_spec(source_control_server, project_name, branch_name, change_tracker_host_and_port)
         end
@@ -91,12 +88,12 @@ class Repo < Error_holder
         def system_as_list(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
-                U.system_as_list(cmd, nil, local_codeline_root_dir)
+                self.vcs.system_as_list(cmd, local_codeline_root_dir)
         end
         def system(cmd)
                 local_codeline_root_dir = self.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
-                U.system(cmd, nil, local_codeline_root_dir)
+                self.vcs.system(cmd, local_codeline_root_dir)
         end
         class << self
                 TEST_REPO_NAME = "git;git.osn.oraclecorp.com;osn/cec-server-integration;"

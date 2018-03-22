@@ -1,9 +1,12 @@
 #!/bin/bash -x
 
+. change_tracker.inc
+
 unset HTTP_PROXY
 unset http_proxy
 unset HTTPS_PROXY
 unset https_proxy
+
 stop_server_on_exit=''
 ct_url=http://localhost:4567
 if [ -z "$ct_root" ]; then

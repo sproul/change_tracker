@@ -167,7 +167,8 @@ class Cspec < Error_holder
                         repo_spec, commit_id = $1, $2
                         gr = Repo.new(repo_spec)
                         if commit_id == ""
-                                commit_id = gr.latest_commit_id
+                                raise "unexpected lack of a commit ID"
+                                
                         end
                         Cspec.new(gr, commit_id, comment)
                 end
