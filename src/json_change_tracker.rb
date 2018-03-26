@@ -144,11 +144,11 @@ class Json_change_tracker
                         end
                         if !Json_change_tracker.examples_by_op
                                 Json_change_tracker.examples_by_op = Hash.new
-                                Json_change_tracker.examples_by_op["list_bug_IDs_between"] = init_example_for_op("list_bug_IDs_between", "@WEB_ROOT@/?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
+                                Json_change_tracker.examples_by_op["list_bug_IDs_between"] = init_example_for_op("list_bug_IDs_between", "@WEB_ROOT@/?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
 
-                                Json_change_tracker.examples_by_op["list_changes_between"] = init_example_for_op("list_changes_between", "@WEB_ROOT@/?pretty=true&op=list_changes_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
+                                Json_change_tracker.examples_by_op["list_changes_between"] = init_example_for_op("list_changes_between", "@WEB_ROOT@/?pretty=true&op=list_changes_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
 
-                                Json_change_tracker.examples_by_op["list_files_changed_between"] = init_example_for_op("list_files_changed_between", "@WEB_ROOT@/?pretty=true&op=list_files_changed_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
+                                Json_change_tracker.examples_by_op["list_files_changed_between"] = init_example_for_op("list_files_changed_between", "@WEB_ROOT@/?pretty=true&op=list_files_changed_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/serverintegration%3B%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D", %Q[{ "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64", "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"] }], %Q[{ "cspec_deps": [ "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed", "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"], "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"}])
 
                                 z = ""
                                 Json_change_tracker.examples_by_op.values.each do | example |
@@ -200,8 +200,8 @@ class Json_change_tracker
                         end
                 end
                 def test_bad_json()
-                        cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
-                        cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cspec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        cspec2 = "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
                         z1 = %Q[{ "cspec" : "#{cspec1}" }]
                         z2 = %Q[{ "cspec" : "#{cspec2}" }]
@@ -232,7 +232,7 @@ class Json_change_tracker
                         "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
                         },
                         {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
                         "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
                         "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
                         },
@@ -253,7 +253,7 @@ class Json_change_tracker
                         }
                         ]], "list_changes_between")
                         assert_close_neighbors_result("[]", "list_bug_IDs_between")
-                        assert_close_neighbors_result(%Q[{\n  "git;git.osn.oraclecorp.com;osn/cec-server-integration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
+                        assert_close_neighbors_result(%Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
                 end
                 def assert_close_neighbors_cspec_by_http(expected, op)
                         z1 = "#{Json_change_tracker.web_root}/test_cspec_set1.json"
@@ -263,17 +263,17 @@ class Json_change_tracker
                 def test_cspec_by_http_for_all_ops()
                         assert_close_neighbors_cspec_by_http(%Q[[
                         {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
                         "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
                         "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
                         },
                         {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
                         "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
                         "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
                         },
                         {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
                         "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
                         "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
                         },
@@ -294,11 +294,11 @@ class Json_change_tracker
                         }
                         ]], "list_changes_between")
                         assert_close_neighbors_cspec_by_http("[]", "list_bug_IDs_between")
-                        assert_close_neighbors_cspec_by_http(%Q[{\n  "git;git.osn.oraclecorp.com;osn/cec-server-integration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
+                        assert_close_neighbors_cspec_by_http(%Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
                 end
                 def test_nonexistent_codeline()
-                        cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integrationXXXXX;;6b5ed0226109d443732540fee698d5d794618b64"
-                        cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integrationXXXXX;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        cspec1 = "git;git.osn.oraclecorp.com;osn/serverintegrationXXXXX;;6b5ed0226109d443732540fee698d5d794618b64"
+                        cspec2 = "git;git.osn.oraclecorp.com;osn/serverintegrationXXXXX;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 
                         z1 = %Q[{ "cspec" : "#{cspec1}" }]
                         z2 = %Q[{ "cspec" : "#{cspec2}" }]

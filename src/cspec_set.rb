@@ -216,8 +216,8 @@ class Cspec_set < Error_holder
                 Cspec_set.new(top_commit, dependency_commits)
         end
         def Cspec_set.test_list_changes_since()
-                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
-                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
+                compound_spec2 = "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                 cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
                 cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
 
@@ -227,17 +227,17 @@ class Cspec_set < Error_holder
                 changes2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
                 U.assert_eq(changes, changes2, "vfy same result from wrapper 2a")
 
-                g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
-                g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
+                g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
+                g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
 
                 U.assert_eq(gc2, changes[0], "test_list_changes_since.0")
                 U.assert_eq(g1b, changes[1], "test_list_changes_since.1")
                 U.assert_eq(g1a, changes[2], "test_list_changes_since.2")
         end
-        def Cspec_set.test_list_files_changed_since()
-                compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64+"
-                compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e+"
+        def Cspec_set.test_list_files_changed_since_cs()
+                compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64+"
+                compound_spec2 = "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e+"
                 cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1, Cspec::AUTODISCOVER)
                 cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2, Cspec::AUTODISCOVER)
 
@@ -247,11 +247,11 @@ class Cspec_set < Error_holder
                 U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
 
                 expected_changed_files = {
-                "git;git.osn.oraclecorp.com;osn/cec-server-integration;master" => [ "component.properties", "deps.gradle"],
-                "git;git.osn.oraclecorp.com;ccs/caas;master" => [ "component.properties", "deps.gradle"]
+                "git;git.osn.oraclecorp.com;osn/serverintegration;" => [ "component.properties", "deps.gradle"],
+                "git;git.osn.oraclecorp.com;ccs/caas;" => [ "component.properties", "deps.gradle"]
                 }
 
-                U.assert_json_eq(expected_changed_files, changed_files, "Cspec_set.test_list_files_changed_since")
+                U.assert_json_eq(expected_changed_files, changed_files, "Cspec_set.test_list_files_changed_since_cs")
         end
         def Cspec_set.test_list_bug_IDs_since()
                 # I noticed that for the commits in this range, there is a recurring automated comment "caas.build.pl.master/3013/" -- so
@@ -259,8 +259,8 @@ class Cspec_set < Error_holder
                 # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
                 saved_bug_id_regexp = Cspec_set.bug_id_regexp_val
                 begin
-                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
-                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+                        compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
+                        compound_spec2 = "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                         gc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
                         gc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
                         Cspec_set.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
@@ -271,18 +271,18 @@ class Cspec_set < Error_holder
                 end
         end
         def Cspec_set.test_json_export()
-                json = Cspec_set.from_s("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99", "Cspec_set.test_json_export", true).to_json
+                json = Cspec_set.from_s("git;git.osn.oraclecorp.com;osn/serverintegration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99", "Cspec_set.test_json_export", true).to_json
                 U.assert_json_eq_f(json, "Cspec_set.test_json_export")
-                json = Cspec_set.from_s("git;git.osn.oraclecorp.com;osn/cec-server-integration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
+                json = Cspec_set.from_s("git;git.osn.oraclecorp.com;osn/serverintegration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99").to_json
                 U.assert_json_eq_f(json, "Cspec_set.test_json_export__without_autodiscover")
         end
         def Cspec_set.test_full_cspec_set_as_dep()
                 U.assert_json_eq_f(Cspec_set.from_s(Json_change_tracker.load_local("test_full_cspec_set_as_dep.json")).to_json, "test_full_cspec_set_as_dep")
         end
         def Cspec_set.test()
-                test_list_files_changed_since()
+                test_list_files_changed_since_cs()
                 test_json_export()
-                repo_spec = "git;git.osn.oraclecorp.com;osn/cec-server-integration;master"
+                repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
                 valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                 cc = Cspec_set.from_repo_and_commit_id("#{repo_spec};#{valentine_commit_id}", Cspec::AUTODISCOVER)
                 U.assert(cc.dependency_commits.size > 0, "cc.dependency_commits.size > 0")
@@ -292,7 +292,7 @@ class Cspec_set < Error_holder
                 cc2 = Cspec_set.from_s(json)
                 U.assert_eq(cc, cc2, "json copy dependency_gather1")
 
-                cc9 = Cspec_set.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/cec-server-integration;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99", Cspec::AUTODISCOVER)
+                cc9 = Cspec_set.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99", Cspec::AUTODISCOVER)
                 U.assert_json_eq_f(cc9.to_json, "cc9.to_json")
 
                 test_list_changes_since()

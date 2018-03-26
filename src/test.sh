@@ -1,4 +1,30 @@
 #!/bin/bash
+verbose_mode=''
+out=''
+
+output_to_tmp_file()
+{
+        out=/tmp/test.out
+        echo Will write voluminous output to $out
+}
+
+while [ -n "$1" ]; do
+        case "$1" in
+                -v)
+                        verbose_mode=-v
+                        output_to_tmp_file
+                ;;
+                -V)
+                        echo Not setting verbose mode, but will buffer output, so feel free to turn on max tracing...
+                        output_to_tmp_file
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+
 if [ -z "$1" ]; then
         default_op=test
 else
@@ -16,7 +42,16 @@ Ruby_change_tracker()
 
 t=`mktemp`
 
-export PATH=`dirname $0`:$PATH
+cd `dirname $0`
+SRC_ROOT=`pwd`
+z=`pwd`/vcs_scripts
+while [ "$z" != "/" ]; do
+        chmod 755 "$z" > /dev/null 2>&1
+        z=`dirname "$z"`
+done
+
+chmod 755 $SRC_ROOT
+export PATH=$SRC_ROOT:$SRC_ROOT/vcs_scripts:$PATH
 
 test_no_deps_config()
 {
@@ -49,11 +84,21 @@ EOF
 
 }
 
-Ruby_change_tracker $default_op $*
-#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
-#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64"
-#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
-#Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/cec-server-integration;;" 500
+if [ -n "$out" ]; then
+        echo writing to $out ...
+fi
+(
+Ruby_change_tracker $verbose_mode $default_op $*
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;master;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
+#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+#Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/serverintegration;;" 500
+) | if [ -n "$out" ]; then
+        cat > $out
+else
+        cat
+fi
+
 
 #test_no_deps_config
 exit 0

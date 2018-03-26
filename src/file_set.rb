@@ -51,7 +51,7 @@ class File_sets
                 self.to_json
         end
         class << self
-                TEST_REPO_NAME1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;"
+                TEST_REPO_NAME1 = "git;git.osn.oraclecorp.com;osn/serverintegration;"
                 TEST_REPO_NAME2 = "git;git.osn.oraclecorp.com;osn/cec-else;"
 
                 def test()

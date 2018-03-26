@@ -167,15 +167,15 @@ class Hash_of_arrays < Hash
                         ha.add("x", "a")
                         ha.add("x", "b")
                         ar = ha["x"]
-                        U.assert_eq(2, ar.size)
+                        U.assert_eq(2, ar.size, "Hash_of_arrays.4")
                         ha.add("x", "b")
                         ar = ha["x"]
-                        U.assert_eq(2, ar.size)
+                        U.assert_eq(2, ar.size, "Hash_of_arrays.1.4")
                         ha.delete_val("x", "b")
                         ar = ha["x"]
-                        U.assert_eq(1, ar.size)
+                        U.assert_eq(1, ar.size, "Hash_of_arrays.3.4")
                         ha.delete_val("x", "a")
-                        U.assert(!ha.has_key?("x"))
+                        U.assert(!ha.has_key?("x"), "Hash_of_arrays.5.4")
                 end
         end
 end
@@ -194,9 +194,9 @@ class Hash_of_n < Hash
                 def test()
                         hd = Hash_of_n.new
                         hd.add("x", 7)
-                        U.assert_eq(7, hd["x"])
+                        U.assert_eq(7, hd["x"], "Hash_of_n.0")
                         hd.add("x", 10)
-                        U.assert_eq(17, hd["x"])
+                        U.assert_eq(17, hd["x"], "Hash_of_n.1")
                 end
         end
 end
@@ -236,6 +236,97 @@ class U
                         U.assertion_labels = Hash.new
                         U.initial_working_directory = Dir.getwd
                         U.test_exit_code = 0
+                end
+                def trace_max(enable)
+                        puts "setting trace stuff......"
+                        trace_line = TracePoint.new(:line) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_line.enable
+                        else
+                                trace_line.disable
+                        end
+                        trace_class = TracePoint.new(:class) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_class.enable
+                        else
+                                trace_class.disable
+                        end
+                        trace_end = TracePoint.new(:end) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_end.enable
+                        else
+                                trace_end.disable
+                        end
+                        trace_return = TracePoint.new(:return) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_return.enable
+                        else
+                                trace_return.disable
+                        end
+                        trace_c_call = TracePoint.new(:c_call) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_c_call.enable
+                        else
+                                trace_c_call.disable
+                        end
+                        trace_c_return = TracePoint.new(:c_return) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_c_return.enable
+                        else
+                                trace_c_return.disable
+                        end
+                        trace_raise = TracePoint.new(:raise) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_raise.enable
+                        else
+                                trace_raise.disable
+                        end
+                        trace_b_call = TracePoint.new(:b_call) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_b_call.enable
+                        else
+                                trace_b_call.disable
+                        end
+                        trace_b_return = TracePoint.new(:b_return) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_b_return.enable
+                        else
+                                trace_b_return.disable
+                        end
+                        trace_thread_begin = TracePoint.new(:thread_begin) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_thread_begin.enable
+                        else
+                                trace_thread_begin.disable
+                        end
+                        trace_thread_end = TracePoint.new(:thread_end) do |tp|
+                                puts "#{tp.defined_class}##{tp.method_id} got called (#{tp.path}:#{tp.lineno})"
+                        end
+                        if enable
+                                trace_thread_end.enable
+                        else
+                                trace_thread_end.disable
+                        end
                 end
                 def eval_f(fn, ok_if_nonexistent=false)
                         if !File.exist?(fn)
@@ -337,6 +428,10 @@ class U
                                         z = "error: bad exit code from\n#{t_preamble}#{cmd}\n#{err}"
                                         raise z
                                 end
+                                if U.trace_calls_to_system
+                                        print out
+                                        puts "EOD"
+                                end
                                 out
                         end
                 end
@@ -401,10 +496,13 @@ class U
                         fn
                 end
                 def rest_get(url)
-                        resp = Net::HTTP.get_response(URI.parse(url))
-                        resp.body
+                        begin
+                                resp = Net::HTTP.get_response(URI.parse(url))
+                                resp.body
+                        rescue Exception => e
+                                raise "error retrieving #{url}: #{e.to_s}"
+                        end
                 end
-
                 def rest_get_json(url)
                         x = U.rest_get(url)
                         JSON.parse(x)
@@ -845,39 +943,51 @@ class U
                         puts "U.rolling_avg(#{new_n}, #{old_avg}, #{max_decline_c}, #{decline_c}) -> #{avg}"
                         avg
                 end
+                def test_rest_get()
+                        bad_test_url = "http://crap.no.such.host/a/b/c"
+                        begin
+                                rest_get(bad_test_url)
+                        rescue => e
+                                e_msg = e.to_s
+                                if !Regexp.new(".*#{bad_test_url}.*").match(e_msg)
+                                        U.assert_eq(0, 1, "negative U.rest_get test: expected to see #{bad_test_url} in #{e_msg}")
+                                else
+                                        U.assert_eq(1, 1, "negative U.rest_get test")
+                                end
+                                return
+                        end
+                        U.assert_eq(0, 1, "should never get here, rather we expect a throw from our invalid call to rest_get")
+                end
                 def test()
                         U.test_mode = true
-                        U.assert_eq("42 seconds", U.seconds_to_s(42))
-                        U.assert_eq("about 1 minute", U.seconds_to_s(62))
-                        U.assert_eq("about 2 minutes", U.seconds_to_s(110))
-                        U.assert_eq("about 94 minutes", U.seconds_to_s((94 * 60) - 4))
-                        U.assert_eq("about 2 hours", U.seconds_to_s(132 * 60))
-                        U.assert_eq("about 2 hours", U.seconds_to_s(110 * 60))
-                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) + 9))
-                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) - 9))
-                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) - 9))
-                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) + 9))
+                        test_rest_get                        
+                        U.assert_eq("42 seconds", U.seconds_to_s(42), "U.test.0")
+                        U.assert_eq("about 1 minute", U.seconds_to_s(62), "U.test.1")
+                        U.assert_eq("about 2 minutes", U.seconds_to_s(110), "U.test.2")
+                        U.assert_eq("about 94 minutes", U.seconds_to_s((94 * 60) - 4), "U.test.3")
+                        U.assert_eq("about 2 hours", U.seconds_to_s(132 * 60), "U.test.4")
+                        U.assert_eq("about 2 hours", U.seconds_to_s(110 * 60), "U.test.5")
+                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) + 9), "U.test.6")
+                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) - 9), "U.test.7")
+                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) - 9), "U.test.8")
+                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) + 9), "U.test.9")
                         U.property_save("xyz", "abc")
-                        U.assert_eq("abc", U.property_read("xyz"))
-                        #U.test_mail()
-                        U.assert_eq("42 seconds", U.seconds_to_s(42))
-                        U.assert_eq("about 1 minute", U.seconds_to_s(62))
-                        U.assert_eq("about 2 minutes", U.seconds_to_s(110))
-                        U.assert_eq("about 94 minutes", U.seconds_to_s((94 * 60) - 4))
-                        U.assert_eq("about 2 hours", U.seconds_to_s(132 * 60))
-                        U.assert_eq("about 2 hours", U.seconds_to_s(110 * 60))
-                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) + 9))
-                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) - 9))
-                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) - 9))
-                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) + 9))
+                        U.assert_eq("abc", U.property_read("xyz"), "U.test.11")
+                        U.assert_eq("42 seconds", U.seconds_to_s(42), "U.test.13")
+                        U.assert_eq("about 1 minute", U.seconds_to_s(62), "U.test.14")
+                        U.assert_eq("about 2 minutes", U.seconds_to_s(110), "U.test.15")
+                        U.assert_eq("about 94 minutes", U.seconds_to_s((94 * 60) - 4), "U.test.16")
+                        U.assert_eq("about 2 hours", U.seconds_to_s(132 * 60), "U.test.17")
+                        U.assert_eq("about 2 hours", U.seconds_to_s(110 * 60), "U.test.18")
+                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) + 9), "U.test.19")
+                        U.assert_eq("about 71 hours", U.seconds_to_s((71 * 3600) - 9), "U.test.20")
+                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) - 9), "U.test.21")
+                        U.assert_eq("about 3 days", U.seconds_to_s((73 * 3600) + 9), "U.test.22")
                         U.property_save("xyz", "abc")
-                        U.assert_eq("abc", U.property_read("xyz"))
-                        #U.test_mail()
-                        #U.test_rolling_avg()
+                        U.assert_eq("abc", U.property_read("xyz"), "U.test.24")
                         U.init(true, "2014/10/10.0600")
 
-                        U.assert_eq(1.975, U.rolling_avg(40.0, 1.0))
-                        U.assert_eq(" 123.1235", U.print_f(123.12345), 'U.print_f(123.12345)')
+                        U.assert_eq(1.975, U.rolling_avg(40.0, 1.0), "U.test.25")
                         U.assert_eq("1.000     4/4    ", U.batting_avg(4, 4), 'U.batting_avg(4, 4)')
                         U.assert_eq("0.500     2/4    ", U.batting_avg(2, 4), 'U.batting_avg(2, 4)')
                         U.assert_eq("0.000     0/4    ", U.batting_avg(0, 4), 'U.batting_avg(0, 4)')
@@ -898,14 +1008,10 @@ class U
                         U.assert_eq("outside", U.t_to_type("2014/10/10.0629"), "unexpected for 2014/10/10.0629")
                         U.assert_eq("outside", U.t_to_type("2014/10/10.1302"), "unexpected for 2014/10/10.1302")
                         U.assert_eq("session", U.t_to_type("2014/10/10.1002"), "unexpected for 2014/10/10.1002")
-                        U.assert_eq("session", U.t_to_type("2014/10/10.1000", "2014/10/10.1102"))
-                        U.assert_eq("mixed", U.t_to_type("2014/10/10.1000", "2014/10/10.1302"))
-                        #
-                        #
-                        #
-
+                        U.assert_eq("session", U.t_to_type("2014/10/10.1000", "2014/10/10.1102"), "U.7.4")
+                        U.assert_eq("mixed", U.t_to_type("2014/10/10.1000", "2014/10/10.1302"), "U.9.4")
+                        
                         puts "OK u"
-                        raise "lksdfjjjjjjjjjjjjjjj"
                 end
                 def only_child_of(dir)
                         children = Dir.glob("#{dir}/*")

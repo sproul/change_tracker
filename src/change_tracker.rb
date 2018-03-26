@@ -32,11 +32,9 @@ class Global < Error_holder
                         init_data
                         data.get(key, default_value)
                 end
-                def get_scratch_dir(key)
-                        raise "bad key" unless key
+                def get_scratch_dir()
                         scratch_dir_root = get("scratch_dir", "/scratch/change_tracker")
-                        key = key.gsub(/[^\w]/, "_")
-                        scratch_dir = scratch_dir_root + "/" + key
+                        scratch_dir = scratch_dir_root
                         FileUtils.mkdir_p(scratch_dir)
                         scratch_dir
                 end

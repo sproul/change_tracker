@@ -45,8 +45,9 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 U.init
+                U.test
                 Json_change_tracker.init()
-
+                P4_version_control_system.test()
                 Cspec_set.test
                 Json_change_tracker.test
                 Cspec.test
@@ -65,12 +66,19 @@ while ARGV.size > j do
         when "-v"
                 U.trace = true
                 U.trace_calls_to_system = true
+                U.trace_max(true)
                 Cec_gradle_parser.trace_autodiscovery = true
         else
                 if !cms.json_fn1
                         cms.json_fn1 = ARGV[j]
+                        if !File.exist?(cms.json_fn1)
+                                raise "could not find json file #{cms.json_fn1}"
+                        end
                 elsif !cms.json_fn2
                         cms.json_fn2 = ARGV[j]
+                        if !File.exist?(cms.json_fn2)
+                                raise "could not find json file #{cms.json_fn2}"
+                        end
                 else
                         raise "did not understand \"#{ARGV[j]}\""
                 end
