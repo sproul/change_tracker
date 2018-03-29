@@ -1,6 +1,7 @@
 require_relative 'version_control_system'
 
 class Repo < Error_holder
+        REPO_MV_DEFAULT = {}
         attr_accessor :branch_name
         attr_accessor :change_tracker_host_and_port
         attr_accessor :global_data_prefix
@@ -36,7 +37,7 @@ class Repo < Error_holder
         end
         def update_repo_spec_to_reflect_repo_moves(repo_spec)
                 if !Repo.repo_mv
-                        Repo.repo_mv = Global.get("repo_mv")
+                        Repo.repo_mv = Global.get("repo_mv", REPO_MV_DEFAULT)
                         # now convert all the keys into Regexp objects
                         Repo.repo_mv.keys.each do | before |
                                 before_regexp = Regexp.new(before)

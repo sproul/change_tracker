@@ -1,5 +1,6 @@
 #!/bin/bash -x
 
+cd `dirname $0`
 . change_tracker.inc
 
 unset HTTP_PROXY

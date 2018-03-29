@@ -30,7 +30,11 @@ class Json_obj
                         if default_val
                                 return default_val
                         else
-                                raise "no match for key #{key} in #{self.h}"
+                                z = "no match for key #{key} in #{self.h}"
+                                z.gsub!(/passwd.=>"[^"]*"/i, "xxxx")
+                                z.gsub!(/pw.=>"[^"]*"/i, "xxxx")
+                                z.gsub!(/password.=>"[^"]*"/i, "xxxx")
+                                raise z
                         end
                 end
                 h[key]
