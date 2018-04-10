@@ -45,6 +45,7 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 U.init
+                Repo.test
                 U.test
                 Json_change_tracker.init()
                 P4_version_control_system.test()
@@ -53,7 +54,6 @@ while ARGV.size > j do
                 Cspec.test
                 File_sets.test
                 Global.test
-                Repo.test
                 Cec_gradle_parser.test
                 puts "EOT"
                 exit

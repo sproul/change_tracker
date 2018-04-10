@@ -60,11 +60,11 @@ while [ -n "$1" ]; do
                         sleep 2
                         Start_sinatra
                 ;;
-                0)
+                stop|0)
                         Stop_sinatra
                         exit
                 ;;
-                1)
+                start|1)
                         Start_sinatra &
                         exit
                 ;;

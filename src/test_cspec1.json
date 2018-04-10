@@ -1,0 +1,66 @@
+    {
+      "name" : "analytics",
+      "buildnum" : "331",
+      "buildurl" : "https://osnci.us.oracle.com/job/analytics.build.pl.master/331/",
+      "version" : "1.0.331",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "b7bcf7a7c2b87882745882672448f542bbd68777",
+      "git_repo" : "cef.git"
+      "cspec" : "git;git.osn.oraclecorp.com;osn/cef.git;master;b7bcf7a7c2b87882745882672448f542bbd68777"
+    },
+    {
+      "name" : "caas",
+      "buildnum" : "3308",
+      "buildurl" : "https://osnci.us.oracle.com/job/caas.build.pl.master/3308/",
+      "version" : "1.0.3308",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "20f37a826a836397a35de83129af1979f9815246",
+      "git_repo" : "caas.git"
+      "cspec" : "git;git.osn.oraclecorp.com;ccs/caas.git;master;20f37a826a836397a35de83129af1979f9815246"
+    },
+    {
+      "name" : "docs-server",
+      "buildnum" : "763",
+      "buildurl" : "https://osnci.us.oracle.com/job/docs.release.pl.master/763/",
+      "version" : "1.0.1013",
+      "scmtype" : "svn",
+      "svn_branch" : "cloudtrunk-externalcompute",
+      "svn_revision" : "160529",
+      "svn_repo" : "adc4110308.us.oracle.com/svn/idc/products/cs"
+      "cspec" : "svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;160529"
+    },
+    {
+      "name" : "pipeline-common",
+      "buildnum" : "15",
+      "buildurl" : "https://osnci.us.oracle.com/job/pipeline-common.build.release.pl.master/15/",
+      "version" : "1.0.15",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "f28274b94ec9d32a034456f55af1d1121d200ca7",
+      "git_repo" : "pipeline-common.git"
+      "cspec" : "git;git.osn.oraclecorp.com;osn/pipeline-common.git;master;f28274b94ec9d32a034456f55af1d1121d200ca7"
+    },
+    {
+      "name" : "servercommon",
+      "buildnum" : "309",
+      "buildurl" : "https://osnci.us.oracle.com/job/servercommon.build.pl.master/309/",
+      "version" : "1.0.309",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "2cda74324ba4043c2a26e642d011ddf1e6f53076",
+      "git_repo" : "servercommon.git"
+      "cspec" : "git;git.osn.oraclecorp.com;osn/servercommon.git;master;2cda74324ba4043c2a26e642d011ddf1e6f53076"
+    },
+    {
+      "name" : "waggle",
+      "buildnum" : "541",
+      "buildurl" : "https://osnci.us.oracle.com/job/social.build.pl.master/541/",
+      "version" : "1.0.541",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "2448cb0c448c82fcc52333db4965a4bc9ab0829e",
+      "git_repo" : "waggle.git"
+      "cspec" : "git;git.osn.oraclecorp.com;osn/waggle.git;master;2448cb0c448c82fcc52333db4965a4bc9ab0829e"
+    }

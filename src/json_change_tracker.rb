@@ -320,3 +320,138 @@ class Json_change_tracker
                 end
         end
 end
+# current generated json from steve roth:
+#     {
+#      "name" : "analytics",
+#      "buildnum" : "331",
+#      "buildurl" : "https://osnci.us.oracle.com/job/analytics.build.pl.master/331/",
+#      "version" : "1.0.331",
+#      "scmtype" : "git",
+#      "git_branch" : "master",
+#      "git_sha" : "b7bcf7a7c2b87882745882672448f542bbd68777",
+#      "git_repo" : "cef.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/cef.git;master;b7bcf7a7c2b87882745882672448f542bbd68777"
+#    },
+#    {
+#      "name" : "caas",
+#      "buildnum" : "3308",
+#      "buildurl" : "https://osnci.us.oracle.com/job/caas.build.pl.master/3308/",
+#      "version" : "1.0.3308",
+#      "scmtype" : "git",
+#      "git_branch" : "master",
+#      "git_sha" : "20f37a826a836397a35de83129af1979f9815246",
+#      "git_repo" : "caas.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;ccs/caas.git;master;20f37a826a836397a35de83129af1979f9815246"
+#    },
+#    {
+#      "name" : "docs-server",
+#      "buildnum" : "763",
+#      "buildurl" : "https://osnci.us.oracle.com/job/docs.release.pl.master/763/",
+#      "version" : "1.0.1013",
+#      "scmtype" : "svn",
+#      "svn_branch" : "cloudtrunk-externalcompute",
+#      "svn_revision" : "160529",
+#      "svn_repo" : "adc4110308.us.oracle.com/svn/idc/products/cs",
+#      "cspec" : "svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;160529"
+#    },
+#    {
+#      "name" : "pipeline-common",
+#      "buildnum" : "15",
+#      "buildurl" : "https://osnci.us.oracle.com/job/pipeline-common.build.release.pl.master/15/",
+#      "version" : "1.0.15",
+#      "scmtype" : "git",
+#      "git_branch" : "master",
+#      "git_sha" : "f28274b94ec9d32a034456f55af1d1121d200ca7",
+#      "git_repo" : "pipeline-common.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/pipeline-common.git;master;f28274b94ec9d32a034456f55af1d1121d200ca7"
+#    },
+#    {
+#      "name" : "servercommon",
+#      "buildnum" : "309",
+#      "buildurl" : "https://osnci.us.oracle.com/job/servercommon.build.pl.master/309/",
+#      "version" : "1.0.309",
+#      "scmtype" : "git",
+#      "git_branch" : "master",
+#      "git_sha" : "2cda74324ba4043c2a26e642d011ddf1e6f53076",
+#      "git_repo" : "servercommon.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/servercommon.git;master;2cda74324ba4043c2a26e642d011ddf1e6f53076"
+#    },
+#    {
+#      "name" : "waggle",
+#      "buildnum" : "541",
+#      "buildurl" : "https://osnci.us.oracle.com/job/social.build.pl.master/541/",
+#      "version" : "1.0.541",
+#      "scmtype" : "git",
+#      "git_branch" : "master",
+#      "git_sha" : "2448cb0c448c82fcc52333db4965a4bc9ab0829e",
+#      "git_repo" : "waggle.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/waggle.git;master;2448cb0c448c82fcc52333db4965a4bc9ab0829e"
+#    }
+#
+#    # old one based on old.deps.gradle
+#        {
+#      "name" : "analytics",
+#      "buildnum" : "184",
+#      "buildurl" : "https://osnci.us.oracle.com/job/analytics.build.pl.master_external/184/",
+#      "version" : "1.master_external.184",
+#      "scmtype" : "git",
+#      "git_branch" : "master_external",
+#      "git_sha" : "73a08ea1ad92bfeaedb17ed2e9df8c638ce3a10c",
+#      "git_repo" : "cef.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/cef.git;master_external;73a08ea1ad92bfeaedb17ed2e9df8c638ce3a10c"
+#    },
+#    {
+#      "name" : "caas",
+#      "buildnum" : "298",
+#      "buildurl" : "https://osnci.us.oracle.com/job/caas.build.pl.master_external/298/",
+#      "version" : "1.master_external.298",
+#      "scmtype" : "git",
+#      "git_branch" : "master_external",
+#      "git_sha" : "0cb54267b9c463cd2ba17e456c0783a976652ebf",
+#      "git_repo" : "caas.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;ccs/caas.git;master_external;0cb54267b9c463cd2ba17e456c0783a976652ebf"
+#    },
+#    {
+#      "name" : "docs-server",
+#      "buildnum" : "304",
+#      "buildurl" : "https://osnci.us.oracle.com/job/docs.build.pl.master_external/304/",
+#      "version" : "1.master_external.304",
+#      "scmtype" : "svn",
+#      "svn_branch" : "cloudtrunk-externalcompute",
+#      "svn_revision" : "158875",
+#      "svn_repo" : "adc4110308.us.oracle.com/svn/idc/products/cs",
+#      "cspec" : "svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;158875"
+#    },
+#    {
+#      "name" : "pipeline-common",
+#      "buildnum" : "9",
+#      "buildurl" : "https://osnci.us.oracle.com/job/pipeline-common.build.release.pl.master_external/9/",
+#      "version" : "1.master_external.9",
+#      "scmtype" : "git",
+#      "git_branch" : "master_external",
+#      "git_sha" : "673fe143be566ad9fccd05ff6c8ac1c65a597618",
+#      "git_repo" : "pipeline-common.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/pipeline-common.git;master_external;673fe143be566ad9fccd05ff6c8ac1c65a597618"
+#    },
+#    {
+#      "name" : "servercommon",
+#      "buildnum" : "243",
+#      "buildurl" : "https://osnci.us.oracle.com/job/servercommon.build.pl.master_external/243/",
+#      "version" : "1.master_external.243",
+#      "scmtype" : "git",
+#      "git_branch" : "master_external",
+#      "git_sha" : "81f98f5fa34c5e86cdc7b564ac82a0b5c92dbe82",
+#      "git_repo" : "servercommon.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/servercommon.git;master_external;81f98f5fa34c5e86cdc7b564ac82a0b5c92dbe82"
+#    },
+#    {
+#      "name" : "waggle",
+#      "buildnum" : "396",
+#      "buildurl" : "https://osnci.us.oracle.com/job/social.build.pl.master_external/396/",
+#      "version" : "1.master_external.396",
+#      "scmtype" : "git",
+#      "git_branch" : "master_external",
+#      "git_sha" : "a2962702d256fd8abdacb8418bc9ea23fdd235f4",
+#      "git_repo" : "waggle.git",
+#      "cspec" : "git;git.osn.oraclecorp.com;osn/waggle.git;master_external;a2962702d256fd8abdacb8418bc9ea23fdd235f4"
+#    }
