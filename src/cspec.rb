@@ -1,10 +1,11 @@
 class Cspec < Error_holder
         AUTODISCOVER = "+"              #       autodiscover_dependencies_by_looking_in_codeline
         AUTODISCOVER_REGEX = /\+$/      #       regex to find AUTODISCOVER appended to a repo_and_commit_id
-        attr_accessor :repo
         attr_accessor :commit_id
         attr_accessor :comment  # only set if this object populated by a call to git log
-        def initialize(repo_expr, commit_id, comment=nil)
+        attr_accessor :props
+        attr_accessor :repo
+        def initialize(repo_expr, commit_id, comment=nil, props=Hash.new)
                 if repo_expr.is_a? String
                         repo_spec = repo_expr
                         self.repo = Repo.new(repo_spec)
@@ -15,7 +16,11 @@ class Cspec < Error_holder
                 end
                 self.commit_id = commit_id
                 self.comment = comment
+                self.props = props
                 puts "Cspec.new(#{self.repo_and_commit_id})" if Cec_gradle_parser.trace_autodiscovery
+        end
+        def add_prop(key, val)
+                self.props[key] = val
         end
         def unreliable_autodiscovery_of_dependencies_from_build_configuration()
                 if !Cspec.autodiscovered_deps
@@ -55,6 +60,9 @@ class Cspec < Error_holder
                 z = "Cspec(#{self.repo.spec}, #{self.commit_id}"
                 if self.comment
                         z << ", !!!#{comment}!!!"
+                end
+                if self.props
+                        z << ", #{self.props}"
                 end
                 z << ")"
                 z
@@ -175,7 +183,9 @@ class Cspec < Error_holder
                 def is_repo_and_commit_id?(s)
                         # git;git.osn.oraclecorp.com;osn/serverintegration;master;aaaaaaaaaaaa
                         # type         ;  host   ; proj     ;brnch;commit_id
-                        if s =~ /^(\w+);([-\w\.]+);([-\w\.\/]+);(\w*);(\w+)\+?$/
+                        #   p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159
+                        # type;host/port                    ;path;                                                               branch;rev
+                        if s =~ /^(\w+);([-\w:\.]+);([-\w\.\/]+);(\w*);(\w+)\+?$/
                                 true
                         else
                                 false

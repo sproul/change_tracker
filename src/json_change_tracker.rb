@@ -252,16 +252,17 @@ class Json_change_tracker
                         "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
                         }
                         ]], "list_changes_between")
+                        
                         assert_close_neighbors_result("[]", "list_bug_IDs_between")
                         assert_close_neighbors_result(%Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
                 end
-                def assert_close_neighbors_cspec_by_http(expected, op)
-                        z1 = "#{Json_change_tracker.web_root}/test_cspec_set1.json"
-                        z2 = "#{Json_change_tracker.web_root}/test_cspec_set2.json"
-                        test_assert_result_from_s(expected, op, z1, z2, "close neighbors list changes by http")
+                def assert_close_neighbors_cspec_by_http(vn, expected, op)
+                        z1 = "#{Json_change_tracker.web_root}/test_cspec_set1_v#{vn}.json"
+                        z2 = "#{Json_change_tracker.web_root}/test_cspec_set2_v#{vn}.json"
+                        test_assert_result_from_s(expected, op, z1, z2, "close neighbors list changes by http, v#{vn}")
                 end
-                def test_cspec_by_http_for_all_ops()
-                        assert_close_neighbors_cspec_by_http(%Q[[
+                def test_cspec_by_http_for_all_ops_v1()
+                        assert_close_neighbors_cspec_by_http(1, %Q[[
                         {
                         "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
                         "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
@@ -293,8 +294,44 @@ class Json_change_tracker
                         "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
                         }
                         ]], "list_changes_between")
-                        assert_close_neighbors_cspec_by_http("[]", "list_bug_IDs_between")
-                        assert_close_neighbors_cspec_by_http(%Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
+                        assert_close_neighbors_cspec_by_http(1, "[]", "list_bug_IDs_between")
+                        assert_close_neighbors_cspec_by_http(1, %Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
+                end
+                def test_cspec_by_http_for_all_ops_v2()
+                        assert_close_neighbors_cspec_by_http(2, %Q[[
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
+                        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
+                        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
+                        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+                        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+                        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+                        },
+                        {
+                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+                        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+                        }
+                        ]], "list_changes_between")
+                        assert_close_neighbors_cspec_by_http(2, "[]", "list_bug_IDs_between")
+                        assert_close_neighbors_cspec_by_http(2, %Q[{\n  "git;git.osn.oraclecorp.com;osn/serverintegration;master": [\n    "component.properties",\n    "deps.gradle"\n  ],\n  "git;git.osn.oraclecorp.com;ccs/caas;master": [\n    "component.properties",\n    "deps.gradle"\n  ]\n}], "list_files_changed_between")
                 end
                 def test_nonexistent_codeline()
                         cspec1 = "git;git.osn.oraclecorp.com;osn/serverintegrationXXXXX;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -306,10 +343,11 @@ class Json_change_tracker
                 end
                 def test()
                         Json_change_tracker.init()
-                        test_bad_json
-                        test_cspec_by_http_for_all_ops
-                        test_nonexistent_codeline
                         test_close_neighbors_all_ops
+                        test_cspec_by_http_for_all_ops_v2
+                        test_cspec_by_http_for_all_ops_v1
+                        test_bad_json
+                        test_nonexistent_codeline
                 end
                 def local_url(path)
                         "#{Json_change_tracker.web_root}#{path}"

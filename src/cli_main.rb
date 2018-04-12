@@ -7,6 +7,7 @@ STDOUT.sync = true      # otherwise some output can get lost if there is an exce
 cms = Change_tracker_app.new
 
 j = 0
+
 while ARGV.size > j do
         arg = ARGV[j]
         case arg
@@ -23,17 +24,32 @@ while ARGV.size > j do
         when "-list_bug_IDs_between"
                 puts Cspec_set.list_bug_IDs_between(ARGV[j+1], ARGV[j+2])
                 exit
+        when "-list_bug_IDs_betweenf"
+                puts Cspec_set.list_bug_IDs_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                exit
         when "-list_changes_between"
                 puts Cspec_set.list_changes_between(ARGV[j+1], ARGV[j+2])
+                exit
+        when "-list_changes_betweenf"
+                puts Cspec_set.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
                 exit
         when "-list_changes_between_no_deps"
                 Cspec.list_changes_between(ARGV[j+1], ARGV[j+2])
                 exit
+        when "-list_changes_between_no_depsf"
+                Cspec.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                exit
         when "-list_files_changed_between"
                 puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2])
                 exit
+        when "-list_files_changed_betweenf"
+                puts Cspec_set.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                exit
         when "-list_files_changed_between_no_deps"
                 puts Cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                exit
+        when "-list_files_changed_between_no_depsf"
+                puts Cspec.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
                 exit
         when "-list_last_changes"
                 puts "["
@@ -45,12 +61,12 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 U.init
-                Repo.test
-                U.test
                 Json_change_tracker.init()
-                P4_version_control_system.test()
                 Cspec_set.test
                 Json_change_tracker.test
+                Repo.test
+                U.test
+                P4_version_control_system.test()
                 Cspec.test
                 File_sets.test
                 Global.test

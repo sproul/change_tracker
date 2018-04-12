@@ -25,13 +25,20 @@ CT is a web application currently running at <a href=http://slcipcn.us.oracle.co
 <ul>
         <li>JSON
                 <pre>
-{
-        "cspec" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64", 
-        "cspec_deps" : [ 
-                "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed",
-                "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"
-        ]
-}
+[
+        {
+            "a1": "1",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"
+        },
+        {
+            "b2": "2",
+            "cspec": "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"
+        },
+        {
+            "c3": "3",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+        }
+]
                 </pre>
         </li>
         <li>http
@@ -42,16 +49,18 @@ http://slcipcn.us.oracle.com:4567/test_cspec_set1.json
         <li>hybrid<br>
         The cspec_set JSON can contain pointers further JSON located via URL.
                 <pre>
-{
-        "cspec" : "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64", 
-        "cspec_deps" : [ 
-                "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed",
-                "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
-                "http://slcipcn.us.oracle.com:4567/test_cspec_set1.json"
-        ]
-}
+[
+        {
+            "a1": "1",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"
+        },
+        {
+            "c3": "3",
+            "cspec": "http://slcipcn.us.oracle.com:4567/test_cspec_set1.json"
+        }
+]
                 </pre>
-                When cspec_set contains a dependency loaded by means of a URL, and the JSON found at that URL is itself a cspec_set, then all the commits listed in the cspec_set, including the top level commit, are included as dependencies in the containing cspec_set.
+                When a cspec_set contains a dependency loaded by means of a URL, and the JSON found at that URL is itself a cspec_set, then all the commits listed in the cspec_set are included as dependencies in the containing cspec_set.
         </li>
 </ul>
 

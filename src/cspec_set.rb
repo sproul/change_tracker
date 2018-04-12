@@ -57,6 +57,7 @@ class Cspec_set < Error_holder
         def get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 pairs = []
                 self.commits.each do | commit |
+                        
                         previous_commit_for_same_component = commit.find_commit_for_same_component(other_cspec_set)
                         if previous_commit_for_same_component
                                 pairs << [ previous_commit_for_same_component, commit ]
@@ -112,18 +113,18 @@ class Cspec_set < Error_holder
                 z
         end
         def Cspec_set.list_bug_IDs_between(cspec_set_s1, cspec_set_s2)
-                cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
-                cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                cspec_set1 = Cspec_set.from_s(cspec_set_s1)
+                cspec_set2 = Cspec_set.from_s(cspec_set_s2)
                 return cspec_set2.list_bug_IDs_since(cspec_set1)
         end
         def Cspec_set.list_changes_between(cspec_set_s1, cspec_set_s2)
-                cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
-                cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                cspec_set1 = Cspec_set.from_s(cspec_set_s1)
+                cspec_set2 = Cspec_set.from_s(cspec_set_s2)
                 return cspec_set2.list_changes_since(cspec_set1)
         end
         def Cspec_set.list_files_changed_between(cspec_set_s1, cspec_set_s2)
-                cspec_set1 = Cspec_set.from_repo_and_commit_id(cspec_set_s1)
-                cspec_set2 = Cspec_set.from_repo_and_commit_id(cspec_set_s2)
+                cspec_set1 = Cspec_set.from_s(cspec_set_s1)
+                cspec_set2 = Cspec_set.from_s(cspec_set_s2)
                 return cspec_set2.list_files_changed_since(cspec_set1)
         end
         def Cspec_set.list_last_changes(repo_spec, n)
@@ -163,6 +164,51 @@ class Cspec_set < Error_holder
         def Cspec_set.from_file(json_fn)
                 from_s(IO.read(json_fn))
         end
+        def Cspec_set.from_json_obj_v1(z)
+                deps = []
+                if z.has_key?("cspec")
+                        cs0 = Cspec_set.from_s(z["cspec"])
+                else
+                        cs0 = nil
+                end
+                if z.has_key?("cspec_deps")
+                        Error_holder.raise("since there is a cspec_deps value, there should also be a cspec value, but it is missing in #{s}", 400) unless cs0
+                        
+                        deps = []
+                        z["cspec_deps"].each do | dep_cspec |
+                                cs = Cspec_set.from_s(dep_cspec)
+                                deps += cs.commits
+                        end
+                        cs0.dependency_commits = deps
+                end
+                cs0
+        end
+        def Cspec_set.from_json_obj_v2(z)
+                cspec_set_array = z.map do | cspec_h |
+                        if !cspec_h.has_key?("cspec")
+                                Error_holder.raise("expected a cspec key in the hash #{cspec_h} (from #{z})", 400)
+                        end
+                        cs = Cspec_set.from_s(cspec_h["cspec"])
+                        cspec_h.each_pair do | key, val |
+                                if key != "cspec"
+                                        cs.top_commit.add_prop(key, val)
+                                end
+                        end
+                        cs
+                end
+                cs0 = cspec_set_array.shift
+                cspec_set_array.each do | csx |
+                        cs0.dependency_commits += csx.commits
+                end
+                cs0
+        end
+        def Cspec_set.from_json_obj(z)
+                begin
+                        return Cspec_set.from_json_obj_v1(z)
+                rescue
+                        return Cspec_set.from_json_obj_v2(z)
+                end
+        end
         def Cspec_set.from_s(s, arg_name="Cspec_set.from_s", autodiscover=false)
                 if s.start_with?('http')
                         url = s
@@ -171,6 +217,7 @@ class Cspec_set < Error_holder
                 deps = nil
                 if Cspec.is_repo_and_commit_id?(s)
                         repo_and_commit_id = s
+                        cs = Cspec_set.new(repo_and_commit_id, nil)
                 else
                         if s !~ /\{/
                                 Error_holder.raise("expecting JSON, but I see no hash in #{s}", 400)
@@ -180,22 +227,12 @@ class Cspec_set < Error_holder
                         rescue JSON::ParserError => jpe
                                 Error_holder.raise("trouble parsing #{arg_name} \"#{s}\": #{jpe.to_s}", 400)
                         end
-                        repo_and_commit_id = h["cspec"]
-                        Error_holder.raise("expected a value for JSON key 'cspec' in #{s}", 400) unless repo_and_commit_id
-                        if h.has_key?("cspec_deps")
-                                array_of_dep_cspec = h["cspec_deps"]
-                                deps = []
-                                array_of_dep_cspec.each do | dep_cspec |
-                                        cs = Cspec_set.from_s(dep_cspec)
-                                        deps += cs.commits
-                                end
-                        end
+                        cs = from_json_obj(h)
                 end
                 if Cspec.auto_discover_requested_in__repo_and_commit_id(repo_and_commit_id)
                         autodiscover = true
                 end
-                cs = Cspec_set.new(repo_and_commit_id, deps)
-                if !deps && autodiscover
+                if autodiscover && (!deps || deps.empty?)
                         # executes auto-discovery in this case
                         cs.dependency_commits = cs.top_commit.unreliable_autodiscovery_of_dependencies_from_build_configuration
                 end
@@ -279,7 +316,14 @@ class Cspec_set < Error_holder
         def Cspec_set.test_full_cspec_set_as_dep()
                 U.assert_json_eq_f(Cspec_set.from_s(Json_change_tracker.load_local("test_full_cspec_set_as_dep.json")).to_json, "test_full_cspec_set_as_dep")
         end
+        def Cspec_set.test_reading_attributes()
+                cs = Cspec_set.from_s(U.read_file("public/test_cspec_set1_v2.json"))
+                U.assert_eq("first one", cs.top_commit.props["a1"], "test_reading_attributes.a1")
+                U.assert_eq(2, cs.top_commit.props.size, "test_reading_attributes.size for #{cs.top_commit.props}")
+        end
         def Cspec_set.test()
+                test_full_cspec_set_as_dep()                
+                test_reading_attributes()
                 test_list_files_changed_since_cs()
                 test_json_export()
                 repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
@@ -297,7 +341,6 @@ class Cspec_set < Error_holder
 
                 test_list_changes_since()
                 test_list_bug_IDs_since()
-                test_full_cspec_set_as_dep()
                 #P4_version_control_system.test
         end
         class << self

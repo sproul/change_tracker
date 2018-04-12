@@ -228,14 +228,16 @@ class U
                 @@t = nil
 
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
-                        # for mail: http://stackoverflow.com/questions/12884711/how-to-send-email-via-smtp-with-rubys-mail-gem
-                        U.mail_mode = mail_mode
-                        U.eval_f(ENV["HOME"] + "/.ruby_u", true)
-                        U.log_level = U::LOG_ERROR
-                        U.init_default_t_if_needed()
-                        U.assertion_labels = Hash.new
-                        U.initial_working_directory = Dir.getwd
-                        U.test_exit_code = 0
+                        if !U.initial_working_directory
+                                # for mail: http://stackoverflow.com/questions/12884711/how-to-send-email-via-smtp-with-rubys-mail-gem
+                                U.mail_mode = mail_mode
+                                U.eval_f(ENV["HOME"] + "/.ruby_u", true)
+                                U.log_level = U::LOG_ERROR
+                                U.init_default_t_if_needed()
+                                U.assertion_labels = Hash.new
+                                U.initial_working_directory = Dir.getwd
+                                U.test_exit_code = 0
+                        end
                 end
                 def trace_max(enable)
                         puts "setting trace stuff......"
@@ -335,7 +337,7 @@ class U
                                 end
                                 return
                         end
-                        code = IO.read(fn)
+                        code = U.read_file(fn)
                         eval(code)
                 end
                 def make_orcl_date(date_string)
@@ -543,6 +545,14 @@ class U
                 def print_sym(sym)
                         U.print_s(sym, 8)
                 end
+                def print_a(a)
+                        s = "[\n"
+                        a.each do | elt |
+                                s << "\t" << elt.to_s << "\n"
+                        end
+                        s << "]\n"
+                        s
+                end
                 def print_s(s, cols)
                         sprintf("%#{cols}s", s)
                 end
@@ -646,7 +656,7 @@ class U
                         d
                 end
                 def assert_file_contains(fn, expected_contents)
-                        actual_contents = IO.read(fn)
+                        actual_contents = U.read_file(fn)
                         U.assert_eq(expected_contents, actual_contents, "contents of #{fn}")
                 end
                 def assert_xform(expected_output, input, method, label=nil)
@@ -666,12 +676,12 @@ class U
                         if !Dir.exist?("test")
                                 raise "expected test dir, but did not see one in #{Dir.pwd}"
                         end
-                        "test/#{U.cook(s)}"
+                        "#{U.initial_working_directory}/test/#{U.cook(s)}"
                 end
                 def assert_json_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
                         if File.exist?(canon_fn)
-                                expected = IO.read(canon_fn)
+                                expected = U.read_file(canon_fn)
                                 assert_json_eq(expected, actual, caller_msg, raise_if_fail)
                         else
                                 puts "assert_json_eq_f writing #{canon_fn}..."
@@ -681,7 +691,7 @@ class U
                 def assert_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
                         if File.exist?(canon_fn)
-                                expected = IO.read(canon_fn)
+                                expected = U.read_file(canon_fn)
                                 assert_eq(expected, actual, caller_msg, raise_if_fail)
                         else
                                 puts "assert_eq_f writing #{canon_fn}..."
@@ -1085,6 +1095,12 @@ class U
                         else
                                 "#{s.slice(0..max_len)}..."
                         end
+                end
+                def read_file(fn)
+                        if !fn.start_with?("/")
+                                fn = U.initial_working_directory + "/" + fn
+                        end
+                        IO.read(fn)
                 end
         end
 end
