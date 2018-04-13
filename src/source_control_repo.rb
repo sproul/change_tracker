@@ -13,9 +13,7 @@ class Repo < Error_holder
 
         def initialize(repo_spec, change_tracker_host_and_port = nil)
                 if !Repo.initialized
-                        Repo.init_renamed_repos_hash
-                        Repo.init_renamed_branches_hash
-                        Repo.initialized = true
+                        Repo.init
                 end
                 repo_spec = update_repo_spec_to_reflect_repo_moves(  repo_spec)
                 #repo_spec = update_repo_spec_to_reflect_branch_moves(repo_spec)
@@ -130,6 +128,13 @@ class Repo < Error_holder
                 attr_accessor :renamed_branches
                 attr_accessor :renamed_repos
 
+                def init()
+                        if !Repo.initialized
+                                Repo.initialized = true
+                                Repo.init_renamed_repos_hash
+                                Repo.init_renamed_branches_hash
+                        end
+                end
                 def init_renamed_repos_hash()
                         Repo.renamed_repos = Hash.new
                         Global.get("renamed_repos", REPO_MV_DEFAULT).each_pair do | from, to |
@@ -139,7 +144,7 @@ class Repo < Error_holder
                 def init_renamed_branches_hash()
                         Repo.renamed_branches = Hash.new
                         Global.get("renamed_branches", BRANCH_MV_DEFAULT).each_pair do | from, to |
-                                note_renamed_branch(from, to)
+                                note_renamed_branch(from, to, false)
                         end
                 end
 
@@ -164,15 +169,33 @@ class Repo < Error_holder
                         end
                         regexp_h
                 end
-                def note_renamed_repo(from, to)
+                def note_renamed_repo(from, to, persist=false)
+                        Repo.init
                         # e.g., git;git.osn.oraclecorp.com;osn/cec-server-integration becomes git;git.osn.oraclecorp.com;osn/serverintegration
                         #       111 2222222222222222222222 33333333333333333333333333
                         load_into_hash_a_regexp_anchored_to_boln_and_having_n_semicolon_delimited_components(Repo.renamed_repos, from, 3, to)
+                        if persist
+                                Global.init_data
+                                
+                                Global.data.h["renamed_repos"] = Hash.new if !Global.data.h.has_key?("renamed_repos")
+                                
+                                Global.data.h["renamed_repos"][from] = to
+                                Global.save
+                        end
                 end
-                def note_renamed_branch(from, to)
+                def note_renamed_branch(from, to, persist=false)
+                        Repo.init
                         # e.g., git;git.osn.oraclecorp.com;osn/serverintegration;master becomes git;git.osn.oraclecorp.com;osn/serverintegration;master_external
                         #       111 2222222222222222222222 333333333333333333333 444444
                         load_into_hash_a_regexp_anchored_to_boln_and_having_n_semicolon_delimited_components(Repo.renamed_branches, from, 4, to)
+                        if persist
+                                Global.init_data
+                                
+                                Global.data.h["renamed_branches"] = Hash.new if !Global.data.h.has_key?("renamed_branches")
+                                
+                                Global.data.h["renamed_branches"][from] = to
+                                Global.save
+                        end
                 end
                 def make_spec(vcs_type, source_control_server, repo_name, branch=Git_version_control_system.DEFAULT_BRANCH, change_tracker_host_and_port=nil)
                         self.raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
@@ -205,7 +228,7 @@ class Repo < Error_holder
                         deps_gradle_content = gr.get_file("deps.gradle", "2bc0b1a58a9277e97037797efb93a2a94c9b6d99")
                         U.assert(deps_gradle_content, "deps_gradle_content.get_file non-nil")
                         U.assert(deps_gradle_content != "", "deps_gradle_content.get_file not empty")
-                     manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
+                        manifest_lines = deps_gradle_content.split("\n").grep(/manifest/)
                         U.assert(manifest_lines.size > 1, "deps_gradle_content.manifest_lines_gt_1")
                 end
         end

@@ -24,6 +24,39 @@ def log_request()
         url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}#{request.env['QUERY_STRING']}"
 end
 
+get '/dump_globals' do
+        headers['Content-Type'] = 'text/plain; charset=utf8'
+        Global.dump_to_json
+end
+
+get '/note_renamed_repo' do
+        from = params['from']
+        if !from
+                raise "from parm required"
+        end
+        to   = params['to']
+        if !to
+                raise "to parm required"
+        end
+        Repo.note_renamed_repo(from, to, true)
+        headers['Content-Type'] = 'text/plain; charset=utf8'
+        Global.dump_to_json
+end
+
+get '/note_renamed_branch' do
+        from = params['from']
+        if !from
+                raise "from parm required"
+        end
+        to   = params['to']
+        if !to
+                raise "to parm required"
+        end
+        Repo.note_renamed_branch(from, to, true)
+        headers['Content-Type'] = 'text/plain; charset=utf8'
+        Global.dump_to_json
+end
+
 get '/' do
         if ! Json_change_tracker.initialized
                 Json_change_tracker.init("#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}")

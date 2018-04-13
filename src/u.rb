@@ -1102,5 +1102,11 @@ class U
                         end
                         IO.read(fn)
                 end
+                def write_file(fn, content)
+                        if !fn.start_with?("/")
+                                fn = U.initial_working_directory + "/" + fn
+                        end
+                        File.open(fn, 'w') { |file| file.write(content) }
+                end
         end
 end

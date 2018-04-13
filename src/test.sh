@@ -24,6 +24,7 @@ while [ -n "$1" ]; do
         esac
         shift
 done
+output_to_tmp_file
 
 if [ -z "$1" ]; then
         default_op=test
@@ -95,6 +96,9 @@ Ruby_change_tracker $verbose_mode $default_op $*
 #Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/serverintegration;;" 500
 ) | if [ -n "$out" ]; then
         cat > $out
+        ok_count=`grep '^OK' $out|wc -l`
+        echo OK $ok_count
+        grep -v '^OK' $out
 else
         cat
 fi

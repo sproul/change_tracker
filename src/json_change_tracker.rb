@@ -341,8 +341,51 @@ class Json_change_tracker
                         z2 = %Q[{ "cspec" : "#{cspec2}" }]
                         assert_error_result_from_s(%Q[GitLab: The project you were looking for could not be found.], "list_changes_between", z1, z2, 500, "nonexistent codeline")
                 end
+                def test_note_renamed_repo()
+                        Global.init_data
+                        from = "git;test.nonexistent.com;osn/from_abc"
+                        to   = "git;test.nonexistent.com;osn/to_abc"
+                        renamed_repos_h = Global.data.h["renamed_repos"]
+                        if renamed_repos_h
+                                renamed_repos_h.delete(from)
+                                U.assert(!renamed_repos_h.has_key?(from), "verify #{from} key not in renamed_repos hash #{renamed_repos_h}")
+                        end
+
+
+                        
+                        #begin
+                        #        Repo.note_renamed_repo("sdflksdjf", to)
+                        #        error_seen = false
+                        #rescue
+                        #        error_seen = true
+                        #end
+                        #U.assert(error_seen, "verify that a string with no semicolons is detected as not a legitimate repo name")
+                        
+                        
+                        
+                        Repo.note_renamed_repo(from, to, true)
+                        renamed_repos_h = Global.data.h["renamed_repos"]
+                        U.assert_eq(to, renamed_repos_h[from], "verify #{from} key has been entered in renamed_repos hash #{renamed_repos_h}")
+                        renamed_repos_h.delete(from)
+                end
+                def test_note_renamed_branch()
+                        Global.init_data
+                        from = "git;test.nonexistent.com;osn/some_project;old_branch"
+                        to   = "git;test.nonexistent.com;osn/some_project;new_branch"
+                        renamed_branches_h = Global.data.h["renamed_branches"]
+                        if renamed_branches_h
+                                renamed_branches_h.delete(from)
+                                U.assert(!renamed_branches_h.has_key?(from), "verify #{from} key not in renamed_branches hash #{renamed_branches_h}")
+                        end
+                        Repo.note_renamed_branch(from, to, true)
+                        renamed_branches_h = Global.data.h["renamed_branches"]
+                        U.assert_eq(to, renamed_branches_h[from], "verify #{from} key has been entered in renamed_branches hash #{renamed_branches_h}")
+                        renamed_branches_h.delete(from)
+                end
                 def test()
                         Json_change_tracker.init()
+                        test_note_renamed_branch                        
+                        test_note_renamed_repo                        
                         test_close_neighbors_all_ops
                         test_cspec_by_http_for_all_ops_v2
                         test_cspec_by_http_for_all_ops_v1

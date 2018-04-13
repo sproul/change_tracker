@@ -62,8 +62,8 @@ while ARGV.size > j do
                 U.test_mode = true
                 U.init
                 Json_change_tracker.init()
-                Cspec_set.test
                 Json_change_tracker.test
+                Cspec_set.test
                 Repo.test
                 U.test
                 P4_version_control_system.test()

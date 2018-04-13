@@ -126,6 +126,20 @@ The output varies by operation.
         </pre>
         </li>
 </ul>
+<h4>Handling Source Control Repo and Branch Renames</h4>
+Is expected that a common build process pattern will be to generate the cspec_set JSON along with the corresponding build artifacts and store them together in commonly accessible places (e.g., a maven repo). These JSON files will contain references to the names of source code repositories and also source code branches. This means that if a source code repository or branch is renamed, there will be dangling references to the old names in the JSON. One approach would be to modify the original JSON files each time there is such a global rename, changing the JSON to reflect the current naming scheme. But this could be troublesome for a number of reasons, notably that the number of files involved could be large, and that overwriting the files could require privileges which are not held by the CT process.
+<p>
+To avoid this dilemma, CT supports methods to keep track of repository and branch name changes and from that point forward automatically convert the old names to the new ones as JSON is read. To assure that there is no ambiguity about which repository or branch is to be effected, the parameters to these methods include all the preceding information in the cspec; for example, if the repository referred to by the cspec is to be renamed from cec-server-integration to serverintegration, the expected parameters would be as follows:
+<pre>
+    http://slcipcn:4567/note_renamed_repo?from=git;git.osn.oraclecorp.com;osn/cec-server-integration&to=git;git.osn.oraclecorp.com;osn/serverintegration
+</pre>
+
+This interface makes it clear that we are referring to a renaming of git repos hosted at the server osn.oraclecorp.com.
+
+The method for renaming a branch is similar.  In the following example, a branch named "experimental_3" becomes "released":
+<pre>
+    http://slcipcn:4567/note_renamed_branch?from=git;git.osn.oraclecorp.com;osn/cec-server-integration;experimental_3&to=git;git.osn.oraclecorp.com;osn/cec-server-integration;released
+</pre>
 <h4>Roadmap</h4>
 <h4>Bugs</h4>
 </form>

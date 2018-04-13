@@ -17,16 +17,28 @@ class Global < Error_holder
                 attr_accessor :data_json_fn
                 attr_accessor :data
                 def init_data()
-                        if !data
-                                if !data_json_fn
-                                        data_json_fn = "/scratch/change_tracker/change_tracker.json"
+                        if !Global.data
+                                puts "init_data"
+                                if !Global.data_json_fn
+                                        Global.data_json_fn = "/scratch/change_tracker/change_tracker.json"
                                 end
-                                if File.exist?(data_json_fn)
-                                        self.data = Json_obj.new(IO.read(data_json_fn))
+                                if File.exist?(Global.data_json_fn)
+                                        Global.data = Json_obj.new(IO.read(Global.data_json_fn))
                                 else
-                                        self.data = Json_obj.new
+                                        Global.data = Json_obj.new
                                 end
                         end
+                end
+                def dump_to_json()
+                        init_data
+                        non_password_h = Hash.new
+                        Global.data.h.each_pair do | key, val |
+                                if key =~ /pw$/i || key =~ /passwd$/i || key =~ /password$/i
+                                        next
+                                end
+                                non_password_h[key] = val
+                        end
+                        JSON.pretty_generate(non_password_h)
                 end
                 def get(key, default_value = nil)
                         init_data
@@ -51,6 +63,10 @@ class Global < Error_holder
                         else
                                 raise "cannot find credentials for #{key}"
                         end
+                end
+                def save()
+                        init_data
+                        U.write_file(Global.data_json_fn, JSON.pretty_generate(Global.data.h))
                 end
                 def test()
                         U.assert_eq("test.val", Global.get("test.key"), "Global.test.key")
