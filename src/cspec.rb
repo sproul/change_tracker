@@ -19,6 +19,9 @@ class Cspec < Error_holder
                 self.props = props
                 puts "Cspec.new(#{self.repo_and_commit_id})" if Cec_gradle_parser.trace_autodiscovery
         end
+        def <=>(other)
+                self.to_s <=> other.to_s
+        end
         def add_prop(key, val)
                 self.props[key] = val
         end
@@ -42,16 +45,19 @@ class Cspec < Error_holder
         def list_changes_since(other_commit)
                 return self.repo.vcs.list_changes_since(self, other_commit)
         end
-        def list_changed_files()
-                self.repo.vcs.list_changed_files(self.commit_id)
+        def list_changed_files(commit_id)
+                self.repo.vcs.get_changed_files_array(commit_id)
         end
         def list_files_changed_since(other_commit)
-                commits = list_changes_since(other_commit)
-                fss = File_sets.new
+                # return Cspec_span_report_item pointing to array of string paths of files changed between this commit and 'other commit'
+                report_item = list_changes_since(other_commit)
+                commits = report_item.item
+                changed_file_list = []
                 commits.each do | commit |
-                        fss.add_set(commit.list_changed_files)
+                        changed_file_list.concat(commit.list_changed_files(commit.commit_id))
                 end
-                return fss
+                report_item.item = changed_file_list.sort.uniq
+                return report_item
         end
         def eql?(other)
                 other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
@@ -71,14 +77,17 @@ class Cspec < Error_holder
                 self.raise "comment not set" unless comment
                 to_s
         end
-        def to_json()
-                h = Hash.new
+        def to_jsonable_h(show_comment=true)
+                h = self.props.clone
                 h["repo_spec"] = repo.to_s
                 h["commit_id"] = commit_id
-                if comment
+                if comment && show_comment
                         h["comment"] = comment
                 end
-                JSON.pretty_generate(h)
+                h
+        end
+        def to_json(show_comment=true)
+                JSON.pretty_generate(self.to_jsonable_h(show_comment))
         end
         def codeline_disk_write()
                 if !self.repo.codeline_disk_exist?
@@ -98,7 +107,8 @@ class Cspec < Error_holder
                 repo.vcs.list_files(self.commit_id)
         end
         def list_bug_IDs_since(other_commit)
-                changes = list_changes_since(other_commit)
+                report_item = list_changes_since(other_commit)
+                changes = report_item.item
                 bug_IDs = Cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
                 bug_IDs
         end
@@ -203,7 +213,9 @@ class Cspec < Error_holder
                         end
                         group1_hits
                 end
+
                 def list_files_changed_between(commit_spec1, commit_spec2)
+                        # return Cspec_span_report_item listing the files changed between commit_spec1 and commit_spec2
                         commit1 = Cspec.from_repo_and_commit_id(commit_spec1)
                         commit2 = Cspec.from_repo_and_commit_id(commit_spec2)
                         return commit2.list_files_changed_since(commit1)
@@ -213,14 +225,16 @@ class Cspec < Error_holder
                         compound_spec2 = "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
                         gc1 = Cspec.from_repo_and_commit_id(compound_spec1)
                         gc2 = Cspec.from_repo_and_commit_id(compound_spec2)
-                        changes = gc2.list_changes_since(gc1)
-                        changes2 = Cspec.list_changes_between(compound_spec1, compound_spec2)
-                        U.assert_eq(changes, changes2, "Cspec.test_list_changes_since - vfy same result from wrapper 0")
+                        report_item1 = gc2.list_changes_since(gc1)
+                        report_item2 = Cspec.list_changes_between(compound_spec1, compound_spec2)
+                        changes1 = report_item1.item
+                        changes2 = report_item2.item
+                        U.assert_eq(changes1, changes2, "Cspec.test_list_changes_since - vfy same result from wrapper 0")
 
                         g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
                         g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
-                        U.assert_eq([gc2, g1b, g1a], changes, "test_list_changes_since")
+                        U.assert_eq([gc2, g1b, g1a], changes1, "test_list_changes_since")
                 end
                 def test_list_files_changed_since()
                         compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -228,10 +242,12 @@ class Cspec < Error_holder
                         gc1 = Cspec.from_repo_and_commit_id(compound_spec1)
                         gc2 = Cspec.from_repo_and_commit_id(compound_spec2)
 
-                        changed_files = gc2.list_files_changed_since(gc1)
-                        changed_files2 = Cspec.list_files_changed_between(compound_spec1, compound_spec2)
-                        U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 1")
-                        U.assert_json_eq({"git;git.osn.oraclecorp.com;osn/serverintegration;" => ["component.properties", "deps.gradle"]}, changed_files, "Cspec.test_list_files_changed_since")
+                        report_item1 = gc2.list_files_changed_since(gc1)
+                        report_item2 = Cspec.list_files_changed_between(compound_spec1, compound_spec2)
+                        changed_files1 = report_item1.item
+                        changed_files2 = report_item2.item
+                        U.assert_eq(changed_files1, changed_files2, "vfy same result from wrapper 1")
+                        U.assert_json_eq(["component.properties", "deps.gradle"], changed_files1, "Cspec.test_list_files_changed_since")
                 end
                 def test_json()
                         repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
@@ -256,7 +272,8 @@ class Cspec < Error_holder
                                 bug_IDs = gc2.list_bug_IDs_since(gc1)
                                 U.assert_eq(["3013", "3012", "3011"], bug_IDs, "test_list_bug_IDs_since")
 
-                                bug_IDs2 = Cspec_set.list_bug_IDs_between(compound_spec1, compound_spec2)
+                                bug_IDs2_report_item_set = Cspec_set.list_bug_IDs_between(compound_spec1, compound_spec2)
+                                bug_IDs2 = bug_IDs2_report_item_set.all_items
                                 U.assert_eq(bug_IDs, bug_IDs2, "test_list_bug_IDs_between wrapper")
                         ensure
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp

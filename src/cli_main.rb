@@ -68,7 +68,6 @@ while ARGV.size > j do
                 U.test
                 P4_version_control_system.test()
                 Cspec.test
-                File_sets.test
                 Global.test
                 Cec_gradle_parser.test
                 puts "EOT"

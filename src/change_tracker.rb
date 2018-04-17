@@ -1,6 +1,5 @@
 require_relative 'u'
 require_relative 'error_holder'
-require_relative 'file_set'
 require_relative 'json_obj'
 require_relative 'source_control_repo'
 require_relative 'cspec'
@@ -118,7 +117,7 @@ class Change_tracker_app
                 end
                 cspec_set1 = Cspec_set.from_file(json_fn1)
                 cspec_set2 = Cspec_set.from_file(json_fn2)
-                cspec_set2.list_files_added_or_updated_since(cspec_set1).each do | changed_file |
+                cspec_set2.list_files_added_or_updated_since(cspec_set1).all_items.each do | changed_file |
                         puts changed_file
                 end
         end

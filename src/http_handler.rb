@@ -73,7 +73,7 @@ get '/' do
         #pp request
         pretty = get_boolean(params['pretty'])
         op     = params['op']
-        http_response_code, body = Json_change_tracker.new.go(op, params['cspec_set1'], params['cspec_set2'], pretty)
+        http_response_code, body = Json_change_tracker.new.go(op, params['cspec_set1'], params['cspec_set2'], params['output_style'], pretty)
         if http_response_code == 200
                 headers['Content-Type'] = 'text/plain; charset=utf8'
         else

@@ -1371,3 +1371,38 @@ Stopping ...
 ...s/index.html     target="_blank">Change Tracker sample page<...
 ...                               ^
 	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `<main>'
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+10.148.119.62 - - [16/Mar/2018:16:39:53 -0700] "GET /samples/index.html HTTP/1.1" 200 7596 0.0174
+10.148.119.62 - - [16/Mar/2018:16:39:54 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0042
+10.191.194.242 - - [17/Mar/2018:05:42:49 -0700] "GET /ui.htm HTTP/1.1" 200 3501 0.0233
+10.191.194.242 - - [17/Mar/2018:05:42:50 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0138
+10.191.194.242 - - [17/Mar/2018:05:42:52 -0700] "GET /favicon.ico HTTP/1.1" 404 485 0.0026
+10.191.194.242 - - [17/Mar/2018:05:43:13 -0700] "GET /doc.htm HTTP/1.1" 200 6714 0.0064
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0106
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0046
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0045
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0036
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0029
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0027
+10.245.2.172 - - [23/Mar/2018:23:21:41 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0024
+10.245.2.172 - - [24/Mar/2018:13:45:32 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0083
+10.245.2.172 - - [24/Mar/2018:13:45:32 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0041
+10.245.2.172 - - [24/Mar/2018:13:45:32 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0039
+10.245.2.172 - - [24/Mar/2018:13:45:33 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0032
+10.245.2.172 - - [24/Mar/2018:13:45:33 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0028
+10.245.2.172 - - [24/Mar/2018:13:45:33 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0030
+10.245.2.172 - - [24/Mar/2018:13:45:33 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0027
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0076
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0038
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0038
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0030
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0029
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set1.json HTTP/1.1" 200 322 0.0025
+10.245.2.172 - - [24/Mar/2018:13:51:50 -0700] "GET /test_cspec_set2.json HTTP/1.1" 200 322 0.0026
+127.0.0.1 - - [25/Mar/2018:20:41:03 -0700] "GET /exit HTTP/1.1" 1 - 0.0083
+Stopping ...
+== Sinatra has ended his set (crowd applauds)

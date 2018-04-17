@@ -241,3 +241,669 @@ Listening on 0.0.0.0:4567, CTRL+C to stop
 127.0.0.1 - - [16/Mar/2018:16:36:47 -0700] "GET /exit HTTP/1.1" 1 - 0.0077
 Stopping ...
 == Sinatra has ended his set (crowd applauds)
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.245.2.171 - - [10/Apr/2018:18:16:49 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0259
+127.0.0.1 - - [10/Apr/2018:18:19:44 -0700] "GET /exit HTTP/1.1" 1 - 0.0085
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.245.2.171 - - [10/Apr/2018:21:58:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0190
+10.245.2.171 - - [10/Apr/2018:21:58:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0017
+10.245.2.171 - - [10/Apr/2018:21:58:19 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0035
+10.245.2.171 - - [10/Apr/2018:21:58:40 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0032
+10.245.2.171 - - [10/Apr/2018:21:58:40 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0023
+10.245.2.171 - - [10/Apr/2018:22:00:54 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0034
+10.245.2.171 - - [10/Apr/2018:22:00:54 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0026
+10.245.2.171 - - [10/Apr/2018:22:01:19 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0380
+10.245.2.171 - - [10/Apr/2018:22:01:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0036
+10.245.2.171 - - [10/Apr/2018:22:01:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0024
+10.245.2.171 - - [10/Apr/2018:22:01:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0026
+10.245.2.171 - - [10/Apr/2018:22:02:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 373 0.0030
+10.245.2.171 - - [10/Apr/2018:22:04:21 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0032
+10.245.2.171 - - [10/Apr/2018:22:04:21 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0026
+10.245.2.171 - - [10/Apr/2018:22:08:02 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0028
+10.245.2.171 - - [10/Apr/2018:22:08:02 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0022
+10.245.2.171 - - [10/Apr/2018:22:10:13 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0031
+10.245.2.171 - - [10/Apr/2018:22:10:13 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0030
+10.245.2.171 - - [10/Apr/2018:22:10:41 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0031
+10.245.2.171 - - [10/Apr/2018:22:10:41 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [10/Apr/2018:22:10:41 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0038
+10.245.2.171 - - [10/Apr/2018:22:10:41 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0032
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0024
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0030
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0028
+10.245.2.171 - - [10/Apr/2018:22:11:09 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0028
+10.245.2.171 - - [10/Apr/2018:22:11:22 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0030
+10.245.2.171 - - [10/Apr/2018:22:11:22 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [10/Apr/2018:22:11:23 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [10/Apr/2018:22:11:23 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0030
+10.245.2.171 - - [10/Apr/2018:22:11:23 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0027
+10.245.2.171 - - [10/Apr/2018:22:11:23 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0025
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0025
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0032
+10.245.2.171 - - [10/Apr/2018:22:11:59 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0025
+10.245.2.171 - - [10/Apr/2018:22:12:00 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0045
+10.245.2.171 - - [10/Apr/2018:22:12:00 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [10/Apr/2018:22:12:00 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [10/Apr/2018:22:17:42 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0031
+10.245.2.171 - - [10/Apr/2018:22:17:42 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [10/Apr/2018:22:17:42 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [10/Apr/2018:22:17:42 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0027
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0028
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0040
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0038
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [10/Apr/2018:22:17:43 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [10/Apr/2018:22:28:28 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0035
+10.245.2.171 - - [10/Apr/2018:22:28:28 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0024
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0028
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0031
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0031
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0044
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0041
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [10/Apr/2018:22:28:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:09:23:23 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0034
+10.245.2.171 - - [11/Apr/2018:09:23:54 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0025
+10.245.2.171 - - [11/Apr/2018:09:24:01 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0022
+10.245.2.171 - - [11/Apr/2018:09:24:15 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0024
+10.245.2.171 - - [11/Apr/2018:09:24:18 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0034
+10.245.2.171 - - [11/Apr/2018:09:24:18 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0024
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0031
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0024
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0024
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0025
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0017
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:09:24:19 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [11/Apr/2018:09:28:31 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0034
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0018
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0014
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0015
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0014
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0018
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0017
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0021
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0033
+10.245.2.171 - - [11/Apr/2018:09:41:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:09:41:12 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0017
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0035
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [11/Apr/2018:09:42:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0025
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0045
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0046
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0037
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0038
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0035
+10.245.2.171 - - [11/Apr/2018:09:42:51 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:09:42:52 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0039
+10.245.2.171 - - [11/Apr/2018:09:43:57 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0044
+10.245.2.171 - - [11/Apr/2018:09:43:57 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0035
+10.245.2.171 - - [11/Apr/2018:09:43:57 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0035
+10.245.2.171 - - [11/Apr/2018:09:43:57 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0040
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0036
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0034
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0041
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0046
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0034
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0035
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:09:43:58 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:09:43:59 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0042
+10.245.2.171 - - [11/Apr/2018:09:45:31 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0042
+10.245.2.171 - - [11/Apr/2018:09:45:31 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0032
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0033
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0031
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0033
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0030
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0049
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0045
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:09:45:32 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [11/Apr/2018:09:45:33 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0036
+10.245.2.171 - - [11/Apr/2018:09:45:33 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0033
+10.245.2.171 - - [11/Apr/2018:09:45:34 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0041
+10.148.119.93 - - [11/Apr/2018:10:13:13 -0700] "GET /doc.htm HTTP/1.1" 200 6714 0.0073
+10.148.119.93 - - [11/Apr/2018:10:13:15 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0056
+10.148.119.93 - - [11/Apr/2018:10:18:34 -0700] "GET /doc.htm HTTP/1.1" 200 6492 0.0049
+10.148.119.93 - - [11/Apr/2018:10:19:21 -0700] "GET /doc.htm HTTP/1.1" 200 6652 0.0044
+10.148.119.93 - - [11/Apr/2018:10:22:00 -0700] "GET /ui.htm HTTP/1.1" 200 3501 0.0323
+10.148.119.93 - - [11/Apr/2018:10:22:00 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0135
+10.148.119.93 - - [11/Apr/2018:10:24:31 -0700] "GET /ui.htm HTTP/1.1" 200 3835 0.0034
+10.148.119.93 - - [11/Apr/2018:10:24:31 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 304 - 0.0029
+10.148.119.93 - - [11/Apr/2018:10:25:04 -0700] "GET /ui.htm HTTP/1.1" 200 3880 0.0042
+10.148.119.93 - - [11/Apr/2018:10:25:04 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 304 - 0.0017
+10.148.119.93 - - [11/Apr/2018:10:25:26 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%7B%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 400 1352 0.0034
+10.148.119.93 - - [11/Apr/2018:10:25:58 -0700] "GET /ui.htm HTTP/1.1" 200 3848 0.0037
+10.148.119.93 - - [11/Apr/2018:10:25:58 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 304 - 0.0027
+10.148.119.93 - - [11/Apr/2018:10:25:58 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%7B%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 400 1352 0.0032
+10.148.119.93 - - [11/Apr/2018:10:26:01 -0700] "GET /ui.htm HTTP/1.1" 200 3848 0.0035
+10.148.119.93 - - [11/Apr/2018:10:26:01 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0092
+2018-04-11 10:26:05 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x000000032c5968>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:68:in `list_bug_IDs_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:89:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+10.148.119.93 - - [11/Apr/2018:10:26:05 -0700] "GET /__sinatra__/500.png HTTP/1.1" 200 24378 0.0123
+2018-04-11 10:26:13 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fadec01fe18>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:91:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2018-04-11 10:26:15 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fadf001f748>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:40:in `list_files_changed_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:93:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2018-04-11 10:36:46 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fadec6be530>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:68:in `list_bug_IDs_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:89:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2018-04-11 10:36:47 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fade8018d38>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:91:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2018-04-11 10:36:50 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fadf02dd9f8>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:40:in `list_files_changed_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:93:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2018-04-11 11:01:29 - NoMethodError - undefined method `find_commit_for_same_component' for #<String:0x007fadf8016ac8>:
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:60:in `block in get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `each'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:59:in `get_pairs_of_commits_with_matching_repo'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:48:in `list_changes_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:68:in `list_bug_IDs_since'
+	/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:89:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:43:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+127.0.0.1 - - [11/Apr/2018:11:01:41 -0700] "GET /exit HTTP/1.1" 1 - 0.0078
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"a1"=>"1",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"},
+ {"b2"=>"2",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"},
+ {"c3"=>"3",
+  "cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+going to pp h............................
+[{"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"},
+ {"cspec"=>
+   "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"}]
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...

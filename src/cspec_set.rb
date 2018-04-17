@@ -1,3 +1,5 @@
+require_relative 'cspec_span_report_item'
+
 class Cspec_set < Error_holder
         attr_accessor :top_commit
         attr_accessor :dependency_commits
@@ -37,22 +39,24 @@ class Cspec_set < Error_holder
                 z
         end
         def list_files_changed_since(other_cspec_set)
-                commits = list_changes_since(other_cspec_set)
-                fss = File_sets.new
-                commits.each do | commit |
-                        fss.add_set(commit.list_changed_files)
-                end
-                return fss
-        end
-        def list_changes_since(other_cspec_set)
                 pairs = get_pairs_of_commits_with_matching_repo(other_cspec_set)
-                changes = []
+                report_item_set = Cspec_span_report_item_set.new
                 pairs.each do | pair |
                         commit0 = pair[0]
                         commit1 = pair[1]
-                        changes += commit1.list_changes_since(commit0)
+                        report_item_set.add(commit1.list_files_changed_since(commit0))
                 end
-                changes
+                report_item_set
+        end
+        def list_changes_since(other_cspec_set)
+                pairs = get_pairs_of_commits_with_matching_repo(other_cspec_set)
+                report_item_set = Cspec_span_report_item_set.new
+                pairs.each do | pair |
+                        commit0 = pair[0]
+                        commit1 = pair[1]
+                        report_item_set.add(commit1.list_changes_since(commit0))
+                end
+                report_item_set
         end
         def get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 pairs = []
@@ -66,9 +70,16 @@ class Cspec_set < Error_holder
                 pairs
         end
         def list_bug_IDs_since(other_cspec_set)
-                changes = list_changes_since(other_cspec_set)
-                bug_IDs = Cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
-                bug_IDs
+                report_item_set = list_changes_since(other_cspec_set)
+                bug_ID_report_item_set = Cspec_span_report_item_set.new
+                report_item_set.items.each do | report_item |
+                        bug_IDs = Cspec.grep_group1(report_item.item, Cspec_set.bug_id_regexp)
+                        if !bug_IDs.empty?
+                                report_item.item = bug_IDs
+                                bug_ID_report_item_set.add(report_item)
+                        end
+                end
+                bug_ID_report_item_set
         end
         def find_commits_for_components_that_were_added_since(other_cspec_set)
                 commits_for_components_that_were_added = []
@@ -260,17 +271,19 @@ class Cspec_set < Error_holder
 
                 gc2 = Cspec.from_repo_and_commit_id(compound_spec2)
 
-                changes = cc2.list_changes_since(cc1)
-                changes2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
-                U.assert_eq(changes, changes2, "vfy same result from wrapper 2a")
+                report_item_set1 = cc2.list_changes_since(cc1)
+                report_item_set2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
+                changes1 = report_item_set1.all_items
+                changes2 = report_item_set2.all_items
+                U.assert_eq(changes1, changes2, "vfy same result from wrapper 2a")
 
                 g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
                 g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
 
-                U.assert_eq(gc2, changes[0], "test_list_changes_since.0")
-                U.assert_eq(g1b, changes[1], "test_list_changes_since.1")
-                U.assert_eq(g1a, changes[2], "test_list_changes_since.2")
+                U.assert_eq(gc2, changes1[0], "test_list_changes_since.0")
+                U.assert_eq(g1b, changes1[1], "test_list_changes_since.1")
+                U.assert_eq(g1a, changes1[2], "test_list_changes_since.2")
         end
         def Cspec_set.test_list_files_changed_since_cs()
                 compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64+"
@@ -278,16 +291,13 @@ class Cspec_set < Error_holder
                 cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1, Cspec::AUTODISCOVER)
                 cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2, Cspec::AUTODISCOVER)
 
-                changed_files2 = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
-                changed_files = cc2.list_files_changed_since(cc1)
+                report_item_set = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
+                changed_files2 = report_item_set.all_items
+                changed_files = cc2.list_files_changed_since(cc1).all_items
                 
                 U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
 
-                expected_changed_files = {
-                "git;git.osn.oraclecorp.com;osn/serverintegration;" => [ "component.properties", "deps.gradle"],
-                "git;git.osn.oraclecorp.com;ccs/caas;" => [ "component.properties", "deps.gradle"]
-                }
-
+                expected_changed_files = [ "component.properties", "deps.gradle", "component.properties", "deps.gradle" ]
                 U.assert_json_eq(expected_changed_files, changed_files, "Cspec_set.test_list_files_changed_since_cs")
         end
         def Cspec_set.test_list_bug_IDs_since()
@@ -301,7 +311,7 @@ class Cspec_set < Error_holder
                         gc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
                         gc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
                         Cspec_set.bug_id_regexp_val = Regexp.new(".*caas.build.pl.master/(\\d+)/.*", "m")
-                        bug_IDs = gc2.list_bug_IDs_since(gc1)
+                        bug_IDs = gc2.list_bug_IDs_since(gc1).all_items
                         U.assert_eq(["3013", "3012", "3011"], bug_IDs, "bug_IDs_since")
                 ensure
                         Cspec_set.bug_id_regexp_val = saved_bug_id_regexp

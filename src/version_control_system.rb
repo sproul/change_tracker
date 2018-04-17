@@ -7,6 +7,9 @@ class Version_control_system
                 end
                 self.repo = repo
         end
+        def list_changes_since(commit1, commit2)
+                Cspec_span_report_item.new(commit1, commit2, self.get_changes_array_since(commit1, commit2))
+        end
         def system_as_list(cmd)
                 local_codeline_root_dir = self.repo.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
@@ -38,14 +41,14 @@ class Git_version_control_system < Version_control_system
                 self.type = "git"
                 super
         end
-        def list_changed_files(commit_id)
-                File_set.new(self.repo, self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}"))
+        def get_changed_files_array(commit_id)
+                self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}")
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
                 return self.system_as_list("git ls-tree --full-tree -r #{commit_id} --name-only")
         end
-        def list_changes_since(commit1, commit2)
+        def get_changes_array_since(commit1, commit2)
                 change_lines = self.system_as_list("git log --pretty=format:'%H %s' #{commit2.commit_id}..#{commit1.commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
@@ -119,16 +122,16 @@ class Svn_version_control_system < Version_control_system
                 self.type = "svn"
                 super
         end
-        def list_changed_files(commit_id2)
-                commit_id1 = self.repo.commit_id
+        def get_changed_files_array(commit_id)
+                previous_commit_id = self.repo.commit_id.to_i - 1
                 # exclude deletions (which are indicated by lines starting w/ "D"):
-                File_set.new(self.repo, self.system_as_list("svn diff -r #{commit_id1}:#{commit_id2} --summarize").reject(/^D.*/))
+                self.system_as_list("svn diff -r --summarize -r#{previous_commit_id}:#{commit_id}").reject(/^D.*/)
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/14646798/how-to-list-all-files-in-a-remote-svn-repository
                 return self.system_as_list("svn ls -R #{self.url}@#{commit_id}")
         end
-        def list_changes_since(commit1, commit2)
+        def get_changes_array_since(commit1, commit2)
                 change_lines = self.system_as_list("svn log -r #{commit2.commit_id}:#{commit1.commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
@@ -189,7 +192,7 @@ class Svn_version_control_system < Version_control_system
         def list_files_added_or_updated(commit_id)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
                 # exclude deletions (which are indicated by lines starting w/ "D"):
-                File_set.new(self.repo, self.system_as_list("svn diff -r #{commit_id} --summarize").reject(/^D.*/))
+                self.system_as_list("svn diff -r #{commit_id} --summarize").reject(/^D.*/)
         end
         class << self
         end
@@ -232,21 +235,13 @@ class P4_version_control_system < Version_control_system
                 end
                 changed_files
         end
-        def list_changed_files(commit_id)
-                return File_set.new(self.repo, list_files_added_or_updated(commit_id))
+        def get_changed_files_array(commit_id)
+                list_files_added_or_updated(commit_id)
         end
-        #def list_changed_files(commit_id2)
-        #        commit_id1 = self.repo.commit_id
-        #        changed_files = []
-        #        list_changes_between(commit_id1, commit_id2).each do | commit_id |
-        #                changed_files += list_files_added_or_updated(commit_id)
-        #        end
-        #        File_set.new(self.repo, changed_files.sort.uniq)
-        #end
         def list_files(commit_id)
                 return system_as_list("p4 files #{self.p4_path}@#{commit_id}")
         end
-        def list_changes_since(commit1, commit2)
+        def get_changes_array_since(commit1, commit2)
                 # nice discussion of changeset ranges in p4:
                 # https://stackoverflow.com/questions/14646798/how-to-list-all-files-in-a-remote-p4-repository
                 
@@ -317,16 +312,18 @@ class P4_version_control_system < Version_control_system
 
                         gc2 = Cspec.from_repo_and_commit_id(compound_spec2)
 
-                        changes = cc2.list_changes_since(cc1)
-                        changes2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
-                        U.assert_eq(changes, changes2, "p4 vfy same result from wrapper 2a")
+                        report_item_set1 = cc2.list_changes_since(cc1)
+                        report_item_set2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
+                        changes1 = report_item_set1.all_items
+                        changes2 = report_item_set2.all_items
+                        U.assert_eq(changes1, changes2, "p4 vfy same result from wrapper 2a")
 
                         g1b = Cspec.from_repo_and_commit_id(compound_spec1)
                         g1a = Cspec.from_repo_and_commit_id(compound_spec2)
 
-                        U.assert_eq(gc2, changes[3], "test_p4_list_changes_since.0")
-                        U.assert_eq(g1b, changes[0], "test_p4_list_changes_since.1")
-                        U.assert_eq(g1a, changes[3], "test_p4_list_changes_since.2")
+                        U.assert_eq(gc2, changes1[3], "test_p4_list_changes_since.0")
+                        U.assert_eq(g1b, changes1[0], "test_p4_list_changes_since.1")
+                        U.assert_eq(g1a, changes1[3], "test_p4_list_changes_since.2")
                 end
                 def test_p4_list_files_changed_since()
                         compound_spec1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
@@ -334,11 +331,13 @@ class P4_version_control_system < Version_control_system
                         cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
                         cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
 
-                        changed_files2 = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
-                        changed_files = cc2.list_files_changed_since(cc1)
+                        report_item_set1 = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
+                        report_item_set2 = cc2.list_files_changed_since(cc1)
+                        changed_files1 = report_item_set1.all_items
+                        changed_files2 = report_item_set2.all_items
 
-                        U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper p4.2b")
-                        U.assert_json_eq_f(changed_files, "test_p4_list_files_changed_since")
+                        U.assert_eq(changed_files1, changed_files2, "vfy same result from wrapper p4.2b")
+                        U.assert_json_eq_f(changed_files1, "test_p4_list_files_changed_since")
                 end
                 def test_p4_list_bug_IDs_since()
                         # I noticed that for the commits in this range, there is a recurring automated comment "caas.build.pl.master/3013/" -- so
@@ -351,7 +350,8 @@ class P4_version_control_system < Version_control_system
                                 gc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
                                 gc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
                                 Cspec_set.bug_id_regexp_val = Regexp.new("Update by (\\w+).*", "m")
-                                bug_IDs = gc2.list_bug_IDs_since(gc1)
+                                report_item_set = gc2.list_bug_IDs_since(gc1)
+                                bug_IDs = report_item_set.all_items
                                 U.assert_eq(["EW", "SDL"], bug_IDs, "p4_bug_IDs_since")
                         ensure
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp

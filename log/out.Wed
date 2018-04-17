@@ -1,0 +1,382 @@
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.65.138.185 - - [28/Mar/2018:21:19:08 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 400 6990 0.0221
+127.0.0.1 - - [28/Mar/2018:21:19:59 -0700] "GET /exit HTTP/1.1" 1 - 0.0082
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.65.138.185 - - [28/Mar/2018:21:20:08 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 400 7097 0.0093
+127.0.0.1 - - [28/Mar/2018:21:21:32 -0700] "GET /exit HTTP/1.1" 1 - 0.0094
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.65.138.185 - - [28/Mar/2018:21:21:39 -0700] "GET /?pretty=true&op=list_changes_between&cspec_set1=%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%7D&cspec_set2=%7B%22cspec_deps%22%3A%5B%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%5D%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D HTTP/1.1" 400 7087 0.0099
+127.0.0.1 - - [28/Mar/2018:21:26:44 -0700] "GET /exit HTTP/1.1" 1 - 0.0098
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.93 - - [11/Apr/2018:11:39:12 -0700] "GET /ui.htm HTTP/1.1" 200 3848 0.0151
+10.148.119.93 - - [11/Apr/2018:11:39:12 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0367
+10.148.119.93 - - [11/Apr/2018:11:39:12 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0040
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+10.148.119.93 - - [11/Apr/2018:11:39:19 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 4 0.3044
+[
+
+]
+10.148.119.93 - - [11/Apr/2018:11:39:21 -0700] "GET /?pretty=true&op=list_changes_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 2240 0.1911
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+  }
+]
+10.148.119.93 - - [11/Apr/2018:11:39:23 -0700] "GET /?pretty=true&op=list_files_changed_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 205 0.4726
+127.0.0.1 - - [11/Apr/2018:12:37:52 -0700] "GET /exit HTTP/1.1" 1 - 0.0098
+== Sinatra has ended his set (crowd applauds)
+{
+  "git;git.osn.oraclecorp.com;osn/serverintegration;": [
+    "component.properties",
+    "deps.gradle"
+  ],
+  "git;git.osn.oraclecorp.com;ccs/caas;": [
+    "component.properties",
+    "deps.gradle"
+  ]
+}
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `require_relative': /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:1091: unterminated regexp meets end of file (SyntaxError)
+/net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/u.rb:1091: syntax error, unexpected end-of-input, expecting keyword_end
+	from /net/slcipaq.us.oracle.com/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:1:in `<top (required)>'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `require_relative'
+	from /home/nsproul/dp/git/change_tracker/src/http_handler.rb:2:in `<main>'
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.93 - - [11/Apr/2018:12:39:10 -0700] "GET /ui.htm HTTP/1.1" 200 3848 0.0155
+10.148.119.93 - - [11/Apr/2018:12:39:10 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0280
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+10.148.119.93 - - [11/Apr/2018:12:39:14 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 4 0.2101
+[
+
+]
+10.148.119.93 - - [11/Apr/2018:12:39:15 -0700] "GET /?pretty=true&op=list_changes_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 2240 0.2124
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+  }
+]
+10.148.119.93 - - [11/Apr/2018:12:39:16 -0700] "GET /?pretty=true&op=list_files_changed_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 205 0.4356
+127.0.0.1 - - [11/Apr/2018:12:42:55 -0700] "GET /exit HTTP/1.1" 1 - 0.0103
+== Sinatra has ended his set (crowd applauds)
+{
+  "git;git.osn.oraclecorp.com;osn/serverintegration;": [
+    "component.properties",
+    "deps.gradle"
+  ],
+  "git;git.osn.oraclecorp.com;ccs/caas;": [
+    "component.properties",
+    "deps.gradle"
+  ]
+}
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+10.148.119.93 - - [11/Apr/2018:11:01:50 -0700] "GET /?pretty=true&op=list_bug_IDs_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 4 0.1514
+[
+
+]
+10.148.119.93 - - [11/Apr/2018:11:01:52 -0700] "GET /?pretty=true&op=list_changes_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 2240 0.1721
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+    "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+  }
+]
+10.148.119.93 - - [11/Apr/2018:11:01:53 -0700] "GET /?pretty=true&op=list_files_changed_between&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 205 0.3116
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0038
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0020
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0022
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0030
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0029
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0028
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0018
+10.245.2.171 - - [11/Apr/2018:11:02:53 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0018
+10.245.2.171 - - [11/Apr/2018:11:02:54 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0017
+10.245.2.171 - - [11/Apr/2018:11:02:54 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0018
+10.245.2.171 - - [11/Apr/2018:11:02:55 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0043
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0022
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0016
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0018
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0016
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 377 0.0017
+10.245.2.171 - - [11/Apr/2018:11:08:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0021
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0026
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:11:08:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:11:08:16 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [11/Apr/2018:14:11:51 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0039
+10.245.2.171 - - [11/Apr/2018:14:11:51 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0031
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0032
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0032
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0030
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0032
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0049
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0046
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:14:11:52 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:14:11:53 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:14:11:53 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0037
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0035
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0019
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 407 0.0027
+10.245.2.171 - - [11/Apr/2018:14:12:25 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0026
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0034
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0021
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [11/Apr/2018:14:12:26 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0023
+10.245.2.171 - - [11/Apr/2018:14:12:27 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0047
+10.245.2.171 - - [11/Apr/2018:14:16:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0037
+10.245.2.171 - - [11/Apr/2018:14:16:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0032
+10.245.2.171 - - [11/Apr/2018:14:16:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0026
+10.245.2.171 - - [11/Apr/2018:14:16:26 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0035
+10.245.2.171 - - [11/Apr/2018:14:16:26 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0036
+10.245.2.171 - - [11/Apr/2018:14:16:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:14:16:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [11/Apr/2018:14:16:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:14:16:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0033
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0025
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0024
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0026
+10.245.2.171 - - [11/Apr/2018:14:18:10 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0042
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0038
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0351
+10.245.2.171 - - [11/Apr/2018:14:18:11 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0030
+10.245.2.171 - - [11/Apr/2018:14:18:12 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0044
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0036
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0032
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0028
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0028
+10.245.2.171 - - [11/Apr/2018:14:21:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0025
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0041
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0036
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0025
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [11/Apr/2018:14:21:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:14:21:38 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0049
+10.245.2.171 - - [11/Apr/2018:14:22:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0043
+10.245.2.171 - - [11/Apr/2018:14:22:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0036
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0031
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0037
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0038
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0037
+10.245.2.171 - - [11/Apr/2018:14:22:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:14:22:28 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0036
+10.245.2.171 - - [11/Apr/2018:14:22:28 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:14:22:28 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:14:22:28 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0017
+10.245.2.171 - - [11/Apr/2018:14:22:29 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0041
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0040
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0034
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0039
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0042
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0034
+10.245.2.171 - - [11/Apr/2018:14:30:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0035
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0044
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0035
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0027
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0016
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0041
+10.245.2.171 - - [11/Apr/2018:14:39:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0027
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0026
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0020
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0025
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:14:39:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:14:40:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0038
+10.245.2.171 - - [11/Apr/2018:14:40:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [11/Apr/2018:14:40:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0026
+10.245.2.171 - - [11/Apr/2018:14:40:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0022
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0033
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0029
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0447
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0033
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0016
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [11/Apr/2018:14:40:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0023
+10.245.2.171 - - [11/Apr/2018:14:40:18 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0042
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0034
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0024
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0023
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0018
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0014
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [11/Apr/2018:15:10:13 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [11/Apr/2018:15:10:14 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0026
+10.245.2.171 - - [11/Apr/2018:15:10:14 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0024
+10.245.2.171 - - [11/Apr/2018:15:10:14 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:15:10:14 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0032
+10.245.2.171 - - [11/Apr/2018:15:10:15 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0050
+10.245.2.171 - - [11/Apr/2018:19:08:02 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0031
+10.245.2.171 - - [11/Apr/2018:19:12:50 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0038
+10.245.2.171 - - [11/Apr/2018:19:18:10 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0036
+10.245.2.171 - - [11/Apr/2018:20:20:54 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0032
+10.245.2.171 - - [11/Apr/2018:20:21:06 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0032
+10.245.2.171 - - [11/Apr/2018:20:21:36 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0028
+10.245.2.171 - - [11/Apr/2018:20:23:08 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0026
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0034
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0034
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0028
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0032
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0024
+10.245.2.171 - - [11/Apr/2018:20:23:12 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0030
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0046
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0043
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0029
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [11/Apr/2018:20:23:13 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0028
+10.245.2.171 - - [12/Apr/2018:15:09:15 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0035
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0022
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0020
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0019
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0015
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0021
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0015
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0031
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0027
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0019
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0017
+10.245.2.171 - - [12/Apr/2018:15:09:20 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0015
+127.0.0.1 - - [12/Apr/2018:15:12:31 -0700] "GET /exit HTTP/1.1" 1 - 0.0075
+== Sinatra has ended his set (crowd applauds)
+{
+  "git;git.osn.oraclecorp.com;osn/serverintegration;": [
+    "component.properties",
+    "deps.gradle"
+  ],
+  "git;git.osn.oraclecorp.com;ccs/caas;": [
+    "component.properties",
+    "deps.gradle"
+  ]
+}
+Stopping ...
