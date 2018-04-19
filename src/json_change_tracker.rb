@@ -72,6 +72,8 @@ class Json_change_tracker
                 if !cspec_set2
                         return 400, usage("cspec_set2 is a required argument")
                 end
+                Cspec_span_report_item_set.output_style = output_style
+                Cspec_span_report_item_set.pretty = pretty
                 http_response_code = 200
                 self.op = op
 
@@ -104,8 +106,6 @@ class Json_change_tracker
                 rescue User_error => e_obj
                         return 400, usage(e_obj.emsg)
                 end
-                Cspec_span_report_item_set.output_style = output_style
-                Cspec_span_report_item_set.pretty = pretty
                 json_output = x.to_json()
                 puts json_output unless U.test_mode
                 return http_response_code, json_output
@@ -172,10 +172,10 @@ class Json_change_tracker
                         end
                         z
                 end
-                def test_assert_result_from_s(op, cspec_set1, cspec_set2, title)
-                        http_response_code, actual_result = Json_change_tracker.new.go(op, cspec_set1, cspec_set2, Cspec_span_report_item::OUTPUT_STYLE_TERSE)
-                        U.assert_eq(200, http_response_code, "#{title} HTTP response code to #{op}")
-                        U.assert_json_eq_f(actual_result, "#{title} for #{op}")
+                def assert_result_from_s(output_style, op, cspec_set1, cspec_set2, title)
+                        http_response_code, actual_result = Json_change_tracker.new.go(op, cspec_set1, cspec_set2, output_style)
+                        U.assert_eq(200, http_response_code, "#{title} HTTP response code to #{op}/#{output_style}")
+                        U.assert_json_eq_f(actual_result, "#{title} for #{op}/#{output_style}")
                 end
                 def assert_error_result_from_s(expected_portion, op, json_input1, json_input2, expected_http_response_code, title)
                         actual_http_response_code, actual_result = Json_change_tracker.new.go(op, json_input1, json_input2, Cspec_span_report_item::OUTPUT_STYLE_TERSE)
@@ -196,55 +196,28 @@ class Json_change_tracker
                         assert_error_result_from_s(%Q[expecting JSON, but I see no hash], "list_bug_IDs_between", "", z2, 400, "empty cspec1")
                         assert_error_result_from_s(%Q[cspec_set2 is a required argument], "list_bug_IDs_between", z1, nil, 400, "nil cspec2")
                 end
-                def assert_close_neighbors_result(expected, op)
+                def assert_close_neighbors_result(output_style, op)
                         cspec1 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;6b5ed0226109d443732540fee698d5d794618b64+"
                         cspec2 = "git;git.osn.oraclecorp.com;osn/cec-server-integration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e+"
 
                         z1 = %Q[{ "cspec" : "#{cspec1}" }]
                         z2 = %Q[{ "cspec" : "#{cspec2}" }]
-                        test_assert_result_from_s(op, z1, z2, "close neighbors list changes")
+                        assert_result_from_s(output_style, op, z1, z2, "close neighbors list changes")
                 end
                 def test_close_neighbors_all_ops()
-                        assert_close_neighbors_result(%Q[[
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
-                        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
-                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
-                        },
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
-                        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
-                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
-                        },
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;master",
-                        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
-                        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
-                        },
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
-                        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
-                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
-                        },
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
-                        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
-                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
-                        },
-                        {
-                        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
-                        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
-                        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
-                        }
-                        ]], "list_changes_between")
-                        
-                        assert_close_neighbors_result("[]", "list_bug_IDs_between")
-                        assert_close_neighbors_result(%Q[[\n    "component.properties",\n    "deps.gradle"\n  ]], "list_files_changed_between")
+                        test_close_neighbors_all_ops_for_output_style(Cspec_span_report_item::OUTPUT_STYLE_TERSE)
+                        test_close_neighbors_all_ops_for_output_style(Cspec_span_report_item::OUTPUT_STYLE_NORMAL)
+                        test_close_neighbors_all_ops_for_output_style(Cspec_span_report_item::OUTPUT_STYLE_EXPANDED)
+                end 
+                def test_close_neighbors_all_ops_for_output_style(output_style)
+                        assert_close_neighbors_result(output_style, "list_changes_between")
+                        assert_close_neighbors_result(output_style, "list_bug_IDs_between")
+                        assert_close_neighbors_result(output_style, "list_files_changed_between")
                 end
                 def assert_close_neighbors_cspec_by_http(vn, op)
                         z1 = "#{Json_change_tracker.web_root}/test_cspec_set1_v#{vn}.json"
                         z2 = "#{Json_change_tracker.web_root}/test_cspec_set2_v#{vn}.json"
-                        test_assert_result_from_s(op, z1, z2, "close neighbors list changes by http, v#{vn}")
+                        assert_result_from_s(Cspec_span_report_item::OUTPUT_STYLE_TERSE, op, z1, z2, "close neighbors list changes by http, v#{vn}")
                 end
                 def test_cspec_by_http_for_all_ops_v1()
                         assert_close_neighbors_cspec_by_http(1, "list_changes_between")

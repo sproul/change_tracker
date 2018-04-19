@@ -220,9 +220,9 @@ class U
                 attr_accessor :mail_mode
                 attr_accessor :test_mode
                 attr_accessor :dry_mode
-                attr_accessor :raise_if_fail
                 attr_accessor :test_exit_code
                 attr_accessor :initial_working_directory
+                attr_accessor :raise_if_fail
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
                 @@t = nil

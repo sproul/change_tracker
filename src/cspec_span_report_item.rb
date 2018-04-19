@@ -1,6 +1,6 @@
 class Cspec_span_report_item
         OUTPUT_STYLE_TERSE = "terse"
-        OUTPUT_STYLE_NORMMAL = "normal"
+        OUTPUT_STYLE_NORMAL = "normal"
         OUTPUT_STYLE_EXPANDED = "expanded"
 
         attr_accessor :cspec1
@@ -16,10 +16,10 @@ class Cspec_span_report_item
                 case output_style
                 when OUTPUT_STYLE_TERSE
                         self.item.to_json
-                when OUTPUT_STYLE_NORMMAL
+                when OUTPUT_STYLE_NORMAL
                         h = Hash.new
                         h["cspec1"] = self.cspec1.repo_and_commit_id
-                        h["cspec2"] = self.cspec2.branch_and_commit_id
+                        h["cspec2"] = self.cspec2.repo_and_commit_id
                         h["output"] = self.item
                         h
                 when OUTPUT_STYLE_EXPANDED
@@ -55,6 +55,10 @@ class Cspec_span_report_item_set
                 end
                 all
         end
+        def prettify_json(json)
+                z = JSON.parse(json)
+                JSON.pretty_generate(z)
+        end
         def to_json()
                 output_style = Cspec_span_report_item_set.output_style
                 pretty = Cspec_span_report_item_set.pretty
@@ -64,11 +68,10 @@ class Cspec_span_report_item_set
                 case output_style
                 when Cspec_span_report_item::OUTPUT_STYLE_TERSE
                         json_output = self.all_items.to_json
-                when Cspec_span_report_item::OUTPUT_STYLE_NORMMAL
-                when Cspec_span_report_item::OUTPUT_STYLE_EXPANDED
+                when Cspec_span_report_item::OUTPUT_STYLE_NORMAL, Cspec_span_report_item::OUTPUT_STYLE_EXPANDED
                         jsonable_items = []
-                        self.all_items.each do | item |
-                                jsonable_items << item.to_jsonable_h(output_style)
+                        self.items.each do | report_item |
+                                jsonable_items << report_item.to_jsonable_h(output_style)
                         end
                         json_output = jsonable_items.to_json
                 else
@@ -78,6 +81,9 @@ class Cspec_span_report_item_set
                         json_output = prettify_json(json_output)
                 end
                 json_output
+        end
+        def to_s()
+                self.to_json
         end
         class << self
                 attr_accessor :output_style

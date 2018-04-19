@@ -7,6 +7,7 @@
 <script src="/jquery-3.1.1.js"></script>
 <script type="text/javascript">
     var op
+    var output_style = "terse"
     
     function set_url_span(url)
     {
@@ -20,10 +21,14 @@
         var cspec_set1 = $('#textarea_cspec_set1').val().replace(/[ \t\n]/g, '')
         var cspec_set2 = $('#textarea_cspec_set2').val().replace(/[ \t\n]/g, '')
         var web_root = window.location.href.replace('/ui.htm', '')
-        url = web_root + "/?pretty=true&op=" + op + "&cspec_set1=" + escape(cspec_set1) + "&cspec_set2=" + escape(cspec_set2)
+        url = web_root + "/?pretty=true&output_style=" + output_style + "&op=" + op + "&cspec_set1=" + escape(cspec_set1) + "&cspec_set2=" + escape(cspec_set2)
         var ct_iframe = $('#ct_iframe')
         ct_iframe.attr('src', url)
         set_url_span(url)
+    }
+    function set_output_style(os)
+    {
+        output_style = os
     }
     function init()
     {
@@ -64,10 +69,16 @@
     <textarea name=q1 id='textarea_cspec_set1' cols=140 rows=12></textarea><br>
     cspec_set2: the <b>ending</b> point
     <textarea name=q2 id='textarea_cspec_set2' cols=140 rows=12></textarea><br>
-                        
-    <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'/>
-    <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'/>
-    <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'/>
+    <hr>
+        output_style: how much output should come back?
+        <input type="radio" name=output_style onclick='set_output_style("terse")' checked>terse
+        <input type="radio" name=output_style onclick='set_output_style("normal")'> normal
+        <input type="radio" name=output_style onclick='set_output_style("expanded")'> expanded<br>
+    <hr>
+        op: the operation
+        <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'/>
+        <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'/>
+        <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'/>
     <br>
     <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
     <span id='url_span'></span>

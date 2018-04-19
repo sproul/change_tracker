@@ -1,5 +1,6 @@
 #!/bin/bash
 verbose_mode=''
+op=''
 out=''
 
 output_to_tmp_file()
@@ -18,6 +19,9 @@ while [ -n "$1" ]; do
                         echo Not setting verbose mode, but will buffer output, so feel free to turn on max tracing...
                         output_to_tmp_file
                 ;;
+                lt|ln|le)
+                        op=$1
+                ;;
                 *)
                         break
                 ;;
@@ -26,10 +30,8 @@ while [ -n "$1" ]; do
 done
 output_to_tmp_file
 
-if [ -z "$1" ]; then
-        default_op=test
-else
-        default_op=''
+if [ -z "$op" ]; then
+        op=-test
 fi
 # ct  for general access to the cli
 # ctc for general access to the json interface
@@ -89,8 +91,23 @@ if [ -n "$out" ]; then
         echo writing to $out ...
 fi
 (
-Ruby_change_tracker $verbose_mode $default_op $*
-#Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;master;bb32ae2c134f492fcf4fdb38c971deeec7b7bab8"
+cs1="git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64+"
+cs2="git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e+"
+
+case $op in
+        lt)
+                Ruby_change_tracker -p -ot -list_files_changed_between $cs1 $cs2
+        ;;
+        ln)
+                Ruby_change_tracker -p -on -list_files_changed_between $cs1 $cs2
+        ;;
+        le)
+                Ruby_change_tracker -p -oe -list_files_changed_between $cs1 $cs2
+        ;;
+        *)
+                Ruby_change_tracker $verbose_mode $* $op
+        ;;
+esac
 #Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
 #Ruby_change_tracker -compound_commit_json_of "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e"
 #Ruby_change_tracker -list_last_changes "git;git.osn.oraclecorp.com;osn/serverintegration;;" 500

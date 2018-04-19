@@ -8,9 +8,12 @@ cms = Change_tracker_app.new
 
 j = 0
 
+U.init
 while ARGV.size > j do
         arg = ARGV[j]
         case arg
+        when "-1"
+                U.raise_if_fail = true                
         when "-test_clean"
                 Repo.test_clean
         when "-compound_commit_json_of"
@@ -22,34 +25,34 @@ while ARGV.size > j do
         when "-dry"
                 U.dry_mode = true
         when "-list_bug_IDs_between"
-                puts Cspec_set.list_bug_IDs_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_bug_IDs_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_bug_IDs_betweenf"
-                puts Cspec_set.list_bug_IDs_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                puts Cspec_set.list_bug_IDs_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
         when "-list_changes_between"
-                puts Cspec_set.list_changes_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_changes_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_changes_betweenf"
-                puts Cspec_set.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                puts Cspec_set.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
         when "-list_changes_between_no_deps"
-                Cspec.list_changes_between(ARGV[j+1], ARGV[j+2])
+                Cspec.list_changes_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_changes_between_no_depsf"
-                Cspec.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                Cspec.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
         when "-list_files_changed_between"
-                puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_files_changed_betweenf"
-                puts Cspec_set.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                puts Cspec_set.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
         when "-list_files_changed_between_no_deps"
-                puts Cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2])
+                puts Cspec.list_files_changed_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_files_changed_between_no_depsf"
-                puts Cspec.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2]))
+                puts Cspec.list_files_changed_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
         when "-list_last_changes"
                 puts "["
@@ -58,9 +61,19 @@ while ARGV.size > j do
                 end
                 puts "]"
                 exit
+        when /(-oe|-output=expanded)/
+                Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_EXPANDED
+                puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
+        when /(-on|-output=normal)/
+                Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_NORMAL
+                puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
+        when /(-ot|-output)/
+                Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_TERSE
+                puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
+        when /(-p|-pretty)/
+                Cspec_span_report_item_set.pretty = true
         when "-test"
                 U.test_mode = true
-                U.init
                 Json_change_tracker.init()
                 Json_change_tracker.test
                 Cspec_set.test
