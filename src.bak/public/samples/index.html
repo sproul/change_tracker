@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!doctype html>
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>Change tracker</title>
+</head>
+<body bgcolor="#CCCCCC"><font face=arial>
+<h4>Java</h4>
+<ul>
+    <li><a href=java/execute.sh>bash script to build and execute Java CT client</a></li>
+    <li><a href=java/ChangeTracker.java>Java code to connect to Change Tracker server over HTTP</a></li>
+</ul>
+<h5>Example session</h5>
+<pre>
+
+% ls
+ChangeTracker.class  ChangeTracker.java  execute.sh
+% bash -x execute.sh
++ '[' -z /net/slcipaq.us.oracle.com/scratch/jdk1.8 ']'
++ which javac
++ which java
+++ dirname execute.sh
++ cd .
++ javac ChangeTracker.java
++ export CLASSPATH=.
++ CLASSPATH=.
++ java ChangeTracker
+=================================================================================================
+calling list_bug_IDs_between...
+[]
+=================================================================================================
+=================================================================================================
+calling list_files_changed_between...
+{  "git;git.osn.oraclecorp.com;osn/cec-server-integration;master": [    "component.properties",    "deps.gradle"  ],  "git;git.osn.oraclecorp.com;ccs/caas;master": [    "component.properties",    "deps.gradle"  ]}
+=================================================================================================
+=================================================================================================
+calling list_changes_between(      cspec...
+[  {    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"  },  {    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"  },  {    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"  },  {    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",    "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"  },  {    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",    "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"  },  {    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",    "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"  }]
+=================================================================================================
++ exit
+% 
+</pre>
+<h4>Ruby</h4>
+<ul>
+    <li><a href=ruby/execute.sh>bash script to call ruby client</a></li>
+    <li><a href=ruby/change_tracker_http_client.rb>ruby code to connect to Change Tracker server</a></li>
+</ul>
+<h5>Example session</h5>
+<pre>
+
+16:27:15 nsproul slcipcm 530$ ls
+change_tracker_http_client.rb  execute.sh
+16:27:16 nsproul slcipcm 531$ bash -x execute.sh
+++ dirname execute.sh
++ cd .
++ cat
++ ruby -w ./change_tracker_http_client.rb
+curl --silent 'http://slcipcn.us.oracle.com:4567?op=list_changes_between&cspec_set1=%7B++%22cspec%22%3A+%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B6b5ed0226109d443732540fee698d5d794618b64%22%2C++%22cspec_deps%22%3A+%5B++++%22git%3Bgit.osn.oraclecorp.com%3Bccs%2Fcaas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%2C++++%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22++%5D%7D&cspec_set2=%7B++%22cspec_deps%22%3A+%5B++++%22git%3Bgit.osn.oraclecorp.com%3Bccs%2Fcaas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%2C++++%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22++%5D%2C++%22cspec%22%3A+%22git%3Bgit.osn.oraclecorp.com%3Bosn%2Fcec-server-integration%3B%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D&unused=unused'
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+    "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+    "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+    "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+    "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+    "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+    "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+    "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+    "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+  }
+]
+16:27:20 nsproul slcipcm 532$ 
+</pre>
+</body>
+</html>

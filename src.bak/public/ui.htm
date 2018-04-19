@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!doctype html>
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>Change tracker</title>
+</head>
+<body bgcolor="#CCCCCC"><font face=arial>
+<script src="/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+    var op
+    
+    function set_url_span(url)
+    {
+        var h = "URL to execute the query above:<br><a href='" + url + "'>" + url + "</a>"
+        var f = $('#url_span')
+        f.html(h)
+    }
+    function submit_json(op_parm)
+    {
+        op = op_parm
+        var cspec_set1 = $('#textarea_cspec_set1').val().replace(/[ \t\n]/g, '')
+        var cspec_set2 = $('#textarea_cspec_set2').val().replace(/[ \t\n]/g, '')
+        var web_root = window.location.href.replace('/ui.htm', '')
+        url = web_root + "/?pretty=true&op=" + op + "&cspec_set1=" + escape(cspec_set1) + "&cspec_set2=" + escape(cspec_set2)
+        var ct_iframe = $('#ct_iframe')
+        ct_iframe.attr('src', url)
+        set_url_span(url)
+    }
+    function init()
+    {
+        document.xform.q1.value = '[\n'
+        + '     {\n'
+        + '          "a1": "1",\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"\n'
+        + '     },\n'
+        + '     {\n'
+        + '          "b2": "2",\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"\n'
+        + '     },\n'
+        + '     {\n'
+        + '          "c3": "3",\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"\n'
+        + '     }\n'
+        + ']\n'
+        document.xform.q2.value = '[\n'
+        + '     {\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;06c85af5cfa00b0e8244d723517f8c3777d7b77e"\n'
+        + '     },\n'
+        + '     {\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"\n'
+        + '     },\n'
+        + '     {\n'
+        + '          "cspec": "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"\n'
+        + '     }\n'
+        + ']\n'
+        document.xform.textarea_cspec_set1.focus()
+    }
+    onload=init
+</script>
+
+<form name="xform">
+    <h5>Change tracker</h5>
+    The change tracker application <b>CT</b> answers some questions about how some software under test <b>SUT</b> has evolved over a span of time. The start and end of that span of time are described by two sets of commit specifications.  A commit specification, or <b>cspec</b>, identifies a source control repo and commit ID from that repo.  A <b>cspec set</b>, or set of cspecs, describes a moment in the source control history of an SUT spanning multiple source control repositories.  Cspec sets are described by JSON, or by a URL to a JSON file on a web server, or by a hybrid of JSON containing URLs pointing at further JSON (potentially going many levels before fully resolving).  See the <a href=doc.htm>CT doc</a> for examples.
+    cspec_set1: the <b>starting</b> point
+    <textarea name=q1 id='textarea_cspec_set1' cols=140 rows=12></textarea><br>
+    cspec_set2: the <b>ending</b> point
+    <textarea name=q2 id='textarea_cspec_set2' cols=140 rows=12></textarea><br>
+                        
+    <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'/>
+    <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'/>
+    <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'/>
+    <br>
+    <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
+    <span id='url_span'></span>
+</form>
+</body>
+</html>
