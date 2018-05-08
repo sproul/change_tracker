@@ -75,8 +75,9 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 Json_change_tracker.init()
-                Json_change_tracker.test
                 Cspec_set.test
+                #Svn_version_control_system.test()                
+                Json_change_tracker.test
                 Repo.test
                 U.test
                 P4_version_control_system.test()
@@ -91,6 +92,9 @@ while ARGV.size > j do
                 Cec_gradle_parser.trace_autodiscovery = true
         when "-tcs"
                 U.trace_calls_to_system = true
+        when /(-tocf|ok)/
+                U.test_overwrite_canon_files_mode = true
+                puts "Will overwrite test canon files, assuming that the current test behavior in the affected tests is correct..."
         when "-v"
                 U.trace = true
                 U.trace_calls_to_system = true

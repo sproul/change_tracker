@@ -1403,3 +1403,147 @@ Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Thu..
 Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Thu...
 + sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
 + ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ exit
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed...
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Thu...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Thu...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'

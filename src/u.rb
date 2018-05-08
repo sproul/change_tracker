@@ -223,6 +223,7 @@ class U
                 attr_accessor :test_exit_code
                 attr_accessor :initial_working_directory
                 attr_accessor :raise_if_fail
+                attr_accessor :test_overwrite_canon_files_mode
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
                 @@t = nil
@@ -403,7 +404,7 @@ class U
                                 "DC?"
                         end
                 end
-                def t_to_s(t)
+                def t_to_s(t = Time.now)
                         U.strftime("%H:%M:%S", t)
                 end
                 def system(cmd, input=nil, dir=nil)
@@ -412,7 +413,7 @@ class U
                                 Dir.chdir(dir)
                                 t_preamble << "cd \"#{dir}\"; "
                         end
-                        puts "#{t_preamble}#{cmd}" if U.trace || U.trace_calls_to_system
+                        puts "#{U.t_to_s} #{t_preamble}#{cmd}" if U.trace || U.trace_calls_to_system
                         if U.dry_mode
                                 return "No output from U.system(#{cmd}) because we are in dry run mode..."
                         end
@@ -432,7 +433,7 @@ class U
                                 end
                                 if U.trace_calls_to_system
                                         print out
-                                        puts "EOD"
+                                        puts "#{U.t_to_s} EOD"
                                 end
                                 out
                         end
@@ -680,7 +681,7 @@ class U
                 end
                 def assert_json_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if File.exist?(canon_fn)
+                        if !U.test_overwrite_canon_files_mode && File.exist?(canon_fn)
                                 expected = U.read_file(canon_fn)
                                 assert_json_eq(expected, actual, caller_msg, raise_if_fail)
                         else
@@ -690,7 +691,7 @@ class U
                 end
                 def assert_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if File.exist?(canon_fn)
+                        if !U.test_overwrite_canon_files_mode && File.exist?(canon_fn)
                                 expected = U.read_file(canon_fn)
                                 assert_eq(expected, actual, caller_msg, raise_if_fail)
                         else

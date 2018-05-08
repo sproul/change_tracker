@@ -351,7 +351,6 @@ class Cspec_set < Error_holder
 
                 test_list_changes_since()
                 test_list_bug_IDs_since()
-                #P4_version_control_system.test
         end
         class << self
                 attr_accessor :bug_id_regexp_val

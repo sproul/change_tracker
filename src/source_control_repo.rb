@@ -5,6 +5,7 @@ class Repo < Error_holder
         BRANCH_MV_DEFAULT = {}
         attr_accessor :branch_name
         attr_accessor :change_tracker_host_and_port
+        attr_accessor :commit_id
         attr_accessor :global_data_prefix
         attr_accessor :project_name
         attr_accessor :source_control_server
@@ -18,14 +19,27 @@ class Repo < Error_holder
                 repo_spec = update_repo_spec_to_reflect_repo_moves(  repo_spec)
                 #repo_spec = update_repo_spec_to_reflect_branch_moves(repo_spec)
                 self.change_tracker_host_and_port = change_tracker_host_and_port
-                # type         ;  host   ; proj     ;brnch
+                # type         ;  host   ; proj     ;brnch              e.g.,
+                # git;git.osn.oraclecorp.com;osn/serverintegration;master
+
+                if repo_spec !~ /^(\w+);(.*)/
+                        self.raise("did not see a source control type at the beginning of #{repo_spec}", 500)
+                end
+                self.source_control_type = $1
+                z = $2
                 # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
-                if repo_spec !~ /^(\w+);([-\w\.:]+);([-\.\w\/]+);(\w*)$/
-                        self.raise("cannot understand repo spec #{repo_spec}", 500)
+                if z !~ /^([-\w\.:]+);(.*)/
+                        self.raise("did not see a host after type #{self.source_control_type} in #{repo_spec}", 500)
+                end
+                self.source_control_server = $1
+                z = $2
+                
+                if z !~ /^([-\+@:\.\w\/]+);([-\w]*)$/
+                        self.raise("cannot understand repo spec #{repo_spec} after type #{self.source_control_type} and server #{self.source_control_server} in #{z}", 500)
                 end
                 # git;git.osn.oraclecorp.com;osn/serverintegration;master
                 # type;  host               ; proj                     ;branch
-                self.source_control_type, self.source_control_server, project_name_path, self.branch_name = $1,$2,$3,$4
+                project_name_path, self.branch_name = $1,$2
                 project_name = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
                 if !branch_name
                         branch_name = ""
@@ -39,6 +53,7 @@ class Repo < Error_holder
                         Repo.codeline_root_parent = Global.get_scratch_dir()
                 end
                 self.vcs = Version_control_system.from_repo(self)
+                self.commit_id = nil
         end
         def update_repo_spec_to_reflect_repo_moves(repo_spec)
                 repo_spec_original = repo_spec
@@ -112,6 +127,7 @@ class Repo < Error_holder
                         FileUtils.mkdir_p(root_parent)
                         self.vcs.codeline_disk_write(root_parent, root_dir, commit_id)
                 end
+                self.commit_id = commit_id
                 root_dir
         end
         def system_as_list(cmd)
@@ -147,7 +163,50 @@ class Repo < Error_holder
                                 note_renamed_branch(from, to, false)
                         end
                 end
+                def parse_repo_and_possible_commit_id(z, throw_if_not=false)
+                        original_parm = z
+                        # type         ;  host   ; proj     ;brnch              e.g.,
+                        # git;git.osn.oraclecorp.com;osn/serverintegration;master
 
+                        if z !~ /^(\w+);(.*)/
+                                if throw_if_not
+                                        self.raise("did not see a source control type at the beginning of #{original_parm}", 500)
+                                else
+                                        return nil
+                                end
+                        end
+                        source_control_type = $1
+                        z = $2
+
+                        # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
+                        if z !~ /^([-\w\.:]+);(.*)/
+                                if throw_if_not
+                                        self.raise("did not see a host after type #{source_control_type} in #{original_parm}", 500)
+                                else
+                                        return nil
+                                end
+                        end
+                        source_control_server = $1
+                        z = $2
+
+                        if z !~ /^([-:@\+\.\w\/]+);(.*)/
+                                if throw_if_not
+                                        self.raise("did not see a project string after type #{source_control_type} and host #{source_control_server} in #{original_parm}", 500)
+                                else
+                                        return nil
+                                end
+                        end
+                        project_name_path = $1
+                        z = $2
+                        project_name = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
+                        if z && z =~ /(.*);(.*)/
+                                branch_name, commit_id = $1, $2
+                                return source_control_type, source_control_server, project_name, branch_name, commit_id
+                        else
+                                branch_name = z
+                                return source_control_type, source_control_server, project_name, branch_name
+                        end
+                end
                 def load_into_hash_a_regexp_anchored_to_boln_and_having_n_semicolon_delimited_components(h, before_string, n, after_string)
                         # this routine will load into hash 'h' a key-value pair where
                         # 1.) the key is a regular expression constructed from 'before_string'.  This regexp is anchored to the beginning of the line (i.e., is prefixed by '^'), and has 'n'
@@ -198,7 +257,7 @@ class Repo < Error_holder
                         end
                 end
                 def make_spec(vcs_type, source_control_server, repo_name, branch=Git_version_control_system.DEFAULT_BRANCH, change_tracker_host_and_port=nil)
-                        self.raise "bad source_control_server #{source_control_server}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
+                        self.raise "bad source_control_server #{source_control_server} (from make_spec(vcs_type=#{vcs_type}, source_control_server=#{source_control_server}, repo_name=#{repo_name}, branch=#{branch}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
                         self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
                         branch = "" unless branch
                         change_tracker_host_and_port = "" unless change_tracker_host_and_port

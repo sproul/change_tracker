@@ -2,6 +2,7 @@
   "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;2bc0b1a58a9277e97037797efb93a2a94c9b6d99",
   "cspec_deps": [
     "git;git.osn.oraclecorp.com;ccs/caas;;2ec7af608aac74da543ce581de9b7e0de2e52dd3",
+    "svn;adc4110308.us.oracle.com;svn/idc/products/cs;;159788",
     "git;git.osn.oraclecorp.com;osn/cef;;aba07a5ac4b3ac2a0a4e9111d674c6bae2cab50c",
     "git;git.osn.oraclecorp.com;osn/waggle;;cf941194b8b502ffa50fe32a81c3e194477334ab",
     "git;git.osn.oraclecorp.com;osn/servercommon;;cf9d52b1151e45c5e02b7eeb04e4450a70fb3508",

@@ -1,6 +1,7 @@
-class Version_control_system
+class Version_control_system < Error_holder
         attr_accessor :repo
         attr_accessor :type
+
         def initialize(repo)
                 if !self.type
                         raise "I expect vcs-specific initialize to run first, setting the type field, but that appears not to have happened here?"
@@ -42,6 +43,7 @@ class Git_version_control_system < Version_control_system
                 super
         end
         def get_changed_files_array(commit_id)
+                # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
                 self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}")
         end
         def list_files(commit_id)
@@ -108,62 +110,86 @@ class Git_version_control_system < Version_control_system
                 end
                 z
         end
-        def list_files_added_or_updated(commit_id)
-                # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}")
-        end
         class << self
         end
 end
 class Svn_version_control_system < Version_control_system
+        SVN_CHANGE_DELIMITING_LINE = "------------------------------------------------------------------------"
+        TEST_SVN_COMPOUND_SPEC1 = "svn;adc4110308.us.oracle.com;svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158167"
+        TEST_SVN_COMPOUND_SPEC2 = "svn;adc4110308.us.oracle.com;svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158257"
         DEFAULT_BRANCH = "trunk"
-        attr_accessor :url
         def initialize(repo)
                 self.type = "svn"
                 super
         end
-        def get_changed_files_array(commit_id)
-                previous_commit_id = self.repo.commit_id.to_i - 1
+        def url()
+                "svn+ssh://scmadm@#{self.repo.source_control_server}/#{self.repo.project_name}"
+        end
+        def get_changed_files_array(commit_id, previous_commit_id = nil)
+                # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
                 # exclude deletions (which are indicated by lines starting w/ "D"):
-                self.system_as_list("svn diff -r --summarize -r#{previous_commit_id}:#{commit_id}").reject(/^D.*/)
+                if !previous_commit_id
+                        previous_commit_id = commit_id.to_i - 1
+                end
+                self.system_as_list("svn_wrapper.sh diff --summarize -r #{commit_id}:#{previous_commit_id}").reject{ /^D.*/ }
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/14646798/how-to-list-all-files-in-a-remote-svn-repository
-                return self.system_as_list("svn ls -R #{self.url}@#{commit_id}")
+                return self.system_as_list("svn_wrapper.sh ls -R #{self.url}@#{commit_id}")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("svn log -r #{commit2.commit_id}:#{commit1.commit_id}")
+                change_lines = self.system_as_list("svn_wrapper.sh log -r #{commit2.commit_id}:#{commit1.commit_id}")
                 commits = []
-                change_lines.map.each do | change_line |
-                        self.raise "UNTESTED:::::: did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
-                        change_id, comment = $1, $2
-                        commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
+                if change_lines
+                        if U.trace
+                                puts "change lines..."
+                                change_lines.each do | line |
+                                        puts line
+                                end
+                                puts "EOD"
+                        end 
+                        while !change_lines.empty?
+                                line1 = change_lines.shift
+                                if line1 != SVN_CHANGE_DELIMITING_LINE
+                                        self.raise "expected a line of dashes from svn, but instead saw #{line1} in #{change_lines}"
+                                end
+                                
+                                break if change_lines.empty?
+                                
+                                # example: r158167 | pfilippo | 2017-11-15 13:05:27 -0800 (Wed, 15 Nov 2017) | 2 lines
+                                line_with_change_id = change_lines.shift
+                                if line_with_change_id !~ /^r(\d+) /
+                                        self.raise "could not pull out revision ID from #{line_with_change_id} (from #{change_lines})"
+                                end
+                                change_id = $1
+
+                                comment = ""
+                                while !change_lines.empty? && (change_lines[0] != SVN_CHANGE_DELIMITING_LINE) do
+                                        line = change_lines.shift
+                                        if line != ""
+                                                comment += line
+                                        end
+                                end
+                                cspec = Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
+                                puts "parsed cspec #{cspec}" if U.trace
+                                commits << cspec
+                        end
                 end
                 commits
         end
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
-                #username, pw = self.repo.get_credentials
-                #if !username
-                #        git_arg = "git@#{self.repo.source_control_server}:#{self.repo.project_name}.git"
-                #else
-                #        username_pw = "#{username}"
-                #        if pw != ""
-                #                username_pw << ":#{pw}"
-                #        end
-                #        git_arg = "https://#{username_pw}@#{self.repo.source_control_server}/#{self.repo.project_name}.git"
-                #end
                 url = self.url
-                if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
-                        url << "/branches/#{self.repo.branch_name}"
-                else
-                        url << "/trunk"
-                end
-                U.system("svn co \"#{url}\"", nil, root_parent)
+                #if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
+                #        url << "/branches/#{self.repo.branch_name}"
+                #else
+                #        url << "/trunk"
+                #end
+                U.system("svn_wrapper.sh co \"#{url}\"", nil, root_parent)
         end
         def list_last_changes(n)
                 # https://stackoverflow.com/questions/2675749/how-do-i-see-the-last-10-commits-in-reverse-chronoligical-order-with-svn
                 commits = []
-                self.system_as_list("svn log --limit #{n}").each do | id_colon_comment |
+                self.system_as_list("svn_wrapper.sh log --limit #{n}").each do | id_colon_comment |
                         raise "untested, figure out parsing for #{id_colon_comment}" unless id_colon_comment =~ /^\w+:.*$/
                         change_id = id_colon_comment.sub(/:.*/, '')
                         comment = id_colon_comment.sub(/.*?:/, '')
@@ -175,7 +201,7 @@ class Svn_version_control_system < Version_control_system
                 fn = "#{repo.codeline_disk_root}/#{path}"
                 saved_file_by_commit = "#{fn}.___#{commit_id}"
                 if !File.exist?(saved_file_by_commit)
-                        cmd = "svn cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
+                        cmd = "svn_wrapper.sh cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
                         begin
                                 self.system(cmd)
                         rescue
@@ -189,15 +215,62 @@ class Svn_version_control_system < Version_control_system
                 end
                 z
         end
-        def list_files_added_or_updated(commit_id)
-                # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                # exclude deletions (which are indicated by lines starting w/ "D"):
-                self.system_as_list("svn diff -r #{commit_id} --summarize").reject(/^D.*/)
-        end
         class << self
+                def test_svn_list_changes_since()
+                        cc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
+
+                        gc1 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
+                        gc2 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
+                       
+                        report_item_set1 = cc2.list_changes_since(cc1)
+                        report_item_set2 = Cspec_set.list_changes_between(TEST_SVN_COMPOUND_SPEC1, TEST_SVN_COMPOUND_SPEC2)
+                        changes1 = report_item_set1.all_items
+                        changes2 = report_item_set2.all_items
+                        U.assert_eq(changes1, changes2, "svn vfy same result from wrapper 2a")
+
+
+                        U.assert_eq(gc1, changes1[0], "test_svn_list_changes_since.1")
+                        U.assert_eq(gc2, changes1[1], "test_svn_list_changes_since.0")
+                end
+                def test_svn_list_files_changed_since()
+                        cc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
+
+                        report_item_set1 = Cspec_set.list_files_changed_between(TEST_SVN_COMPOUND_SPEC1, TEST_SVN_COMPOUND_SPEC2)
+                        report_item_set2 = cc2.list_files_changed_since(cc1)
+                        changed_files1 = report_item_set1.all_items
+                        changed_files2 = report_item_set2.all_items
+
+                        U.assert_eq(changed_files1, changed_files2, "vfy same result from wrapper svn.2b")
+                        U.assert_json_eq_f(changed_files1, "test_svn_list_files_changed_since")
+                end
+                def test_svn_list_bug_IDs_since()
+                        # I noticed that for the commits in this range, there was a string comment:
+                        #       Removed setCaaSSystemSchemaName, setCaaSTenantProperties, and updateSchema.
+                        # I thought I would attempt to capture that first item that was removed.
+                        saved_bug_id_regexp = Cspec_set.bug_id_regexp_val
+                        begin
+                                gc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
+                                gc2 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
+                                Cspec_set.bug_id_regexp_val = Regexp.new("Removed (\\w+)", "m")
+                                report_item_set = gc2.list_bug_IDs_since(gc1)
+                                bug_IDs = report_item_set.all_items
+                                U.assert_eq(["setCaaSSystemSchemaName"], bug_IDs, "svn_bug_IDs_since")
+                        ensure
+                                Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
+                        end
+                end
+                def test()
+                        test_svn_list_changes_since()
+                        test_svn_list_files_changed_since()
+                        test_svn_list_bug_IDs_since()
+                end
         end
 end
 class P4_version_control_system < Version_control_system
+        TEST_P4_COMPOUND_SPEC1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
+        TEST_P4_COMPOUND_SPEC2 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;129832"
         attr_accessor :p4client
         attr_accessor :p4passwd
         attr_accessor :p4user
@@ -211,7 +284,7 @@ class P4_version_control_system < Version_control_system
                 self.p4passwd = Global.get("#{repo.source_control_server}.P4PASSWD")
                 super
         end
-        def list_files_added_or_updated(commit_id)
+        def get_changed_files_array(commit_id)
                 # example:
                 # % p4 describe -s 121159
                 # Change 121159 by TimL@lake2 on 2003/12/17 17:40:45
@@ -234,9 +307,6 @@ class P4_version_control_system < Version_control_system
                         end
                 end
                 changed_files
-        end
-        def get_changed_files_array(commit_id)
-                list_files_added_or_updated(commit_id)
         end
         def list_files(commit_id)
                 return system_as_list("p4 files #{self.p4_path}@#{commit_id}")
@@ -305,33 +375,29 @@ class P4_version_control_system < Version_control_system
         end
         class << self
                 def test_p4_list_changes_since()
-                        compound_spec1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
-                        compound_spec2 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;129832"
-                        cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
-                        cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
+                        cc1 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC2)
 
-                        gc2 = Cspec.from_repo_and_commit_id(compound_spec2)
+                        gc2 = Cspec.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC2)
 
                         report_item_set1 = cc2.list_changes_since(cc1)
-                        report_item_set2 = Cspec_set.list_changes_between(compound_spec1, compound_spec2)
+                        report_item_set2 = Cspec_set.list_changes_between(TEST_P4_COMPOUND_SPEC1, TEST_P4_COMPOUND_SPEC2)
                         changes1 = report_item_set1.all_items
                         changes2 = report_item_set2.all_items
                         U.assert_eq(changes1, changes2, "p4 vfy same result from wrapper 2a")
 
-                        g1b = Cspec.from_repo_and_commit_id(compound_spec1)
-                        g1a = Cspec.from_repo_and_commit_id(compound_spec2)
+                        g1b = Cspec.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC1)
+                        g1a = Cspec.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC2)
 
                         U.assert_eq(gc2, changes1[3], "test_p4_list_changes_since.0")
                         U.assert_eq(g1b, changes1[0], "test_p4_list_changes_since.1")
                         U.assert_eq(g1a, changes1[3], "test_p4_list_changes_since.2")
                 end
                 def test_p4_list_files_changed_since()
-                        compound_spec1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
-                        compound_spec2 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;129832"
-                        cc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
-                        cc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
+                        cc1 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC1)
+                        cc2 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC2)
 
-                        report_item_set1 = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
+                        report_item_set1 = Cspec_set.list_files_changed_between(TEST_P4_COMPOUND_SPEC1, TEST_P4_COMPOUND_SPEC2)
                         report_item_set2 = cc2.list_files_changed_since(cc1)
                         changed_files1 = report_item_set1.all_items
                         changed_files2 = report_item_set2.all_items
@@ -345,10 +411,8 @@ class P4_version_control_system < Version_control_system
                         # (At some point, i'll need to go find a comment that really does refer to a bug ID.)
                         saved_bug_id_regexp = Cspec_set.bug_id_regexp_val
                         begin
-                                compound_spec1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
-                                compound_spec2 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;129832"
-                                gc1 = Cspec_set.from_repo_and_commit_id(compound_spec1)
-                                gc2 = Cspec_set.from_repo_and_commit_id(compound_spec2)
+                                gc1 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC1)
+                                gc2 = Cspec_set.from_repo_and_commit_id(TEST_P4_COMPOUND_SPEC2)
                                 Cspec_set.bug_id_regexp_val = Regexp.new("Update by (\\w+).*", "m")
                                 report_item_set = gc2.list_bug_IDs_since(gc1)
                                 bug_IDs = report_item_set.all_items
