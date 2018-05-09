@@ -75,8 +75,8 @@ while ARGV.size > j do
         when "-test"
                 U.test_mode = true
                 Json_change_tracker.init()
+                Svn_version_control_system.test()                
                 Cspec_set.test
-                #Svn_version_control_system.test()                
                 Json_change_tracker.test
                 Repo.test
                 U.test
