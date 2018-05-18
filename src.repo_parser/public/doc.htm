@@ -1,0 +1,448 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><!doctype html>
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <title>Change tracker doc</title>
+</head>
+<body bgcolor="#CCCCCC"><font face=arial>
+<h2>CT: a change tracker</h2>
+The change tracker application <b>CT</b> answers some questions about how some software under test <b>SUT</b> has evolved over a span of time. The start and end of that span of time are described by two sets of commit specifications.  A commit specification, or <b>cspec</b>, identifies a source control repo and commit ID from that repo.  A <b>cspec set</b>, or set of cspecs, describes a moment in the source control history of an SUT spanning multiple source control repositories.  Cspec sets are described by JSON, or by a URL to a JSON file on a web server, or by a hybrid of JSON containing URLs pointing at further JSON (potentially going many levels before fully resolving).  See the <a href=ui.htm>simple CT UI</a> to experiment with different inputs.  See <a href=samples/index.html>samples</a> for example code connecting the CT server.
+<p>
+CT is a web application currently running at <a href=http://slcipcn.us.oracle.com:4567>http://slcipcn.us.oracle.com:4567</a>, accepting HTTP GET requests to execute operations as described below.
+
+<h3>Inputs</h3>
+<ul>
+    <li>cspec_set1 defines the starting point of the span of time under consideration, as described by a set of source control commits for the components making up the software under test (SUT)</li>
+    <li>cspec_set2 defines the starting point of the span of time under consideration, as described by a set of source control commits SUT's components</li>
+    <li>operation determines what data are returned</li>
+    <ul>
+        <li>list_bug_IDs_between -- lists bugs resolved by changes occurring during the span defined by cspec_set1 and cspec_set2</li>
+        <li>list_changes_between -- lists commits occurring during the span defined by cspec_set1 and cspec_set2</li>
+        <li>list_files_changed_between -- lists source files changed by commits occurring during the span defined by cspec_set1 and cspec_set2</li>
+    </ul>
+</ul>
+
+<h4>cspec set examples</h4>
+<ul>
+        <li>JSON
+                <pre>
+[
+        {
+            "a1": "1",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"
+        },
+        {
+            "b2": "2",
+            "cspec": "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"
+        },
+        {
+            "c3": "3",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+        }
+]
+                </pre>
+        </li>
+        <li>http
+                <pre>
+http://slcipcn.us.oracle.com:4567/test_cspec_set1.json
+                </pre>
+        </li>
+        <li>hybrid<br>
+        The cspec_set JSON can contain pointers further JSON located via URL.
+                <pre>
+[
+        {
+            "a1": "1",
+            "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"
+        },
+        {
+            "c3": "3",
+            "cspec": "http://slcipcn.us.oracle.com:4567/test_cspec_set1.json"
+        }
+]
+                </pre>
+                When a cspec_set contains a dependency loaded by means of a URL, and the JSON found at that URL is itself a cspec_set, then all the commits listed in the cspec_set are included as dependencies in the containing cspec_set.
+        </li>
+</ul>
+
+
+<h3>Output</h3>
+Two variables control the output: the <i>operation</i>, and the <i>output style</i>.
+<h4>Output styles</h4>
+<ul>
+    <li><b>terse</b> -- only minimal data are returned, including no information about the cspecs involved</li>
+    <li><b>normal</b> -- for all returned data, the cspecs are also returned in a format matching what is expected for cspec inputs</li>
+    <li><b>expanded</b> -- for all returned data, the cspecs are also returned in an expanded format showing the commit_id and repo separately, along with any other attributes associated with the cspec in the original JSON defining that cspec.  These data might include version IDs or debug information telling about where and how the component was built.</li>
+</ul>
+<h4>Operations</h4>
+<ul>
+        <li><b>list_bug_IDs_between</b>
+                <ul>
+                        <li>Example <b>terse</b> output:
+                                <pre>
+[
+"Bug 1230001", "Bug 7890001"
+]
+                                </pre>
+                        </li>
+                        <li>Example <b>normal</b> output:
+                                <pre>
+[
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64",
+    "output": [
+        "Bug 1214004", "Bug 1214005"
+        ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;ccs/caas;;a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "cspec2": "git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d",
+    "output": [
+    
+    ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "output": [
+        "Bug 1230001", "Bug 7890001"
+    ]
+  }
+]                                    
+                                </pre>
+                        </li>
+                        <li>Example <b>expanded</b> output:
+                                <pre>
+[
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+    },
+    "cspec2": {
+      "a1": "1",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "6b5ed0226109d443732540fee698d5d794618b64"
+    },
+    "output": [
+        "Bug 1230001", "Bug 7890001"
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed"
+    },
+    "cspec2": {
+      "b2": "2",
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "35f9f10342391cae7fdd69f5f8ad590fba25251d"
+    },
+    "output": [
+        "Bug 1214004", "Bug 1214005"
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "cspec2": {
+      "c3": "3",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "output": [
+
+    ]
+  }
+]                                </pre>
+                        </li>
+                </ul>
+        </li>
+        <li><b>list_changes_between</b>
+                <ul>
+                        <li>Example <b>terse</b> output:
+                                <pre>
+[
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+        },
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+        },
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master",
+        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+        },
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+        },
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+        },
+        {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;master",
+        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+        }
+]
+                                </pre>
+                        </li>
+                        <li>Example <b>normal</b> output:
+                                <pre>
+[
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64",
+    "output": [
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+      }
+    ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;ccs/caas;;a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "cspec2": "git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d",
+    "output": [
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+      }
+    ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "output": [
+
+    ]
+  }
+]
+                                </pre>
+                        </li>
+                        <li>Example <b>expanded</b> output:
+                                <pre>
+[
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+    },
+    "cspec2": {
+      "a1": "1",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "6b5ed0226109d443732540fee698d5d794618b64"
+    },
+    "output": [
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3013, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3013/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/485/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "22ab587dd9741430c408df1f40dbacd56c657c3f",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3012, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3012/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/484/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+        "commit_id": "7dfff5f400b3011ae2c4aafac286d408bce11504",
+        "comment": "New version com.oracle.cecs.caas:manifest:1.0.3011, initiated by https://osnci.us.oracle.com/job/caas.build.pl.master/3011/ and updated (consumed) by https://osnci.us.oracle.com/job/serverintegration.deptrigger.pl.master/483/"
+      }
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed"
+    },
+    "cspec2": {
+      "b2": "2",
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "35f9f10342391cae7fdd69f5f8ad590fba25251d"
+    },
+    "output": [
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.686, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/686/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3008/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "b8563401dcd8576b14c91b7bbbd2aa23af9af406",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.685, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/685/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3007/"
+      },
+      {
+        "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+        "commit_id": "89ce37a8745c11455366e46e509825d0ffc92489",
+        "comment": "New version com.oracle.cecs.docs-server:manifest:1.0.684, initiated by https://osnci.us.oracle.com/job/docs.build.pl.master/684/ and updated (consumed) by https://osnci.us.oracle.com/job/caas.deptrigger.pl.master/3006/"
+      }
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "cspec2": {
+      "c3": "3",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "output": [
+
+    ]
+  }
+]
+                                </pre>
+                        </li>
+                </ul>
+        </li>
+        <li><b>list_files_changed_between</b>
+                <ul>
+                    <li>Example <b>terse</b> output:
+                                <pre>
+{
+"git;git.osn.oraclecorp.com;osn/cec-server-integration;master": [
+        "component.properties",
+        "deps.gradle"
+        ],
+"git;git.osn.oraclecorp.com;ccs/caas;master": [
+        "component.properties",
+        "deps.gradle"
+        ]
+}
+                                </pre>
+                        </li>
+                        <li>Example <b>normal</b> output:
+                                <pre>
+[
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/serverintegration;;06c85af5cfa00b0e8244d723517f8c3777d7b77e",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64",
+    "output": [
+      "component.properties",
+      "deps.gradle"
+    ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;ccs/caas;;a1466659536cf2225eadf56f43972a25e9ee1bed",
+    "cspec2": "git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d",
+    "output": [
+      "component.properties",
+      "deps.gradle"
+    ]
+  },
+  {
+    "cspec1": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "cspec2": "git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf",
+    "output": [
+
+    ]
+  }
+]
+                                </pre>
+                        </li>
+                        <li>Example <b>expanded</b> output:
+                                <pre>
+[
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "06c85af5cfa00b0e8244d723517f8c3777d7b77e"
+    },
+    "cspec2": {
+      "a1": "1",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/serverintegration;",
+      "commit_id": "6b5ed0226109d443732540fee698d5d794618b64"
+    },
+    "output": [
+      "component.properties",
+      "deps.gradle"
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "a1466659536cf2225eadf56f43972a25e9ee1bed"
+    },
+    "cspec2": {
+      "b2": "2",
+      "repo_spec": "git;git.osn.oraclecorp.com;ccs/caas;",
+      "commit_id": "35f9f10342391cae7fdd69f5f8ad590fba25251d"
+    },
+    "output": [
+      "component.properties",
+      "deps.gradle"
+    ]
+  },
+  {
+    "cspec1": {
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "cspec2": {
+      "c3": "3",
+      "repo_spec": "git;git.osn.oraclecorp.com;osn/cef;",
+      "commit_id": "749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+    },
+    "output": [
+
+    ]
+  }
+]
+                                </pre>
+                        </li>
+                </ul>
+        </li>
+</ul>
+<h3>Handling Source Control Repo and Branch Renames</h3>
+Is expected that a common build process pattern will be to generate the cspec_set JSON along with the corresponding build artifacts and store them together in commonly accessible places (e.g., a maven repo). These JSON files will contain references to the names of source code repositories and also source code branches. This means that if a source code repository or branch is renamed, there will be dangling references to the old names in the JSON. One approach would be to modify the original JSON files each time there is such a global rename, changing the JSON to reflect the current naming scheme. But this could be troublesome for a number of reasons, notably that the number of files involved could be large, and that overwriting the files could require privileges which are not held by the CT process.
+<p>
+To avoid this dilemma, CT supports methods to keep track of repository and branch name changes and from that point forward automatically convert the old names to the new ones as JSON is read. To assure that there is no ambiguity about which repository or branch is to be effected, the parameters to these methods include all the preceding information in the cspec; for example, if the repository referred to by the cspec is to be renamed from cec-server-integration to serverintegration, the expected parameters would be as follows:
+<pre>
+    http://slcipcn:4567/note_renamed_repo?from=git;git.osn.oraclecorp.com;osn/cec-server-integration&to=git;git.osn.oraclecorp.com;osn/serverintegration
+</pre>
+
+This interface makes it clear that we are referring to a renaming of git repos hosted at the server osn.oraclecorp.com.
+
+The method for renaming a branch is similar.  In the following example, a branch named "experimental_3" becomes "released":
+<pre>
+    http://slcipcn:4567/note_renamed_branch?from=git;git.osn.oraclecorp.com;osn/cec-server-integration;experimental_3&to=git;git.osn.oraclecorp.com;osn/cec-server-integration;released
+</pre>
+</form>
+</body>
+</html>

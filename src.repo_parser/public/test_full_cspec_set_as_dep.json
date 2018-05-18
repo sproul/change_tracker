@@ -1,0 +1,7 @@
+{
+  "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "cspec_deps": [
+    "git;git.osn.oraclecorp.com;ccs/caas;master;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "@WEB_ROOT@/test_full_cspec_set_as_dep__deps.json"
+  ]
+}
