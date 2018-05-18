@@ -139,7 +139,7 @@ class Cspec_set < Error_holder
                 return cspec_set2.list_files_changed_since(cspec_set1)
         end
         def Cspec_set.list_last_changes(repo_spec, n)
-                gr = Repo.new(repo_spec)
+                gr = Repo.from_spec(repo_spec)
                 # Example log entry:
                 #
                 # "commit 22ab587dd9741430c408df1f40dbacd56c657c3f"
@@ -332,10 +332,11 @@ class Cspec_set < Error_holder
                 U.assert_eq(2, cs.top_commit.props.size, "test_reading_attributes.size for #{cs.top_commit.props}")
         end
         def Cspec_set.test()
-                test_full_cspec_set_as_dep()                
+                Repo.note_renamed_repo("git;git.osn.oraclecorp.com;osn/cec-server-integration", "git;git.osn.oraclecorp.com;osn/serverintegration")
+                test_json_export()
+                test_full_cspec_set_as_dep()                                
                 test_reading_attributes()
                 test_list_files_changed_since_cs()
-                test_json_export()
                 repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
                 valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                 cc = Cspec_set.from_repo_and_commit_id("#{repo_spec};#{valentine_commit_id}", Cspec::AUTODISCOVER)

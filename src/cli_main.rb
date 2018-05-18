@@ -2,8 +2,24 @@ require_relative 'u'
 require_relative 'change_tracker'
 require_relative 'json_change_tracker'
 
-STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
+def test()
+        U.test_mode = true
+        Json_change_tracker.init()
+        P4_version_control_system.test()
+        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
+        Cspec_set.test
+        Repo.test
+        Cspec.test
+        Svn_version_control_system.test()
+        Json_change_tracker.test
+        U.test
+        Global.test
+        Cec_gradle_parser.test
+        puts "EOT"
+        exit
+end
 
+STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
 cms = Change_tracker_app.new
 
 j = 0
@@ -13,7 +29,7 @@ while ARGV.size > j do
         arg = ARGV[j]
         case arg
         when "-1"
-                U.raise_if_fail = true                
+                U.raise_if_fail = true
         when "-test_clean"
                 Repo.test_clean
         when "-compound_commit_json_of"
@@ -73,19 +89,7 @@ while ARGV.size > j do
         when /(-p|-pretty)/
                 Cspec_span_report_item_set.pretty = true
         when "-test"
-                U.test_mode = true
-                Json_change_tracker.init()
-                Svn_version_control_system.test()                
-                Cspec_set.test
-                Json_change_tracker.test
-                Repo.test
-                U.test
-                P4_version_control_system.test()
-                Cspec.test
-                Global.test
-                Cec_gradle_parser.test
-                puts "EOT"
-                exit
+                test()
         when "-tad"
                 Cec_gradle_parser.trace_autodiscovery = true
         when "-trace_autodiscovery"

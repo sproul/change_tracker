@@ -1,4 +1,5 @@
 #!/bin/bash
+date
 verbose_mode=''
 op=''
 out=''
@@ -119,7 +120,7 @@ esac
 else
         cat
 fi
-
+date
 
 #test_no_deps_config
 exit 0

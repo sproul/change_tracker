@@ -699,6 +699,12 @@ class U
                                 File.write(canon_fn, actual)
                         end
                 end
+                def assert_array_to_s_eq(a1, a2, msg)
+                        assert_eq(a1.length, a2.length, "#{msg} length ck")
+                        0.upto(a1.length-1).each do | j |
+                                assert_eq(a1[j], a2[j], "#{msg} elt[#{j}]")
+                        end
+                end
                 def assert_json_eq(expected, actual, caller_msg, raise_if_fail=false)
                         if !caller_msg
                                 caller_msg = "json comparison (#{actual})"
@@ -818,7 +824,7 @@ class U
                 def assert_is_t(t)
                         U.assert(t =~ /^\d\d\d\d\/\d\d\/\d\d\.\d\d\d\d$/, "bad date/time #{t}")
                 end
-                def assert_ne(v1, v2, msg=nil)
+                def assert_ne(v1, v2, msg)
                         if v1==v2
                                 if !msg
                                         msg = ""
@@ -828,7 +834,7 @@ class U
 
                                 s1 = v1.to_s
                                 s2 = v2.to_s
-                                U.assert_eq(s1, s2) # checking to see if == and to_s somehow not equivalent
+                                U.assert_eq(s1, s2, msg) # checking to see if == and to_s somehow not equivalent
                                 msg << "expected different values, but saw #{s1}"
                                 U.assert(false, msg)
                         else

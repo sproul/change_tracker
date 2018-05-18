@@ -8,6 +8,9 @@ class Version_control_system < Error_holder
                 end
                 self.repo = repo
         end
+        def default_branch_name()
+                nil
+        end
         def list_changes_since(commit1, commit2)
                 Cspec_span_report_item.new(commit1, commit2, self.get_changes_array_since(commit1, commit2))
         end
@@ -41,6 +44,9 @@ class Git_version_control_system < Version_control_system
         def initialize(repo)
                 self.type = "git"
                 super
+        end
+        def default_branch_name()
+                "master"
         end
         def get_changed_files_array(commit_id)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
@@ -121,6 +127,9 @@ class Svn_version_control_system < Version_control_system
         def initialize(repo)
                 self.type = "svn"
                 super
+        end
+        def default_branch_name()
+                "trunk"
         end
         def url()
                 "svn+ssh://scmadm@#{self.repo.source_control_server}/#{self.repo.project_name}"
@@ -423,6 +432,8 @@ class P4_version_control_system < Version_control_system
                 end
                 def test()
                         test_p4_list_changes_since()
+                        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
+                        
                         test_p4_list_files_changed_since()
                         test_p4_list_bug_IDs_since()
                 end

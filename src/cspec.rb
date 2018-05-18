@@ -8,7 +8,7 @@ class Cspec < Error_holder
         def initialize(repo_expr, commit_id, comment=nil, props=Hash.new)
                 if repo_expr.is_a? String
                         repo_spec = repo_expr
-                        self.repo = Repo.new(repo_spec)
+                        self.repo = Repo.from_spec(repo_spec)
                 elsif repo_expr.is_a? Repo
                         self.repo = repo_expr
                 else
@@ -140,12 +140,11 @@ class Cspec < Error_holder
                         if h.has_key?("gitRepoName")
                                 # puts "fh: #{h}"
                                 # fh: Json_obj({"gitUItoCommit"=>"https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b", "gitRepoName"=>"orahub.oraclecorp.com;faiza.bounetta/promotion-config", "gitBranch"=>"master", "gitCommitId"=>"dc68aa99903505da966358f96c95f946901c664b", "dependencies"=>[]})
-                                change_tracker_host_and_port = h.get("change_tracker_host_and_port", "")
                                 source_control_server_and_repo_name = h.get("gitRepoName")
                                 branch         = h.get("gitBranch")
                                 commit_id      = h.get("gitCommitId")
                                 source_control_server, repo_name = source_control_server_and_repo_name.split(/;/)
-                                repo_spec = Repo.make_spec("git", source_control_server, repo_name, branch, change_tracker_host_and_port)
+                                repo_spec = Repo.make_spec("git", source_control_server, repo_name, branch)
                         else
                                 repo_spec = h.get("repo_spec")
                                 commit_id = h.get("commit_id")
@@ -183,10 +182,9 @@ class Cspec < Error_holder
                                 raise "could not parse #{z}"
                         end
                         repo_spec, commit_id = $1, $2
-                        gr = Repo.new(repo_spec)
+                        gr = Repo.from_spec(repo_spec)
                         if commit_id == ""
                                 raise "unexpected lack of a commit ID"
-
                         end
                         Cspec.new(gr, commit_id, comment)
                 end
@@ -235,7 +233,7 @@ class Cspec < Error_holder
                         g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
                         g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
-                        U.assert_eq([gc2, g1b, g1a], changes1, "test_list_changes_since")
+                        U.assert_array_to_s_eq([gc2, g1b, g1a], changes1, "test_list_changes_since")
                 end
                 def test_list_files_changed_since()
                         compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -251,7 +249,7 @@ class Cspec < Error_holder
                         U.assert_json_eq(["component.properties", "deps.gradle"], changed_files1, "Cspec.test_list_files_changed_since")
                 end
                 def test_json()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         gc = Cspec.new(repo_spec, valentine_commit_id)
                         json = gc.to_json
@@ -344,7 +342,6 @@ class Cec_gradle_parser < Error_holder
 
                 def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
-                        svn_info_seen = false
                         gradle_deps_text.split(/\n/).grep(/^\s*manifest\s+"com./).each do | raw_manifest_line |
 
                                 # raw_manifest_line=  manifest "com.oracle.cecs.caas:manifest:1.master_external.528"         //@trigger
@@ -389,7 +386,6 @@ class Cec_gradle_parser < Error_holder
                                                 source_control_server = "svn.repo.name=#{repo_name}"
                                                 project_name = "placeholder"
                                         end
-                                        svn_info_seen = true
                                         branch_name = repo_parent["svn.repo.branch"][0]
                                         commit_id = repo_parent["svn.repo.revision"][0]
                                         puts "repo_name=#{repo_name}, svn_branch=#{branch_name}, svn_commit_id=#{commit_id}, just implemented" if trace_autodiscovery
@@ -409,7 +405,7 @@ class Cec_gradle_parser < Error_holder
                                 # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/
                                 # jenkins.build-id # 270
                         end
-                        if dependency_commits.empty? && !svn_info_seen
+                        if dependency_commits.empty?
                                 raise "could not find deps in #{gradle_deps_text}"
                         end
                         dependency_commits
