@@ -215,6 +215,7 @@ class U
         MAIL_MODE_TEST = 2
         class << self
                 attr_accessor :assertion_labels
+                attr_accessor :file_tmp_name_counter
                 attr_accessor :log_level
                 attr_accessor :log_indent
                 attr_accessor :mail_mode
@@ -231,6 +232,7 @@ class U
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
                         if !U.initial_working_directory
                                 # for mail: http://stackoverflow.com/questions/12884711/how-to-send-email-via-smtp-with-rubys-mail-gem
+                                U.file_tmp_name_counter = 1
                                 U.mail_mode = mail_mode
                                 U.eval_f(ENV["HOME"] + "/.ruby_u", true)
                                 U.log_level = U::LOG_ERROR
@@ -487,7 +489,8 @@ class U
                         return nil
                 end
                 def file_tmp_name(base_name='', ext='', dir=nil, content=nil)
-                        id = Thread.current.hash * Time.now.to_i % 2**32
+                        id = (Thread.current.hash * Time.now.to_i % 2**32) + U.file_tmp_name_counter
+                        U.file_tmp_name_counter += 1
                         fn = "%s%d.%s" % [base_name, id, ext]
                         if !dir
                                 dir = ENV["TMP"]
@@ -697,10 +700,15 @@ class U
                                 File.write(canon_fn, actual)
                         elsif File.exist?(canon_fn)
                                 expected = U.read_file(canon_fn)
-                                assert_json_eq(expected, actual, caller_msg, raise_if_fail)
+                                if !assert_json_eq(expected, actual, caller_msg, raise_if_fail)
+                                        U.canon_propose(actual, caller_msg, canon_fn)
+                                        return false
+                                end
                         else
                                 U.canon_propose(actual, caller_msg, canon_fn)
+                                return false
                         end
+                        return true
                 end
                 def assert_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
@@ -739,22 +747,19 @@ class U
                         begin
                                 actual_json_obj = JSON.parse(actual)
                                 if expected_json_obj == actual_json_obj
-                                        U.assert_eq(expected_json_obj, actual_json_obj, caller_msg, raise_if_fail)
-                                        return
+                                        return U.assert_eq(expected_json_obj, actual_json_obj, caller_msg, raise_if_fail)
                                 end
                                 if expected_json_obj.eql?(actual_json_obj)
                                         # submit same arg twice to force success:
-                                        U.assert_eq(expected_json_obj, expected_json_obj, caller_msg, raise_if_fail)
-                                        return
+                                        return U.assert_eq(expected_json_obj, expected_json_obj, caller_msg, raise_if_fail)
                                 end
                                 pretty_expected_json = JSON.pretty_generate(expected_json_obj)
                                 pretty_actual_json = JSON.pretty_generate(actual_json_obj)
-                                U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
-                                return
+                                return U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
                         rescue Object => emsg_obj
-                                caller_msg += ": #{emsg_obj.to_s}"
+                                return U.assert_eq("no exception", "#{emsg_obj.to_s}", caller_msg, raise_if_fail)
                         end
-                        U.assert_eq(expected, actual, caller_msg, raise_if_fail)
+                        return U.assert_eq(expected, actual, caller_msg, raise_if_fail)
                 end
                 def asserting_frame_to_s()
                         # this is to support elisp which finds/changes the first caller in the chain that asserts some expected string value.

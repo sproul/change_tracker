@@ -6,6 +6,7 @@ def test()
         U.test_mode = true
         Json_change_tracker.init()
         #ADE_label.test()
+        puts "SKIPPING ADE test"
         P4_version_control_system.test()
         Cspec_set.test
         Repo.test
@@ -96,6 +97,9 @@ while ARGV.size > j do
                 Cec_gradle_parser.trace_autodiscovery = true
         when "-tcs"
                 U.trace_calls_to_system = true
+        when /(-tok|ok)/
+                U.test_overwrite_canon_files_mode = true
+                puts "Will overwrite test canon files, assuming that the current test behavior in the affected tests is correct..."
         when "-v"
                 U.trace = true
                 U.trace_calls_to_system = true
