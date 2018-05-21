@@ -47,7 +47,7 @@ class Repo < Error_holder
                 return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
         end
         def codeline_disk_root()
-                "#{Repo.codeline_root_parent}/#{self.source_control_type}/#{self.source_control_server}/#{project_name}"
+                "#{Repo.codeline_root_parent}/#{self.source_control_type}/#{self.source_control_server}/#{self.project_name}"
         end
         def codeline_disk_remove()
                 root_dir = codeline_disk_root()
@@ -92,31 +92,42 @@ class Repo < Error_holder
                         end
                         r.source_control_type = $1
                         z = $2
-                        # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
-                        if z !~ /^([-\w\.:]+);(.*)/
-                                r.raise("did not see a host after type #{r.source_control_type} in #{repo_spec}", 500)
-                        end
-                        r.source_control_server = $1
-                        z = $2
+                        if r.source_control_type == "ade"
+                                label = z
+                                if label !~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;(.*))?$/
+                                        r.raise("could not parse label #{label} from #{repo_spec}", 500)
+                                end
+                                r.project_name = $1
+                                # 
+                                # Leave commit_id unset.  I considered using the label timestamp as an ersatz commit_id, but then when I list the transactions associated with
+                                # the label, I want to consider the transactions to be the commits.  So the commit_id in this case, if there is one, is the ADE transaction name.
+                                r.commit_id = $3
+                        else
+                                # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
+                                if z !~ /^([-\w\.:]+);(.*)/
+                                        r.raise("did not see a host after type #{r.source_control_type} in #{repo_spec}", 500)
+                                end
+                                r.source_control_server = $1
+                                z = $2
 
-                        if z !~ /^([-\+@:\.\w\/]+);([-\w]*)$/
-                                r.raise("cannot understand repo spec #{repo_spec} after type #{r.source_control_type} and server #{r.source_control_server} in #{z}", 500)
+                                if z !~ /^([-\+@:\.\w\/]+);([-\w]*)$/
+                                        r.raise("cannot understand repo spec #{repo_spec} after type #{r.source_control_type} and server #{r.source_control_server} in #{z}", 500)
+                                end
+                                # git;git.osn.oraclecorp.com;osn/serverintegration;master
+                                # type;  host               ; proj                     ;branch
+                                project_name_path, r.branch_name = $1,$2
+                                pn = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
+                                r.project_name = pn.sub(/.git$/, '')          # this must preced from_repo call, because p4 uses project_name value to set p4_path
                         end
-                        # git;git.osn.oraclecorp.com;osn/serverintegration;master
-                        # type;  host               ; proj                     ;branch
-                        project_name_path, r.branch_name = $1,$2
-                        project_name = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
                         r.vcs = Version_control_system.from_repo(r)
                         if !r.branch_name || (r.branch_name == r.vcs.default_branch_name)
                                 r.branch_name = ""
                         end
-                        r.raise("empty project name") unless project_name && (project_name != "")
-                        r.project_name = project_name.sub(/.git$/, '')
-                        r.global_data_prefix = "#{r.source_control_type}_repo_#{project_name}."
+                        r.raise("empty project name", 500) unless r.project_name && (r.project_name != "")
+                        r.global_data_prefix = "#{r.source_control_type}_repo_#{r.project_name}."
                         if !Repo.codeline_root_parent
                                 Repo.codeline_root_parent = Global.get_scratch_dir()
                         end
-                        r.commit_id = nil
                         r
                 end
                 def init()
@@ -152,6 +163,14 @@ class Repo < Error_holder
                         end
                         source_control_type = $1
                         z = $2
+                        
+                        if z =~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;.*)?$/
+                                source_control_server = nil
+                                project_name = $1
+                                branch_name = nil
+                                commit_id = $2
+                                return source_control_type, source_control_server, project_name, branch_name, commit_id
+                        end
 
                         # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
                         if z !~ /^([-\w\.:]+);(.*)/
@@ -237,12 +256,16 @@ class Repo < Error_holder
                         end
                 end
                 def make_spec(vcs_type, source_control_server, repo_name, branch)
-                        self.raise "bad source_control_server #{source_control_server} (from make_spec(vcs_type=#{vcs_type}, source_control_server=#{source_control_server}, repo_name=#{repo_name}, branch=#{branch}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
-                        self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
-                        if !branch
-                                branch = ""
+                        if vcs_type == "ade"
+                                return "#{vcs_type};#{repo_name}"
+                        else
+                                self.raise "bad source_control_server #{source_control_server} (from make_spec(vcs_type=#{vcs_type}, source_control_server=#{source_control_server}, repo_name=#{repo_name}, branch=#{branch}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
+                                self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
+                                if !branch
+                                        branch = ""
+                                end
+                                return "#{vcs_type};#{source_control_server};#{repo_name};#{branch}"
                         end
-                        "#{vcs_type};#{source_control_server};#{repo_name};#{branch}"
                 end
                 def test_clean()
                         gr = Repo.from_spec(TEST_REPO_NAME)

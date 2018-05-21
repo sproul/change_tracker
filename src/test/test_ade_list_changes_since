@@ -1,0 +1,5 @@
+Cspec_span_report_item(
+Cspec(ade;CTUNIT_TEST_GENERIC_180515.1831.0993, CTUNIT_TEST_GENERIC_180515.1831.0993;ramisra_bug-27575105_ics_handle_runtime_fault)
+Cspec(ade;CTUNIT_TEST_GENERIC_180515.1831.0993, CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27895798_ics_nested_foreach_fails)
+Cspec(ade;CTUNIT_TEST_GENERIC_180515.1831.0993, CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27996552_ics_nested_foreach_path)
+)

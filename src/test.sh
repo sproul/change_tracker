@@ -4,6 +4,18 @@ verbose_mode=''
 op=''
 out=''
 
+cd `dirname $0`
+if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
+        if ! cp -p test/cache_seed/* $TMP; then
+                echo "$0: cp -p test/cache_seed/* $TMP failed, exiting..." 1>&2
+                exit 1
+        fi
+        if ! touch $TMP/CACHE_SEEDED_FOR_TESTS; then
+                echo "$0: touch $TMP/CACHE_SEEDED_FOR_TESTS failed, exiting..." 1>&2
+                exit 1
+        fi
+fi
+
 output_to_tmp_file()
 {
         out=/tmp/test.out
@@ -46,7 +58,6 @@ Ruby_change_tracker()
 
 t=`mktemp`
 
-cd `dirname $0`
 SRC_ROOT=`pwd`
 z=`pwd`/vcs_scripts
 while [ "$z" != "/" ]; do

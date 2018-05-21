@@ -43,12 +43,12 @@ class Cspec < Error_holder
                 dependency_commits
         end
         def list_changes_since(other_commit)
-                return self.repo.vcs.list_changes_since(self, other_commit)
+                return self.repo.vcs.list_changes_since(other_commit, self)
         end
         def list_files_changed_since(other_commit)
                 # return Cspec_span_report_item pointing to array of string paths of files changed between this commit and 'other commit'
                 if self.repo.vcs.respond_to?(:list_files_changed_since)
-                        report_item = Cspec_span_report_item.new(other_commit, self, self.repo.vcs.list_files_changed_since(other_commit))
+                        report_item = Cspec_span_report_item.new(other_commit, self, self.repo.vcs.list_files_changed_since(other_commit, self))
                 else
                         report_item = list_changes_since(other_commit)
                         commits = report_item.item
@@ -67,9 +67,9 @@ class Cspec < Error_holder
         def to_s()
                 z = "Cspec(#{self.repo.spec}, #{self.commit_id}"
                 if self.comment
-                        z << ", !!!#{comment}!!!"
+                        z << ", #{comment}"
                 end
-                if self.props
+                if self.props && !self.props.empty?
                         z << ", #{self.props}"
                 end
                 z << ")"
@@ -114,9 +114,18 @@ class Cspec < Error_holder
                 bug_IDs = Cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
                 bug_IDs
         end
+        def refers_to_same_component_as(other_commit)
+                if self.repo.source_control_type == "ade" && other_commit.repo.source_control_type == "ade"
+                        return (self.repo.vcs.ade_series == other_commit.repo.vcs.ade_series)
+                end
+                return self.repo.eql?(other_commit.repo)
+        end
         def find_commit_for_same_component(cspec_set)
                 cspec_set.commits.each do | commit |
-                        if commit.repo.eql?(self.repo)
+                        # doesn't quite work for ADE, where the repo is tied to a label, but really what we're asking here is
+                        # "do these commits refer to the same series?"    Use new method Cspec.refers_to_same_component_as
+                        #if commit.repo.eql?(self.repo)
+                        if self.refers_to_same_component_as(commit)
                                 return commit
                         end
                 end
@@ -210,8 +219,15 @@ class Cspec < Error_holder
                         raise "no regexp" unless regexp
                         group1_hits = []
                         commits.each do | commit |
-                                raise "comment not set for #{commit}" unless commit.comment
-                                if regexp.match(commit.comment)
+                                if commit.comment
+                                        z = commit.comment
+                                else
+                                        if commit.commit_id =~ /^\d+$/
+                                                raise "comment not set (and commit_id is just a number, so not suitable for searching) for #{commit}"
+                                        end
+                                        z = commit.commit_id
+                                end
+                                if regexp.match(z)
                                         raise "no group 1 match for #{regexp}" unless $1
                                         group1_hits << $1
                                 end
@@ -288,6 +304,12 @@ class Cspec < Error_holder
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com;svn+ssh://scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158166"),  "Cspec.is_repo_and_commit_id.3")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"), "Cspec.is_repo_and_commit_id")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;osn/serverintegration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"), "Cspec.is_repo_and_commit_id 2")
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.0980"), "Cspec.is_repo_and_commit_id 3")
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.0980;abc"), "Cspec.is_repo_and_commit_id 4")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.09809;abc"), "Cspec.is_repo_and_commit_id 5")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.07439.0980;abc"), "Cspec.is_repo_and_commit_id 6")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_1805059.0743.0980;abc"), "Cspec.is_repo_and_commit_id 7")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TESTGENERIC_180505.0743.0980;abc"), "Cspec.is_repo_and_commit_id 8")
 
                         test_list_bug_IDs_since()
                         test_list_changes_since()

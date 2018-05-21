@@ -59,7 +59,7 @@ class Git_version_control_system < Version_control_system
                 return self.system_as_list("git ls-tree --full-tree -r #{commit_id} --name-only")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("git log --pretty=format:'%H %s' #{commit2.commit_id}..#{commit1.commit_id}")
+                change_lines = self.system_as_list("git log --pretty=format:'%H %s' #{commit1.commit_id}..#{commit2.commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
                         self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
@@ -240,9 +240,14 @@ class Svn_version_control_system < Version_control_system
                         changes2 = report_item_set2.all_items
                         U.assert_eq(changes1, changes2, "svn vfy same result from wrapper 2a")
 
-
+                        puts "inspect gc1..."
+                        gc1.inspect
+                        puts "inspect gc2..."
+                        gc2.inspect
                         U.assert_eq(gc1, changes1[0], "test_svn_list_changes_since.1")
                         U.assert_eq(gc2, changes1[1], "test_svn_list_changes_since.0")
+                        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
+                        
                 end
                 def test_svn_list_files_changed_since()
                         cc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
@@ -443,22 +448,71 @@ end
 class ADE_difflabels_output
         attr_accessor :output_string
 
-        def initialize(labellog1, labellog2)
-                self.output_string = `ade_difflabels.sh #{labellog1} #{labellog2}`
-                puts "self.output_string=#{self.output_string}"
+        def initialize(labellog1, labellog2, output_string=nil)
+                if output_string
+                        self.output_string = output_string
+                else
+                        self.output_string = `ade_difflabels.sh #{labellog1} #{labellog2}`
+                        self.output_string.gsub!(/#############################################################\n/, "")
+                        self.output_string.gsub!(/\n+/, "\n")
+                        puts "self.output_string=#{self.output_string}" if U.trace
+                end
+        end
+        def section(section_header)
+                z = self.output_string.sub(/.*# +#{section_header} +#\n/m, '')
+                puts "ADE_difflabels_output.section before final sub: z=#{z}" if U.trace
+                z = z.sub(/^# +[^\n]+ +#\n.*/m, '')
+                z.split(/\n/)
+        end
+        class << self
+                def test()
+                        z = <<EOD
+svenakat_bug-27967518_ics_resourcestream
+#                       TRANSACTIONS                        #
+ramisra_bug-27575105_ics_handle_runtime_fault
+#                   REVERSED TRANSACTIONS                   #
+ddavison_bug-27889275_ics_sched_param_size
+#                       NEW OBJECTS                         #
+DIR pcbpel_icsmain/1
+#                    MODIFIED OBJECTS                       #
+DIR pcbpel/dist/oracle.ics.scheduler/soa/composites@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+#                    REMOVED OBJECTS                        #
+#                    MOVED OBJECTS                          #
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/999
+EOD
+                        zdlo = ADE_difflabels_output.new(nil, nil, z)
+                        U.assert_eq([], zdlo.section("REMOVED OBJECTS"), "section retrieval: empty")
+                        U.assert_eq(["DIR pcbpel_icsmain/1"], zdlo.section("NEW OBJECTS"), "section retrieval: middle")
+                        U.assert_eq(["ramisra_bug-27575105_ics_handle_runtime_fault"], zdlo.section("TRANSACTIONS"), "section retrieval: first")
+                        U.assert_eq(["FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/999"], zdlo.section("MOVED OBJECTS"), "section retrieval: last")
+                end
         end
 end
 
+#
+# Mapping of ADE to change_tracker objects is a bit awkward because
+# 1.) for non-ADE other systems we have a repo, and then we have commits to that repo which each define a particular state of the source code, but
+# 2.) for     ADE the "repo" is a label, containing ADE transactions
+#
+# One could argue that for ADE, the repo obj should map to series, and then transactions would be all intervening pairs of label-ADE_transactions.
+# I considered this to be even more awkward, and so decided against it.
+# 
 class ADE_label < Version_control_system
-        TEST_ADE_COMPOUND_SPEC1 = "ade;PCBPEL_ICSMAIN_GENERIC_180505.0743.0980"
-        TEST_ADE_COMPOUND_SPEC2 = "ade;PCBPEL_ICSMAIN_GENERIC_180509.1031.0983"
+        TEST_ADE_COMPOUND_SPEC1 = "ade;CTUNIT_TEST_GENERIC_180505.0743.0980"
+        TEST_ADE_COMPOUND_SPEC2 = "ade;CTUNIT_TEST_GENERIC_180515.1831.0993"
+        
         attr_accessor :ade_label_nfs_path
         attr_accessor :ade_label
+        attr_accessor :ade_series
 
         def initialize(repo)
                 self.type = "ade"
                 self.ade_label = repo.project_name
-                self.ade_label_nfs_path = find_ade_labelserver_location(self.ade_label)
+                if self.ade_label !~ /^([^_]+_[^_]+_[^_]+)_.*/
+                        self.raise("could not parse series out of label #{self.ade_label}", 500)
+                end 
+                self.ade_series = $1
+                self.ade_label_nfs_path = ADE_label.find_ade_labelserver_location(self.ade_label)
                 super
         end
         def complain_about_commit_oriented_call()
@@ -467,11 +521,18 @@ class ADE_label < Version_control_system
                 # and instead call, e.g., vcs.list_files_changed_since
                 self.raise("ADE plugin does not support retrieving attributes for an individual commit", 500)
         end
-        def difflabels(label2)
-                ade_label2_nfs_path = find_ade_labelserver_location(label2)
+        def difflabels(commit1, commit2)
+                if commit1.repo.source_control_type != "ade"
+                        self.raise("difflabels only supported for ade, but saw a #{commit1.repo}", 500)
+                end
+                if commit2.repo.source_control_type != "ade"
+                        self.raise("difflabels only supported for ade, but saw a #{commit2.repo}", 500)
+                end
+                ade_label1_nfs_path = commit1.repo.vcs.ade_label_nfs_path
+                ade_label2_nfs_path = commit2.repo.vcs.ade_label_nfs_path
 
-                labellog1 = "#{self.ade_label_nfs_path}/.labellog.emd.gz"
-                labellog2 = "#{    ade_label2_nfs_path}/.labellog.emd.gz"
+                labellog1 = "#{ade_label1_nfs_path}/.labellog.emd.gz"
+                labellog2 = "#{ade_label2_nfs_path}/.labellog.emd.gz"
                 ADE_difflabels_output.new(labellog1, labellog2)
         end
         def get_changed_files_array(commit_id)
@@ -480,13 +541,24 @@ class ADE_label < Version_control_system
         def list_files(commit_id)
                 complain_about_commit_oriented_call
         end
+        def list_files_changed_since(commit1, commit2)
+                difflabels_output = difflabels(commit1, commit2)
+                changed_file_names = []
+                changed_file_names_with_ade_version_info = difflabels_output.section("MODIFIED OBJECTS")
+                #changed_file_names_with_ade_version_info.reject!{|x| x =~ /^DIR / }
+                changed_file_names_with_ade_version_info.each do | z |
+                        changed_file_names << z.sub(/@@.*/, '').chomp.sub(/^(DIR|FILE) /, '')
+                end
+                changed_file_names
+        end
         def get_changes_array_since(commit1, commit2)
                 difflabels_output = difflabels(commit1, commit2)
                 commits = []
-                difflabels_output.section("TRANSACTIONS").each do | transaction_name |
+                transactions = difflabels_output.section("TRANSACTIONS")                
+                transactions.each do | transaction_name |
                         change_id = transaction_name
                         comment = nil
-                        commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
+                        commits << Cspec.from_repo_and_commit_id("#{self.repo.spec};#{change_id}", comment)
                 end
                 commits
         end
@@ -522,29 +594,22 @@ class ADE_label < Version_control_system
                         c1 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
                         c2 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
                         changes = c2.list_changes_since(c1);
-                        puts "changes=#{changes}"
-                        changed_files_this_cspec = c2.list_changed_files();
-                        puts "changed_files_this_cspec=#{changed_files_this_cspec}"
+                        U.assert_eq_f(changes.to_s, "test_ade_list_changes_since.Cspec")
                         changed_files_since = c2.list_files_changed_since(c1)
-                        puts "changed_files_since=#{changed_files_since}"
-                        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
+                        U.assert_eq_f(changed_files_since.to_s, "test_ade_list_changes_since.changed_files_since.Cspec")
 
-                        #cs1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
-                        #cs2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
-                        #
-                        #
-                        #gc2 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
-                        #
-                        #report_item_set1 = cc2.list_changes_since(cc1)
-                        #report_item_set2 = Cspec_set.list_changes_between(TEST_ADE_COMPOUND_SPEC1, TEST_ADE_COMPOUND_SPEC2)
-                        #changes1 = report_item_set1.all_items
-                        #changes2 = report_item_set2.all_items
-                        #U.assert_eq(changes1, changes2, "ade vfy same result from wrapper 2a")
-                        #
-                        #
-                        #U.assert_eq(gc2, changes1[3], "test_ade_list_changes_since.0")
-                        #U.assert_eq(g1b, changes1[0], "test_ade_list_changes_since.1")
-                        #U.assert_eq(g1a, changes1[3], "test_ade_list_changes_since.2")
+                        cs1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
+                        cs2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
+                        
+                        changes = cs2.list_changes_since(cs1);
+                        U.assert_json_eq_f(changes.to_s, "test_ade_list_changes_since.Cspec_set")
+                        changed_files_since = cs2.list_files_changed_since(cs1)
+                        U.assert_json_eq_f(changed_files_since.to_s, "test_ade_list_changes_since.changed_files_since.Cspec_set")
+                        
+                        changes2 = Cspec_set.list_changes_between(TEST_ADE_COMPOUND_SPEC1, TEST_ADE_COMPOUND_SPEC2)
+                        changes_items1 = changes.all_items
+                        changes_items2 = changes2.all_items
+                        U.assert_eq(changes_items1, changes_items2, "ade vfy same result from wrapper 2a")
                 end
                 def test_ade_list_files_changed_since()
                         cc1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
@@ -566,15 +631,23 @@ class ADE_label < Version_control_system
                         begin
                                 gc1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
                                 gc2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
-                                Cspec_set.bug_id_regexp_val = Regexp.new("Update by (\\w+).*", "m")
+                                #
+                                # searching these transactions:
+                                #       ramisra_bug-27575105_ics_handle_runtime_fault
+                                #       sualli_bug-27895798_ics_nested_foreach_fails
+                                #       sualli_bug-27996552_ics_nested_foreach_path
+                                #
+                                Cspec_set.bug_id_regexp_val = Regexp.new(".*_bug-(\\d+)_.*", "m")
+                                
                                 report_item_set = gc2.list_bug_IDs_since(gc1)
                                 bug_IDs = report_item_set.all_items
-                                U.assert_eq(["EW", "SDL"], bug_IDs, "ade_bug_IDs_since")
+                                U.assert_eq(["27575105", "27895798", "27996552"], bug_IDs, "ade_bug_IDs_since")
                         ensure
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
                 def test()
+                        ADE_difflabels_output.test()
                         test_ade_list_changes_since()
                         test_ade_list_files_changed_since()
                         test_ade_list_bug_IDs_since()

@@ -679,25 +679,45 @@ class U
                         end
                         "#{U.initial_working_directory}/test/#{U.cook(s)}"
                 end
+                def canon_propose(actual, caller_msg, canon_fn)
+                        proposed_canon_fn = U.file_tmp_name("proposed_canon", "txt", nil, actual)
+                        if File.exist?(canon_fn)
+                                puts "To replace canon w/ actual output:"
+                        else
+                                puts "No canon file for test #{caller_msg}, proposing..."
+                                puts actual
+                                puts "EOD"
+                        end
+                        puts "cp #{proposed_canon_fn} #{canon_fn}"                        
+                end
                 def assert_json_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if !U.test_overwrite_canon_files_mode && File.exist?(canon_fn)
+                        if U.test_overwrite_canon_files_mode
+                                puts "assert_json_eq_f writing #{canon_fn}..."
+                                File.write(canon_fn, actual)
+                        elsif File.exist?(canon_fn)
                                 expected = U.read_file(canon_fn)
                                 assert_json_eq(expected, actual, caller_msg, raise_if_fail)
                         else
-                                puts "assert_json_eq_f writing #{canon_fn}..."
-                                File.write(canon_fn, actual)
+                                U.canon_propose(actual, caller_msg, canon_fn)
                         end
                 end
                 def assert_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if !U.test_overwrite_canon_files_mode && File.exist?(canon_fn)
-                                expected = U.read_file(canon_fn)
-                                assert_eq(expected, actual, caller_msg, raise_if_fail)
-                        else
-                                puts "assert_eq_f writing #{canon_fn}..."
+                        if U.test_overwrite_canon_files_mode
+                                puts "assert_json_eq_f writing #{canon_fn}..."
                                 File.write(canon_fn, actual)
+                        elsif File.exist?(canon_fn)
+                                expected = U.read_file(canon_fn)
+                                if !assert_eq(expected, actual, caller_msg, raise_if_fail)
+                                        U.canon_propose(actual, caller_msg, canon_fn)
+                                        return false
+                                end
+                        else
+                                U.canon_propose(actual, caller_msg, canon_fn)
+                                return false
                         end
+                        return true
                 end
                 def assert_array_to_s_eq(a1, a2, msg)
                         assert_eq(a1.length, a2.length, "#{msg} length ck")

@@ -11,7 +11,15 @@ while [ ! -d ".svn" ]; do
                 exit 1
         fi
 done
+
+# this is for memoization to work -- this is a crucial input
+wd=`pwd`
+export CACHE_EXTRA_ARG=`ls --inode "$wd"`
+. cache
+
 svn $*
 exit
 cd "/scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs";
-bx $dp/git/change_tracker/src/vcs_scripts/svn_wrapper.sh log -r 159893:159898
+date
+$dp/git/change_tracker/src/vcs_scripts/svn_wrapper.sh log -r 159893:159898
+date
