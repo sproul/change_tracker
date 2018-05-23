@@ -5,8 +5,7 @@ require_relative 'json_change_tracker'
 def test()
         U.test_mode = true
         Json_change_tracker.init()
-        #ADE_label.test()
-        puts "SKIPPING ADE test"
+        ADE_label.test()
         P4_version_control_system.test()
         Cspec_set.test
         Repo.test

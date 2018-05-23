@@ -1,6 +1,9 @@
 use strict;
 use IO::File;
 
+print "a0=$argv[0]\n";
+exit();
+
 my $__trace = 0;
 
 sub get_cached_output_path

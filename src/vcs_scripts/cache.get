@@ -1,0 +1,78 @@
+#!/bin/bash
+while [ -n "$1" ]; do
+        case "$1" in
+                -all)
+                        for f in `ls $TMP/cache* | grep -v 'cmd$'`; do
+                                echo "$0 $f"
+                                $0       $f
+                        done
+                        exit
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+
+# grab FN and FN.cmd from $dp/bin/cache's cache dir, and copy them to the current dir.  Adjust FN.cmd's contents to make them portable.
+#
+# This is done by looking at the CACHE_PORTABILITY_VARS environment variable.  The value of this var is a list of env var names which should be substituted
+# into the command.
+#
+# E.g., if 
+#       CACHE_PORTABILITY_VARS='CT_ROOT PYTHON_HOME'
+#       CT_ROOT=/scratch/ct
+#       PYTHON_HOME=/scrath/python7
+#       contents of x.cmd are '/scratch/ct/bin/query_python_ver /scratch/python7'
+#
+#       then x.cmd would be changed to contain '$CT_ROOT/bin/query_python_ver $PYTHON_HOME'
+#
+# The hope is to make it easy to move cached data between different systems, e.g., Linux and PCs.
+#
+fn=$1
+base_fn=`basename "$fn"`
+base_fn_no_cksum=`sed -e 's/^[0-9]*\.//' <<< "$base_fn"`
+if [ ! -f "$fn.cmd" ]; then
+        echo "$0: error: could not find \"$fn.cmd\"" 1>&2
+        exit 1
+fi
+cmd=`cat "$fn.cmd"`
+for var_name in "$CACHE_PORTABILITY_VARS"; do
+        echo var_name=$var_name
+        
+        z=`printf "$%s" $var_name`
+        #echo z=$z
+        var_val=`eval printf $z`
+        #echo var_val=$var_val
+        
+        dollar="$"
+        var_name_w_dollar="$dollar$var_name"
+        
+        cmd=`sed -e "s;$var_val;$var_name_w_dollar;g" <<< $cmd`
+        #echo cmd=$cmd now
+done
+
+cksum_val=`echo $cmd | cksum | sed -e 's/ .*//'`
+new_base_fn="$cksum_val.$base_fn_no_cksum"
+
+echo "echo $cmd > \"$new_base_fn.cmd\""
+echo       $cmd >  "$new_base_fn.cmd"
+
+echo "cp -p \"$fn\" \"$new_base_fn\""
+cp       -p  "$fn"   "$new_base_fn"
+
+exit
+cat <<EOF > /tmp/kk
+z=$TMP/44.xx
+echo abc > $z
+export ct_root=/scratch/ct
+export CACHE_PORTABILITY_VARS=ct_root
+echo /scratch/ct/src/vcs_scripts/p4_wrapper.sh xyz > $z.cmd
+cd
+$dp/bin/cache.get $z
+ls -l $HOME/2886332573.*
+cat $HOME/2886332573.xx.cmd
+rm $HOME/2886332573.xx $HOME/2886332573.xx.cmd
+EOF
+echo ''; bash -x /tmp/kk

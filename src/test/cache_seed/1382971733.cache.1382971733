@@ -1,0 +1,388 @@
+Unzipping emd for label PCBPEL_ICSMAIN_GENERIC_180515.1831.0993 ...
+Unzipping emd for label PCBPEL_ICSMAIN_GENERIC_180505.0743.0980 ...
+Diffing emd information ...
+internalizing label data ... this will take some time ...
+internalizing label data ... this will take some time ...
+Connecting to Repository... Connected.
+
+DIFF BETWEEN PCBPEL_ICSMAIN_GENERIC_180505.0743.0980 and PCBPEL_ICSMAIN_GENERIC_180515.1831.0993
+
+#############################################################
+#                       TXN BRANCHES                        #
+#############################################################
+
+akaushal_bug-27916058_ics_keyword
+bstern_bug-27955173_ics
+chperni_bug-28006760_ics
+chperni_bug-28006842_ics
+ddavison_bug-27156154_ics_filea_changes
+ddavison_bug-27156154_ics_filea_changes_dist
+ddavison_bug-27889275_ics_sched_param_size
+imalarvi_bug-27970231_ics_handle_xpath_exception
+imalarvi_bug-27999723_ics_npe_launching_mapper
+jherreri_bug-27832593_ics_sprint55_stitch_edit
+kbinwal_bug-27971231_ics
+ntadi_bug-27965244_ics_nonproxyhostissue
+pdevta_bug-27795648_ics
+pdevta_bug-28017663_ics
+pveerava_bug-27760060_ics
+ramisra_bug-27575105_ics_handle_runtime_fault
+sualli_bug-27895798_ics_nested_foreach_fails
+sualli_bug-27996552_ics_nested_foreach_path
+svenakat_bug-27967518_ics_resourcestream
+
+#############################################################
+#                       TRANSACTIONS                        #
+#############################################################
+
+ramisra_bug-27575105_ics_handle_runtime_fault
+sualli_bug-27895798_ics_nested_foreach_fails
+sualli_bug-27996552_ics_nested_foreach_path
+ntadi_bug-27965244_ics_nonproxyhostissue
+pdevta_bug-27795648_ics
+imalarvi_bug-27970231_ics_handle_xpath_exception
+akaushal_bug-27916058_ics_keyword
+svenakat_bug-27967518_ics_resourcestream
+ddavison_bug-27156154_ics_filea_changes
+pveerava_bug-27760060_ics
+ddavison_bug-27156154_ics_filea_changes_dist
+chperni_bug-28006842_ics
+chperni_bug-28006760_ics
+imalarvi_bug-27999723_ics_npe_launching_mapper
+kbinwal_bug-27971231_ics
+jherreri_bug-27832593_ics_sprint55_stitch_edit
+pdevta_bug-28017663_ics
+bstern_bug-27955173_ics
+
+#############################################################
+#                   REVERSED TRANSACTIONS                   #
+#############################################################
+
+ddavison_bug-27889275_ics_sched_param_size
+
+#############################################################
+#                       NEW OBJECTS                         #
+#############################################################
+
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/eventbrite@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/facebook@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/gmail@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googlecalendar@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googletask@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/mailchimp@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcalendar@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcontact@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftemail@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/surveymonkey@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twilio@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twitter@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler/pipeline@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/Transformations@@/st_pcbpel_icsmain/1
+FILE pcbpel/lib/thirdparty/commons-lang3-3.4.jar@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/eventbrite/eventbrite_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/eventbrite/eventbrite_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cl,MODIFoud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/eventbrite/eventbrite_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/facebook/facebook_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/facebook/facebook_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/facebook/facebook_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/gmail/google_gmail_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/gmail/google_gmail_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/gmail/google_gmail_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googlecalendar/google_calendar_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googlecalendar/google_calendar_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googlecalendar/google_calendar_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googletask/google_tasks_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googletask/google_tasks_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/googletask/google_tasks_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/mailchimp/mailchimp_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/mailchimp/mailchimp_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/mailchimp/mailchimp_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcalendar/ms_outlook_calendar_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcalendar/ms_outlook_calendar_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcalendar/ms_outlook_calendar_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcontact/ms_outlook_contacts_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcontact/ms_outlook_contacts_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftcontact/ms_outlook_contacts_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftemail/ms_outlook_mail_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftemail/ms_outlook_mail_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/microsoftemail/ms_outlook_mail_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/surveymonkey/surveymonkey_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/surveymonkey/surveymonkey_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/surveymonkey/surveymonkey_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twilio/twilio_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twilio/twilio_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twilio/twilio_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twitter/twitter_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twitter/twitter_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/twitter/twitter_x92.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/WSDLs/RuntimeFault.wsdl@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/BPEL/ChildPipelineDriver.bpel@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/BPEL/ParentPipelineDriver.bpel@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler/pipeline/PipelineHelper.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler/pipeline/SchedulerDispatchCallback.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler/pipeline/SchedulerSecurityContext.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/Transformations/createWorkerRequest.xsl@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/WSDLs/ChildPipelineDriver.wsdl@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/ics/scheduler/composites/deploy/sbconfig-ScheduledProcessTracking_04.jar@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/src/main/java/oracle/apps/oic/integration/expression/MessageImpl.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/DataType.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/DataTypeComplexXML.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/DataTypeJSON.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/DataTypeSimpleXML.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/DataTypeXML.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/XMLPrefixNamespace.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/MessageImpl.java@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/test/java/oracle/apps/oic/integration/stitch/impl/TestUtilities.java@@/st_pcbpel_icsmain/1
+SYMLINK pcbpel/dist/oracle.ics.scheduler/soa/composites/sbconfig-ScheduledProcessTracking_04.jar@@/st_pcbpel_icsmain/1
+SYMLINK pcbpel/dist/oracle.soa/soa/composites/sbconfig-ScheduledProcessTracking_04.jar@@/st_pcbpel_icsmain/1
+
+#############################################################
+#                    MODIFIED OBJECTS                       #
+#############################################################
+
+DIR pcbpel/dist/oracle.ics.scheduler/soa/composites@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+DIR pcbpel/dist/oracle.soa/soa/composites@@/st_pcbpel_icsmain/24 --> /st_pcbpel_icsmain/25
+DIR pcbpel/lib/thirdparty@@/st_pcbpel_icsmain/36 --> /st_pcbpel_icsmain/37
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images@@/st_pcbpel_icsmain/37 --> /st_pcbpel_icsmain/38
+DIR pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/WSDLs@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/BPEL@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/Schemas@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/WSDLs@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/ics/scheduler/composites/deploy@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+DIR pcbpel/modules/ics/scheduler/composites/shared_xsd_wsdl_jar/ICSBPSharedArtifacts/SOA/Schemas@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/webmapper/Common/ModelUtils/src/test/java/oracle/apps/oic/integration/common/model/utils@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+DIR pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/src/main/java/oracle/apps/oic/integration/expression@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+DIR pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+DIR pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+DIR pcbpel/modules/webmapper/Stitch/StitchServer/src/test/java/oracle/apps/oic/integration/stitch/impl@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/987 --> /st_pcbpel_icsmain/1000
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1904 --> /st_pcbpel_icsmain/1930
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/939 --> /st_pcbpel_icsmain/952
+FILE pcbpel/lib/thirdparty/Workday.jar@@/st_pcbpel_icsmain/10 --> /st_pcbpel_icsmain/11
+FILE pcbpel/lib/thirdparty/ariba.jar@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/lib/thirdparty/oracleUtilitiesAdapter.jar@@/st_pcbpel_icsmain/9 --> /st_pcbpel_icsmain/10
+FILE pcbpel/lib/thirdparty/salesforce.jar@@/st_pcbpel_icsmain/51 --> /st_pcbpel_icsmain/52
+FILE pcbpel/lib/thirdparty/successfactors.jar@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.adobeesign/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.adobeesign/src/main/resources/oracle/cloud/adapter/AdobeESignCloudAdapterBundle.properties@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.aq/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.aq/src/main/resources/oracle/cloud/adapter/aq/wizard/l10n/AQCloudAdapterBundle.properties@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.common/src/main/resources/oracle/tip/tools/adapters/cloud/db/common/l10n/CloudUIDatabaseBundle.properties@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.db2/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/12 --> /st_pcbpel_icsmain/13
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.db2/src/main/resources/oracle/tip/tools/adapters/cloud/db/db2/l10n/CloudUIDB2DatabaseBundle.properties@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.dbaas/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.dbaas/src/main/resources/oracle/tip/tools/adapters/cloud/db/dbaas/l10n/CloudUIDatabaseBundle.properties@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.mysql/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/17 --> /st_pcbpel_icsmain/18
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.mysql/src/main/resources/oracle/tip/tools/adapters/cloud/db/mysql/l10n/CloudUIDatabaseBundle.properties@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.sqlserver/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/17 --> /st_pcbpel_icsmain/18
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db.sqlserver/src/main/resources/oracle/tip/tools/adapters/cloud/db/sqlserver/l10n/CloudUISQLServerDatabaseBundle.properties@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/35 --> /st_pcbpel_icsmain/36
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.db/src/main/resources/oracle/tip/tools/adapters/cloud/db/l10n/CloudUIDatabaseBundle.properties@@/st_pcbpel_icsmain/23 --> /st_pcbpel_icsmain/24
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.docusign/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.docusign/src/main/resources/oracle/cloud/adapter/docusign/DocuSignCloudAdapterBundle.properties@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.ebs/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/29 --> /st_pcbpel_icsmain/30
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.ebs/src/main/resources/oracle/cloud/adapter/ebs/ui/l10n/CloudUIEBusinessBundle.properties@@/st_pcbpel_icsmain/24 --> /st_pcbpel_icsmain/25
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.eloqua/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/45 --> /st_pcbpel_icsmain/46
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.eloqua/src/main/resources/oracle/tip/tools/adapters/cloud/eloqua/l10n/EloquaCloudBundle.properties@@/st_pcbpel_icsmain/36 --> /st_pcbpel_icsmain/37
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.erp/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/38 --> /st_pcbpel_icsmain/39
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.erp/src/main/resources/oracle/tip/tools/adapters/cloud/erp/l10n/ERPCloudBundle.properties@@/st_pcbpel_icsmain/40 --> /st_pcbpel_icsmain/41
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.eventbrite/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/21 --> /st_pcbpel_icsmain/23
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.eventbrite/src/main/resources/oracle/tip/tools/adapters/cloud/eventbrite/l10n/EventBriteCloudBundle.properties@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.evernote/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/21 --> /st_pcbpel_icsmain/22
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.evernote/src/main/resources/oracle/tip/tools/adapters/cloud/evernote/l10n/EvernoteCloudBundle.properties@@/st_pcbpel_icsmain/11 --> /st_pcbpel_icsmain/12
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.fa/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/46 --> /st_pcbpel_icsmain/47
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.fa/src/main/resources/oracle/tip/tools/adapters/cloud/fa/l10n/FACloudBundle.properties@@/st_pcbpel_icsmain/44 --> /st_pcbpel_icsmain/45
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.facebook/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/23 --> /st_pcbpel_icsmain/25
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.facebook/src/main/resources/oracle/tip/tools/adapters/cloud/facebook/l10n/FaceBookCloudBundle.properties@@/st_pcbpel_icsmain/10 --> /st_pcbpel_icsmain/11
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.file/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.file/src/main/resources/oracle/cloud/adapter/file/wizard/l10n/FileAdapterBundle.properties@@/st_pcbpel_icsmain/6 --> /st_pcbpel_icsmain/7
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.ftp/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/43 --> /st_pcbpel_icsmain/44
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.ftp/src/main/resources/oracle/cloud/adapter/ftp/wizard/l10n/FTPAdapterBundle.properties@@/st_pcbpel_icsmain/47 --> /st_pcbpel_icsmain/48
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.gmail/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/21 --> /st_pcbpel_icsmain/23
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.gmail/src/main/resources/oracle/tip/tools/ide/adapters/cloud/gmail/l10n/GMailConnectorCloudBundle.properties@@/st_pcbpel_icsmain/11 --> /st_pcbpel_icsmain/12
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.googlecalendar/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/29 --> /st_pcbpel_icsmain/31
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.googlecalendar/src/main/resources/oracle/tip/tools/adapters/cloud/googlecalendar/l10n/GoogleCalendarCloudBundle.properties@@/st_pcbpel_icsmain/20 --> /st_pcbpel_icsmain/21
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.googletask/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/21 --> /st_pcbpel_icsmain/23
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.googletask/src/main/resources/oracle/tip/tools/adapters/cloud/googletask/l10n/GoogleTaskCloudBundle.properties@@/st_pcbpel_icsmain/11 --> /st_pcbpel_icsmain/12
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.hcm/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/45 --> /st_pcbpel_icsmain/46
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.hcm/src/main/resources/oracle/tip/tools/adapters/cloud/hcm/l10n/HCMCloudBundle.properties@@/st_pcbpel_icsmain/43 --> /st_pcbpel_icsmain/44
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.jdeeone/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/18 --> /st_pcbpel_icsmain/19
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.jdeeone/src/main/resources/oracle/tip/tools/adapters/cloud/jdeeone/l10n/JDEEOneCloudBundle.properties@@/st_pcbpel_icsmain/7 --> /st_pcbpel_icsmain/8
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.jms/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/16
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.jms/src/main/resources/oracle/tip/tools/adapters/cloud/jms/l10n/JmsCloudBundle.properties@@/st_pcbpel_icsmain/9 --> /st_pcbpel_icsmain/10
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.linkedin/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/21 --> /st_pcbpel_icsmain/22
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.linkedin/src/main/resources/oracle/tip/tools/adapters/cloud/linkedin/l10n/LinkedinCloudBundle.properties@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.mailchimp/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.mailchimp/src/main/resources/oracle/cloud/adapter/mailchimp/MailChimpCloudAdapterBundle.properties@@/st_pcbpel_icsmain/6 --> /st_pcbpel_icsmain/7
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftcalendar/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/18
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftcalendar/src/main/resources/oracle/cloud/adapter/microsoftcalendar/MicrosoftCalendarCloudAdapterBundle.properties@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftcontact/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftcontact/src/main/resources/oracle/cloud/adapter/microsoftcontact/MicrosoftContactCloudAdapterBundle.properties@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftemail/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.microsoftemail/src/main/resources/oracle/cloud/adapter/MicrosoftEmailCloudAdapterBundle.properties@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.netsuite/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/37 --> /st_pcbpel_icsmain/38
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.netsuite/src/main/resources/oracle/tip/tools/adapters/cloud/netsuite/l10n/NetsuiteCloudBundle.properties@@/st_pcbpel_icsmain/30 --> /st_pcbpel_icsmain/31
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.odata/src/main/resources/oracle/tip/tools/adapters/cloud/odata/l10n/ODataCloudBundle.properties@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.oms/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/43 --> /st_pcbpel_icsmain/44
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.oms/src/main/resources/oracle/cloud/adapter/oms/wizard/l10n/OmsAdapterBundle.properties@@/st_pcbpel_icsmain/33 --> /st_pcbpel_icsmain/34
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.rest/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/53 --> /st_pcbpel_icsmain/54
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.rest/src/main/resources/oracle/tip/tools/adapters/cloud/rest/l10n/RestCloudBundle.properties@@/st_pcbpel_icsmain/46 --> /st_pcbpel_icsmain/47
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.rightnow/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/44 --> /st_pcbpel_icsmain/45
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.rightnow/src/main/resources/oracle/tip/tools/adapters/cloud/rightnow/l10n/RightNowCloudBundle.properties@@/st_pcbpel_icsmain/44 --> /st_pcbpel_icsmain/45
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.siebel/jar-adapter/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/45 --> /st_pcbpel_icsmain/46
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.siebel/jar-adapter/src/main/resources/oracle/tip/tools/adapters/cloud/siebel/l10n/CloudUISiebelBundle.properties@@/st_pcbpel_icsmain/32 --> /st_pcbpel_icsmain/33
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.soap/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/48 --> /st_pcbpel_icsmain/49
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.soap/src/main/resources/oracle/tip/tools/adapters/cloud/soap/l10n/SoapCloudBundle.properties@@/st_pcbpel_icsmain/47 --> /st_pcbpel_icsmain/48
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.surveymonkey/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/17 --> /st_pcbpel_icsmain/19
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.surveymonkey/src/main/resources/oracle/cloud/adapter/surveymonkey/SurveyMonkeyCloudAdapterBundle.properties@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.trello/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/15
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.trello/src/main/resources/oracle/cloud/adapter/trello/TrelloCloudAdapterBundle.properties@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.twilio/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/15
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.twilio/src/main/resources/oracle/cloud/adapter/twilio/TwilioCloudAdapterBundle.properties@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.twitter/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/18
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.twitter/src/main/resources/oracle/tip/tools/adapters/cloud/twitter/l10n/TwitterCloudBundle.properties@@/st_pcbpel_icsmain/8 --> /st_pcbpel_icsmain/9
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-services/src/main/java/oracle/cloud/connectivity/rest/OMSInfoResource.java@@/st_pcbpel_icsmain/27 --> /st_pcbpel_icsmain/28
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-services/src/main/java/oracle/cloud/connectivity/services/util/NLSUtil.java@@/st_pcbpel_icsmain/36 --> /st_pcbpel_icsmain/37
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud.designtime.api/src/main/java/oracle/cloud/connectivity/ApplicationInstance.java@@/st_pcbpel_icsmain/36 --> /st_pcbpel_icsmain/37
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud.designtime.api/src/main/java/oracle/cloud/connectivity/ApplicationTypeBuilder.java@@/st_pcbpel_icsmain/17 --> /st_pcbpel_icsmain/18
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud.designtime.api/src/test/java/oracle/cloud/connectivity/ApplicationInstanceTest.java@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud.designtime.api/src/test/resources/TestApplicationInstance.xml@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/16
+FILE pcbpel/modules/adapter/cloud/runtime-framework/cloud.runtime.api/src/main/java/oracle/cloud/connector/api/CloudRuntimeConstants.java@@/st_pcbpel_icsmain/51 --> /st_pcbpel_icsmain/52
+FILE pcbpel/modules/adapter/cloud/runtime-framework/cloud.runtime.impl/src/main/java/oracle/cloud/connector/impl/RESTMessageSecurityHandler.java@@/st_pcbpel_icsmain/14 --> /st_pcbpel_icsmain/15
+FILE pcbpel/modules/adapter/cloud/runtime-framework/cloud.runtime.impl/src/main/java/oracle/tip/adapter/cloud/CloudAdapterUtil.java@@/st_pcbpel_icsmain/40 --> /st_pcbpel_icsmain/42
+FILE pcbpel/modules/adapter/cloud/runtime-framework/cloud.runtime.impl/src/test/java/oracle/tip/adapter/cloud/CloudAdapterUtilTest.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/BPEL/.designer/FileProcessing_graphics.xml@@/st_pcbpel_icsmain/12 --> /st_pcbpel_icsmain/13
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/BPEL/FileProcessing.bpel@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/BPEL/FileProcessingAsyncForEach.bpel@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/WSDLs/FileProcessing.wsdl@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/FileProcessingApplication/SOA/composite.xml@@/st_pcbpel_icsmain/19 --> /st_pcbpel_icsmain/20
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledOrchFlow/SOA/BPEL/SetScheduleParameter.bpel@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledOrchFlow/SOA/composite.xml@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/BPEL/FileA.bpel@@/st_pcbpel_icsmain/6 --> /st_pcbpel_icsmain/7
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/ics/scheduler/util/IcsHelper.java@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/SCA-INF/src/xsd/WorkerParameter.xsd@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/WSDLs/FileA.wsdl@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/SOA/composite.xml@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev1.0/pom.xml@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev2.0/SOA/BPEL/FileA.bpel@@/st_pcbpel_icsmain/7 --> /st_pcbpel_icsmain/8
+FILE pcbpel/modules/ics/scheduler/composites/ScheduledProcessFlow_rev2.0/SOA/composite.xml@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/ics/scheduler/composites/deploy/static_artifact_deployment.properties@@/st_pcbpel_icsmain/34 --> /st_pcbpel_icsmain/38
+FILE pcbpel/modules/ics/scheduler/composites/pom.xml@@/st_pcbpel_icsmain/25 --> /st_pcbpel_icsmain/26
+FILE pcbpel/modules/ics/scheduler/composites/shared_xsd_wsdl_jar/ICSBPSharedArtifacts/SOA/Schemas/TrackingRequest.xsd@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/shared_xsd_wsdl_jar/ICSBPSharedArtifacts/SOA/Schemas/Worker.xsd@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/shared_xsd_wsdl_jar/ICSBPSharedArtifacts/SOA/WSDLs/ICSBPScheduleParameter.wsdl@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/ics/scheduler/composites/shared_xsd_wsdl_jar/ICSBPSharedArtifacts/SOA/version.xml@@/st_pcbpel_icsmain/9 --> /st_pcbpel_icsmain/12
+FILE pcbpel/modules/ics/scheduler/jobs/src/main/java/oracle/ics/scheduler/jobs/BaseJob.java@@/st_pcbpel_icsmain/46 --> /st_pcbpel_icsmain/47
+FILE pcbpel/modules/ics/scheduler/jobs/src/main/java/oracle/ics/scheduler/jobs/IcsAsyncEjbJobBean.java@@/st_pcbpel_icsmain/48 --> /st_pcbpel_icsmain/49
+FILE pcbpel/modules/ics/scheduler/jobs/src/main/java/oracle/ics/scheduler/jobs/IcsSyncEjbJobBean.java@@/st_pcbpel_icsmain/35 --> /st_pcbpel_icsmain/36
+FILE pcbpel/modules/webmapper/Common/ModelUtils/ModelUtils.jpr@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/webmapper/Common/ModelUtils/src/main/java/oracle/apps/oic/integration/common/model/utils/Message.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/XPathExpressionModel.jpr@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/src/main/java/oracle/apps/oic/integration/expression/xml/XPathExpressionValidator.java@@/st_pcbpel_icsmain/14 --> /st_pcbpel_icsmain/15
+FILE pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/src/main/java/oracle/apps/oic/integration/expression/xml/XPathParser.java@@/st_pcbpel_icsmain/8 --> /st_pcbpel_icsmain/9
+FILE pcbpel/modules/webmapper/Expression/Model/XPathExpressionModel/src/test/java/oracle/apps/oic/integration/expression/xml/XPathParserTest.java@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/webmapper/Function/Model/XPathFunctionModel/src/main/java/oracle/apps/oic/integration/function/xml/FunctionLoader.java@@/st_pcbpel_icsmain/9 --> /st_pcbpel_icsmain/10
+FILE pcbpel/modules/webmapper/JETMapper/JETMapperADFIsland/public_html/js/modules/context.js@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/webmapper/JETMapper/JETMapperADFIsland/public_html/js/modules/xsltDoc.js@@/st_pcbpel_icsmain/23 --> /st_pcbpel_icsmain/24
+FILE pcbpel/modules/webmapper/JETMapper/JETMapperADFIsland/src/main/java/oracle/apps/jetmapper/utils/XPathUtils.java@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/webmapper/MapperReusableComponent/src/main/java/oracle/apps/mapper/adapter/xslt/MapperXslValidator.java@@/st_pcbpel_icsmain/30 --> /st_pcbpel_icsmain/31
+FILE pcbpel/modules/webmapper/Schemas/Managers/src/main/java/oracle/apps/oic/integration/schema/SchemaParser.java@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/webmapper/Schemas/SchemaLocationPathNavigator/src/main/java/oracle/apps/oic/integration/schemaparser/xml/impl/SchemaNavigatorImpl.java@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/webmapper/Schemas/SchemaLocationPathNavigator/src/test/java/oracle/apps/oic/integration/schemaparser/xml/impl/TestUtilities.java@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/StitchServer.jpr@@/st_pcbpel_icsmain/7 --> /st_pcbpel_icsmain/8
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/Sentence.java@@/st_pcbpel_icsmain/1 --> /st_pcbpel_icsmain/2
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/Stitch.java@@/st_pcbpel_icsmain/11 --> /st_pcbpel_icsmain/12
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/Variable.java@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/AppendStatementImpl.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/AssignStatementImpl.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/DataTypeImpl.java@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/ExpressionImpl.java@@/st_pcbpel_icsmain/8 --> /st_pcbpel_icsmain/9
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/ForEachStatementImpl.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/IfStatementImpl.java@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/PathImpl.java@@/st_pcbpel_icsmain/6 --> /st_pcbpel_icsmain/7
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/RemoveStatementImpl.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/SentenceImpl.java@@/st_pcbpel_icsmain/3 --> /st_pcbpel_icsmain/4
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/SentenceImplTechnologySpecific.java@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/StitchImpl.java@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/VariableImpl.java@@/st_pcbpel_icsmain/6 --> /st_pcbpel_icsmain/7
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/xml/XMLComplexDataType.java@@/st_pcbpel_icsmain/5 --> /st_pcbpel_icsmain/6
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/xml/XMLSimpleDataType.java@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/main/java/oracle/apps/oic/integration/stitch/impl/xml/XPathPath.java@@/st_pcbpel_icsmain/8 --> /st_pcbpel_icsmain/9
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/test/java/oracle/apps/oic/integration/stitch/StitchTest.java@@/st_pcbpel_icsmain/10 --> /st_pcbpel_icsmain/11
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/test/java/oracle/apps/oic/integration/stitch/impl/StitchImplTest.java@@/st_pcbpel_icsmain/15 --> /st_pcbpel_icsmain/16
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/test/resources/input/ImportStitchSample.json@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+FILE pcbpel/modules/webmapper/Stitch/StitchServer/src/test/resources/input/Stitch_BrokenAssign.json@@/st_pcbpel_icsmain/2 --> /st_pcbpel_icsmain/3
+FILE pcbpel/patch_lib/adapter/agent/cpi_agent.jar@@/st_pcbpel_icsmain/98 --> /st_pcbpel_icsmain/99
+
+#############################################################
+#                    REMOVED OBJECTS                        #
+#############################################################
+
+
+#############################################################
+#                    MOVED OBJECTS                          #
+#############################################################
+
+
+#############################################################
+#                    OUT OF TXN CHANGES                     #
+#############################################################
+
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1907
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/950
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1909
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1906
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1921
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/999
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1929
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1911
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1920
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1918
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1912
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/993
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1922
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/996
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/1000
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1926
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1917
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/948
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/940
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/952
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1927
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1923
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1908
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1905
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1930
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1928
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/998
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/947
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1913
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/949
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/942
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/995
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/994
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1924
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/990
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/944
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/945
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/989
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1910
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1915
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1916
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/946
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/943
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/988
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/941
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1914
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/997
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/951
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/991
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1919
+FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/992
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1925

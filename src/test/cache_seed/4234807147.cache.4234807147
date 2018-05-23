@@ -1,0 +1,72 @@
+Unzipping emd for label CTUNIT_TEST_GENERIC_180515.1831.0993 ...
+Unzipping emd for label CTUNIT_TEST_GENERIC_180505.0743.0980 ...
+Diffing emd information ...
+internalizing label data ... this will take some time ...
+internalizing label data ... this will take some time ...
+Connecting to Repository... Connected.
+
+DIFF BETWEEN CTUNIT_TEST_GENERIC_180505.0743.0980 and CTUNIT_TEST_GENERIC_180515.1831.0993
+
+#############################################################
+#                       TXN BRANCHES                        #
+#############################################################
+
+akaushal_bug-27916058_ics_keyword
+bstern_bug-27955173_ics
+chperni_bug-28006760_ics
+
+#############################################################
+#                       TRANSACTIONS                        #
+#############################################################
+
+ramisra_bug-27575105_ics_handle_runtime_fault
+sualli_bug-27895798_ics_nested_foreach_fails
+sualli_bug-27996552_ics_nested_foreach_path
+
+#############################################################
+#                   REVERSED TRANSACTIONS                   #
+#############################################################
+
+ddavison_bug-27889275_ics_sched_param_size
+
+#############################################################
+#                       NEW OBJECTS                         #
+#############################################################
+
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/eventbrite@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/facebook@@/st_pcbpel_icsmain/1
+DIR pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/gmail@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_32.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_46.png@@/st_pcbpel_icsmain/1
+FILE pcbpel/modules/adapter/cloud/designtime-framework/cloud-connectivity-icons/src/main/webapp/images/trello/trello_x92.png@@/st_pcbpel_icsmain/1
+SYMLINK pcbpel/dist/oracle.ics.scheduler/soa/composites/sbconfig-ScheduledProcessTracking_04.jar@@/st_pcbpel_icsmain/1
+SYMLINK pcbpel/dist/oracle.soa/soa/composites/sbconfig-ScheduledProcessTracking_04.jar@@/st_pcbpel_icsmain/1
+
+#############################################################
+#                    MODIFIED OBJECTS                       #
+#############################################################
+
+DIR pcbpel/dist/oracle.ics.scheduler/soa/composites@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
+DIR pcbpel/dist/oracle.soa/soa/composites@@/st_pcbpel_icsmain/24 --> /st_pcbpel_icsmain/25
+DIR pcbpel/lib/thirdparty@@/st_pcbpel_icsmain/36 --> /st_pcbpel_icsmain/37
+FILE pcbpel/lib/thirdparty/salesforce.jar@@/st_pcbpel_icsmain/51 --> /st_pcbpel_icsmain/52
+FILE pcbpel/lib/thirdparty/successfactors.jar@@/st_pcbpel_icsmain/16 --> /st_pcbpel_icsmain/17
+FILE pcbpel/modules/adapter/cloud-adapter-plugins/cloud.adapter.adobeesign/src/main/resources/META-INF/cloud-adapter.xml@@/st_pcbpel_icsmain/13 --> /st_pcbpel_icsmain/14
+
+#############################################################
+#                    REMOVED OBJECTS                        #
+#############################################################
+
+
+#############################################################
+#                    MOVED OBJECTS                          #
+#############################################################
+
+
+#############################################################
+#                    OUT OF TXN CHANGES                     #
+#############################################################
+
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1907
+FILE pcbpel/.manifest@@/st_pcbpel_icsmain/950
+FILE pcbpel/.labellog.emd@@/st_pcbpel_icsmain/1909

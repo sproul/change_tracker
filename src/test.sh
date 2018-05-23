@@ -6,7 +6,22 @@ out=''
 
 cd `dirname $0`
 if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
-        if ! cp -p test/cache_seed/* $TMP; then
+        
+        
+        
+        
+        # don't need this section for now since I'm not yet rewriting cached cmd files -- but I might need to at some point, and I don't want to forget this...
+        export CACHE_PORTABILITY_VARS=ct_root
+        if [ -z "$ct_root" ]; then
+                ct_root_src=`dirname "$0"`
+                export ct_root=`dirname "$ct_root_src"`
+        fi
+        
+        
+        
+        echo "Initializing cache data for test runs on this host:"
+        echo "cp -p test/cache_seed/* $TMP..."
+        if !  cp -p test/cache_seed/* $TMP; then
                 echo "$0: cp -p test/cache_seed/* $TMP failed, exiting..." 1>&2
                 exit 1
         fi

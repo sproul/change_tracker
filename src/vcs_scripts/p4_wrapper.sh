@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. cache
 . p4.inc
 
 $*

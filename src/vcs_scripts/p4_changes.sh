@@ -1,5 +1,5 @@
 #!/bin/bash
-
+. cache
 p4 changes $* | sed -e '/^$/d' | tr '\n' '\t' | sed -e 's/\t\t/ /g' -e 's/\t/\n/g'
 
 exit $?
