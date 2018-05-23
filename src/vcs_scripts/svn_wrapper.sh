@@ -1,4 +1,10 @@
 #!/bin/bash
+
+. cache
+dir="$1"
+cd "$dir"
+shift
+
 # get down to wherever the .svn folders are...
 while [ ! -d ".svn" ]; do
         child=`ls -F | grep '/$' | head -1`
@@ -12,14 +18,9 @@ while [ ! -d ".svn" ]; do
         fi
 done
 
-# this is for memoization to work -- this is a crucial input
-wd=`pwd`
-export CACHE_EXTRA_ARG=`ls --inode "$wd"`
-. cache
-
 svn $*
+
 exit
-cd "/scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs";
 date
-$dp/git/change_tracker/src/vcs_scripts/svn_wrapper.sh log -r 159893:159898
+$dp/git/change_tracker/src/vcs_scripts/svn_wrapper.sh "/scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs" log -r 159893:159898
 date

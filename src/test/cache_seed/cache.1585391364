@@ -1,0 +1,69 @@
+Change 121159 by TimL@lake2 on 2003/12/17 17:40:45
+
+	Rename //IP/transformPortlet/main/... To //PT/portal/main/transformPortlet/...
+
+Affected files ...
+
+... //IP/transformPortlet/main/.classpath#12 delete
+... //IP/transformPortlet/main/.project#3 delete
+... //IP/transformPortlet/main/build.xml#31 delete
+... //IP/transformPortlet/main/lib/xalan.jar#2 delete
+... //IP/transformPortlet/main/lib/xml-apis.jar#2 delete
+... //IP/transformPortlet/main/samples/Moreover.xsl#2 delete
+... //IP/transformPortlet/main/samples/test.xml#2 delete
+... //IP/transformPortlet/main/serverpackages/ptxmlsp.pte#5 delete
+... //IP/transformPortlet/main/settings/config/Transformers.xml#2 delete
+... //IP/transformPortlet/main/settings/config/config.xml#3 delete
+... //IP/transformPortlet/main/src/META-INF/application.xml#2 delete
+... //IP/transformPortlet/main/src/WEB-INF/web.xml#2 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/exceptions/AdminPrefsNotSetException.java#3 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/exceptions/NoStylesheetDefinedException.java#2 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/servlets/AdminPrefsServlet.java#7 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/servlets/SetAdminPrefsServlet.java#7 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/servlets/TransformServlet.java#9 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/transformer/AdminPrefsUtil.java#16 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/transformer/Display.java#9 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/transformer/IPTTransform.java#3 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/transformer/PTTransformXALAN.java#3 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/transformer/TransformThread.java#14 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_de.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_en.properties#8 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_es.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_fr.properties#6 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_it.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_ja.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_ko.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_pt.properties#5 delete
+... //IP/transformPortlet/main/src/com/plumtree/transform/utilities/resources/Resource_zh.properties#5 delete
+... //PT/portal/main/transformPortlet/.classpath#1 branch
+... //PT/portal/main/transformPortlet/.project#1 branch
+... //PT/portal/main/transformPortlet/build.xml#1 branch
+... //PT/portal/main/transformPortlet/lib/xalan.jar#1 branch
+... //PT/portal/main/transformPortlet/lib/xml-apis.jar#1 branch
+... //PT/portal/main/transformPortlet/samples/Moreover.xsl#1 branch
+... //PT/portal/main/transformPortlet/samples/test.xml#1 branch
+... //PT/portal/main/transformPortlet/serverpackages/ptxmlsp.pte#1 branch
+... //PT/portal/main/transformPortlet/settings/config/Transformers.xml#1 branch
+... //PT/portal/main/transformPortlet/settings/config/config.xml#1 branch
+... //PT/portal/main/transformPortlet/src/META-INF/application.xml#1 branch
+... //PT/portal/main/transformPortlet/src/WEB-INF/web.xml#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/exceptions/AdminPrefsNotSetException.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/exceptions/NoStylesheetDefinedException.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/servlets/AdminPrefsServlet.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/servlets/SetAdminPrefsServlet.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/servlets/TransformServlet.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/transformer/AdminPrefsUtil.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/transformer/Display.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/transformer/IPTTransform.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/transformer/PTTransformXALAN.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/transformer/TransformThread.java#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_de.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_en.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_es.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_fr.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_it.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_ja.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_ko.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_pt.properties#1 branch
+... //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/resources/Resource_zh.properties#1 branch
+

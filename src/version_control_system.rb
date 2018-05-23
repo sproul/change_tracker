@@ -14,9 +14,19 @@ class Version_control_system < Error_holder
         def list_changes_since(commit1, commit2)
                 Cspec_span_report_item.new(commit1, commit2, self.get_changes_array_since(commit1, commit2))
         end
-        def system_as_list(cmd)
+        def system_as_list(cmd, cmd_prepend=nil, pass_cwd_as_arg1=false)
+                puts "Version_control_system.system_as_list(#{cmd}, #{cmd_prepend}, #{pass_cwd_as_arg1})" if U.trace_calls_to_system
                 local_codeline_root_dir = self.repo.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
+                if cmd_prepend
+                        if pass_cwd_as_arg1
+                                cmd = "#{cmd_prepend} #{local_codeline_root_dir} #{cmd}"
+                        else
+                                cmd = "#{cmd_prepend}                            #{cmd}"
+                        end
+                elsif pass_cwd_as_arg1
+                        self.raise("IMPL", 500) #       currently only used in combination with 'cmd_prepend' arg
+                end
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
         def system(cmd)
@@ -136,20 +146,27 @@ class Svn_version_control_system < Version_control_system
         def url()
                 "svn+ssh://scmadm@#{self.repo.source_control_server}/#{self.repo.project_name}"
         end
+        def system_as_list(args)
+                puts "Svn_version_control_system.system_as_list(#{args})" if U.trace_calls_to_system
+                super(args, "svn_wrapper.sh", true)
+        end
+        def system(args)
+                self.raise("IMPL -- need analogous dir handling to what was done for system_as_list", 500)
+        end
         def get_changed_files_array(commit_id, previous_commit_id = nil)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
                 # exclude deletions (which are indicated by lines starting w/ "D"):
                 if !previous_commit_id
                         previous_commit_id = commit_id.to_i - 1
                 end
-                self.system_as_list("svn_wrapper.sh diff --summarize -r #{commit_id}:#{previous_commit_id}").reject{ /^D.*/ }
+                self.system_as_list("diff --summarize -r #{commit_id}:#{previous_commit_id}").reject{ /^D.*/ }
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/14646798/how-to-list-all-files-in-a-remote-svn-repository
-                return self.system_as_list("svn_wrapper.sh ls -R #{self.url}@#{commit_id}")
+                return self.system_as_list("ls -R #{self.url}@#{commit_id}")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("svn_wrapper.sh log -r #{commit1.commit_id}:#{commit2.commit_id}")
+                change_lines = self.system_as_list("log -r #{commit1.commit_id}:#{commit2.commit_id}")
                 commits = []
                 if change_lines
                         if U.trace
@@ -195,12 +212,12 @@ class Svn_version_control_system < Version_control_system
                 #else
                 #        url << "/trunk"
                 #end
-                U.system("svn_wrapper.sh co \"#{url}\"", nil, root_parent)
+                U.system_as_list("co \"#{url}\"", nil, root_parent)
         end
         def list_last_changes(n)
                 # https://stackoverflow.com/questions/2675749/how-do-i-see-the-last-10-commits-in-reverse-chronoligical-order-with-svn
                 commits = []
-                self.system_as_list("svn_wrapper.sh log --limit #{n}").each do | id_colon_comment |
+                self.system_as_list("log --limit #{n}").each do | id_colon_comment |
                         raise "untested, figure out parsing for #{id_colon_comment}" unless id_colon_comment =~ /^\w+:.*$/
                         change_id = id_colon_comment.sub(/:.*/, '')
                         comment = id_colon_comment.sub(/.*?:/, '')
@@ -212,9 +229,9 @@ class Svn_version_control_system < Version_control_system
                 fn = "#{repo.codeline_disk_root}/#{path}"
                 saved_file_by_commit = "#{fn}.___#{commit_id}"
                 if !File.exist?(saved_file_by_commit)
-                        cmd = "svn_wrapper.sh cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
+                        cmd = "cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
                         begin
-                                self.system(cmd)
+                                self.system_as_list(cmd)
                         rescue
                                 # I don't care why this failed, just return nil in this case
                                 return nil
@@ -345,7 +362,6 @@ class P4_version_control_system < Version_control_system
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
                 # probably can go w/out '-f', but I'm concerned about trouble since this is a new P4ROOT; p4 client has been confused about what is there before
                 cmd = "p4 sync -f \"#{self.p4_path}/...\""
-                puts "cmd=#{cmd}"
                 out = U.system(cmd, nil, root_parent)
                 raise "could not find #{root_dir} (#{out})" unless Dir.exist?(root_dir)
                 return root_dir

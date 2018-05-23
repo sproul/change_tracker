@@ -6,11 +6,11 @@ def test()
         U.test_mode = true
         Json_change_tracker.init()
         ADE_label.test()
+        Svn_version_control_system.test()
         P4_version_control_system.test()
         Cspec_set.test
         Repo.test
         Cspec.test
-        Svn_version_control_system.test()
         Json_change_tracker.test
         U.test
         Global.test

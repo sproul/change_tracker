@@ -1,16 +1,13 @@
 use strict;
 use IO::File;
 
-print "a0=$argv[0]\n";
-exit();
-
 my $__trace = 0;
 
 sub get_cached_output_path
 {
-  my($extra_key, $s) = @_;
+  my($s) = @_;
 
-  my $key = $extra_key . $s;
+  my $key = $s;
   
   my $fn_base = `echo $key | cksum`;
   chomp $fn_base;
@@ -22,16 +19,16 @@ sub get_cached_output_path
   $f->write($key);
   $f->close();
 
+  print "get_cached_output_path resolved $key to $fn...\n" if $__trace;
+
   return $fn;
 }
 
 my @argv = @ARGV;
-my $extra_key = $ENV{"CACHE_EXTRA_ARG"};
-$extra_key = "" if !defined $extra_key;
 
 if ($argv[1] eq "-cache-clear")
 {
-  my $cached_output_stem = get_cached_output_path($extra_key, $argv[0]);
+  my $cached_output_stem = get_cached_output_path($argv[0]);
   die "empty output stem" unless $cached_output_stem;
   my $cmd = "rm -f $cached_output_stem* 2> /dev/null";
   print "$cmd\n" if $__trace;
@@ -49,7 +46,7 @@ $cmd =~ s/"([\w_#,\.\/]+)"/$1/g;
 
 print "cmd=$cmd\n" if $__trace;
 
-my $cached_output = get_cached_output_path($extra_key, $cmd);
+my $cached_output = get_cached_output_path($cmd);
 
 if (-f $cached_output)
 {
