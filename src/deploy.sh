@@ -28,21 +28,21 @@ if ! which pleaserun > /dev/null 2>&1; then
         command_to_run=$ct_root_src/change_tracker_server.sh
         sudo pleaserun --install --user change_tracker --name change_tracker --description 'Run application to report on changes made between software revisions' $command_to_run
         cat <<EOF > /etc/default/change_tracker
-        :
-        export op=\${1-start}
-        (
+:
+export op=\${1-start}
+(
         export PATH=$ruby_bin:\$PATH
         export ct_root=/scratch/change_tracker
         cd \$ct_root/src
         bash -x ./change_tracker_server.sh \$op
-        ) > /var/log/change_tracker_start.log
-        EOF
+) > /var/log/change_tracker_start.log
+EOF
         chmod +x /etc/default/change_tracker
 fi
 
 f=$ct_root/change_tracker.json
-sudo mkdir $ct_root
-mkdir $ct_root/log
+sudo mkdir -p $ct_root/log
+sudo chmod -R 777 $ct_root
 sudo touch $f
 sudo c7    $f
 rm -rf $ct_root_src.bak
@@ -57,7 +57,7 @@ cat <<EOF > $f
 }
 EOF
 cat $f
-sudo start change_tracker
+sudo /sbin/start change_tracker
 sleep 2
 tail /var/log/change_tracker-stderr.log
 

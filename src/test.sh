@@ -5,6 +5,10 @@ op=''
 out=''
 
 cd `dirname $0`
+if [ -z "$TMP" ]; then
+        TMP=/tmp
+fi
+
 if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
         
         
@@ -20,15 +24,16 @@ if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
         
         
         echo "Initializing cache data for test runs on this host:"
-        echo "cp -p test/cache_seed/* $TMP..."
-        if !  cp -p test/cache_seed/* $TMP; then
-                echo "$0: cp -p test/cache_seed/* $TMP failed, exiting..." 1>&2
-                exit 1
-        fi
+        (
+        echo "cd test/cache_seed"
+        cd       test/cache_seed
+        echo "cache.put -all"
+        cache.put       -all
         if ! touch $TMP/CACHE_SEEDED_FOR_TESTS; then
                 echo "$0: touch $TMP/CACHE_SEEDED_FOR_TESTS failed, exiting..." 1>&2
                 exit 1
         fi
+        )
 fi
 
 output_to_tmp_file()

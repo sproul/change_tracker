@@ -9,16 +9,22 @@ sub get_cached_output_path
 
   my $key = $s;
   
-  my $fn_base = `echo $key | cksum`;
+  my $fn_base = `printf "$key" | cksum`;
+  
+  print "key=$key\n" if $__trace;
+  print "echo output is " . `echo -n "$key"` . "!!!\n" if $__trace;
+
   chomp $fn_base;
   $fn_base =~ s/ .*//;
   
   my $fn = "$ENV{'TMP'}/cache." . $fn_base;
   
-  my $f = new IO::File("$fn.cmd", "w");
-  $f->write($key);
-  $f->close();
-
+  if (! -f "$fn.cmd")
+  {
+    my $f = new IO::File("$fn.cmd", "w");
+    $f->write($key);
+    $f->close();
+  }
   print "get_cached_output_path resolved $key to $fn...\n" if $__trace;
 
   return $fn;
@@ -36,19 +42,30 @@ if ($argv[1] eq "-cache-clear")
   exit(0);
 }
 
-
 my $cmd = join('" "', @argv);
-
 
 $cmd =~ s/(" ")*$//g;
 $cmd = '"' . $cmd . '"';
-$cmd =~ s/"([\w_#,\.\/]+)"/$1/g;
+$cmd =~ s/"([-\w_#,\.\/]+)"/$1/g;
 
 print "cmd=$cmd\n" if $__trace;
 
 my $cached_output = get_cached_output_path($cmd);
 
-if (-f $cached_output)
+my $cache_data_override_fn = $ENV{'USE_CACHED_DATA_FROM_FILENAME'};
+if ($cache_data_override_fn)
+{
+  if (! -f $cache_data_override_fn)
+  {
+    print STDERR "cache.pl error: could not find USE_CACHED_DATA_FROM_FILENAME file $cache_data_override_fn\n";
+    exit(1);
+  }
+  print "Loading cache from $cache_data_override_fn\n";
+  print "cp -p  $cache_data_override_fn   $cached_output\n";
+  `      cp -p "$cache_data_override_fn" "$cached_output"`;
+  exit(0);
+}
+elsif (-f $cached_output)
 {
   print "using existing $cached_output\n" if $__trace;
 }
