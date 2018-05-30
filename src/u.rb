@@ -215,15 +215,16 @@ class U
         MAIL_MODE_TEST = 2
         class << self
                 attr_accessor :assertion_labels
+                attr_accessor :dry_mode
                 attr_accessor :file_tmp_name_counter
+                attr_accessor :initial_working_directory
                 attr_accessor :log_level
                 attr_accessor :log_indent
                 attr_accessor :mail_mode
-                attr_accessor :test_mode
-                attr_accessor :dry_mode
-                attr_accessor :test_exit_code
-                attr_accessor :initial_working_directory
                 attr_accessor :raise_if_fail
+                attr_accessor :rest_mock_dir
+                attr_accessor :test_mode
+                attr_accessor :test_exit_code
                 attr_accessor :test_overwrite_canon_files_mode
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
@@ -502,15 +503,24 @@ class U
                         fn
                 end
                 def rest_get(url)
-                        begin
-                                resp = Net::HTTP.get_response(URI.parse(url))
-                                resp.body
-                        rescue Exception => e
-                                raise "error retrieving #{url}: #{e.to_s}"
+                        if U.rest_mock_dir
+                                fn = "#{U.rest_mock_dir}/#{url.sub(/:\//, '')}"
+                                if File.exist?(fn)
+                                        U.read_file(fn)
+                                else
+                                        raise "error retrieving #{url} in mock mode: no file at #{fn}"
+                                end
+                        else
+                                begin
+                                        resp = Net::HTTP.get_response(URI.parse(url))
+                                        resp.body
+                                rescue Exception => e
+                                        raise "error retrieving #{url}: #{e.to_s}"
+                                end
                         end
                 end
                 def rest_get_json(url)
-                        x = U.rest_get(url)
+                        x= U.rest_get(url)
                         JSON.parse(x)
                 end
                 def mail(to, subject, body, send_to_emails_grepped_in_body=false)
@@ -680,7 +690,7 @@ class U
                         if !Dir.exist?("test")
                                 raise "expected test dir, but did not see one in #{Dir.pwd}"
                         end
-                        "#{U.initial_working_directory}/test/#{U.cook(s)}"
+                        "#{U.initial_working_directory}/test/data/#{U.cook(s)}"
                 end
                 def canon_propose(actual, caller_msg, canon_fn)
                         proposed_canon_fn = U.file_tmp_name("proposed_canon", "txt", nil, actual)
@@ -820,8 +830,7 @@ class U
                                         if caller_msg
                                                 caller_msg = "#{caller_msg}: "
                                         end
-                                        frame_that_asserted, previous_frames = U.asserting_frame_to_s
-                                        msg = "#{frame_that_asserted}: MISMATCH: #{caller_msg}"
+                                        msg = "MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
                                         msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
                                         if expected.respond_to?(:lines) && expected.lines.count > 2
@@ -829,19 +838,11 @@ class U
                                                 msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
                                                 msg += "========================================================================================================"
                                         end
-                                        msg += previous_frames
                                         U.assert(false, msg, raise_if_fail)
                                 end
                                 ok = false
                         else
-                                z = "OK "
-                                if caller_msg
-                                        z << caller_msg
-                                else
-                                        z << "U.assert_eq: #{expected} == #{actual}"
-                                end
-                                U.log(z)
-                                puts U.truncate_string(z)
+                                U.assert(true, caller_msg, raise_if_fail)
                                 ok = true
                         end
                         return ok
@@ -879,10 +880,11 @@ class U
                         if !expr
                                 U.test_exit_code = -1
                                 if !msg
-                                        msg = "assertion failed"
+                                        msg = "assertion"
                                 end
-                                
-                                msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
+                                #msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
+                                frame_that_asserted, previous_frames = U.asserting_frame_to_s
+                                msg = "#{frame_that_asserted}: #{msg}: FAILED\n#{previous_frames}"
                                 
                                 if raise_if_fail || U.raise_if_fail
                                         raise Test_assertion.new(msg)
@@ -890,7 +892,9 @@ class U
                                         puts msg
                                 end
                         else
-                                U.log("U.assert: #{expr} OK") if U.log_level<=U::LOG_ALL
+                                z = "OK #{msg}"
+                                U.log(z)
+                                puts U.truncate_string(z)
                         end
                 end
                 def assert_type(expr, typ)

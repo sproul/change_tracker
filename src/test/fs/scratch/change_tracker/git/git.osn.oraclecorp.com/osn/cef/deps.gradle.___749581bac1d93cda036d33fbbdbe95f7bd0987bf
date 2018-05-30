@@ -1,0 +1,40 @@
+///////////////////////////////////////////////////////////////////
+// Artifact dependencies which should be retrieved when the build starts
+///////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////
+// Tags which can be used in the dependency block:
+//   @trigger -- this manifest dep will be monitored by the deptrigger
+//               job for new versions and when found, the dep line will
+//               be updated and merged.  Use this tag when your component
+//               has an immediate dependency on another OSN component.
+//
+//   @triggerdep this artifact dep will be autoupdated and merged based on
+//               current dep tree info.  This is appropriate for OSN-internal
+//               artifact dependencies.
+//
+//   @autoupdate this dep will be automatically downloaded and merged. Must
+//               be used in conjunction with @triggerdep tag
+///////////////////////////////////////////////////////////////////
+// Lines with no @tags will not be touched.  These are appropriate for 3rd party
+//  deps or for forcing a particular version.
+//
+// So to turn off automatic updates and force a particular version, remove
+// any tokens. This will 'freeze' the dependency versions.
+///////////////////////////////////////////////////////////////////
+
+dependencies {
+  // trigger deps which are auto-updated, and used for triggering the deptrigger job
+  manifest "com.oracle.cecs.waggle:manifest:1.0.484"         //@trigger
+
+  // derived deps which are auto-updated by the deptrigger job
+  bootstrap "com.oracle.cecs.pipeline-common:common:1.0.10@gradle"  //@triggerdep @autoupdate
+  bootstrap "com.oracle.cecs.pipeline-common:commondeps:1.0.10@gradle"  //@triggerdep @autoupdate
+
+  server_common "com.oracle.cecs.servercommon:env_setup:1.0.292@zip"                 //@triggerdep
+  server_common "com.oracle.cecs.servercommon:server-common-jar:1.0.292"          //@triggerdep 
+  server_common "com.oracle.cecs.servercommon:server-common-library:1.0.292@ear"      //@triggerdep 
+  server_common "com.oracle.cecs.servercommon:server-common-oracle-sql:1.0.292@zip" //@triggerdep 
+
+  // these deps are frozen
+}

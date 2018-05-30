@@ -1,4 +1,18 @@
 #!/bin/bash
+strace_mode=''
+ruby_cli_main_args=''
+while [ -n "$1" ]; do
+        case "$1" in
+                -strace)
+                        strace_mode=strace
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+
 date
 verbose_mode=''
 op=''
@@ -8,21 +22,23 @@ cd `dirname $0`
 if [ -z "$TMP" ]; then
         TMP=/tmp
 fi
+case "$OS" in
+        Linux)
+        ;;
+        *)
+                #echo Running without test repos, so setting up the backstop to intercept calls going out to the VCSs...
+                export PATH=`pwd`/test/backstop:$PATH
+                ruby_cli_main_args="$ruby_cli_main_args -rest_mock_dir `pwd`/test/mock"
+        ;;
+esac
 
 if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
-        
-        
-        
-        
-        # don't need this section for now since I'm not yet rewriting cached cmd files -- but I might need to at some point, and I don't want to forget this...
         export CACHE_PORTABILITY_VARS=ct_root
         if [ -z "$ct_root" ]; then
                 ct_root_src=`dirname "$0"`
                 export ct_root=`dirname "$ct_root_src"`
         fi
-        
-        
-        
+
         echo "Initializing cache data for test runs on this host:"
         (
         echo "cd test/cache_seed"
@@ -34,6 +50,18 @@ if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
                 exit 1
         fi
         )
+        case "$HOSTNAME" in
+         slcipcm)
+                ;;
+                *)
+                        (
+                        echo Since it appears that this host is not connected to my VCS, dummy up substitute data...
+                        cd test/fs
+                        tar cf - * | ( cd /; tar xf - )
+                        echo done.
+                        )
+                ;;
+        esac
 fi
 
 output_to_tmp_file()
@@ -73,7 +101,7 @@ fi
 Ruby_change_tracker()
 {
         export GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o NumberOfPasswordPrompts=0"
-        ruby -w cli_main.rb $* 2>&1 | grep -v 'warning: setting Encoding'
+        $strace_mode ruby -w cli_main.rb $ruby_cli_main_args $* 2>&1 | grep -v 'warning: setting Encoding'
 }
 
 t=`mktemp`

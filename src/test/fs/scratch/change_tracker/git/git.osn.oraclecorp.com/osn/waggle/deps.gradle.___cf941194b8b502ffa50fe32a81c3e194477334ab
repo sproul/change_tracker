@@ -1,0 +1,227 @@
+//////////////////////////////////////////////////////////////////
+// Artifact dependencies which should be retrieved when the build starts
+///////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////
+// Tags which can be used in the dependency block:
+//   @trigger -- this manifest dep will be monitored by the deptrigger
+//               job for new versions and when found, the dep line will
+//               be updated and merged.  Use this tag when your component
+//               has an immediate dependency on another OSN component.
+//
+//   @triggerdep this artifact dep will be autoupdated and merged based on
+//               current dep tree info.  This is appropriate for OSN-internal
+//               artifact dependencies.
+//
+//   @autoupdate this dep will be automatically downloaded and merged. Must
+//               be used in conjunction with @triggerdep tag
+///////////////////////////////////////////////////////////////////
+// Lines with no @tags will not be touched.  These are appropriate for 3rd party
+//  deps or for forcing a particular version.
+//
+// So to turn off automatic updates and force a particular version, remove
+// any tokens. This will 'freeze' the dependency versions.
+///////////////////////////////////////////////////////////////////
+
+dependencies {
+  // trigger deps which are auto-updated, and used for triggering the deptrigger job
+  manifest "com.oracle.cecs.servercommon:manifest:1.master_external.285" //@trigger
+
+  // derived deps which are auto-updated by the deptrigger job
+  pl_bootstrap "com.oracle.cecs.pipeline-common:common:1.master_external.9@gradle"  //@triggerdep @autoupdate
+  pl_bootstrap "com.oracle.cecs.pipeline-common:commondeps:1.master_external.9@gradle"  //@triggerdep @autoupdate
+  runtime_webclient "com.oracle.cecs.webclient:osn:1.master_external.+"
+
+  server_common "com.oracle.cecs.servercommon:env_setup:1.master_external.285@zip"                 //@triggerdep
+  server_common "com.oracle.cecs.servercommon:server-common-jar:1.master_external.285"          //@triggerdep
+  server_common "com.oracle.cecs.servercommon:server-common-library:1.master_external.285@ear"      //@triggerdep
+  server_common "com.oracle.cecs.servercommon:server-common-oracle-sql:1.master_external.285@zip" //@triggerdep
+  server_common "com.oracle.cecs.servercommon:server-common-oracle-sql:1.master_external.285@zip" //@triggerdep
+  server_common "com.oracle.cecs.servercommon:version:1.master_external.285@properties" //@triggerdep
+  // these deps are frozen
+  ///////////////////////////////////////////////
+
+  // Dependencies for web-client team:
+  compile_webclient "manualupload.osnwebclient:nodedeps:150702.1133@zip"
+
+  // Dependencies for waggle-core/
+  compile_core "org.apache.httpcomponents:httpclient:4.5.1"
+  compile_core "org.apache.httpcomponents:httpclient-cache:4.5.1"
+  compile_core "org.apache.httpcomponents:httpmime:4.5.1"
+  compile_core "org.apache.httpcomponents:httpcore:4.4.3"
+  compile_core "commons-logging:commons-logging:1.2"
+  compile_core "commons-codec:commons-codec:1.7"
+  compile_core "nonmaven.findbugs:annotations-findbugs:0.100304.0000"
+  compile_core "jackson-all:jackson-all:1.9.10"
+
+  compile_core_wls "commons-fileupload:commons-fileupload:1.3.1"
+  compile_core_wls "commons-io:commons-io:1.4"
+  
+  compile_core_ext "nonmaven.jrf:jrf-api:0.100818.0000_11.1.1.2.0"
+  compile_core_ext "nonmaven.servlet:servlet-2_5-api:0.081001.0000"
+  compile_core_ext "nonmaven.wls:wls-api:0.100503.0000"
+  compile_core_ext "nonmaven.wls:ojdl:ADMINSERVER_11.1.1.7.0_GENERIC_120818.0000"
+
+  // Dependencies for waggle-server/
+  compile_server "org.apache.commons:commons-csv:1.0"
+  compile_server "commons-httpclient:commons-httpclient:3.1"
+  compile_server "com.google.guava:guava:12.0"
+  compile_server "json_simple:json_simple:1.1"
+  compile_server "simplecaptcha:simplecaptcha:1.2.1"
+  compile_server "jackson-core-asl:jackson-core-asl:1.9.10"
+  compile_server "org.owasp.antisamy:antisamy:1.5.3"
+  compile_server "jackson-jaxrs:jackson-jaxrs:1.9.10"
+  compile_server "org.ow2.asm:asm:5.1"
+  compile_server "manualupload.metadata-extractor:metadata-extractor:2.6.2"
+  compile_server "jackson-mapper-asl:jackson-mapper-asl:1.9.10"
+  compile_server "jackson-xc:jackson-xc:1.9.10"
+  compile_server "org.apache.commons:commons-compress:1.4.1"
+  compile_server "com.sun.mail:javax.mail:1.5.5"
+  compile_server "nonmaven.rightnow:RightNowSyncService_wsdl:0.121128.0000_12.11"
+  compile_server "manualupload.HCMLDAPService_wsdl:HCMLDAPService_wsdl:0.151103.0000"
+  compile_server "manualupload.HCMUserService_wsdl:HCMUserService_wsdl:0.151103.0000"
+  compile_server "nonmaven.openldap:ldap:4.6"
+  compile_server "nonmaven.nekohtml:nekohtml:1.9.19"
+  compile_server "nonmaven.batik:batik-css:1.7+r608262"
+  compile_server "nonmaven.batik:batik-util:1.7+r608262"
+  compile_server "nonmaven.xerces:xercesImpl:0.101006.0000"
+  compile_server "nonmaven.xml-commons:xml-apis-ext:0.101006.0000"
+  compile_server "org.glassfish.jersey.connectors:jersey-apache-connector:2.22.1"
+
+  compile_server "org.apache.commons:commons-lang3:3.5"
+  compile_server "commons-lang:commons-lang:2.6"
+  compile_server "jakarta-oro:jakarta-oro:2.0.8"
+  compile_server "velocity:velocity:1.7"
+  compile_server "velocity-tools-generic:velocity-tools-generic:2.0"
+  compile_server "org.jdom:jdom:1.1.1"
+
+  compile_server_wls "commons-collections:commons-collections:3.2.1"
+  compile_server_wls "manualupload.mysql-connector-java:mysql-connector-java:5.1.20:bin"
+  compile_server_wls "nonmaven.jps:jps-api:ENTSEC_11.1.1.7.0_GENERIC_120817.0801.1"
+  compile_server_wls "nonmaven.wls:ojdbc6:10.3.6_11.2.0.3.0"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-lcsd:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-servlet:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-utility:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls:dms:ADMINSERVER_11.1.1.7.0_GENERIC_120818.0000"
+  compile_server_wls "nonmaven.wls:ojdl:ADMINSERVER_11.1.1.7.0_GENERIC_120818.0000"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-mapping:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-tools:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls:jms:0.101022.0000"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-collation:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-net:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls.nlsgdk:orai18n-translation:11.2.0.1.0_Build11"
+  compile_server_wls "nonmaven.wls:ws.api:0.130703.0000_1.1.0.0"
+
+  compile_server_wls "javax.ws.rs:javax.ws.rs-api:2.0"
+  compile_server_wls "org.glassfish.jersey.core:jersey-server:2.22.1"
+  compile_server_wls "org.glassfish.jersey.core:jersey-common:2.22.1"
+  compile_server_wls "org.glassfish.jersey.core:jersey-client:2.22.1"
+  compile_server_wls "org.glassfish.jersey.containers:jersey-container-servlet:2.22.1"
+  compile_server_wls "org.glassfish.jersey.containers:jersey-container-servlet-core:2.22.1"
+
+  compile_server_ext "nonmaven.tomcat:catalina:7.0.37"
+  compile_server_ext "nonmaven.com.bea.core.weblogic.web.api:com.bea.core.weblogic.web.api_1.2.0.0:0.081001.0000_1.2.0.0"
+  compile_server_ext "nonmaven.jsp-api:jsp-api:0.130315_2.2.FR"
+  compile_server_ext "nonmaven.oracle.webservices.standalone.client:oracle.webservices.standalone.client-trimmed:0.121031.0000_wls10.3.6"
+
+  // Dependencies for osn status module.
+  compile_osn_status_ext "nonmaven.servlet:servlet-2_5-api:0.081001.0000"
+
+  // Dependencies for osn public module.
+  compile_osn_public "org.apache.httpcomponents:httpclient:4.3.3"
+  compile_osn_public "org.codehaus.jettison:jettison:1.1"
+  compile_osn_public "commons-codec:commons-codec:1.8"
+  compile_osn_public "org.apache.httpcomponents:httpcore:4.3.2"
+  compile_osn_public "commons-io:commons-io:2.4"
+  compile_osn_public "commons-logging:commons-logging:1.1.3"
+  compile_osn_public "javax.ws.rs:javax.ws.rs-api:2.0.1"
+  compile_osn_public "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.4.3"
+  compile_osn_public "com.fasterxml.jackson.core:jackson-annotations:2.4.3"
+
+  // Dependencies for osn public module.
+  compile_osn_webhooks_test "asm:asm:3.3.1"
+  compile_osn_webhooks_test "commons-codec:commons-codec:1.8"
+  compile_osn_webhooks_test "commons-io:commons-io:2.4"
+  compile_osn_webhooks_test "commons-logging:commons-logging:1.1.3"
+  compile_osn_webhooks_test "org.apache.httpcomponents:httpcore:4.3.2"
+  compile_osn_webhooks_test "org.apache.httpcomponents:httpclient:4.3.3"
+  compile_osn_webhooks_test "com.sun.jersey:jersey-bundle:1.19"
+  compile_osn_webhooks_test "com.sun.jersey.contribs:jersey-apache-client4:1.19"
+  compile_osn_webhooks_test "com.sun.jersey:jersey-json:1.19"
+  compile_osn_webhooks_test "jackson-all:jackson-all:1.9.11"
+  compile_osn_webhooks_test "com.fasterxml.jackson.core:jackson-core:2.1.3"
+  compile_osn_webhooks_test "org.codehaus.jettison:jettison:1.1"
+  compile_osn_webhooks_test "json_simple:json_simple:1.1"
+  compile_osn_webhooks_test "com.beust:jcommander:1.27"
+
+  // Third party dependency source for waggle-core/
+  thirdparty_src_core "commons-codec:commons-codec:1.7:src@zip"
+  thirdparty_src_core "manualupload.commons-logging:commons-logging:1.1.1:sources"
+  thirdparty_src_core "commons-fileupload:commons-fileupload:1.3.1:src@zip"
+  thirdparty_src_core "httpcomponents-client:httpcomponents-client:4.2.6:src@zip"
+  thirdparty_src_core "manualupload.commons-io:commons-io:1.4:sources"
+  thirdparty_src_core "httpcomponents-core:httpcomponents-core:4.2.5:src@zip"
+
+  // Third party dependency source for waggle-server/
+  thirdparty_src_server "antisamy:antisamy:1.5.3:sources"
+  thirdparty_src_server "jaxb-impl:jaxb-impl:2.2.4-1:sources"
+  thirdparty_src_server "apache-tomcat:apache-tomcat:7.0.37:src@zip"
+  thirdparty_src_server "manualupload.asm:asm:3.3.1:sources"
+  thirdparty_src_server "commons-collections:commons-collections:3.2.1:sources"
+  thirdparty_src_server "commons-compress:commons-compress:1.4.1:sources"
+  thirdparty_src_server "manualupload.commons-csv:commons-csv:1.0:src@zip"
+  thirdparty_src_server "manualupload.jldap:jldap:4.6@zip"
+  thirdparty_src_server "manualupload.commons-httpclient:commons-httpclient:3.1:src@zip"
+  thirdparty_src_server "json_simple:json_simple:1.1:all@zip"
+  thirdparty_src_server "guava:guava:12.0:sources"
+  thirdparty_src_server "metadata-extractor:metadata-extractor:2.6.2:src"
+  thirdparty_src_server "jackson-core-asl:jackson-core-asl:1.9.10:sources"
+  thirdparty_src_server "mysql-connector-java:mysql-connector-java:5.1.20@zip"
+  thirdparty_src_server "jackson-jaxrs:jackson-jaxrs:1.9.10:sources"
+  thirdparty_src_server "nekohtml:nekohtml:1.9.19@zip"
+  thirdparty_src_server "jackson-mapper-asl:jackson-mapper-asl:1.9.10:sources"
+  thirdparty_src_server "jackson-xc:jackson-xc:1.9.10:sources"
+  thirdparty_src_server "com.sun.mail:javax.mail:1.5.5:sources"
+  thirdparty_src_server "manualupload.simplecaptcha:simplecaptcha:1.2.1:src@zip"
+  thirdparty_src_server "jaxb-api:jaxb-api:2.2.4:sources"
+  thirdparty_src_server "xml-commons-external:xml-commons-external:1.3.04:src@zip"
+  thirdparty_src_server "nonmaven.wls:ojdbc6-javadoc:10.3.6_11.2.0.3.0@zip"
+  thirdparty_src_server "commons-beanutils:commons-beanutils:1.9.2:sources"
+  thirdparty_src_server "commons-collections4:commons-collections4:4.0:sources"
+  thirdparty_src_server "commons-digester:commons-digester:2.1:sources"
+  thirdparty_src_server "commons-lang:commons-lang:2.6:sources"
+  thirdparty_src_server "manualupload.jakarta-oro:jakarta-oro:2.0.8:src@zip"
+  thirdparty_src_server "manualupload.velocity:velocity:1.7:src@zip"
+  thirdparty_src_server "velocity-tools:velocity-tools:2.0:src@zip"
+
+  // testing tools
+  testtool "com.puppycrawl.tools:checkstyle:6.1:bin@zip"
+  testtool "findbugs:findbugs:2.0.3@zip"
+  testtool "pmd-bin:pmd-bin:4.2.5@zip"
+  testtool "manualupload.jacoco:jacoco:0.7.1.20140326-0205.osn@zip"
+  testtool "org.javassist:javassist:3.21.0-GA"
+  testtool "org.mockito:mockito-all:1.10.19"
+  testtool "org.powermock:powermock-api-mockito:1.6.6"
+  testtool "org.powermock:powermock-api-mockito-common:1.6.6"
+  testtool "org.powermock:powermock-api-support:1.6.6"
+  testtool "org.powermock:powermock-core:1.6.6"
+  testtool "org.powermock:powermock-module-junit4:1.6.6"
+  testtool "org.powermock:powermock-module-junit4-common:1.6.6"
+  testtool "org.powermock:powermock-reflect:1.6.6"
+  testtool "junit:junit:4.12"
+
+  // Activity Stream layer external dependencies
+  compile_as "javax.json:javax.json-api:1.0"
+  compile_as "org.glassfish:javax.json:1.0.4"
+  compile_as "javax.enterprise.concurrent:javax.enterprise.concurrent-api:1.0"
+  compile_as "nonmaven.berkeleydb:je-6.4.25:6.4.25"
+
+  testCompile "org.hamcrest:hamcrest-core:1.3"
+
+  // START-commondeps inserted here
+  // between START and END will be replaced by dep trigger jobs and pipeline-common.git/commondeps.gradle
+  // will be inserted
+  // END-commondeps
+}

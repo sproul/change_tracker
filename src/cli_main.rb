@@ -88,6 +88,9 @@ while ARGV.size > j do
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
         when /(-p|-pretty)/
                 Cspec_span_report_item_set.pretty = true
+        when "-rest_mock_dir"
+                j += 1
+                U.rest_mock_dir = ARGV[j]
         when "-test"
                 test()
         when "-tad"

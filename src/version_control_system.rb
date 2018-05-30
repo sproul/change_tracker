@@ -207,12 +207,7 @@ class Svn_version_control_system < Version_control_system
         end
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
                 url = self.url
-                #if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
-                #        url << "/branches/#{self.repo.branch_name}"
-                #else
-                #        url << "/trunk"
-                #end
-                U.system_as_list("co \"#{url}\"", nil, root_parent)
+                U.system_as_list("svn co \"#{url}\"", nil, root_parent)
         end
         def list_last_changes(n)
                 # https://stackoverflow.com/questions/2675749/how-do-i-see-the-last-10-commits-in-reverse-chronoligical-order-with-svn
@@ -244,6 +239,13 @@ class Svn_version_control_system < Version_control_system
                 z
         end
         class << self
+                def test_svn_test_clear_disk()
+                        c1 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
+                        c1.repo.codeline_disk_rm
+                        U.assert(!Dir.exist?(c1.repo.codeline_disk_root()), "svn test disk removed")
+                        c1.repo.codeline_disk_write
+                        U.assert(Dir.exist?(c1.repo.codeline_disk_root()), "svn test disk written")
+                end
                 def test_svn_list_changes_since()
                         cc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
                         cc2 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
@@ -252,6 +254,7 @@ class Svn_version_control_system < Version_control_system
                         gc2 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
 
                         report_item_set1 = cc2.list_changes_since(cc1)
+                        
                         report_item_set2 = Cspec_set.list_changes_between(TEST_SVN_COMPOUND_SPEC1, TEST_SVN_COMPOUND_SPEC2)
                         changes1 = report_item_set1.all_items
                         changes2 = report_item_set2.all_items
@@ -288,6 +291,7 @@ class Svn_version_control_system < Version_control_system
                         end
                 end
                 def test()
+                        test_svn_test_clear_disk()
                         test_svn_list_changes_since()
                         test_svn_list_files_changed_since()
                         test_svn_list_bug_IDs_since()

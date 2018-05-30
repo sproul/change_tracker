@@ -1,0 +1,19 @@
+:
+cd `dirname $0`
+while [ -n "$1" ]; do
+        case "$1" in
+                -gather_from_codelines)
+                        rm -rf data/scratch
+                        mkdir -p data/scratch
+                        cp -pr /scratch/change_tracker data/scratch
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+
+rm -rf /scratch/change_tracker
+mkdir -p /scratch
+cp -pr data/scratch/change_tracker /scratch

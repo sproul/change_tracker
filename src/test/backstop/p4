@@ -1,0 +1,15 @@
+:
+. backstop.inc
+echo cmd=$cmd
+case "$cmd" in
+        */p4\ sync\ -f\ //PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/...)
+                echo known command, ok to ignore
+        ;;
+        *)
+                . backstop_unrecognized_cmd.inc
+        ;;
+esac
+
+exit
+export PATH=$dp/git/change_tracker/src/test/backstop:$PATH 
+p4 sync -f "//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities/..."

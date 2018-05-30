@@ -1,0 +1,9 @@
+{
+  "cspec": "git;git.osn.oraclecorp.com;osn/serverintegration;;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "cspec_deps": [
+    "git;git.osn.oraclecorp.com;ccs/caas;;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "git;git.osn.oraclecorp.com;osn/serverintegration;;1111111111111111111111111111111111111111",
+    "git;git.osn.oraclecorp.com;ccs/caas;;2222222222222222222222222222222222222222",
+    "git;git.osn.oraclecorp.com;ccs/caas;;3333333333333333333333333333333333333333"
+  ]
+}

@@ -1,0 +1,10 @@
+[{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;ramisra_bug-27575105_ics_handle_runtime_fault"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27895798_ics_nested_foreach_fails"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27996552_ics_nested_foreach_path"
+}]

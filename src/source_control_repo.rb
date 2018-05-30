@@ -49,9 +49,11 @@ class Repo < Error_holder
         def codeline_disk_root()
                 "#{Repo.codeline_root_parent}/#{self.source_control_type}/#{self.source_control_server}/#{self.project_name}"
         end
-        def codeline_disk_remove()
-                root_dir = codeline_disk_root()
-                FileUtils.rm_rf(root_dir)
+        def codeline_disk_rm()
+                if codeline_disk_exist?
+                        root_dir = codeline_disk_root()
+                        FileUtils.rm_rf(root_dir)
+                end
         end
         def codeline_disk_write(commit_id = nil)
                 root_dir = codeline_disk_root()
@@ -269,7 +271,7 @@ class Repo < Error_holder
                 end
                 def test_clean()
                         gr = Repo.from_spec(TEST_REPO_NAME)
-                        gr.codeline_disk_remove
+                        gr.codeline_disk_rm
                         U.assert(!gr.codeline_disk_exist?)
                 end
                 def test_repo_renaming()
