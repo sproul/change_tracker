@@ -41,9 +41,11 @@ class Repo < Error_holder
                 return username, pw
         end
         def codeline_disk_exist?()
+                U.runaway_ck
                 root_dir = codeline_disk_root()
                 # puts "exist? checking #{root_dir}"
                 # if dir is empty, then there are 2 entries (., ..):
+                
                 return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
         end
         def codeline_disk_root()
@@ -53,6 +55,17 @@ class Repo < Error_holder
                 if codeline_disk_exist?
                         root_dir = codeline_disk_root()
                         FileUtils.rm_rf(root_dir)
+                        if Dir.exist?(root_dir)
+                                root_dir = "/cygdrive/c/cygwin64#{root_dir}"
+                                FileUtils.rm_rf(root_dir)
+                                if Dir.exist?(root_dir)
+                                        raise "FileUtils.rm_rf(#{root_dir}) failed 2x"
+                                else
+                                        puts "needed to preeeeeeeeeeepend"
+                                end
+                        end
+                else
+                        puts "codeline_disk_rm - do nothing since #{codeline_disk_root} does not exist"
                 end
         end
         def codeline_disk_write(commit_id = nil)
@@ -61,6 +74,9 @@ class Repo < Error_holder
                         root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
                         FileUtils.mkdir_p(root_parent)
                         self.vcs.codeline_disk_write(root_parent, root_dir, commit_id)
+                        if !Dir.exist?(root_dir)
+                                self.raise("error: Repo.codeline_disk_write did not create #{root_dir}")
+                        end
                 end
                 self.commit_id = commit_id
                 root_dir

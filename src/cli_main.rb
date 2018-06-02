@@ -5,13 +5,13 @@ require_relative 'json_change_tracker'
 def test()
         U.test_mode = true
         Json_change_tracker.init()
-        ADE_label.test()
-        Svn_version_control_system.test()
-        P4_version_control_system.test()
-        Cspec_set.test
-        Repo.test
-        Cspec.test
         Json_change_tracker.test
+        Cspec.test
+        Cspec_set.test
+        Svn_version_control_system.test()
+        ADE_label.test()
+        P4_version_control_system.test()
+        Repo.test
         U.test
         Global.test
         Cec_gradle_parser.test
@@ -30,11 +30,12 @@ while ARGV.size > j do
         case arg
         when "-1"
                 U.raise_if_fail = true
-        when "-test_clean"
-                Repo.test_clean
         when "-compound_commit_json_of"
                 puts Cspec_set.from_repo_and_commit_id(ARGV[j+1]).to_json
                 exit
+        when "-copy_http_rest_call_results_to_dir"
+                j += 1
+                U.copy_http_rest_call_results_to_dir = ARGV[j]
         when "-conf"
                 j += 1
                 Global.data_json_fn = ARGV[j]
@@ -95,9 +96,13 @@ while ARGV.size > j do
                 test()
         when "-tad"
                 Cec_gradle_parser.trace_autodiscovery = true
+        when "-test_clean"
+                Repo.test_clean
         when "-trace_autodiscovery"
                 Cec_gradle_parser.trace_autodiscovery = true
-        when "-tcs"
+        when "-trc"
+                U.trace_http_rest_calls = true
+        when "-tsc"
                 U.trace_calls_to_system = true
         when /(-tok|ok)/
                 U.test_overwrite_canon_files_mode = true

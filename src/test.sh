@@ -51,7 +51,7 @@ if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
         fi
         )
         case "$HOSTNAME" in
-         slcipcm)
+                slcipcm)
                 ;;
                 *)
                         (
@@ -182,4 +182,6 @@ fi
 date
 
 #test_no_deps_config
+exit
+test.sh -copy_http_rest_call_results_to_dir $dp/git/change_tracker/src/test/mock
 exit 0

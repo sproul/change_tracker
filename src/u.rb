@@ -215,6 +215,7 @@ class U
         MAIL_MODE_TEST = 2
         class << self
                 attr_accessor :assertion_labels
+                attr_accessor :copy_http_rest_call_results_to_dir
                 attr_accessor :dry_mode
                 attr_accessor :file_tmp_name_counter
                 attr_accessor :initial_working_directory
@@ -223,11 +224,13 @@ class U
                 attr_accessor :mail_mode
                 attr_accessor :raise_if_fail
                 attr_accessor :rest_mock_dir
+                attr_accessor :runaway_ck_counter
                 attr_accessor :test_mode
                 attr_accessor :test_exit_code
                 attr_accessor :test_overwrite_canon_files_mode
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
+                attr_accessor :trace_http_rest_calls
                 @@t = nil
 
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
@@ -431,7 +434,7 @@ class U
                                 puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace || U.trace_calls_to_system
                                 # http://stackoverflow.com/questions/15023944/how-to-retrieve-exit-status-from-ruby-open3-popen3
                                 if !wait_thr.value.success?
-                                        z = "error: bad exit code from\n#{t_preamble}#{cmd}\n#{err}"
+                                        z = "error: bad exit code #{wait_thr.value} from\n#{t_preamble}#{cmd}\n#{err}"
                                         raise z
                                 end
                                 if U.trace_calls_to_system
@@ -502,9 +505,22 @@ class U
                         end
                         fn
                 end
-                def rest_get(url)
+                def make_rest_mock_fn(url)
                         if U.rest_mock_dir
-                                fn = "#{U.rest_mock_dir}/#{url.sub(/:\//, '')}"
+                                z = U.rest_mock_dir
+                        elsif U.copy_http_rest_call_results_to_dir
+                                z = U.copy_http_rest_call_results_to_dir
+                        else
+                                raise "neither rest_mock_dir nor copy_http_rest_call_results_to_dir set"
+                        end
+                        "#{z}/#{url.sub(/:\//, '')}"
+                end
+                def rest_get(url)
+                        if U.trace_http_rest_calls
+                                puts "rest_get(#{url})"
+                        end
+                        if U.rest_mock_dir
+                                fn = U.make_rest_mock_fn(url)
                                 if File.exist?(fn)
                                         U.read_file(fn)
                                 else
@@ -513,6 +529,10 @@ class U
                         else
                                 begin
                                         resp = Net::HTTP.get_response(URI.parse(url))
+                                        if U.copy_http_rest_call_results_to_dir
+                                                fn = U.make_rest_mock_fn(url)
+                                                U.write_file(fn, resp.body, true)
+                                        end
                                         resp.body
                                 rescue Exception => e
                                         raise "error retrieving #{url}: #{e.to_s}"
@@ -1138,11 +1158,26 @@ class U
                         end
                         IO.read(fn)
                 end
-                def write_file(fn, content)
+                def write_file(fn, content, mkdir_p_if_needed = false)
                         if !fn.start_with?("/")
                                 fn = U.initial_working_directory + "/" + fn
                         end
+                        if mkdir_p_if_needed
+                                d = File.dirname(fn)
+                                if !Dir.exist?(d)
+                                        FileUtils.mkdir_p(d)
+                                end
+                        end
                         File.open(fn, 'w') { |file| file.write(content) }
+                end
+                def runaway_ck()
+                        if !U.runaway_ck_counter
+                                U.runaway_ck_counter = 0
+                        elsif U.runaway_ck_counter < 1000
+                                U.runaway_ck_counter += 1
+                        else
+                                raise "suspicious of an infinite loop"
+                        end
                 end
         end
 end

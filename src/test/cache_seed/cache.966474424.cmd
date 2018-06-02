@@ -1,0 +1,1 @@
+/home/nsproul/dp/git/change_tracker/src/vcs_scripts/git_wrapper.sh diff-tree --no-commit-id --name-only -r dc68aa99903505da966358f96c95f946901c664b

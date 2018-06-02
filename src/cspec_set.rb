@@ -176,25 +176,30 @@ class Cspec_set < Error_holder
                 from_s(IO.read(json_fn))
         end
         def Cspec_set.from_json_obj_v1(z)
-                deps = []
-                if z.has_key?("cspec")
-                        cs0 = Cspec_set.from_s(z["cspec"])
-                else
+                if !z.respond_to?(:has_key?)
                         cs0 = nil
-                end
-                if z.has_key?("cspec_deps")
-                        Error_holder.raise("since there is a cspec_deps value, there should also be a cspec value, but it is missing in #{s}", 400) unless cs0
-                        
+                else
                         deps = []
-                        z["cspec_deps"].each do | dep_cspec |
-                                cs = Cspec_set.from_s(dep_cspec)
-                                deps += cs.commits
+                        if z.has_key?("cspec")
+                                cs0 = Cspec_set.from_s(z["cspec"])
+                        else
+                                cs0 = nil
                         end
-                        cs0.dependency_commits = deps
+                        if z.has_key?("cspec_deps")
+                                Error_holder.raise("since there is a cspec_deps value, there should also be a cspec value, but it is missing in #{s}", 400) unless cs0
+                                
+                                deps = []
+                                z["cspec_deps"].each do | dep_cspec |
+                                        cs = Cspec_set.from_s(dep_cspec)
+                                        deps += cs.commits
+                                end
+                                cs0.dependency_commits = deps
+                        end
                 end
                 cs0
         end
         def Cspec_set.from_json_obj_v2(z)
+                
                 cspec_set_array = z.map do | cspec_h |
                         if !cspec_h.has_key?("cspec")
                                 Error_holder.raise("expected a cspec key in the hash #{cspec_h} (from #{z})", 400)
@@ -214,11 +219,11 @@ class Cspec_set < Error_holder
                 cs0
         end
         def Cspec_set.from_json_obj(z)
-                begin
-                        return Cspec_set.from_json_obj_v1(z)
-                rescue
-                        return Cspec_set.from_json_obj_v2(z)
+                t = Cspec_set.from_json_obj_v1(z)
+                if !t
+                        t = Cspec_set.from_json_obj_v2(z)
                 end
+                t
         end
         def Cspec_set.from_s(s, arg_name="Cspec_set.from_s", autodiscover=false)
                 if s.start_with?('http')
@@ -336,7 +341,7 @@ class Cspec_set < Error_holder
                 test_json_export()
                 test_full_cspec_set_as_dep()                                
                 test_reading_attributes()
-                test_list_files_changed_since_cs()
+                test_list_files_changed_since_cs()                
                 repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
                 valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                 cc = Cspec_set.from_repo_and_commit_id("#{repo_spec};#{valentine_commit_id}", Cspec::AUTODISCOVER)

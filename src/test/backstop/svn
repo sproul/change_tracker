@@ -3,7 +3,8 @@
 echo cmd=$cmd
 case "$cmd" in
         */svn\ co\ svn+ssh://scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java)
-                echo known command, ok to ignore
+                mkdir -p /scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java
+                touch /scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java/placeholder_to_avoid_check_for_no_files
         ;;
         *)
                 . backstop_unrecognized_cmd.inc

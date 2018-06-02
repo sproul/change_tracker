@@ -1,0 +1,1 @@
+/home/nsproul/dp/git/change_tracker/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/git.osn.oraclecorp.com/osn clone "git@git.osn.oraclecorp.com:osn/serverintegrationXXXXX.git"

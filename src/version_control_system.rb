@@ -29,10 +29,10 @@ class Version_control_system < Error_holder
                 end
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
-        def system(cmd)
-                local_codeline_root_dir = self.repo.codeline_disk_write
+        def system(cmd, dir=self.repo.codeline_disk_root())
+                self.repo.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
-                U.system(cmd, nil, local_codeline_root_dir)
+                U.system(cmd, nil, dir)
         end
         class << self
                 def from_repo(repo)
@@ -60,16 +60,28 @@ class Git_version_control_system < Version_control_system
         def default_branch_name()
                 "master"
         end
+        def system(cmd, dir=self.repo.codeline_disk_root())
+                if !dir
+                        dir = ""
+                end
+                super("git_wrapper.sh #{dir} #{cmd}")
+        end
+        def system_as_list(cmd, dir=self.repo.codeline_disk_root())
+                if !dir
+                        dir = ""
+                end
+                super("git_wrapper.sh #{dir} #{cmd}")
+        end
         def get_changed_files_array(commit_id)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}")
+                self.system_as_list("diff-tree --no-commit-id --name-only -r #{commit_id}")
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
-                return self.system_as_list("git ls-tree --full-tree -r #{commit_id} --name-only")
+                return self.system_as_list("ls-tree --full-tree -r #{commit_id} --name-only")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("git log --pretty=format:'%H %s' #{commit1.commit_id}..#{commit2.commit_id}")
+                change_lines = self.system_as_list("log \"--pretty=format:%H %s\" #{commit1.commit_id}..#{commit2.commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
                         self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
@@ -89,7 +101,7 @@ class Git_version_control_system < Version_control_system
                         end
                         git_arg = "https://#{username_pw}@#{self.repo.source_control_server}/#{self.repo.project_name}.git"
                 end
-                if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
+                if self.repo.branch_name && self.repo.branch_name != "" && self.repo.branch_name != DEFAULT_BRANCH
                         branch_arg = "-b \"#{self.repo.branch_name}\""
                 else
                         branch_arg = ""
@@ -99,11 +111,12 @@ class Git_version_control_system < Version_control_system
                 # git checkout master
                 # git pull      # may not be necessary
                 #
-                U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
+                U.system("git_wrapper.sh #{root_parent} clone #{branch_arg} \"#{git_arg}\"")
+                root_dir
         end
         def list_last_changes(n)
                 commits = []
-                self.system_as_list("git log --oneline -n #{n} --pretty=format:'%H:%s'").each do | id_colon_comment |
+                self.system_as_list("log --oneline -n #{n} \"--pretty=format:'%H:%s'\"").each do | id_colon_comment |
                         change_id = id_colon_comment.sub(/:.*/, '')
                         comment = id_colon_comment.sub(/.*?:/, '')
                         commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
@@ -114,7 +127,7 @@ class Git_version_control_system < Version_control_system
                 fn = "#{repo.codeline_disk_root}/#{path}"
                 saved_file_by_commit = "#{fn}.___#{commit_id}"
                 if !File.exist?(saved_file_by_commit)
-                        cmd = "git show #{commit_id}:#{path} > #{saved_file_by_commit}"
+                        cmd = "show #{commit_id}:#{path} > #{saved_file_by_commit}"
                         begin
                                 self.system(cmd)
                         rescue
@@ -465,7 +478,7 @@ class ADE_difflabels_output
                 if output_string
                         self.output_string = output_string
                 else
-                        self.output_string = `ade_difflabels.sh #{labellog1} #{labellog2}`
+                        self.output_string = U.system("ade_difflabels.sh #{labellog1} #{labellog2}")
                         self.output_string.gsub!(/#############################################################\n/, "")
                         self.output_string.gsub!(/\n+/, "\n")
                         puts "self.output_string=#{self.output_string}" if U.trace
@@ -594,7 +607,7 @@ class ADE_label < Version_control_system
         class << self
                 def find_ade_labelserver_location(label)
                         cmd = "ade_wrapper.sh describe -l #{label} -labelserver"
-                        output = `#{cmd}`.chomp
+                        output = U.system(cmd).chomp
                         if output =~ /\n/
                                 Error_holder.raise("unexpected multiple lines:\n#{output}\nEOD\nback from #{cmd}")
                         end

@@ -1,3 +1,12 @@
 :
 . backstop.inc
-. backstop_unrecognized_cmd.inc
+echo cmd >> /tmp/git
+case "$cmd" in
+        */git\ co\ svn+ssh://scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java)
+                mkdir -p /scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java
+                touch /scratch/change_tracker/svn/adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java/placeholder_to_avoid_check_for_no_files
+        ;;
+        *)
+                . backstop_unrecognized_cmd.inc
+        ;;
+esac

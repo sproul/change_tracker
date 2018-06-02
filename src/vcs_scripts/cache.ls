@@ -11,9 +11,13 @@ for cf in `ls $TMP/cache.*.cmd | sed -e 's/\.cmd$//'`; do
                 echo EOD
                 echo "cache.get $cf"
                 echo '----------------------------------------------------------------------------------------------'
+                echo checking  $cf.exit_code..................
+                if [ -f $cf.exit_code ]; then
+                        honkat $cf.exit_code
+                fi
         fi
 done
 
 exit
 cd $dp/git/change_tracker/src/test/cache_seed/
-$dp/bin/cache.ls describe
+$dp/bin/cache.ls clone
