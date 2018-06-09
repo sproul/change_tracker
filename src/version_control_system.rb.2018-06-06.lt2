@@ -14,25 +14,15 @@ class Version_control_system < Error_holder
         def list_changes_since(commit1, commit2)
                 Cspec_span_report_item.new(commit1, commit2, self.get_changes_array_since(commit1, commit2))
         end
-        def system_as_list(cmd, cmd_prepend=nil, pass_cwd_as_arg1=false)
-                puts "Version_control_system.system_as_list(#{cmd}, #{cmd_prepend}, #{pass_cwd_as_arg1})" if U.trace_calls_to_system
+        def system_as_list(cmd)
                 local_codeline_root_dir = self.repo.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
-                if cmd_prepend
-                        if pass_cwd_as_arg1
-                                cmd = "#{cmd_prepend} #{local_codeline_root_dir} #{cmd}"
-                        else
-                                cmd = "#{cmd_prepend}                            #{cmd}"
-                        end
-                elsif pass_cwd_as_arg1
-                        self.raise("IMPL", 500) #       currently only used in combination with 'cmd_prepend' arg
-                end
                 U.system_as_list(cmd, nil, local_codeline_root_dir)
         end
-        def system(cmd, dir=self.repo.codeline_disk_root())
-                self.repo.codeline_disk_write
+        def system(cmd)
+                local_codeline_root_dir = self.repo.codeline_disk_write
                 self.raise "no codeline for #{self}" unless local_codeline_root_dir
-                U.system(cmd, nil, dir)
+                U.system(cmd, nil, local_codeline_root_dir)
         end
         class << self
                 def from_repo(repo)
@@ -60,28 +50,16 @@ class Git_version_control_system < Version_control_system
         def default_branch_name()
                 "master"
         end
-        def system(cmd, dir=self.repo.codeline_disk_root())
-                if !dir
-                        dir = ""
-                end
-                super("git_wrapper.sh #{dir} #{cmd}")
-        end
-        def system_as_list(cmd, dir=self.repo.codeline_disk_root())
-                if !dir
-                        dir = ""
-                end
-                super("git_wrapper.sh #{dir} #{cmd}")
-        end
         def get_changed_files_array(commit_id)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
-                self.system_as_list("diff-tree --no-commit-id --name-only -r #{commit_id}")
+                self.system_as_list("git diff-tree --no-commit-id --name-only -r #{commit_id}")
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/8533202/list-files-in-local-git-repo
-                return self.system_as_list("ls-tree --full-tree -r #{commit_id} --name-only")
+                return self.system_as_list("git ls-tree --full-tree -r #{commit_id} --name-only")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("log \"--pretty=format:%H %s\" #{commit1.commit_id}..#{commit2.commit_id}")
+                change_lines = self.system_as_list("git log --pretty=format:'%H %s' #{commit2.commit_id}..#{commit1.commit_id}")
                 commits = []
                 change_lines.map.each do | change_line |
                         self.raise "did not understand #{change_line}" unless change_line =~ /^([0-9a-f]+) (.*)$/
@@ -101,7 +79,7 @@ class Git_version_control_system < Version_control_system
                         end
                         git_arg = "https://#{username_pw}@#{self.repo.source_control_server}/#{self.repo.project_name}.git"
                 end
-                if self.repo.branch_name && self.repo.branch_name != "" && self.repo.branch_name != DEFAULT_BRANCH
+                if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
                         branch_arg = "-b \"#{self.repo.branch_name}\""
                 else
                         branch_arg = ""
@@ -111,12 +89,11 @@ class Git_version_control_system < Version_control_system
                 # git checkout master
                 # git pull      # may not be necessary
                 #
-                U.system("git_wrapper.sh #{root_parent} clone #{branch_arg} \"#{git_arg}\"")
-                root_dir
+                U.system("git clone #{branch_arg} \"#{git_arg}\"", nil, root_parent)
         end
         def list_last_changes(n)
                 commits = []
-                self.system_as_list("log --oneline -n #{n} \"--pretty=format:'%H:%s'\"").each do | id_colon_comment |
+                self.system_as_list("git log --oneline -n #{n} --pretty=format:'%H:%s'").each do | id_colon_comment |
                         change_id = id_colon_comment.sub(/:.*/, '')
                         comment = id_colon_comment.sub(/.*?:/, '')
                         commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
@@ -127,7 +104,7 @@ class Git_version_control_system < Version_control_system
                 fn = "#{repo.codeline_disk_root}/#{path}"
                 saved_file_by_commit = "#{fn}.___#{commit_id}"
                 if !File.exist?(saved_file_by_commit)
-                        cmd = "show #{commit_id}:#{path} > #{saved_file_by_commit}"
+                        cmd = "git show #{commit_id}:#{path} > #{saved_file_by_commit}"
                         begin
                                 self.system(cmd)
                         rescue
@@ -159,27 +136,20 @@ class Svn_version_control_system < Version_control_system
         def url()
                 "svn+ssh://scmadm@#{self.repo.source_control_server}/#{self.repo.project_name}"
         end
-        def system_as_list(args)
-                puts "Svn_version_control_system.system_as_list(#{args})" if U.trace_calls_to_system
-                super(args, "svn_wrapper.sh", true)
-        end
-        def system(args)
-                self.raise("IMPL -- need analogous dir handling to what was done for system_as_list", 500)
-        end
         def get_changed_files_array(commit_id, previous_commit_id = nil)
                 # https://stackoverflow.com/questions/424071/how-to-list-all-the-files-in-a-commit
                 # exclude deletions (which are indicated by lines starting w/ "D"):
                 if !previous_commit_id
                         previous_commit_id = commit_id.to_i - 1
                 end
-                self.system_as_list("diff --summarize -r #{commit_id}:#{previous_commit_id}").reject{ /^D.*/ }
+                self.system_as_list("svn_wrapper.sh diff --summarize -r #{commit_id}:#{previous_commit_id}").reject{ /^D.*/ }
         end
         def list_files(commit_id)
                 # https://stackoverflow.com/questions/14646798/how-to-list-all-files-in-a-remote-svn-repository
-                return self.system_as_list("ls -R #{self.url}@#{commit_id}")
+                return self.system_as_list("svn_wrapper.sh ls -R #{self.url}@#{commit_id}")
         end
         def get_changes_array_since(commit1, commit2)
-                change_lines = self.system_as_list("log -r #{commit1.commit_id}:#{commit2.commit_id}")
+                change_lines = self.system_as_list("svn_wrapper.sh log -r #{commit2.commit_id}:#{commit1.commit_id}")
                 commits = []
                 if change_lines
                         if U.trace
@@ -220,12 +190,17 @@ class Svn_version_control_system < Version_control_system
         end
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
                 url = self.url
-                U.system_as_list("svn co \"#{url}\"", nil, root_parent)
+                #if self.repo.branch_name && self.repo.branch_name != DEFAULT_BRANCH
+                #        url << "/branches/#{self.repo.branch_name}"
+                #else
+                #        url << "/trunk"
+                #end
+                U.system("svn_wrapper.sh co \"#{url}\"", nil, root_parent)
         end
         def list_last_changes(n)
                 # https://stackoverflow.com/questions/2675749/how-do-i-see-the-last-10-commits-in-reverse-chronoligical-order-with-svn
                 commits = []
-                self.system_as_list("log --limit #{n}").each do | id_colon_comment |
+                self.system_as_list("svn_wrapper.sh log --limit #{n}").each do | id_colon_comment |
                         raise "untested, figure out parsing for #{id_colon_comment}" unless id_colon_comment =~ /^\w+:.*$/
                         change_id = id_colon_comment.sub(/:.*/, '')
                         comment = id_colon_comment.sub(/.*?:/, '')
@@ -237,9 +212,9 @@ class Svn_version_control_system < Version_control_system
                 fn = "#{repo.codeline_disk_root}/#{path}"
                 saved_file_by_commit = "#{fn}.___#{commit_id}"
                 if !File.exist?(saved_file_by_commit)
-                        cmd = "cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
+                        cmd = "svn_wrapper.sh cat -r #{commit_id} #{path} > #{saved_file_by_commit}"
                         begin
-                                self.system_as_list(cmd)
+                                self.system(cmd)
                         rescue
                                 # I don't care why this failed, just return nil in this case
                                 return nil
@@ -252,13 +227,6 @@ class Svn_version_control_system < Version_control_system
                 z
         end
         class << self
-                def test_svn_test_clear_disk()
-                        c1 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
-                        c1.repo.codeline_disk_rm
-                        U.assert(!Dir.exist?(c1.repo.codeline_disk_root()), "svn test disk removed")
-                        c1.repo.codeline_disk_write
-                        U.assert(Dir.exist?(c1.repo.codeline_disk_root()), "svn test disk written")
-                end
                 def test_svn_list_changes_since()
                         cc1 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC1)
                         cc2 = Cspec_set.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
@@ -267,11 +235,12 @@ class Svn_version_control_system < Version_control_system
                         gc2 = Cspec.from_repo_and_commit_id(TEST_SVN_COMPOUND_SPEC2)
 
                         report_item_set1 = cc2.list_changes_since(cc1)
-                        
                         report_item_set2 = Cspec_set.list_changes_between(TEST_SVN_COMPOUND_SPEC1, TEST_SVN_COMPOUND_SPEC2)
                         changes1 = report_item_set1.all_items
                         changes2 = report_item_set2.all_items
-                        U.assert_eq(changes1, changes2, "svn vfy same result from wrapper 2a")                        
+                        U.assert_eq(changes1, changes2, "svn vfy same result from wrapper 2a")
+
+
                         U.assert_eq(gc1, changes1[0], "test_svn_list_changes_since.1")
                         U.assert_eq(gc2, changes1[1], "test_svn_list_changes_since.0")
                 end
@@ -304,7 +273,6 @@ class Svn_version_control_system < Version_control_system
                         end
                 end
                 def test()
-                        test_svn_test_clear_disk()
                         test_svn_list_changes_since()
                         test_svn_list_files_changed_since()
                         test_svn_list_bug_IDs_since()
@@ -321,7 +289,7 @@ class P4_version_control_system < Version_control_system
 
         def initialize(repo)
                 self.type = "p4"
-                self.p4_path = "//#{repo.project_name.gsub(/:/, Repo::COOKED_COLON_FOR_PATH)}"
+                self.p4_path = "//#{repo.project_name}"
                 self.p4client = Global.get("#{repo.source_control_server}.P4CLIENT")
                 self.p4user =   Global.get("#{repo.source_control_server}.P4USER")
                 self.p4passwd = Global.get("#{repo.source_control_server}.P4PASSWD")
@@ -379,6 +347,7 @@ class P4_version_control_system < Version_control_system
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
                 # probably can go w/out '-f', but I'm concerned about trouble since this is a new P4ROOT; p4 client has been confused about what is there before
                 cmd = "p4 sync -f \"#{self.p4_path}/...\""
+                puts "cmd=#{cmd}"
                 out = U.system(cmd, nil, root_parent)
                 raise "could not find #{root_dir} (#{out})" unless Dir.exist?(root_dir)
                 return root_dir
@@ -474,71 +443,22 @@ end
 class ADE_difflabels_output
         attr_accessor :output_string
 
-        def initialize(labellog1, labellog2, output_string=nil)
-                if output_string
-                        self.output_string = output_string
-                else
-                        self.output_string = U.system("ade_difflabels.sh #{labellog1} #{labellog2}")
-                        self.output_string.gsub!(/#############################################################\n/, "")
-                        self.output_string.gsub!(/\n+/, "\n")
-                        puts "self.output_string=#{self.output_string}" if U.trace
-                end
-        end
-        def section(section_header)
-                z = self.output_string.sub(/.*# +#{section_header} +#\n/m, '')
-                puts "ADE_difflabels_output.section before final sub: z=#{z}" if U.trace
-                z = z.sub(/^# +[^\n]+ +#\n.*/m, '')
-                z.split(/\n/)
-        end
-        class << self
-                def test()
-                        z = <<EOD
-svenakat_bug-27967518_ics_resourcestream
-#                       TRANSACTIONS                        #
-ramisra_bug-27575105_ics_handle_runtime_fault
-#                   REVERSED TRANSACTIONS                   #
-ddavison_bug-27889275_ics_sched_param_size
-#                       NEW OBJECTS                         #
-DIR pcbpel_icsmain/1
-#                    MODIFIED OBJECTS                       #
-DIR pcbpel/dist/oracle.ics.scheduler/soa/composites@@/st_pcbpel_icsmain/4 --> /st_pcbpel_icsmain/5
-#                    REMOVED OBJECTS                        #
-#                    MOVED OBJECTS                          #
-FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/999
-EOD
-                        zdlo = ADE_difflabels_output.new(nil, nil, z)
-                        U.assert_eq([], zdlo.section("REMOVED OBJECTS"), "section retrieval: empty")
-                        U.assert_eq(["DIR pcbpel_icsmain/1"], zdlo.section("NEW OBJECTS"), "section retrieval: middle")
-                        U.assert_eq(["ramisra_bug-27575105_ics_handle_runtime_fault"], zdlo.section("TRANSACTIONS"), "section retrieval: first")
-                        U.assert_eq(["FILE pcbpel/.fullsource@@/st_pcbpel_icsmain/999"], zdlo.section("MOVED OBJECTS"), "section retrieval: last")
-                end
+        def initialize(labellog1, labellog2)
+                self.output_string = `ade_difflabels.sh #{labellog1} #{labellog2}`
+                puts "self.output_string=#{self.output_string}"
         end
 end
 
-#
-# Mapping of ADE to change_tracker objects is a bit awkward because
-# 1.) for non-ADE other systems we have a repo, and then we have commits to that repo which each define a particular state of the source code, but
-# 2.) for     ADE the "repo" is a label, containing ADE transactions
-#
-# One could argue that for ADE, the repo obj should map to series, and then transactions would be all intervening pairs of label-ADE_transactions.
-# I considered this to be even more awkward, and so decided against it.
-# 
 class ADE_label < Version_control_system
-        TEST_ADE_COMPOUND_SPEC1 = "ade;CTUNIT_TEST_GENERIC_180505.0743.0980"
-        TEST_ADE_COMPOUND_SPEC2 = "ade;CTUNIT_TEST_GENERIC_180515.1831.0993"
-        
+        TEST_ADE_COMPOUND_SPEC1 = "ade;PCBPEL_ICSMAIN_GENERIC_180505.0743.0980"
+        TEST_ADE_COMPOUND_SPEC2 = "ade;PCBPEL_ICSMAIN_GENERIC_180509.1031.0983"
         attr_accessor :ade_label_nfs_path
         attr_accessor :ade_label
-        attr_accessor :ade_series
 
         def initialize(repo)
                 self.type = "ade"
                 self.ade_label = repo.project_name
-                if self.ade_label !~ /^([^_]+_[^_]+_[^_]+)_.*/
-                        self.raise("could not parse series out of label #{self.ade_label}", 500)
-                end 
-                self.ade_series = $1
-                self.ade_label_nfs_path = ADE_label.find_ade_labelserver_location(self.ade_label)
+                self.ade_label_nfs_path = find_ade_labelserver_location(self.ade_label)
                 super
         end
         def complain_about_commit_oriented_call()
@@ -547,18 +467,11 @@ class ADE_label < Version_control_system
                 # and instead call, e.g., vcs.list_files_changed_since
                 self.raise("ADE plugin does not support retrieving attributes for an individual commit", 500)
         end
-        def difflabels(commit1, commit2)
-                if commit1.repo.source_control_type != "ade"
-                        self.raise("difflabels only supported for ade, but saw a #{commit1.repo}", 500)
-                end
-                if commit2.repo.source_control_type != "ade"
-                        self.raise("difflabels only supported for ade, but saw a #{commit2.repo}", 500)
-                end
-                ade_label1_nfs_path = commit1.repo.vcs.ade_label_nfs_path
-                ade_label2_nfs_path = commit2.repo.vcs.ade_label_nfs_path
+        def difflabels(label2)
+                ade_label2_nfs_path = find_ade_labelserver_location(label2)
 
-                labellog1 = "#{ade_label1_nfs_path}/.labellog.emd.gz"
-                labellog2 = "#{ade_label2_nfs_path}/.labellog.emd.gz"
+                labellog1 = "#{self.ade_label_nfs_path}/.labellog.emd.gz"
+                labellog2 = "#{    ade_label2_nfs_path}/.labellog.emd.gz"
                 ADE_difflabels_output.new(labellog1, labellog2)
         end
         def get_changed_files_array(commit_id)
@@ -567,24 +480,13 @@ class ADE_label < Version_control_system
         def list_files(commit_id)
                 complain_about_commit_oriented_call
         end
-        def list_files_changed_since(commit1, commit2)
-                difflabels_output = difflabels(commit1, commit2)
-                changed_file_names = []
-                changed_file_names_with_ade_version_info = difflabels_output.section("MODIFIED OBJECTS")
-                #changed_file_names_with_ade_version_info.reject!{|x| x =~ /^DIR / }
-                changed_file_names_with_ade_version_info.each do | z |
-                        changed_file_names << z.sub(/@@.*/, '').chomp.sub(/^(DIR|FILE) /, '')
-                end
-                changed_file_names
-        end
         def get_changes_array_since(commit1, commit2)
                 difflabels_output = difflabels(commit1, commit2)
                 commits = []
-                transactions = difflabels_output.section("TRANSACTIONS")                
-                transactions.each do | transaction_name |
+                difflabels_output.section("TRANSACTIONS").each do | transaction_name |
                         change_id = transaction_name
                         comment = nil
-                        commits << Cspec.from_repo_and_commit_id("#{self.repo.spec};#{change_id}", comment)
+                        commits << Cspec.from_repo_and_commit_id("#{repo.spec};#{change_id}", comment)
                 end
                 commits
         end
@@ -607,7 +509,7 @@ class ADE_label < Version_control_system
         class << self
                 def find_ade_labelserver_location(label)
                         cmd = "ade_wrapper.sh describe -l #{label} -labelserver"
-                        output = U.system(cmd).chomp
+                        output = `#{cmd}`.chomp
                         if output =~ /\n/
                                 Error_holder.raise("unexpected multiple lines:\n#{output}\nEOD\nback from #{cmd}")
                         end
@@ -620,22 +522,29 @@ class ADE_label < Version_control_system
                         c1 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
                         c2 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
                         changes = c2.list_changes_since(c1);
-                        U.assert_eq_f(changes.to_s, "test_ade_list_changes_since.Cspec")
+                        puts "changes=#{changes}"
+                        changed_files_this_cspec = c2.list_changed_files();
+                        puts "changed_files_this_cspec=#{changed_files_this_cspec}"
                         changed_files_since = c2.list_files_changed_since(c1)
-                        U.assert_eq_f(changed_files_since.to_s, "test_ade_list_changes_since.changed_files_since.Cspec")
+                        puts "changed_files_since=#{changed_files_since}"
+                        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
 
-                        cs1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
-                        cs2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
-                        
-                        changes = cs2.list_changes_since(cs1);
-                        U.assert_json_eq_f(changes.to_s, "test_ade_list_changes_since.Cspec_set")
-                        changed_files_since = cs2.list_files_changed_since(cs1)
-                        U.assert_json_eq_f(changed_files_since.to_s, "test_ade_list_changes_since.changed_files_since.Cspec_set")
-                        
-                        changes2 = Cspec_set.list_changes_between(TEST_ADE_COMPOUND_SPEC1, TEST_ADE_COMPOUND_SPEC2)
-                        changes_items1 = changes.all_items
-                        changes_items2 = changes2.all_items
-                        U.assert_eq(changes_items1, changes_items2, "ade vfy same result from wrapper 2a")
+                        #cs1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
+                        #cs2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
+                        #
+                        #
+                        #gc2 = Cspec.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
+                        #
+                        #report_item_set1 = cc2.list_changes_since(cc1)
+                        #report_item_set2 = Cspec_set.list_changes_between(TEST_ADE_COMPOUND_SPEC1, TEST_ADE_COMPOUND_SPEC2)
+                        #changes1 = report_item_set1.all_items
+                        #changes2 = report_item_set2.all_items
+                        #U.assert_eq(changes1, changes2, "ade vfy same result from wrapper 2a")
+                        #
+                        #
+                        #U.assert_eq(gc2, changes1[3], "test_ade_list_changes_since.0")
+                        #U.assert_eq(g1b, changes1[0], "test_ade_list_changes_since.1")
+                        #U.assert_eq(g1a, changes1[3], "test_ade_list_changes_since.2")
                 end
                 def test_ade_list_files_changed_since()
                         cc1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
@@ -657,23 +566,15 @@ class ADE_label < Version_control_system
                         begin
                                 gc1 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC1)
                                 gc2 = Cspec_set.from_repo_and_commit_id(TEST_ADE_COMPOUND_SPEC2)
-                                #
-                                # searching these transactions:
-                                #       ramisra_bug-27575105_ics_handle_runtime_fault
-                                #       sualli_bug-27895798_ics_nested_foreach_fails
-                                #       sualli_bug-27996552_ics_nested_foreach_path
-                                #
-                                Cspec_set.bug_id_regexp_val = Regexp.new(".*_bug-(\\d+)_.*", "m")
-                                
+                                Cspec_set.bug_id_regexp_val = Regexp.new("Update by (\\w+).*", "m")
                                 report_item_set = gc2.list_bug_IDs_since(gc1)
                                 bug_IDs = report_item_set.all_items
-                                U.assert_eq(["27575105", "27895798", "27996552"], bug_IDs, "ade_bug_IDs_since")
+                                U.assert_eq(["EW", "SDL"], bug_IDs, "ade_bug_IDs_since")
                         ensure
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
                 def test()
-                        ADE_difflabels_output.test()
                         test_ade_list_changes_since()
                         test_ade_list_files_changed_since()
                         test_ade_list_bug_IDs_since()

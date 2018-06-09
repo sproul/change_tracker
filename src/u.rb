@@ -513,7 +513,8 @@ class U
                         else
                                 raise "neither rest_mock_dir nor copy_http_rest_call_results_to_dir set"
                         end
-                        "#{z}/#{url.sub(/:\//, '')}"
+                        z = "#{z}/#{url.sub(/[:]\//, '')}"
+                        z.gsub(/\W/, "_")
                 end
                 def rest_get(url)
                         if U.trace_http_rest_calls

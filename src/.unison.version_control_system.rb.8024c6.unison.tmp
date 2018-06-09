@@ -312,6 +312,7 @@ class Svn_version_control_system < Version_control_system
         end
 end
 class P4_version_control_system < Version_control_system
+        COOKED_COLON_FOR_P4_PATH = "___"
         TEST_P4_COMPOUND_SPEC1 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159"
         TEST_P4_COMPOUND_SPEC2 = "p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;129832"
         attr_accessor :p4client
@@ -321,7 +322,7 @@ class P4_version_control_system < Version_control_system
 
         def initialize(repo)
                 self.type = "p4"
-                self.p4_path = "//#{repo.project_name.gsub(/:/, Repo::COOKED_COLON_FOR_PATH)}"
+                self.p4_path = "//#{repo.project_name.gsub(/:/, P4_version_control_system::COOKED_COLON_FOR_P4_PATH)}"
                 self.p4client = Global.get("#{repo.source_control_server}.P4CLIENT")
                 self.p4user =   Global.get("#{repo.source_control_server}.P4USER")
                 self.p4passwd = Global.get("#{repo.source_control_server}.P4PASSWD")

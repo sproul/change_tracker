@@ -1,7 +1,6 @@
 require_relative 'version_control_system'
 
 class Repo < Error_holder
-        COOKED_COLON_FOR_PATH = "___"
         REPO_MV_DEFAULT = {}
         BRANCH_MV_DEFAULT = {}
         attr_accessor :branch_name
@@ -42,33 +41,17 @@ class Repo < Error_holder
                 return username, pw
         end
         def codeline_disk_exist?()
-                U.runaway_ck
                 root_dir = codeline_disk_root()
                 # puts "exist? checking #{root_dir}"
                 # if dir is empty, then there are 2 entries (., ..):
-                
                 return Dir.exist?(root_dir) && (Dir.entries(root_dir).size > 2)
         end
         def codeline_disk_root()
-                z = "#{Repo.codeline_root_parent}/#{self.source_control_type}/#{self.source_control_server}/#{self.project_name}"
-                z.gsub(/:/, Repo::COOKED_COLON_FOR_PATH)
+                "#{Repo.codeline_root_parent}/#{self.source_control_type}/#{self.source_control_server}/#{self.project_name}"
         end
-        def codeline_disk_rm()
-                if codeline_disk_exist?
-                        root_dir = codeline_disk_root()
-                        FileUtils.rm_rf(root_dir)
-                        if Dir.exist?(root_dir)
-                                root_dir = "/cygdrive/c/cygwin64#{root_dir}"
-                                FileUtils.rm_rf(root_dir)
-                                if Dir.exist?(root_dir)
-                                        raise "FileUtils.rm_rf(#{root_dir}) failed 2x"
-                                else
-                                        puts "needed to preeeeeeeeeeepend"
-                                end
-                        end
-                else
-                        puts "codeline_disk_rm - do nothing since #{codeline_disk_root} does not exist"
-                end
+        def codeline_disk_remove()
+                root_dir = codeline_disk_root()
+                FileUtils.rm_rf(root_dir)
         end
         def codeline_disk_write(commit_id = nil)
                 root_dir = codeline_disk_root()
@@ -76,9 +59,6 @@ class Repo < Error_holder
                         root_parent = File.dirname(root_dir)       # leave it to 'git clone' to make the root_dir itself
                         FileUtils.mkdir_p(root_parent)
                         self.vcs.codeline_disk_write(root_parent, root_dir, commit_id)
-                        if !Dir.exist?(root_dir)
-                                self.raise("error: Repo.codeline_disk_write did not create #{root_dir}")
-                        end
                 end
                 self.commit_id = commit_id
                 root_dir
@@ -114,14 +94,16 @@ class Repo < Error_holder
                         z = $2
                         if r.source_control_type == "ade"
                                 label = z
-                                if label !~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;(.*))?$/
+                                if label !~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)$/
                                         r.raise("could not parse label #{label} from #{repo_spec}", 500)
                                 end
                                 r.project_name = $1
                                 # 
                                 # Leave commit_id unset.  I considered using the label timestamp as an ersatz commit_id, but then when I list the transactions associated with
-                                # the label, I want to consider the transactions to be the commits.  So the commit_id in this case, if there is one, is the ADE transaction name.
-                                r.commit_id = $3
+                                # the label, I want to consider the transactions to be the commits.  Best to consider the label as a repo.
+                                #r.commit_id = $2
+                                
+                                
                         else
                                 # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
                                 if z !~ /^([-\w\.:]+);(.*)/
@@ -183,14 +165,6 @@ class Repo < Error_holder
                         end
                         source_control_type = $1
                         z = $2
-                        
-                        if z =~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;.*)?$/
-                                source_control_server = nil
-                                project_name = $1
-                                branch_name = nil
-                                commit_id = $2
-                                return source_control_type, source_control_server, project_name, branch_name, commit_id
-                        end
 
                         # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
                         if z !~ /^([-\w\.:]+);(.*)/
@@ -289,7 +263,7 @@ class Repo < Error_holder
                 end
                 def test_clean()
                         gr = Repo.from_spec(TEST_REPO_NAME)
-                        gr.codeline_disk_rm
+                        gr.codeline_disk_remove
                         U.assert(!gr.codeline_disk_exist?)
                 end
                 def test_repo_renaming()

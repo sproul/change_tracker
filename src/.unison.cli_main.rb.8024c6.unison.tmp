@@ -6,6 +6,8 @@ def test()
         U.test_mode = true
         Json_change_tracker.init()
         Json_change_tracker.test
+        puts "vvvvvvvvvvvvvvvvvvvvvvvvv"; exit
+        
         P4_version_control_system.test()
         Cspec.test
         Cspec_set.test
