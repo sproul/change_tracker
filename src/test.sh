@@ -43,8 +43,8 @@ if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
         (
         echo "cd test/cache_seed"
         cd       test/cache_seed
-        echo "cache.put -all"
-        cache.put       -all
+        echo "cache.load -all"
+        cache.load       -all
         if ! touch $TMP/CACHE_SEEDED_FOR_TESTS; then
                 echo "$0: touch $TMP/CACHE_SEEDED_FOR_TESTS failed, exiting..." 1>&2
                 exit 1

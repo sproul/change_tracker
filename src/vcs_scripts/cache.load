@@ -1,0 +1,81 @@
+#!/bin/bash
+# grab FN and FN.cmd, and copy them to $TMP, adjusting FN.cmd to have appropriate values for all CACHE_PORTABILITY_VARS in the local env.
+# This is analogous to cache.get.
+while [ -n "$1" ]; do
+        case "$1" in
+                -all)
+                        nothing_found=true
+                        for f in `ls *.cmd | sed -e 's/\.cmd$//'`; do
+                                nothing_found=''
+                                echo "$0 $f"
+                                $0       $f
+                        done
+                        if [ -n "$nothing_found" ]; then
+                                echo "$0: error: did not find any cache.\* files here in `pwd`, am I in the right directory?" 1>&2
+                                exit 1
+                        fi
+                        exit
+                ;;
+                *)
+                        break
+                ;;
+        esac
+        shift
+done
+fn=$1
+base_fn=`basename "$fn"`
+base_fn_no_cksum=`sed -e 's/^[0-9]*\.//' <<< "$base_fn"`
+if [ ! -f "$fn.cmd" ]; then
+        echo "$0: error: could not find \"$fn.cmd\"" 1>&2
+        exit 1
+fi
+cmd=`cat "$fn.cmd"`
+for var_name in "$CACHE_PORTABILITY_VARS"; do
+        echo var_name=$var_name
+        
+        z=`printf "$%s" $var_name`
+        #echo z=$z
+        var_val=`eval printf $z`
+        #echo var_val=$var_val
+        
+        escaped_dollar="\\$"
+        var_name_w_dollar="$escaped_dollar$var_name"
+        
+        cmd=`sed -e "s;$var_name_w_dollar;$var_val;g" <<< $cmd`
+
+        executable=`sed -e 's/ .*//' <<< $cmd`
+        if [ ! -x "$executable" ]; then
+                executable_basename=`basename "$executable"`
+                if ! which $executable_basename > /dev/null 2>&1; then
+                        echo "$0: could not find $executable on this system" 1>&2
+                else
+                        echo Changing cache entry from invalid $executable to $executable_on_this_system...
+                        executable_on_this_system=`which $executable_basename`
+                        echo "change:  s;$executable;$executable_on_this_system;g"
+                        cmd=`sed -e "s;$executable;$executable_on_this_system;g" <<< $cmd`
+                fi
+        fi
+        #echo cmd=$cmd now
+done
+
+echo.clean "export USE_CACHED_DATA_FROM_FILENAME=$fn"
+export       USE_CACHED_DATA_FROM_FILENAME=$fn
+echo "$cmd"
+$cmd
+
+exit
+z=$TMP/cache_test_input/cache.44
+cat <<EOF > /tmp/kk
+mkdir -p $TMP/cache_test_input
+z=$z
+echo abc > $z
+export ct_root=$dp/git/change_tracker
+export CACHE_PORTABILITY_VARS=ct_root
+echo '\$ct_root/src/vcs_scripts/p4_wrapper.sh xyz' > $z.cmd
+cd $TMP/cache_test_input
+bash -x $dp/bin/cache.put $z
+ls -lt $TMP/cache*
+EOF
+echo ''; bash -x /tmp/kk
+exit
+bx $dp/bin/cache.put 

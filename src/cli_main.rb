@@ -4,17 +4,17 @@ require_relative 'json_change_tracker'
 
 def test()
         U.test_mode = true
+        ADE_label.test()
         Json_change_tracker.init()
-        Json_change_tracker.test
         P4_version_control_system.test()
         Cspec.test
         Cspec_set.test
         Svn_version_control_system.test()
-        ADE_label.test()
         Repo.test
         U.test
         Global.test
         Cec_gradle_parser.test
+        Json_change_tracker.test
         puts "EOT"
         exit
 end
@@ -78,16 +78,16 @@ while ARGV.size > j do
                 end
                 puts "]"
                 exit
-        when /(-oe|-output=expanded)/
+        when /^(-oe|-output=expanded)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_EXPANDED
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-on|-output=normal)/
+        when /^(-on|-output=normal)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_NORMAL
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-ot|-output)/
+        when /^(-ot|-output)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_TERSE
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-p|-pretty)/
+        when /^(-p|-pretty)$/
                 Cspec_span_report_item_set.pretty = true
         when "-rest_mock_dir"
                 j += 1
@@ -104,7 +104,7 @@ while ARGV.size > j do
                 U.trace_http_rest_calls = true
         when "-tsc"
                 U.trace_calls_to_system = true
-        when /(-tok|ok)/
+        when /^(-tok|ok)$/
                 U.test_overwrite_canon_files_mode = true
                 puts "Will overwrite test canon files, assuming that the current test behavior in the affected tests is correct..."
         when "-v"
@@ -112,6 +112,8 @@ while ARGV.size > j do
                 U.trace_calls_to_system = true
                 U.trace_max(true)
                 Cec_gradle_parser.trace_autodiscovery = true
+        when /^-/
+                raise "did not understand flag #{ARGV[j]}"
         else
                 if !cms.json_fn1
                         cms.json_fn1 = ARGV[j]

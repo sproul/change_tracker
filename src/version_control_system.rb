@@ -667,14 +667,14 @@ class ADE_label < Version_control_system
                                 
                                 report_item_set = gc2.list_bug_IDs_since(gc1)
                                 bug_IDs = report_item_set.all_items
-                                U.assert_eq(["27575105", "27895798", "27996552"], bug_IDs, "ade_bug_IDs_since")
+                                U.assert_eq(["27575105", "27895798", "27996552", "27965244", "27795648", "27970231", "27916058", "27967518", "27156154", "27760060", "27156154", "28006842", "28006760", "27999723", "27971231", "27832593", "28017663", "27955173"], bug_IDs, "ade_bug_IDs_since")
                         ensure
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
                 def test()
-                        ADE_difflabels_output.test()
                         test_ade_list_changes_since()
+                        ADE_difflabels_output.test()
                         test_ade_list_files_changed_since()
                         test_ade_list_bug_IDs_since()
                 end

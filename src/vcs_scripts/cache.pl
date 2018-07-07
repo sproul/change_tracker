@@ -35,7 +35,7 @@ sub get_cached_output_path
 
   my $fn = "$ENV{'TMP'}/cache." . $fn_base;
 
-  if (! -f "$fn.cmd")
+  #if (! -f "$fn.cmd")
   {
     write_file("$fn.cmd", $key);
   }
