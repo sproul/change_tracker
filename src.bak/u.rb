@@ -215,21 +215,28 @@ class U
         MAIL_MODE_TEST = 2
         class << self
                 attr_accessor :assertion_labels
+                attr_accessor :copy_http_rest_call_results_to_dir
+                attr_accessor :dry_mode
+                attr_accessor :file_tmp_name_counter
+                attr_accessor :initial_working_directory
                 attr_accessor :log_level
                 attr_accessor :log_indent
                 attr_accessor :mail_mode
-                attr_accessor :test_mode
-                attr_accessor :dry_mode
-                attr_accessor :test_exit_code
-                attr_accessor :initial_working_directory
                 attr_accessor :raise_if_fail
+                attr_accessor :rest_mock_dir
+                attr_accessor :runaway_ck_counter
+                attr_accessor :test_mode
+                attr_accessor :test_exit_code
+                attr_accessor :test_overwrite_canon_files_mode
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
+                attr_accessor :trace_http_rest_calls
                 @@t = nil
 
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
                         if !U.initial_working_directory
                                 # for mail: http://stackoverflow.com/questions/12884711/how-to-send-email-via-smtp-with-rubys-mail-gem
+                                U.file_tmp_name_counter = 1
                                 U.mail_mode = mail_mode
                                 U.eval_f(ENV["HOME"] + "/.ruby_u", true)
                                 U.log_level = U::LOG_ERROR
@@ -403,7 +410,7 @@ class U
                                 "DC?"
                         end
                 end
-                def t_to_s(t)
+                def t_to_s(t = Time.now)
                         U.strftime("%H:%M:%S", t)
                 end
                 def system(cmd, input=nil, dir=nil)
@@ -412,7 +419,7 @@ class U
                                 Dir.chdir(dir)
                                 t_preamble << "cd \"#{dir}\"; "
                         end
-                        puts "#{t_preamble}#{cmd}" if U.trace || U.trace_calls_to_system
+                        puts "#{U.t_to_s} #{t_preamble}#{cmd}" if U.trace || U.trace_calls_to_system
                         if U.dry_mode
                                 return "No output from U.system(#{cmd}) because we are in dry run mode..."
                         end
@@ -427,12 +434,12 @@ class U
                                 puts "#{cmd} -> out=#{out}, err=#{err}" if U.trace || U.trace_calls_to_system
                                 # http://stackoverflow.com/questions/15023944/how-to-retrieve-exit-status-from-ruby-open3-popen3
                                 if !wait_thr.value.success?
-                                        z = "error: bad exit code from\n#{t_preamble}#{cmd}\n#{err}"
+                                        z = "error: bad exit code #{wait_thr.value} from\n#{t_preamble}#{cmd}\n#{err}"
                                         raise z
                                 end
                                 if U.trace_calls_to_system
                                         print out
-                                        puts "EOD"
+                                        puts "#{U.t_to_s} EOD"
                                 end
                                 out
                         end
@@ -486,7 +493,8 @@ class U
                         return nil
                 end
                 def file_tmp_name(base_name='', ext='', dir=nil, content=nil)
-                        id = Thread.current.hash * Time.now.to_i % 2**32
+                        id = (Thread.current.hash * Time.now.to_i % 2**32) + U.file_tmp_name_counter
+                        U.file_tmp_name_counter += 1
                         fn = "%s%d.%s" % [base_name, id, ext]
                         if !dir
                                 dir = ENV["TMP"]
@@ -497,16 +505,43 @@ class U
                         end
                         fn
                 end
+                def make_rest_mock_fn(url)
+                        if U.rest_mock_dir
+                                z = U.rest_mock_dir
+                        elsif U.copy_http_rest_call_results_to_dir
+                                z = U.copy_http_rest_call_results_to_dir
+                        else
+                                raise "neither rest_mock_dir nor copy_http_rest_call_results_to_dir set"
+                        end
+                        z = "#{z}/#{url.sub(/[:]\//, '')}"
+                        z.gsub(/\W/, "_")
+                end
                 def rest_get(url)
-                        begin
-                                resp = Net::HTTP.get_response(URI.parse(url))
-                                resp.body
-                        rescue Exception => e
-                                raise "error retrieving #{url}: #{e.to_s}"
+                        if U.trace_http_rest_calls
+                                puts "rest_get(#{url})"
+                        end
+                        if U.rest_mock_dir
+                                fn = U.make_rest_mock_fn(url)
+                                if File.exist?(fn)
+                                        U.read_file(fn)
+                                else
+                                        raise "error retrieving #{url} in mock mode: no file at #{fn}"
+                                end
+                        else
+                                begin
+                                        resp = Net::HTTP.get_response(URI.parse(url))
+                                        if U.copy_http_rest_call_results_to_dir
+                                                fn = U.make_rest_mock_fn(url)
+                                                U.write_file(fn, resp.body, true)
+                                        end
+                                        resp.body
+                                rescue Exception => e
+                                        raise "error retrieving #{url}: #{e.to_s}"
+                                end
                         end
                 end
                 def rest_get_json(url)
-                        x = U.rest_get(url)
+                        x= U.rest_get(url)
                         JSON.parse(x)
                 end
                 def mail(to, subject, body, send_to_emails_grepped_in_body=false)
@@ -676,26 +711,57 @@ class U
                         if !Dir.exist?("test")
                                 raise "expected test dir, but did not see one in #{Dir.pwd}"
                         end
-                        "#{U.initial_working_directory}/test/#{U.cook(s)}"
+                        "#{U.initial_working_directory}/test/data/#{U.cook(s)}"
+                end
+                def canon_propose(actual, caller_msg, canon_fn)
+                        proposed_canon_fn = U.file_tmp_name("proposed_canon", "txt", nil, actual)
+                        if File.exist?(canon_fn)
+                                puts "To replace canon w/ actual output:"
+                        else
+                                puts "No canon file for test #{caller_msg}, proposing..."
+                                puts actual
+                                puts "EOD"
+                        end
+                        puts "cp #{proposed_canon_fn} #{canon_fn}"                        
                 end
                 def assert_json_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if File.exist?(canon_fn)
-                                expected = U.read_file(canon_fn)
-                                assert_json_eq(expected, actual, caller_msg, raise_if_fail)
-                        else
+                        if U.test_overwrite_canon_files_mode
                                 puts "assert_json_eq_f writing #{canon_fn}..."
                                 File.write(canon_fn, actual)
+                        elsif File.exist?(canon_fn)
+                                expected = U.read_file(canon_fn)
+                                if !assert_json_eq(expected, actual, caller_msg, raise_if_fail)
+                                        U.canon_propose(actual, caller_msg, canon_fn)
+                                        return false
+                                end
+                        else
+                                U.canon_propose(actual, caller_msg, canon_fn)
+                                return false
                         end
+                        return true
                 end
                 def assert_eq_f(actual, caller_msg, raise_if_fail=false)
                         canon_fn = test_can_fn(caller_msg)
-                        if File.exist?(canon_fn)
-                                expected = U.read_file(canon_fn)
-                                assert_eq(expected, actual, caller_msg, raise_if_fail)
-                        else
-                                puts "assert_eq_f writing #{canon_fn}..."
+                        if U.test_overwrite_canon_files_mode
+                                puts "assert_json_eq_f writing #{canon_fn}..."
                                 File.write(canon_fn, actual)
+                        elsif File.exist?(canon_fn)
+                                expected = U.read_file(canon_fn)
+                                if !assert_eq(expected, actual, caller_msg, raise_if_fail)
+                                        U.canon_propose(actual, caller_msg, canon_fn)
+                                        return false
+                                end
+                        else
+                                U.canon_propose(actual, caller_msg, canon_fn)
+                                return false
+                        end
+                        return true
+                end
+                def assert_array_to_s_eq(a1, a2, msg)
+                        assert_eq(a1.length, a2.length, "#{msg} length ck")
+                        0.upto(a1.length-1).each do | j |
+                                assert_eq(a1[j], a2[j], "#{msg} elt[#{j}]")
                         end
                 end
                 def assert_json_eq(expected, actual, caller_msg, raise_if_fail=false)
@@ -712,22 +778,19 @@ class U
                         begin
                                 actual_json_obj = JSON.parse(actual)
                                 if expected_json_obj == actual_json_obj
-                                        U.assert_eq(expected_json_obj, actual_json_obj, caller_msg, raise_if_fail)
-                                        return
+                                        return U.assert_eq(expected_json_obj, actual_json_obj, caller_msg, raise_if_fail)
                                 end
                                 if expected_json_obj.eql?(actual_json_obj)
                                         # submit same arg twice to force success:
-                                        U.assert_eq(expected_json_obj, expected_json_obj, caller_msg, raise_if_fail)
-                                        return
+                                        return U.assert_eq(expected_json_obj, expected_json_obj, caller_msg, raise_if_fail)
                                 end
                                 pretty_expected_json = JSON.pretty_generate(expected_json_obj)
                                 pretty_actual_json = JSON.pretty_generate(actual_json_obj)
-                                U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
-                                return
+                                return U.assert_eq(pretty_expected_json, pretty_actual_json, caller_msg, raise_if_fail)
                         rescue Object => emsg_obj
-                                caller_msg += ": #{emsg_obj.to_s}"
+                                return U.assert_eq("no exception", "#{emsg_obj.to_s}", caller_msg, raise_if_fail)
                         end
-                        U.assert_eq(expected, actual, caller_msg, raise_if_fail)
+                        return U.assert_eq(expected, actual, caller_msg, raise_if_fail)
                 end
                 def asserting_frame_to_s()
                         # this is to support elisp which finds/changes the first caller in the chain that asserts some expected string value.
@@ -788,8 +851,7 @@ class U
                                         if caller_msg
                                                 caller_msg = "#{caller_msg}: "
                                         end
-                                        frame_that_asserted, previous_frames = U.asserting_frame_to_s
-                                        msg = "#{frame_that_asserted}: MISMATCH: #{caller_msg}"
+                                        msg = "MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
                                         msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
                                         if expected.respond_to?(:lines) && expected.lines.count > 2
@@ -797,19 +859,11 @@ class U
                                                 msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
                                                 msg += "========================================================================================================"
                                         end
-                                        msg += previous_frames
                                         U.assert(false, msg, raise_if_fail)
                                 end
                                 ok = false
                         else
-                                z = "OK "
-                                if caller_msg
-                                        z << caller_msg
-                                else
-                                        z << "U.assert_eq: #{expected} == #{actual}"
-                                end
-                                U.log(z)
-                                puts U.truncate_string(z)
+                                U.assert(true, caller_msg, raise_if_fail)
                                 ok = true
                         end
                         return ok
@@ -817,7 +871,7 @@ class U
                 def assert_is_t(t)
                         U.assert(t =~ /^\d\d\d\d\/\d\d\/\d\d\.\d\d\d\d$/, "bad date/time #{t}")
                 end
-                def assert_ne(v1, v2, msg=nil)
+                def assert_ne(v1, v2, msg)
                         if v1==v2
                                 if !msg
                                         msg = ""
@@ -827,7 +881,7 @@ class U
 
                                 s1 = v1.to_s
                                 s2 = v2.to_s
-                                U.assert_eq(s1, s2) # checking to see if == and to_s somehow not equivalent
+                                U.assert_eq(s1, s2, msg) # checking to see if == and to_s somehow not equivalent
                                 msg << "expected different values, but saw #{s1}"
                                 U.assert(false, msg)
                         else
@@ -847,10 +901,11 @@ class U
                         if !expr
                                 U.test_exit_code = -1
                                 if !msg
-                                        msg = "assertion failed"
+                                        msg = "assertion"
                                 end
-                                
-                                msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
+                                #msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
+                                frame_that_asserted, previous_frames = U.asserting_frame_to_s
+                                msg = "#{frame_that_asserted}: #{msg}: FAILED\n#{previous_frames}"
                                 
                                 if raise_if_fail || U.raise_if_fail
                                         raise Test_assertion.new(msg)
@@ -858,7 +913,9 @@ class U
                                         puts msg
                                 end
                         else
-                                U.log("U.assert: #{expr} OK") if U.log_level<=U::LOG_ALL
+                                z = "OK #{msg}"
+                                U.log(z)
+                                puts U.truncate_string(z)
                         end
                 end
                 def assert_type(expr, typ)
@@ -1102,11 +1159,26 @@ class U
                         end
                         IO.read(fn)
                 end
-                def write_file(fn, content)
+                def write_file(fn, content, mkdir_p_if_needed = false)
                         if !fn.start_with?("/")
                                 fn = U.initial_working_directory + "/" + fn
                         end
+                        if mkdir_p_if_needed
+                                d = File.dirname(fn)
+                                if !Dir.exist?(d)
+                                        FileUtils.mkdir_p(d)
+                                end
+                        end
                         File.open(fn, 'w') { |file| file.write(content) }
+                end
+                def runaway_ck()
+                        if !U.runaway_ck_counter
+                                U.runaway_ck_counter = 0
+                        elsif U.runaway_ck_counter < 1000
+                                U.runaway_ck_counter += 1
+                        else
+                                raise "suspicious of an infinite loop"
+                        end
                 end
         end
 end

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.oracle.cecs.docs-server</groupId>
+  <artifactId>manifest</artifactId>
+  <version>1.master_external.156</version>
+  <packaging>pom</packaging>
+  <description>Released component artifacts, component manifest dependencies, and immediate component dependencies</description>
+  <properties>
+    <svn.repo.name>adc4110308.us.oracle.com/svn/idc/products/cs</svn.repo.name>
+    <svn.repo.branch>cloudtrunk-externalcompute</svn.repo.branch>
+    <svn.repo.revision>157900</svn.repo.revision>
+    <jenkins.build-url>https://osnci.us.oracle.com/job/infra.docs.build.pl.master_external/156/</jenkins.build-url>
+    <jenkins.build-id>156</jenkins.build-id>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.oracle.cecs.docs-server</groupId>
+      <artifactId>docsservermeta</artifactId>
+      <version>1.master_external.156</version>
+      <scope>release</scope>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.cecs.docs-server</groupId>
+      <artifactId>docsservermeta</artifactId>
+      <version>1.master_external.156</version>
+      <scope>release</scope>
+      <type>txt</type>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.cecs.docs-server</groupId>
+      <artifactId>idc-shiphome-generic.ucm.idc.tar</artifactId>
+      <version>1.master_external.156</version>
+      <scope>release</scope>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.cecs.docs-server</groupId>
+      <artifactId>idc-shiphome-generic.ucm.idc.tar</artifactId>
+      <version>1.master_external.156</version>
+      <scope>release</scope>
+      <type>gz</type>
+    </dependency>
+  </dependencies>
+</project>

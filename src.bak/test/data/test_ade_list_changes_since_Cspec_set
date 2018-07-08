@@ -1,0 +1,55 @@
+[{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;ramisra_bug-27575105_ics_handle_runtime_fault"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27895798_ics_nested_foreach_fails"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;sualli_bug-27996552_ics_nested_foreach_path"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;ntadi_bug-27965244_ics_nonproxyhostissue"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;pdevta_bug-27795648_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;imalarvi_bug-27970231_ics_handle_xpath_exception"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;akaushal_bug-27916058_ics_keyword"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;svenakat_bug-27967518_ics_resourcestream"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;ddavison_bug-27156154_ics_filea_changes"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;pveerava_bug-27760060_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;ddavison_bug-27156154_ics_filea_changes_dist"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;chperni_bug-28006842_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;chperni_bug-28006760_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;imalarvi_bug-27999723_ics_npe_launching_mapper"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;kbinwal_bug-27971231_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;jherreri_bug-27832593_ics_sprint55_stitch_edit"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;pdevta_bug-28017663_ics"
+},{
+  "repo_spec": "ade;CTUNIT_TEST_GENERIC_180515.1831.0993",
+  "commit_id": "CTUNIT_TEST_GENERIC_180515.1831.0993;bstern_bug-27955173_ics"
+}]

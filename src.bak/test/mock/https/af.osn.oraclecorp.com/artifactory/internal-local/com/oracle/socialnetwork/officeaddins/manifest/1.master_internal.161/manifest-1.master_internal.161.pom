@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.oracle.socialnetwork.officeaddins</groupId>
+  <artifactId>manifest</artifactId>
+  <version>1.master_internal.161</version>
+  <packaging>pom</packaging>
+  <description>Released component artifacts, component manifest dependencies, and immediate component dependencies</description>
+  <properties>
+    <git.repo.name>outlook.git</git.repo.name>
+    <git.repo.branch>master_internal</git.repo.branch>
+    <git.repo.commit.id>661b714ac68ba7ffe77c697d8346b0ad3730908f</git.repo.commit.id>
+    <git.commit-id>outlook.git:661b714ac68ba7ffe77c697d8346b0ad3730908f</git.commit-id>
+    <jenkins.git-branch>master_internal</jenkins.git-branch>
+    <jenkins.build-url>https://osnci.us.oracle.com/job/officeaddins.build.pl.master_internal/161/</jenkins.build-url>
+    <jenkins.build-id>161</jenkins.build-id>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.oracle.socialnetwork.officeaddins</groupId>
+      <artifactId>officeaddins</artifactId>
+      <version>1.master_internal.161</version>
+      <scope>release</scope>
+      <type>pom</type>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.socialnetwork.officeaddins</groupId>
+      <artifactId>officeaddins</artifactId>
+      <version>1.master_internal.161</version>
+      <scope>release</scope>
+      <type>war</type>
+    </dependency>
+  </dependencies>
+</project>

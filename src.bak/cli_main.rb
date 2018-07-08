@@ -2,8 +2,24 @@ require_relative 'u'
 require_relative 'change_tracker'
 require_relative 'json_change_tracker'
 
-STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
+def test()
+        U.test_mode = true
+        Json_change_tracker.init()
+        Cspec_set.test
+        ADE_label.test()
+        P4_version_control_system.test()
+        Cspec.test
+        Svn_version_control_system.test()
+        Repo.test
+        U.test
+        Global.test
+        Cec_gradle_parser.test
+        Json_change_tracker.test
+        puts "EOT"
+        exit
+end
 
+STDOUT.sync = true      # otherwise some output can get lost if there is an exception or early exit
 cms = Change_tracker_app.new
 
 j = 0
@@ -13,12 +29,13 @@ while ARGV.size > j do
         arg = ARGV[j]
         case arg
         when "-1"
-                U.raise_if_fail = true                
-        when "-test_clean"
-                Repo.test_clean
+                U.raise_if_fail = true
         when "-compound_commit_json_of"
                 puts Cspec_set.from_repo_and_commit_id(ARGV[j+1]).to_json
                 exit
+        when "-copy_http_rest_call_results_to_dir"
+                j += 1
+                U.copy_http_rest_call_results_to_dir = ARGV[j]
         when "-conf"
                 j += 1
                 Global.data_json_fn = ARGV[j]
@@ -61,41 +78,42 @@ while ARGV.size > j do
                 end
                 puts "]"
                 exit
-        when /(-oe|-output=expanded)/
+        when /^(-oe|-output=expanded)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_EXPANDED
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-on|-output=normal)/
+        when /^(-on|-output=normal)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_NORMAL
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-ot|-output)/
+        when /^(-ot|-output)$/
                 Cspec_span_report_item_set.output_style = Cspec_span_report_item::OUTPUT_STYLE_TERSE
                 puts "Cspec_span_report_item_set.output_style=#{Cspec_span_report_item_set.output_style}"
-        when /(-p|-pretty)/
+        when /^(-p|-pretty)$/
                 Cspec_span_report_item_set.pretty = true
+        when "-rest_mock_dir"
+                j += 1
+                U.rest_mock_dir = ARGV[j]
         when "-test"
-                U.test_mode = true
-                Json_change_tracker.init()
-                Json_change_tracker.test
-                Cspec_set.test
-                Repo.test
-                U.test
-                P4_version_control_system.test()
-                Cspec.test
-                Global.test
-                Cec_gradle_parser.test
-                puts "EOT"
-                exit
+                test()
         when "-tad"
                 Cec_gradle_parser.trace_autodiscovery = true
+        when "-test_clean"
+                Repo.test_clean
         when "-trace_autodiscovery"
                 Cec_gradle_parser.trace_autodiscovery = true
-        when "-tcs"
+        when "-trc"
+                U.trace_http_rest_calls = true
+        when "-tsc"
                 U.trace_calls_to_system = true
+        when /^(-tok|ok)$/
+                U.test_overwrite_canon_files_mode = true
+                puts "Will overwrite test canon files, assuming that the current test behavior in the affected tests is correct..."
         when "-v"
                 U.trace = true
                 U.trace_calls_to_system = true
                 U.trace_max(true)
                 Cec_gradle_parser.trace_autodiscovery = true
+        when /^-/
+                raise "did not understand flag #{ARGV[j]}"
         else
                 if !cms.json_fn1
                         cms.json_fn1 = ARGV[j]

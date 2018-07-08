@@ -1,0 +1,14 @@
+{
+  "renamed_repos": {
+    "git;git.osn.oraclecorp.com;osn/cec-server-integration": "git;git.osn.oraclecorp.com;osn/serverintegration",
+    "git;test.nonexistent.com;osn/from_abc": "git;test.nonexistent.com;osn/to_abc"
+  },
+  "p4plumtree.us.oracle.com:1666.P4USER": "NelsonS",
+  "p4plumtree.us.oracle.com:1666.P4CLIENT": "nelsons-pc",
+  "p4plumtree.us.oracle.com:1666.P4PASSWD": "x",
+  "test_server.username": "some_username",
+  "test_server.pw": "some_pw",
+  "test.key": "test.val",
+  "renamed_branches": {
+  }
+}

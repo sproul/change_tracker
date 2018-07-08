@@ -1,0 +1,14 @@
+[
+{
+    "a1": "1",
+    "cspec": "git;git.osn.oraclecorp.com;osn/cec-server-integration;master;6b5ed0226109d443732540fee698d5d794618b64"
+},
+{
+    "b2": "2",
+    "cspec": "git;git.osn.oraclecorp.com;ccs/caas;master;35f9f10342391cae7fdd69f5f8ad590fba25251d"
+},
+{
+    "c3": "3",
+    "cspec": "git;git.osn.oraclecorp.com;osn/cef;master;749581bac1d93cda036d33fbbdbe95f7bd0987bf"
+}
+]

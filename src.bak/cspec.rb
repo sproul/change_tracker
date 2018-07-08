@@ -8,7 +8,7 @@ class Cspec < Error_holder
         def initialize(repo_expr, commit_id, comment=nil, props=Hash.new)
                 if repo_expr.is_a? String
                         repo_spec = repo_expr
-                        self.repo = Repo.new(repo_spec)
+                        self.repo = Repo.from_spec(repo_spec)
                 elsif repo_expr.is_a? Repo
                         self.repo = repo_expr
                 else
@@ -43,20 +43,22 @@ class Cspec < Error_holder
                 dependency_commits
         end
         def list_changes_since(other_commit)
-                return self.repo.vcs.list_changes_since(self, other_commit)
-        end
-        def list_changed_files(commit_id)
-                self.repo.vcs.get_changed_files_array(commit_id)
+                return self.repo.vcs.list_changes_since(other_commit, self)
         end
         def list_files_changed_since(other_commit)
                 # return Cspec_span_report_item pointing to array of string paths of files changed between this commit and 'other commit'
-                report_item = list_changes_since(other_commit)
-                commits = report_item.item
-                changed_file_list = []
-                commits.each do | commit |
-                        changed_file_list.concat(commit.list_changed_files(commit.commit_id))
+                if self.repo.vcs.respond_to?(:list_files_changed_since)
+                        report_item = Cspec_span_report_item.new(other_commit, self, self.repo.vcs.list_files_changed_since(other_commit, self))
+                else
+                        report_item = list_changes_since(other_commit)
+                        commits = report_item.item
+                        changed_file_list = []
+                        commits.each do | commit |
+                                files_changed_by_commit = commit.repo.vcs.get_changed_files_array(commit.commit_id)
+                                changed_file_list.concat(files_changed_by_commit)
+                        end
+                        report_item.item = changed_file_list.sort.uniq
                 end
-                report_item.item = changed_file_list.sort.uniq
                 return report_item
         end
         def eql?(other)
@@ -65,9 +67,9 @@ class Cspec < Error_holder
         def to_s()
                 z = "Cspec(#{self.repo.spec}, #{self.commit_id}"
                 if self.comment
-                        z << ", !!!#{comment}!!!"
+                        z << ", \"#{comment}\""
                 end
-                if self.props
+                if self.props && !self.props.empty?
                         z << ", #{self.props}"
                 end
                 z << ")"
@@ -101,7 +103,7 @@ class Cspec < Error_holder
                 self.find_commit_for_same_component(cspec_set) != nil
         end
         def list_files_added_or_updated()
-                repo.vcs.list_files_added_or_updated(self.commit_id)
+                repo.vcs.get_changed_files_array(self.commit_id)
         end
         def list_files()
                 repo.vcs.list_files(self.commit_id)
@@ -112,9 +114,18 @@ class Cspec < Error_holder
                 bug_IDs = Cspec.grep_group1(changes, Cspec_set.bug_id_regexp)
                 bug_IDs
         end
+        def refers_to_same_component_as(other_commit)
+                if self.repo.source_control_type == "ade" && other_commit.repo.source_control_type == "ade"
+                        return (self.repo.vcs.ade_series == other_commit.repo.vcs.ade_series)
+                end
+                return self.repo.eql?(other_commit.repo)
+        end
         def find_commit_for_same_component(cspec_set)
                 cspec_set.commits.each do | commit |
-                        if commit.repo.eql?(self.repo)
+                        # doesn't quite work for ADE, where the repo is tied to a label, but really what we're asking here is
+                        # "do these commits refer to the same series?"    Use new method Cspec.refers_to_same_component_as
+                        #if commit.repo.eql?(self.repo)
+                        if self.refers_to_same_component_as(commit)
                                 return commit
                         end
                 end
@@ -130,7 +141,7 @@ class Cspec < Error_holder
 
                 def auto_discover_requested_in__repo_and_commit_id(repo_and_commit_id)
                         (repo_and_commit_id =~ AUTODISCOVER_REGEX)
-                end 
+                end
                 def list_changes_between(commit_spec1, commit_spec2)
                         commit1 = Cspec.from_repo_and_commit_id(commit_spec1)
                         commit2 = Cspec.from_repo_and_commit_id(commit_spec2)
@@ -140,12 +151,11 @@ class Cspec < Error_holder
                         if h.has_key?("gitRepoName")
                                 # puts "fh: #{h}"
                                 # fh: Json_obj({"gitUItoCommit"=>"https://orahub.oraclecorp.com/faiza.bounetta/promotion-config/commit/dc68aa99903505da966358f96c95f946901c664b", "gitRepoName"=>"orahub.oraclecorp.com;faiza.bounetta/promotion-config", "gitBranch"=>"master", "gitCommitId"=>"dc68aa99903505da966358f96c95f946901c664b", "dependencies"=>[]})
-                                change_tracker_host_and_port = h.get("change_tracker_host_and_port", "")
                                 source_control_server_and_repo_name = h.get("gitRepoName")
                                 branch         = h.get("gitBranch")
                                 commit_id      = h.get("gitCommitId")
                                 source_control_server, repo_name = source_control_server_and_repo_name.split(/;/)
-                                repo_spec = Repo.make_spec("git", source_control_server, repo_name, branch, change_tracker_host_and_port)
+                                repo_spec = Repo.make_spec("git", source_control_server, repo_name, branch)
                         else
                                 repo_spec = h.get("repo_spec")
                                 commit_id = h.get("commit_id")
@@ -179,14 +189,17 @@ class Cspec < Error_holder
                 end
                 def from_repo_and_commit_id(repo_and_commit_id, comment=nil)
                         z = repo_and_commit_id.sub(AUTODISCOVER_REGEX, '')
-                        if z !~ /(.*);(\w*)$/
+                        if repo_and_commit_id =~ /^ade;(.*)/
+                                commit_id = $1
+                                repo_spec = repo_and_commit_id
+                        elsif z !~ /(.*);(\w*)$/
                                 raise "could not parse #{z}"
+                        else
+                                repo_spec, commit_id = $1, $2
                         end
-                        repo_spec, commit_id = $1, $2
-                        gr = Repo.new(repo_spec)
+                        gr = Repo.from_spec(repo_spec)
                         if commit_id == ""
                                 raise "unexpected lack of a commit ID"
-                                
                         end
                         Cspec.new(gr, commit_id, comment)
                 end
@@ -195,7 +208,9 @@ class Cspec < Error_holder
                         # type         ;  host   ; proj     ;brnch;commit_id
                         #   p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159
                         # type;host/port                    ;path;                                                               branch;rev
-                        if s =~ /^(\w+);([-\w:\.]+);([-\w\.\/]+);(\w*);(\w+)\+?$/
+                        #  svn;adc4110308.us.oracle.com/scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158166
+                        # type;host                    /path                                                                                                                   ;branch;rev
+                        if Repo.parse_repo_and_possible_commit_id(s, false)
                                 true
                         else
                                 false
@@ -205,8 +220,15 @@ class Cspec < Error_holder
                         raise "no regexp" unless regexp
                         group1_hits = []
                         commits.each do | commit |
-                                raise "comment not set for #{commit}" unless commit.comment
-                                if regexp.match(commit.comment)
+                                if commit.comment
+                                        z = commit.comment
+                                else
+                                        if commit.commit_id =~ /^\d+$/
+                                                raise "comment not set (and commit_id is just a number, so not suitable for searching) for #{commit}"
+                                        end
+                                        z = commit.commit_id
+                                end
+                                if regexp.match(z)
                                         raise "no group 1 match for #{regexp}" unless $1
                                         group1_hits << $1
                                 end
@@ -234,7 +256,7 @@ class Cspec < Error_holder
                         g1b = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;22ab587dd9741430c408df1f40dbacd56c657c3f")
                         g1a = Cspec.from_repo_and_commit_id("git;git.osn.oraclecorp.com;osn/serverintegration;master;7dfff5f400b3011ae2c4aafac286d408bce11504")
 
-                        U.assert_eq([gc2, g1b, g1a], changes1, "test_list_changes_since")
+                        U.assert_array_to_s_eq([gc2, g1b, g1a], changes1, "test_list_changes_since")
                 end
                 def test_list_files_changed_since()
                         compound_spec1 = "git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64"
@@ -250,7 +272,7 @@ class Cspec < Error_holder
                         U.assert_json_eq(["component.properties", "deps.gradle"], changed_files1, "Cspec.test_list_files_changed_since")
                 end
                 def test_json()
-                        repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;master"
+                        repo_spec = "git;git.osn.oraclecorp.com;osn/serverintegration;"
                         valentine_commit_id = "2bc0b1a58a9277e97037797efb93a2a94c9b6d99"
                         gc = Cspec.new(repo_spec, valentine_commit_id)
                         json = gc.to_json
@@ -279,10 +301,20 @@ class Cspec < Error_holder
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
-                def test()
+                def test_is_repo_and_commit_id()
+                        #U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com;svn+ssh://adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;162615"),  "Cspec.is_repo_and_commit_id.9")
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;;162615"),  "Cspec.is_repo_and_commit_id.3")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"), "Cspec.is_repo_and_commit_id")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;osn/serverintegration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"), "Cspec.is_repo_and_commit_id 2")
-
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.0980"), "Cspec.is_repo_and_commit_id 3")
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.0980;abc"), "Cspec.is_repo_and_commit_id 4")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.09809;abc"), "Cspec.is_repo_and_commit_id 5")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.07439.0980;abc"), "Cspec.is_repo_and_commit_id 6")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_1805059.0743.0980;abc"), "Cspec.is_repo_and_commit_id 7")
+                        U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TESTGENERIC_180505.0743.0980;abc"), "Cspec.is_repo_and_commit_id 8")
+                end
+                def test()
+                        test_is_repo_and_commit_id()
                         test_list_bug_IDs_since()
                         test_list_changes_since()
 
@@ -339,15 +371,14 @@ class Cec_gradle_parser < Error_holder
         end
         class << self
                 attr_accessor :trace_autodiscovery
-                
+
                 def to_dep_commits(gradle_deps_text, gr)
                         dependency_commits = []
-                        svn_info_seen = false
                         gradle_deps_text.split(/\n/).grep(/^\s*manifest\s+"com./).each do | raw_manifest_line |
 
                                 # raw_manifest_line=  manifest "com.oracle.cecs.caas:manifest:1.master_external.528"         //@trigger
                                 puts "Cec_gradle_parser.to_dep_commits: raw_manifest_line=#{raw_manifest_line}" if trace_autodiscovery
-                                
+
                                 pom_url = Cec_gradle_parser.generate_manifest_url(raw_manifest_line)
                                 puts "Cec_gradle_parser.to_dep_commits: resolved to pom_url=#{pom_url}" if trace_autodiscovery
                                 pom_content = U.rest_get(pom_url)
@@ -356,9 +387,21 @@ class Cec_gradle_parser < Error_holder
                                 # {"git.repo.name"=>["caas.git"], "git.repo.branch"=>["master_external"], "git.repo.commit.id"=>["90f08f6882382e0134191ca2a993191c2a2f5b48"], "git.commit-id"=>["caas.git:90f08f6882382e0134191ca2a993191c2a2f5b48"], "jenkins.git-branch"=>["master_external"], "jenkins.build-url"=>["https://osnci.us.oracle.com/job/caas.build.pl.master_external/528/"], "jenkins.build-id"=>["2018-02-16_21:51:53"]}
                                 puts %Q[Cec_gradle_parser.to_dep_commits: parsed pom xml, and seeing h["properties"][0]=#{h["properties"][0]}] if trace_autodiscovery
                                 repo_parent = h["properties"][0]
+                                source_control_server = gr.source_control_server
                                 if repo_parent.has_key?("git.repo.name")
+                                        source_control_type = "git"
                                         git_project_basename = repo_parent["git.repo.name"][0] # e.g., caas.git
+                                        branch_name = h["properties"][0]["git.repo.branch"][0]
+                                        commit_id = h["properties"][0]["git.repo.commit.id"][0]
+                                        if git_project_basename == "caas.git"
+                                                project_name = "ccs/#{git_project_basename}"
+                                        else
+                                                project_name = "#{gr.get_project_name_prefix}/#{git_project_basename}"
+                                        end
+                                        project_name.sub!(/.git$/, '')
                                 elsif repo_parent.has_key?("svn.repo.name")
+                                        source_control_type = "svn"
+                                        branch_name = h["properties"][0]["svn.repo.branch"][0]
                                         # example:
                                         # <properties>
                                         #    <svn.repo.name>adc4110308.us.oracle.com/svn/idc/products/cs</svn.repo.name>
@@ -367,38 +410,34 @@ class Cec_gradle_parser < Error_holder
                                         #    <jenkins.build-url>https://osnci.us.oracle.com/job/docs.build.pl.master_external/638/</jenkins.build-url>
                                         #    <jenkins.build-id>638</jenkins.build-id>
                                         # </properties>
-                                        svn_repo_name = repo_parent["svn.repo.name"]
-                                        svn_info_seen = true
-                                        svn_branch = repo_parent["svn.repo.branch"]
-                                        svn_commit_id = repo_parent["svn.repo.revision"]
-                                        puts "svn_repo_name=#{svn_repo_name}, svn_branch=#{svn_branch}, svn_commit_id=#{svn_commit_id}, but not implemented yet" # if trace_autodiscovery
-                                        next        # svn not supported yet
+                                        repo_name = repo_parent["svn.repo.name"][0]
+                                        if repo_name =~ /^([^\/]+)\/(.*)/
+                                                source_control_server = $1
+                                                project_name = $2
+                                        else
+                                                source_control_server = "svn.repo.name=#{repo_name}"
+                                                project_name = "placeholder"
+                                        end
+                                        branch_name = repo_parent["svn.repo.branch"][0]
+                                        commit_id = repo_parent["svn.repo.revision"][0]
+                                        puts "repo_name=#{repo_name}, svn_branch=#{branch_name}, svn_commit_id=#{commit_id}" if trace_autodiscovery
                                 else
                                         puts "not sure what this repo_parent is:"
                                         pp repo_parent
                                         next
                                 end
-                                git_repo_branch = h["properties"][0]["git.repo.branch"][0]
-                                git_repo_commit_id = h["properties"][0]["git.repo.commit.id"][0]
-
-                                if git_project_basename == "caas.git"
-                                        repo_name = "ccs/#{git_project_basename}"
-                                else
-                                        repo_name = "#{gr.get_project_name_prefix}/#{git_project_basename}"
-                                end
-                                repo_name.sub!(/.git$/, '')
-                                repo_spec = Repo.make_spec("git", gr.source_control_server, repo_name, git_repo_branch)
-                                dependency_commit = Cspec.new(repo_spec, git_repo_commit_id)
+                                repo_spec = Repo.make_spec(source_control_type, source_control_server, project_name, branch_name)
+                                dependency_commit = Cspec.new(repo_spec, commit_id)
                                 dependency_commits << dependency_commit
                                 dependency_commits += dependency_commit.unreliable_autodiscovery_of_dependencies_from_build_configuration
-                                
-                                puts "Cec_gradle_parser.to_dep_commits: dep repo_name=#{repo_name} (commit #{git_repo_commit_id}), resolved to dep #{dependency_commit}" if trace_autodiscovery
+
+                                puts "Cec_gradle_parser.to_dep_commits: dep project_name=#{project_name} (commit #{commit_id}), resolved to dep #{dependency_commit}" if trace_autodiscovery
 
                                 # jenkins.git-branch # master_external
                                 # jenkins.build-url # https://osnci.us.oracle.com/job/infra.social.build.pl.master_external/270/
                                 # jenkins.build-id # 270
                         end
-                        if dependency_commits.empty? && !svn_info_seen
+                        if dependency_commits.empty?
                                 raise "could not find deps in #{gradle_deps_text}"
                         end
                         dependency_commits
@@ -446,7 +485,7 @@ class Cec_gradle_parser < Error_holder
                         test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.53\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/caas/manifest/1.master_external.53/manifest-1.master_external.53.pom")
                         test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.42\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/analytics/manifest/1.master_external.42/manifest-1.master_external.42.pom")
                         test_manifest_parse("  manifest \"com.oracle.cecs.servercommon:manifest:1.master_external.74\"     //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/servercommon/manifest/1.master_external.74/manifest-1.master_external.74.pom")
-                        test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.270\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/waggle/manifest/1.master_external.270/manifest-1.master_external.270.pom")
+                       test_manifest_parse("  manifest \"com.oracle.cecs.waggle:manifest:1.master_external.270\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/waggle/manifest/1.master_external.270/manifest-1.master_external.270.pom")
                         test_manifest_parse("  manifest \"com.oracle.cecs.docs-server:manifest:1.master_external.156\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/docs-server/manifest/1.master_external.156/manifest-1.master_external.156.pom")
                         test_manifest_parse("  manifest \"com.oracle.cecs.caas:manifest:1.master_external.126\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/caas/manifest/1.master_external.126/manifest-1.master_external.126.pom")
                         test_manifest_parse("  manifest \"com.oracle.cecs.analytics:manifest:1.master_external.84\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/cecs/analytics/manifest/1.master_external.84/manifest-1.master_external.84.pom")
@@ -456,7 +495,6 @@ class Cec_gradle_parser < Error_holder
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.webclient:manifest:1.master_internal.8103\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/webclient/manifest/1.master_internal.8103/manifest-1.master_internal.8103.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.officeaddins:manifest:1.master_internal.161\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/officeaddins/manifest/1.master_internal.161/manifest-1.master_internal.161.pom")
                         test_manifest_parse("  manifest \"com.oracle.socialnetwork.cef:manifest:1.master_internal.3790\"         //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/cef/manifest/1.master_internal.3790/manifest-1.master_internal.3790.pom")
-                        test_manifest_parse("  manifest \"com.oracle.socialnetwork.caas:manifest:1.master_internal.2364\"        //@trigger", "https://af.osn.oraclecorp.com/artifactory/internal-local/com/oracle/socialnetwork/caas/manifest/1.master_internal.2364/manifest-1.master_internal.2364.pom")
                 end
         end
 end

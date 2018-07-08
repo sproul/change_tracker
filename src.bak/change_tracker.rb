@@ -17,7 +17,7 @@ class Global < Error_holder
                 attr_accessor :data
                 def init_data()
                         if !Global.data
-                                puts "init_data"
+                                puts "init_data" if U.trace
                                 if !Global.data_json_fn
                                         Global.data_json_fn = "/scratch/change_tracker/change_tracker.json"
                                 end

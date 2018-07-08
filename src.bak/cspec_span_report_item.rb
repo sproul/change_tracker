@@ -12,6 +12,38 @@ class Cspec_span_report_item
                 self.cspec2 = cspec2
                 self.item = item
         end
+        def to_s()
+                if !self.item.respond_to?(:each)
+                        return "Cspec_span_report_item(#{self.item})"
+                end
+                z = "Cspec_span_report_item("
+                self.item.each do | item_elt |
+                        z << "\n" << item_elt.to_s
+                end
+                z << "\n)\n"
+                z
+        end
+        def eql?(other)
+                if !self.cspec1.eql?(other.cspec1) || !self.cspec2.eql?(other.cspec2)
+                        puts "cspec no"
+                        return false
+                end
+                if self.item.respond_to?(:length) && other.item.respond_to?(:length)
+                        if self.item.length != other.item.length
+                                puts "len no"
+                                return false
+                        end
+                        0.upto(self.item.length-1) do |j|
+                                if !self.item[j].eql?(other.item[j])
+                                        puts "itehm #{j} no"
+                                        return false
+                                end
+                        end
+                        return true
+                end
+                puts "defering to item eql...#{self.item.eql?(other.item)}"
+                return self.item.eql?(other.item)
+        end
         def to_jsonable_h(output_style=OUTPUT_STYLE_TERSE)
                 case output_style
                 when OUTPUT_STYLE_TERSE
@@ -39,6 +71,19 @@ class Cspec_span_report_item_set
 
         def initialize()
                 self.items = []
+        end
+        def eql?(other)
+                if items.length != other.items.length
+                        puts "set len noo"
+                        return false
+                end
+                0.upto(self.items.length-1) do |j|
+                        if !self.items[j].eql?(other.items[j])
+                                puts "set itehm #{j} no"
+                                return false
+                        end
+                end
+                return true
         end
         def add(item)
                 if !item.is_a?(Cspec_span_report_item)
