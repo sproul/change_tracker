@@ -122,6 +122,14 @@ class Repo < Error_holder
                                 # Leave commit_id unset.  I considered using the label timestamp as an ersatz commit_id, but then when I list the transactions associated with
                                 # the label, I want to consider the transactions to be the commits.  So the commit_id in this case, if there is one, is the ADE transaction name.
                                 r.commit_id = $3
+                        elsif r.source_control_type == "svn"
+                                if z !~ /^([\.\w]+)\/([^;]*);([^;]*)(;([^;]*))?$/
+                                        r.raise("could not parse svn server/path;optional_branch;commit from #{repo_spec}", 500)
+                                end
+                                r.source_control_server = $1
+                                r.project_name = $2
+                                r.branch_name = $3
+                                r.commit_id = $5
                         else
                                 # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
                                 if z !~ /^([-\w\.:]+);(.*)/
@@ -143,7 +151,10 @@ class Repo < Error_holder
                         if !r.branch_name || (r.branch_name == r.vcs.default_branch_name)
                                 r.branch_name = ""
                         end
-                        r.raise("empty project name", 500) unless r.project_name && (r.project_name != "")
+                        r.raise("empty project name in #{r}",          500) unless r.project_name          && (r.project_name          != "")
+                        if r.source_control_type != "ade"
+                                r.raise("empty source_control_server in #{r}", 500) unless r.source_control_server && (r.source_control_server != "")
+                        end
                         r.global_data_prefix = "#{r.source_control_type}_repo_#{r.project_name}."
                         if !Repo.codeline_root_parent
                                 Repo.codeline_root_parent = Global.get_scratch_dir()
@@ -184,6 +195,27 @@ class Repo < Error_holder
                         source_control_type = $1
                         z = $2
                         
+                        if source_control_type == "svn"
+                                if z !~ /([^\/]*)\/([^;]*);(.*)/
+                                        self.raise("expected to find server/path;... at the head of #{z}")
+                                else
+                                        source_control_server = $1
+                                        project_name = $2
+                                        branch_and_commit = $3
+                                        if source_control_server !~ /^[-a-z\.0-9]*$/i
+                                                self.raise("could not understand source control server #{source_control_server} in #{z}")
+                                        end
+                                        if branch_and_commit =~ /(.*);(.*)/
+                                                branch_name = $1
+                                                commit_id = $2
+                                        else
+                                                self.raise("could not extract branch and commit ID from #{branch_and_commit} in #{z}")
+                                        end
+                                        puts "parse_repo_and_possible_commit_id: source_control_type=#{source_control_type}, source_control_server=#{source_control_server}, project_name=#{project_name}" if U.trace
+                                        return source_control_type, source_control_server, project_name, branch_name, commit_id
+                                end
+                        end
+                        
                         if z =~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;.*)?$/
                                 source_control_server = nil
                                 project_name = $1
@@ -213,6 +245,7 @@ class Repo < Error_holder
                         project_name_path = $1
                         z = $2
                         project_name = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
+                        puts "parse_repo_and_possible_commit_id: source_control_type=#{source_control_type}, source_control_server=#{source_control_server}, project_name=#{project_name}" if U.trace
                         if z && z =~ /(.*);(.*)/
                                 branch_name, commit_id = $1, $2
                                 return source_control_type, source_control_server, project_name, branch_name, commit_id
@@ -279,12 +312,17 @@ class Repo < Error_holder
                         if vcs_type == "ade"
                                 return "#{vcs_type};#{repo_name}"
                         else
-                                self.raise "bad source_control_server #{source_control_server} (from make_spec(vcs_type=#{vcs_type}, source_control_server=#{source_control_server}, repo_name=#{repo_name}, branch=#{branch}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
+                                self.raise "bad source_control_server '#{source_control_server}' (from make_spec(vcs_type=#{vcs_type}, source_control_server=#{source_control_server}, repo_name=#{repo_name}, branch=#{branch}" unless source_control_server && source_control_server.is_a?(String) && source_control_server != ""
                                 self.raise "bad repo_name #{repo_name}" unless repo_name && repo_name.is_a?(String) && repo_name != ""
                                 if !branch
                                         branch = ""
                                 end
-                                return "#{vcs_type};#{source_control_server};#{repo_name};#{branch}"
+                                if vcs_type == "svn"
+                                        server_to_repo_name_join_char = "/"
+                                else
+                                        server_to_repo_name_join_char = ";"
+                                end
+                                return "#{vcs_type};#{source_control_server}#{server_to_repo_name_join_char}#{repo_name};#{branch}"
                         end
                 end
                 def test_clean()

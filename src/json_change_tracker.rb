@@ -150,6 +150,9 @@ class Json_change_tracker
                         Json_change_tracker.initialized = true
                 end
                 def sub_for_vars(s)
+                        if !Json_change_tracker.web_root
+                                raise "Json_change_tracker.web_root is null: Json_change_tracker.init never called?"
+                        end
                         s.gsub('@WEB_ROOT@', Json_change_tracker.web_root)
                 end
                 def init_example_for_op(op, url_example, cspec_set1_example, cspec_set2_example)

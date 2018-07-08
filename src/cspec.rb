@@ -207,8 +207,9 @@ class Cspec < Error_holder
                         # git;git.osn.oraclecorp.com;osn/serverintegration;master;aaaaaaaaaaaa
                         # type         ;  host   ; proj     ;brnch;commit_id
                         #   p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;;121159
-                        #   svn;adc4110308.us.oracle.com;svn+ssh://scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158166
                         # type;host/port                    ;path;                                                               branch;rev
+                        #  svn;adc4110308.us.oracle.com/scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158166
+                        # type;host                    /path                                                                                                                   ;branch;rev
                         if Repo.parse_repo_and_possible_commit_id(s, false)
                                 true
                         else
@@ -300,8 +301,9 @@ class Cspec < Error_holder
                                 Cspec_set.bug_id_regexp_val = saved_bug_id_regexp
                         end
                 end
-                def test()
-                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com;svn+ssh://scmadm@adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158166"),  "Cspec.is_repo_and_commit_id.3")
+                def test_is_repo_and_commit_id()
+                        #U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com;svn+ssh://adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;162615"),  "Cspec.is_repo_and_commit_id.9")
+                        U.assert_eq(true, Cspec.is_repo_and_commit_id?("svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;;162615"),  "Cspec.is_repo_and_commit_id.3")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;ccs/caas;master;a1466659536cf2225eadf56f43972a25e9ee1bed"), "Cspec.is_repo_and_commit_id")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("git;git.osn.oraclecorp.com;osn/serverintegration;master;2bc0b1a58a9277e97037797efb93a2a94c9b6d99"), "Cspec.is_repo_and_commit_id 2")
                         U.assert_eq(true, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.0743.0980"), "Cspec.is_repo_and_commit_id 3")
@@ -310,7 +312,9 @@ class Cspec < Error_holder
                         U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_180505.07439.0980;abc"), "Cspec.is_repo_and_commit_id 6")
                         U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TEST_GENERIC_1805059.0743.0980;abc"), "Cspec.is_repo_and_commit_id 7")
                         U.assert_eq(false, Cspec.is_repo_and_commit_id?("ade;CTUNIT_TESTGENERIC_180505.0743.0980;abc"), "Cspec.is_repo_and_commit_id 8")
-
+                end
+                def test()
+                        test_is_repo_and_commit_id()
                         test_list_bug_IDs_since()
                         test_list_changes_since()
 
@@ -416,7 +420,7 @@ class Cec_gradle_parser < Error_holder
                                         end
                                         branch_name = repo_parent["svn.repo.branch"][0]
                                         commit_id = repo_parent["svn.repo.revision"][0]
-                                        puts "repo_name=#{repo_name}, svn_branch=#{branch_name}, svn_commit_id=#{commit_id}, just implemented" if trace_autodiscovery
+                                        puts "repo_name=#{repo_name}, svn_branch=#{branch_name}, svn_commit_id=#{commit_id}" if trace_autodiscovery
                                 else
                                         puts "not sure what this repo_parent is:"
                                         pp repo_parent

@@ -1,0 +1,1 @@
+stop cache.pl printf warning when percents are in the command being cached

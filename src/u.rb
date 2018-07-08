@@ -853,7 +853,7 @@ class U
                                         end
                                         msg = "MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
-                                        msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
+                                        msg += "\nexpected:\n#{expected}\nactual:\n#{actual}\n"
                                         if expected.respond_to?(:lines) && expected.lines.count > 2
                                                 msg += "========================================================================================================"
                                                 msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)

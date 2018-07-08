@@ -204,6 +204,9 @@ class Cspec_set < Error_holder
                         if !cspec_h.has_key?("cspec")
                                 Error_holder.raise("expected a cspec key in the hash #{cspec_h} (from #{z})", 400)
                         end
+                        #if cspec_h["cspec"] == "git;git.osn.oraclecorp.com;osn/desktop;master;null"
+                        #        raise "lskdjf"
+                        #end
                         cs = Cspec_set.from_s(cspec_h["cspec"])
                         cspec_h.each_pair do | key, val |
                                 if key != "cspec"
@@ -212,10 +215,44 @@ class Cspec_set < Error_holder
                         end
                         cs
                 end
+                #
+                # remove incomplete Desktop cspec on Steve Roth's request, as the data is incomplete for the moment.  7/8/2018 (follow up 8/8/2018)
+                #
+                # We want to remove the following item:
+                # #<Cspec_set:0x0000000276ff78
+                # @dependency_commits=[],
+                # @top_commit=
+                #  #<Cspec:0x0000000276ec68
+                #   @comment=nil,
+                #   @commit_id="null",
+                #   @props=
+                #    {"name"=>"Desktop",
+                #     "buildnum"=>"null",
+                #     "buildurl"=>"",
+                #     "version"=>"1.0.39",
+                #     "scmtype"=>"git",
+                #     "git_branch"=>"master",
+                #     "git_sha"=>"null",
+                #     "git_repo"=>"desktop"},
+                #   @repo=
+                #    #<Repo:0x0000000276fd98
+                #     @branch_name="",
+                #     @global_data_prefix="git_repo_osn/desktop.",
+                #     @project_name="osn/desktop",
+                #     @source_control_server="git.osn.oraclecorp.com",
+                #     @source_control_type="git",
+                #     @vcs=
+                #      #<Git_version_control_system:0x0000000276f758
+                #       @repo=#<Repo:0x0000000276fd98 ...>,
+                #       @type="git">>>>
+                cspec_set_array.reject! do | cs |
+                        cs.top_commit.props["name"] == "Desktop" && cs.top_commit.props["git_sha"] == "null"
+                end
                 cs0 = cspec_set_array.shift
                 cspec_set_array.each do | csx |
                         cs0.dependency_commits += csx.commits
                 end
+                
                 cs0
         end
         def Cspec_set.from_json_obj(z)
@@ -336,8 +373,21 @@ class Cspec_set < Error_holder
                 U.assert_eq("first one", cs.top_commit.props["a1"], "test_reading_attributes.a1")
                 U.assert_eq(2, cs.top_commit.props.size, "test_reading_attributes.size for #{cs.top_commit.props}")
         end
+        def Cspec_set.test_reading_steve_roth_v1()
+                cs = Cspec_set.from_s(U.read_file("public/test_steve_roth_v1.json"))
+                component_count = 10
+                desktop_component_suppressed = true
+                if desktop_component_suppressed
+                        U.assert_eq("analytics", cs.top_commit.props["name"], "Steve Roth attribute on cspec 1")
+                        U.assert_eq(component_count - 1, cs.commits.length, "component count")
+                else
+                        U.assert_eq("Desktop",   cs.top_commit.props["name"], "Steve Roth attribute on cspec 1")
+                        U.assert_eq(component_count, cs.commits.length, "component count")
+                end
+        end
         def Cspec_set.test()
                 Repo.note_renamed_repo("git;git.osn.oraclecorp.com;osn/cec-server-integration", "git;git.osn.oraclecorp.com;osn/serverintegration")
+                test_reading_steve_roth_v1()
                 test_json_export()
                 test_full_cspec_set_as_dep()                                
                 test_reading_attributes()

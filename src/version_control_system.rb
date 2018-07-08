@@ -146,8 +146,8 @@ class Git_version_control_system < Version_control_system
 end
 class Svn_version_control_system < Version_control_system
         SVN_CHANGE_DELIMITING_LINE = "------------------------------------------------------------------------"
-        TEST_SVN_COMPOUND_SPEC1 = "svn;adc4110308.us.oracle.com;svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158167"
-        TEST_SVN_COMPOUND_SPEC2 = "svn;adc4110308.us.oracle.com;svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158257"
+        TEST_SVN_COMPOUND_SPEC1 = "svn;adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158167"
+        TEST_SVN_COMPOUND_SPEC2 = "svn;adc4110308.us.oracle.com/svn/idc/products/cs/branches/cloudtrunk-externalcompute/components-caas/CaaSServer/java;;158257"
         DEFAULT_BRANCH = "trunk"
         def initialize(repo)
                 self.type = "svn"

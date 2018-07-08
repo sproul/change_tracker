@@ -4,11 +4,11 @@ require_relative 'json_change_tracker'
 
 def test()
         U.test_mode = true
-        ADE_label.test()
         Json_change_tracker.init()
+        Cspec_set.test
+        ADE_label.test()
         P4_version_control_system.test()
         Cspec.test
-        Cspec_set.test
         Svn_version_control_system.test()
         Repo.test
         U.test
