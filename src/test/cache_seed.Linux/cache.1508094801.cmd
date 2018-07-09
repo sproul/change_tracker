@@ -1,0 +1,1 @@
+/home/nsproul/dp/git/change_tracker/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/git.osn.oraclecorp.com/osn/cef log ""--pretty=format:%H" "%s"" 749581bac1d93cda036d33fbbdbe95f7bd0987bf..749581bac1d93cda036d33fbbdbe95f7bd0987bf

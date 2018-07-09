@@ -1,0 +1,1 @@
+/home/nsproul/dp/git/change_tracker/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/git.osn.oraclecorp.com/osn/waggle log ""--pretty=format:%H" "%s"" 4630fc40df6cfc0b09898304fb61550281169560..4630fc40df6cfc0b09898304fb61550281169560
