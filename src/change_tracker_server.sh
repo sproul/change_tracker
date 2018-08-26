@@ -58,6 +58,13 @@ Stop_sinatra()
 
 while [ -n "$1" ]; do
         case "$1" in
+                -1)
+                        # not going to run a persistent server process, instead just process the remaining args
+                        shift
+                        echo.clean "ruby -w $ct_root/src/cli_main.rb -pretty -output=expanded $*"
+                        ruby       -w $ct_root/src/cli_main.rb -pretty -output=expanded $*
+                        exit
+                ;;
                 -test)
                         stop_server_on_exit=yes
                         Stop_sinatra
@@ -88,3 +95,5 @@ fi
 
 exit
 bx $dp/git/change_tracker/client_src/change_tracker_server.sh -test /
+exit
+bx $dp/git/change_tracker/src/change_tracker_server.sh -1 http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1807241005/paas.json http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1807270018/paas.json

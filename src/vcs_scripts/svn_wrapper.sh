@@ -1,6 +1,8 @@
 #!/bin/bash
 
 . cache
+. svn_wrapper.inc
+
 dir="$1"
 cd "$dir"
 shift
@@ -17,6 +19,9 @@ while [ ! -d ".svn" ]; do
                 exit 1
         fi
 done
+
+# host-specific id_rsa file can be specified using .ssh/config:IdentifyFile=..., see
+# https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
 
 svn $*
 

@@ -5,11 +5,11 @@ require_relative 'json_change_tracker'
 def test()
         U.test_mode = true
         Json_change_tracker.init()
+        Svn_version_control_system.test()
         ADE_label.test()
         Cspec_set.test
         P4_version_control_system.test()
         Cspec.test
-        Svn_version_control_system.test()
         Repo.test
         U.test
         Global.test
@@ -115,16 +115,10 @@ while ARGV.size > j do
         when /^-/
                 raise "did not understand flag #{ARGV[j]}"
         else
-                if !cms.json_fn1
-                        cms.json_fn1 = ARGV[j]
-                        if !File.exist?(cms.json_fn1)
-                                raise "could not find json file #{cms.json_fn1}"
-                        end
-                elsif !cms.json_fn2
-                        cms.json_fn2 = ARGV[j]
-                        if !File.exist?(cms.json_fn2)
-                                raise "could not find json file #{cms.json_fn2}"
-                        end
+                if !cms.json_path1
+                        cms.json_path1 = ARGV[j]
+                elsif !cms.json_path2
+                        cms.json_path2 = ARGV[j]
                 else
                         raise "did not understand \"#{ARGV[j]}\""
                 end

@@ -175,6 +175,9 @@ class Cspec_set < Error_holder
         def Cspec_set.from_file(json_fn)
                 from_s(IO.read(json_fn))
         end
+        def Cspec_set.from_file_or_url(json_path)
+                from_s(U.read_file_or_url(json_path))
+        end
         def Cspec_set.from_json_obj_v1(z)
                 if !z.respond_to?(:has_key?)
                         cs0 = nil

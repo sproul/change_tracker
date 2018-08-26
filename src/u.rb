@@ -1159,6 +1159,14 @@ class U
                         end
                         IO.read(fn)
                 end
+                def read_file_or_url(path)
+                        if File.exist?(path)
+                                read_file(path)
+                        else
+                                url = path
+                                rest_get(url)
+                        end
+                end
                 def write_file(fn, content, mkdir_p_if_needed = false)
                         if !fn.start_with?("/")
                                 fn = U.initial_working_directory + "/" + fn

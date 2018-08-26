@@ -98,8 +98,8 @@ class Change_tracker
 end
 
 class Change_tracker_app
-        attr_accessor :json_fn1
-        attr_accessor :json_fn2
+        attr_accessor :json_path1
+        attr_accessor :json_path2
         
         attr_accessor :v_info1
         attr_accessor :v_info2
@@ -109,14 +109,14 @@ class Change_tracker_app
                 exit
         end
         def go()
-                if !json_fn1
+                if !json_path1
                         usage('no args seen')
                 end
-                if !json_fn2
+                if !json_path2
                         usage('missing VERSION_JSON_FILE2')
                 end
-                cspec_set1 = Cspec_set.from_file(json_fn1)
-                cspec_set2 = Cspec_set.from_file(json_fn2)
+                cspec_set1 = Cspec_set.from_file_or_url(json_path1)
+                cspec_set2 = Cspec_set.from_file_or_url(json_path2)
                 cspec_set2.list_files_added_or_updated_since(cspec_set1).all_items.each do | changed_file |
                         puts changed_file
                 end
