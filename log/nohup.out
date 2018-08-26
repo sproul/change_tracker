@@ -1547,3 +1547,236 @@ Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Wed..
 Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Thu...
 + ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
 + sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo /tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
+/tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sat...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sat...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo /tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
+/tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sat...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sat...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ exit
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo /tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1064124587 /tmp/cache.1064124587.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1485559324 /tmp/cache.1485559324.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.173671044 /tmp/cache.173671044.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2151343579 /tmp/cache.2151343579.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3587145615 /tmp/cache.3587145615.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.407764472 /tmp/cache.407764472.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.947621908 /tmp/cache.947621908.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
+/tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1064124587 /tmp/cache.1064124587.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1485559324 /tmp/cache.1485559324.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.173671044 /tmp/cache.173671044.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2151343579 /tmp/cache.2151343579.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3587145615 /tmp/cache.3587145615.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.407764472 /tmp/cache.407764472.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.947621908 /tmp/cache.947621908.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo /tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1064124587 /tmp/cache.1064124587.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1485559324 /tmp/cache.1485559324.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.173671044 /tmp/cache.173671044.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2151343579 /tmp/cache.2151343579.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3587145615 /tmp/cache.3587145615.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.407764472 /tmp/cache.407764472.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.947621908 /tmp/cache.947621908.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
+/tmp/cache.1023437785 /tmp/cache.1023437785.cmd /tmp/cache.1064124587 /tmp/cache.1064124587.cmd /tmp/cache.1096422720 /tmp/cache.1096422720.cmd /tmp/cache.1144478147 /tmp/cache.1144478147.cmd /tmp/cache.1277293566 /tmp/cache.1277293566.cmd /tmp/cache.1332707699.cmd /tmp/cache.1452136524 /tmp/cache.1452136524.cmd /tmp/cache.1485559324 /tmp/cache.1485559324.cmd /tmp/cache.1508094801 /tmp/cache.1508094801.cmd /tmp/cache.173053997 /tmp/cache.173053997.cmd /tmp/cache.173671044 /tmp/cache.173671044.cmd /tmp/cache.1763867069 /tmp/cache.1763867069.cmd /tmp/cache.1784552021 /tmp/cache.1784552021.cmd /tmp/cache.2004856663 /tmp/cache.2004856663.cmd /tmp/cache.2057472255 /tmp/cache.2057472255.cmd /tmp/cache.2151343579 /tmp/cache.2151343579.cmd /tmp/cache.2198091049 /tmp/cache.2198091049.cmd /tmp/cache.2841072260 /tmp/cache.2841072260.cmd /tmp/cache.3158597448 /tmp/cache.3158597448.cmd /tmp/cache.3248667853 /tmp/cache.3248667853.cmd /tmp/cache.3365799599 /tmp/cache.3365799599.cmd /tmp/cache.3366392184 /tmp/cache.3366392184.cmd /tmp/cache.3384912646 /tmp/cache.3384912646.cmd /tmp/cache.3587145615 /tmp/cache.3587145615.cmd /tmp/cache.3645171560 /tmp/cache.3645171560.cmd /tmp/cache.3835590677 /tmp/cache.3835590677.cmd /tmp/cache.407764472 /tmp/cache.407764472.cmd /tmp/cache.4265039702 /tmp/cache.4265039702.cmd /tmp/cache.554064754 /tmp/cache.554064754.cmd /tmp/cache.562312040 /tmp/cache.562312040.cmd /tmp/cache.65139667 /tmp/cache.65139667.cmd /tmp/cache.781510391 /tmp/cache.781510391.cmd /tmp/cache.810289785 /tmp/cache.810289785.cmd /tmp/cache.924860288 /tmp/cache.924860288.cmd /tmp/cache.947621908 /tmp/cache.947621908.cmd /tmp/cache.952924351 /tmp/cache.952924351.cmd
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo '/tmp/cache.*'
+/tmp/cache.*
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Sun...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ exit
+++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
++ cd /home/nsproul/dp/git/change_tracker/src
++ . change_tracker.inc
+++ export 'GIT_SSH_COMMAND=ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ GIT_SSH_COMMAND='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+++ unset P4CLIENT
+++ unset P4USER
+++ unset P4PASSWD
+++ unset P4PORT
+++ unset P4ROOT
++++ dirname /home/nsproul/dp/git/change_tracker/src/change_tracker_server.sh
+++ cd /home/nsproul/dp/git/change_tracker/src
++++ pwd
+++ export SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ SRC_ROOT=/home/nsproul/dp/git/change_tracker/src
+++ scripts_dir=/home/nsproul/dp/git/change_tracker/src/vcs_scripts
+++ '[' '!' -d /home/nsproul/dp/git/change_tracker/src/vcs_scripts ']'
+++ export PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
+++ PATH=/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/root/perl5/bin:/home/nsproul/dp/overrides:/home/nsproul/dp/git/change_tracker/src/vcs_scripts:/home/nsproul/dp/bin/Linux:/home/nsproul/dp/bin/perl:/home/nsproul/dp/maven/bin:/home/nsproul/dp/bin:/opt/sensu/embedded/bin:/home/nsproul/dp/config_webapp:/net/slcipce/scratch/nsproul/groovy-2.4.3/bin:/net/slcipaq.us.oracle.com/scratch/jdk1.8/bin:/bin:/usr/bin:/usr/local/bin:/OracleProd/oracle10.2/bin:/usr/kerberos/bin:/usr/X11R6/bin:/usr/X11R6/lib:/usr/share/bin:/usr/local/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/cloud/ec2-api-tools-1.6.7.3/bin:/bin:/home/nsproul/dp/config_webapp:/home/nsproul/dp/bin/backstop:/home/nsproul/downloads/jruby-1.5.3/bin:/usr/X11R6/bin:/usr/X11R6/lib:/home/nsproul/dp/bin/ruby:/home/nsproul/dp/maven/bin:/home/nsproul/dp/sensu/dist/server/server_bin:/etc/sensu/server_bin:/home/nsproul/.rvm/bin
++ unset HTTP_PROXY
++ unset http_proxy
++ unset HTTPS_PROXY
++ unset https_proxy
++ TMP=/tmp
++ echo '/tmp/cache.*'
+/tmp/cache.*
++ stop_server_on_exit=
++ ct_url=http://localhost:4567
++ '[' -z /home/nsproul/dp/git/change_tracker ']'
++ '[' -n --Start_sinatra_logged ']'
++ case "$1" in
++ Start_sinatra_logged
++ export APP_ENV=development
++ APP_ENV=development
++ echo Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Tue...
+Logging activity to stdout and /home/nsproul/dp/git/change_tracker/log/out.Tue...
++ ruby -w /home/nsproul/dp/git/change_tracker/src/http_handler.rb
++ sed -e '/warning: setting Encoding/d' -e '/change_tracker.*: warning/p' -e '/: warning/d'
++ exit

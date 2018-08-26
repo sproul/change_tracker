@@ -269,3 +269,224 @@ Thin web server (v1.6.3 codename Protein Powder)
 Maximum connections set to 1024
 Listening on 0.0.0.0:4567, CTRL+C to stop
 Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.245.2.171 - - [10/Jul/2018:08:36:26 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0061
+10.245.2.171 - - [10/Jul/2018:08:37:17 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0015
+10.245.2.171 - - [10/Jul/2018:08:54:00 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0015
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0015
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0233
+10.245.2.171 - - [10/Jul/2018:08:54:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [10/Jul/2018:08:54:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:09:45:46 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0018
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [10/Jul/2018:09:46:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:09:46:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:11:16:32 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [10/Jul/2018:11:16:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [10/Jul/2018:11:16:46 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:11:16:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [10/Jul/2018:11:16:46 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [10/Jul/2018:11:16:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:13:29:22 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+10.245.2.171 - - [10/Jul/2018:13:29:35 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [10/Jul/2018:13:29:35 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [10/Jul/2018:13:29:36 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [10/Jul/2018:13:29:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [10/Jul/2018:13:29:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0008
+10.245.2.171 - - [10/Jul/2018:13:34:20 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [10/Jul/2018:13:34:33 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [10/Jul/2018:13:34:34 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [16/Jul/2018:12:41:17 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0008
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [16/Jul/2018:12:41:30 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [16/Jul/2018:12:41:31 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [27/Jul/2018:14:20:02 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0017
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [27/Jul/2018:14:20:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [27/Jul/2018:14:20:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [27/Jul/2018:14:39:54 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0016
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0013
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0008
+10.245.2.171 - - [27/Jul/2018:14:40:08 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [27/Jul/2018:14:40:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [27/Jul/2018:14:40:09 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [27/Jul/2018:14:40:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [27/Jul/2018:14:40:09 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [27/Jul/2018:14:40:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0008
+10.245.2.171 - - [24/Aug/2018:13:48:00 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [24/Aug/2018:13:56:25 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0015
+10.245.2.171 - - [24/Aug/2018:13:56:35 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [24/Aug/2018:13:56:35 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [24/Aug/2018:13:56:36 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:13:56:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [24/Aug/2018:13:56:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:13:56:37 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [24/Aug/2018:13:56:37 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:15:56:59 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [24/Aug/2018:15:57:08 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:15:57:09 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2018:16:00:51 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [24/Aug/2018:16:01:00 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [24/Aug/2018:16:01:01 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [24/Aug/2018:16:02:01 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0017
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0016
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [24/Aug/2018:16:02:11 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [24/Aug/2018:16:02:12 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [24/Aug/2018:16:02:12 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [24/Aug/2018:16:02:12 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [24/Aug/2018:16:02:12 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [24/Aug/2018:16:02:12 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [24/Aug/2
