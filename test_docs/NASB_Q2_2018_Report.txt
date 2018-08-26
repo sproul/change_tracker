@@ -1,0 +1,343 @@
+NASB Financial, Inc. and Subsidiary
+Consolidated Balance Sheets
+
+ASSETS
+Cash and cash equivalents
+Interest bearing deposits
+Securities available for sale, at fair value
+Stock in Federal Home Loan Bank, at cost
+Mortgage-backed securities available for sale, at fair value
+Loans receivable:
+Held for sale, at fair value
+Held for investment, net
+Allowance for loan losses
+Accrued interest receivable
+Foreclosed assets held for sale, net
+Premises and equipment, net
+Investment in LLCs
+Mortgage servicing rights, net
+Deferred income tax asset, net
+Goodwill and other intangibles
+Other assets
+
+$
+
+$
+LIABILITIES AND STOCKHOLDERS' EQUITY
+Liabilities:
+Customer deposit accounts
+Brokered deposit accounts
+Advances from Federal Home Loan Bank
+Subordinated debentures
+Escrows
+Income taxes payable
+Accrued expenses and other liabilities
+Total liabilities
+
+$
+
+Stockholders' equity:
+Common stock of $0.15 par value: 20,000,000 authorized; 9,865,281 shares
+issued at June 30, 2018, and 9,864,731 shares issued at September 30, 2017
+Additional paid-in capital
+Retained earnings
+Treasury stock, at cost; 2,480,430 shares at June 30, 2018, and
+September 30, 2017
+Accumulated other comprehensive income (loss)
+Total stockholders' equity
+$
+
+June 30,
+September 30,
+2018
+2017
+(Unaudited)
+(Dollars in thousands)
+17,798
+38,342
+4,710
+4,972
+121,267
+210,593
+12,037
+21,598
+4,043
+4,871
+123,748
+1,666,269
+(19,319)
+7,590
+5,230
+11,279
+11,295
+10,439
+3,546
+6,629
+9,451
+1,996,012
+
+171,992
+1,558,047
+(18,230)
+7,184
+4,401
+12,050
+13,784
+11,051
+4,916
+6,859
+9,872
+2,062,302
+
+1,276,951
+204,495
+240,000
+25,774
+12,348
+159
+9,533
+1,769,260
+
+1,268,670
+27,442
+483,000
+25,774
+14,677
+511
+9,259
+1,829,333
+
+1,480
+16,813
+259,628
+
+1,480
+16,773
+263,773
+
+(50,461)
+(708)
+226,752
+1,996,012
+
+(50,461)
+1,404
+232,969
+2,062,302
+
+NASB Financial, Inc. and Subsidiary
+Condensed Consolidated Statements of Operations (Unaudited)
+
+Interest on loans receivable
+Interest on mortgage-backed securities
+Interest and dividends on securities
+Other interest income
+Total interest income
+
+$
+
+Three months ended
+Nine months ended
+June 30,
+June 30,
+2018
+2017
+2018
+2017
+(Dollars in thousands, except per share data)
+23,379
+22,427
+67,124
+61,503
+34
+23
+112
+36
+1,377
+1,869
+4,489
+5,622
+69
+42
+222
+115
+24,859
+24,361
+71,947
+67,276
+
+Interest on customer and brokered deposit accounts
+Interest on advances from Federal Home Loan Bank
+Interest on subordinated debentures
+Other interest expense
+Total interest expense
+
+4,068
+923
+241
+7
+5,239
+
+2,829
+1,462
+176
+6
+4,473
+
+10,507
+3,766
+639
+23
+14,935
+
+8,022
+3,749
+497
+20
+12,288
+
+Net interest income
+Provision for loan losses
+Net interest income after provision for loan losses
+Other income (expense):
+Loan servicing fees, net
+Impairment recovery on mortgage servicing rights
+Customer service fees and charges
+Provision for loss on real estate owned
+Income (expense) on real estate owned, net
+Gain (loss) on disposal of securities available for sale
+Gain from loans receivable held for sale
+Other income, net
+Total other income
+General and administrative expenses:
+Compensation and fringe benefits
+Commission-based mortgage banking compensation
+Premises and equipment
+Advertising and business promotion
+Federal deposit insurance premiums
+Other
+Total general and administrative expenses
+Income before income tax expense
+Income tax expense
+Net income
+
+19,620
+500
+19,120
+
+19,888
+400
+19,488
+
+57,012
+2,350
+54,662
+
+54,988
+950
+54,038
+
+396
+-934
+(86)
+109
+224
+7,391
+1,209
+10,177
+
+1,049
+-2,485
+(27)
+(280)
+(8)
+23,207
+2,018
+28,444
+
+1,045
+965
+2,565
+(102)
+117
+224
+32,750
+1,349
+38,913
+
+$
+
+8,435
+2,873
+1,696
+1,933
+156
+1,890
+16,983
+10,533
+3,002
+7,531
+
+8,425
+3,635
+1,810
+2,413
+151
+2,325
+18,759
+10,906
+4,199
+6,707
+
+25,480
+9,240
+5,195
+5,421
+475
+6,179
+51,990
+31,116
+10,462
+20,654
+
+26,321
+11,474
+5,312
+6,322
+409
+7,314
+57,152
+35,799
+13,623
+22,176
+
+Basic earnings per share
+
+$
+
+1.02
+
+0.91
+
+2.80
+
+3.00
+
+Basic weighted average shares outstanding
+
+356
+-781
+-(48)
+-6,737
+570
+8,396
+
+7,384,851
+
+7,383,569
+
+7,384,521
+
+7,398,236
+
+

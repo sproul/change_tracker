@@ -231,6 +231,9 @@ class U
                 attr_accessor :trace
                 attr_accessor :trace_calls_to_system
                 attr_accessor :trace_http_rest_calls
+                attr_accessor :test_failure_epilog
+                attr_accessor :adding_reference_to_txt
+
                 @@t = nil
 
                 def init(mail_mode = U::MAIL_MODE_MOCK, date = nil)
@@ -848,18 +851,14 @@ class U
                                 if !silent_if_fail
                                         expected = "nil" if expected==nil
                                         actual   = "nil" if   actual==nil
-                                        if caller_msg
-                                                caller_msg = "#{caller_msg}: "
-                                        end
-                                        msg = "MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
-                                        msg += "\nexpected:\n#{expected}\nactual:\n#{actual}\n"
+                                        caller_msg += "\nMISMATCH:\nexpected:\n#{expected}\nactual:\n#{actual}\n"
                                         if expected.respond_to?(:lines) && expected.lines.count > 2
-                                                msg += "========================================================================================================"
-                                                msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
-                                                msg += "========================================================================================================"
+                                                caller_msg += "========================================================================================================"
+                                                caller_msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
+                                                caller_msg += "========================================================================================================"
                                         end
-                                        U.assert(false, msg, raise_if_fail)
+                                        U.assert(false, caller_msg, raise_if_fail)
                                 end
                                 ok = false
                         else
@@ -903,9 +902,12 @@ class U
                                 if !msg
                                         msg = "assertion"
                                 end
-                                #msg << " at #{U.t}" unless U.t.start_with?("1999") # which would indicate the time was never set
                                 frame_that_asserted, previous_frames = U.asserting_frame_to_s
-                                msg = "#{frame_that_asserted}: #{msg}: FAILED\n#{previous_frames}"
+                                msg.chomp!
+                                if U.test_failure_epilog
+                                        msg += " #{U.test_failure_epilog}"
+                                end
+                                msg = "FAILED #{msg}\n#{frame_that_asserted}\n#{previous_frames}"
                                 
                                 if raise_if_fail || U.raise_if_fail
                                         raise Test_assertion.new(msg)
@@ -914,7 +916,7 @@ class U
                                 end
                         else
                                 z = "OK #{msg}"
-                                U.log(z)
+                                #U.log(z)
                                 puts U.truncate_string(z)
                         end
                 end
@@ -966,7 +968,7 @@ class U
                                 puts "#{backtrace.join("\n")}"
                         end
                 end
-                def log(s, prepend_timestamp_to_output=true)
+                def log(s, prepend_timestamp_to_output=false)
                         self.log_level = LOG_ERROR if !self.log_level
                         if self.log_level < 4
                                 z = ''
@@ -1186,6 +1188,13 @@ class U
                                 U.runaway_ck_counter += 1
                         else
                                 raise "suspicious of an infinite loop"
+                        end
+                end
+                def testing_fn(fn)
+                        U.test_failure_epilog = " #{fn}"
+                        if U.adding_reference_to_txt
+                                txt_fn = fn.sub(/.pdf$/, '.txt')
+                                U.test_failure_epilog += ", #{txt_fn}"
                         end
                 end
         end
