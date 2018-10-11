@@ -1,0 +1,10 @@
+f2cedfe8a577962ccd8d03150ca3ec9b56ed734e Merge branch 'bug28462513' into 'master'
+a4f3cd3e4df0084be5adaca4c3181fb7624babc1 Changing timeout to 1 min
+66347117d2ad9247ea3a2481bbe226c40a086703 Adding timeout for sssd stop command
+3b9310f6bdc367eb165ead92557f2859d5e95bca Merge branch 'bug_28525388' into 'master'
+310ca5f299c1ad159a07a05310aab6f083644265 minor fix
+af50effef6862b36055e9c573b2d4aa44ebe6b0d 'Fix for review comments'
+ff47492f03f04cdd1057b2d9b6d83e18370480df Removing cnsinfo detail from ui
+b967825c672a754f72cc9d1d5d69f21c404ff5c0 Merge branch '28336159' into 'master'
+25b559910c839f131aae997984886fd717084c84 Updating apns cert with correct password
+2370045a5d438483ab53e62b509bdb881c58e273 Bug 28525388 - Fix health check script to pick payload of create/applypatch/precheckpatch only.

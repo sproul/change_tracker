@@ -1,4 +1,6 @@
 class Cspec < Error_holder
+        TEST_SOURCE_SERVER_AND_PROJECT_NAME = "orahub.oraclecorp.com;faiza.bounetta/promotion-config"
+        TEST_REPO_SPEC = "git;#{TEST_SOURCE_SERVER_AND_PROJECT_NAME};"
         AUTODISCOVER = "+"              #       autodiscover_dependencies_by_looking_in_codeline
         AUTODISCOVER_REGEX = /\+$/      #       regex to find AUTODISCOVER appended to a repo_and_commit_id
         attr_accessor :commit_id
@@ -65,14 +67,20 @@ class Cspec < Error_holder
                 other && self.repo.eql?(other.repo) && self.commit_id.eql?(other.commit_id)
         end
         def to_s()
-                z = "Cspec(#{self.repo.spec}, #{self.commit_id}"
-                if self.comment
-                        z << ", \"#{comment}\""
+                # "cspec" : "git;alm.oraclecorp.com;odocs/s/odocs_desktop/scm/desktop.git;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906",
+                z = "#{self.repo.source_control_type};#{self.repo.source_control_server};#{self.repo.project_name};"
+                if self.repo.branch_name
+                        z += self.repo.branch_name
                 end
-                if self.props && !self.props.empty?
-                        z << ", #{self.props}"
-                end
-                z << ")"
+                z += ";#{self.commit_id}"
+                # z = "Cspec(#{self.repo.spec}, #{self.commit_id}"
+                # if self.comment
+                #         z << ", \"#{comment}\""
+                # end
+                # if self.props && !self.props.empty?
+                #         z << ", #{self.props}"
+                # end
+                # z << ")"
                 z
         end
         def to_s_with_comment()
@@ -135,8 +143,6 @@ class Cspec < Error_holder
                 "#{self.repo.spec};#{self.commit_id}"
         end
         class << self
-                TEST_SOURCE_SERVER_AND_PROJECT_NAME = "orahub.oraclecorp.com;faiza.bounetta/promotion-config"
-                TEST_REPO_SPEC = "git;#{TEST_SOURCE_SERVER_AND_PROJECT_NAME};"
                 attr_accessor :autodiscovered_deps      #       not for performance so much as to make an infinite loop of dependencies impossible
 
                 def auto_discover_requested_in__repo_and_commit_id(repo_and_commit_id)
@@ -235,7 +241,6 @@ class Cspec < Error_holder
                         end
                         group1_hits
                 end
-
                 def list_files_changed_between(commit_spec1, commit_spec2)
                         # return Cspec_span_report_item listing the files changed between commit_spec1 and commit_spec2
                         commit1 = Cspec.from_repo_and_commit_id(commit_spec1)

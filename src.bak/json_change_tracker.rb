@@ -93,6 +93,8 @@ class Json_change_tracker
                                 x = cc2.list_changes_since(cc1)
                         when "list_files_changed_between"
                                 x = cc2.list_files_changed_since(cc1)
+                        when "list_component_cspec_pairs"
+                                x = cc2.list_component_cspec_pairs(cc1)
                         else
                                 return 400, usage("did not know how to interpret op '#{op}'")
                         end
@@ -253,19 +255,6 @@ class Json_change_tracker
                                 renamed_repos_h.delete(from)
                                 U.assert(!renamed_repos_h.has_key?(from), "verify #{from} key not in renamed_repos hash #{renamed_repos_h}")
                         end
-
-
-                        
-                        #begin
-                        #        Repo.note_renamed_repo("sdflksdjf", to)
-                        #        error_seen = false
-                        #rescue
-                        #        error_seen = true
-                        #end
-                        #U.assert(error_seen, "verify that a string with no semicolons is detected as not a legitimate repo name")
-                        
-                        
-                        
                         Repo.note_renamed_repo(from, to, true)
                         renamed_repos_h = Global.data.h["renamed_repos"]
                         U.assert_eq(to, renamed_repos_h[from], "verify #{from} key has been entered in renamed_repos hash #{renamed_repos_h}")
@@ -285,8 +274,21 @@ class Json_change_tracker
                         U.assert_eq(to, renamed_branches_h[from], "verify #{from} key has been entered in renamed_branches hash #{renamed_branches_h}")
                         renamed_branches_h.delete(from)
                 end
+                def test_steve_roth_v23()
+                        z1 = %Q[http://slcipcm:4567/cec_18.3.5-1808091203_paas.json]
+                        z2 = %Q[http://slcipcm:4567/cec_18.4.1-1808081448_paas.json]
+                        assert_error_result_from_s("[]", "list_changes_between", z1, z2, 200, "changes in full steve roth comparison")
+                        assert_error_result_from_s("[]", "list_files_changed_between", z1, z2, 200, "files changed in full steve roth comparison")
+                end
+                def test_steve_roth_v23_Desktop()
+                        z1 = %Q[http://slcipcm:4567/cec_18.3.5-1808091203_paas_Desktop.json]
+                        z2 = %Q[http://slcipcm:4567/cec_18.4.1-1808081448_paas_Desktop.json]
+                        assert_error_result_from_s("[]", "list_changes_between", z1, z2, 200, "steve roth comparison w/ just Desktop")
+                end
                 def test()
                         Json_change_tracker.init()
+                        test_steve_roth_v23
+                        test_steve_roth_v23_Desktop
                         test_close_neighbors_all_ops
                         test_note_renamed_branch                        
                         test_note_renamed_repo                        

@@ -19,10 +19,20 @@ class Repo < Error_holder
                 spec
         end
         def eql?(other)
-                matching = self.source_control_server.eql?(other.source_control_server) &&
-                self.source_control_type.eql?(other.source_control_type) &&
+                matching = self.source_control_type.eql?(other.source_control_type) &&
+                self.source_control_server.eql?(other.source_control_server) &&
                 self.project_name.eql?(other.project_name) &&
                 self.branch_name.eql?(other.branch_name)
+
+                if Cspec_set.trace_commit_pairs
+                        puts "-------------------"
+                        puts "Repo.eql? comparing:"
+                        puts "	#{self.source_control_server} == #{other.source_control_server} (#{self.source_control_server.eql?(other.source_control_server)})"
+                        puts "	#{self.source_control_type} == #{other.source_control_type} (#{self.source_control_type.eql?(other.source_control_type)})"
+                        puts "	#{self.project_name} == #{other.project_name} (#{self.project_name.eql?(other.project_name)})"
+                        puts "	#{self.branch_name} == #{other.branch_name} (#{self.branch_name.eql?(other.branch_name)})"
+                        puts "-------------------#{matching}"
+                end
                 return matching
         end
         def get(key, default_val=nil)
@@ -95,58 +105,20 @@ class Repo < Error_holder
                 attr_accessor :codeline_root_parent
                 attr_accessor :initialized
                 attr_accessor :renamed_branches
+                attr_accessor :disabled_repos
                 attr_accessor :renamed_repos
 
                 def from_spec(repo_spec)
                         if !Repo.initialized
                                 Repo.init
                         end
-                        r = Repo.new
+                        if Repo.disabled_repos[repo_spec]
+                                raise "disabled repos recordkeeping in place, but need to implement the function (of not actually attempting to contact the underlying source control servers"
+                        end
                         repo_spec = update_repo_spec_to_reflect_repo_moves(  repo_spec)
                         repo_spec = update_repo_spec_to_reflect_branch_moves(repo_spec)
-                        # type         ;  host   ; proj     ;brnch              e.g.,
-                        # git;git.osn.oraclecorp.com;osn/serverintegration;master
-
-                        if repo_spec !~ /^(\w+);(.*)/
-                                r.raise("did not see a source control type at the beginning of #{repo_spec}", 500)
-                        end
-                        r.source_control_type = $1
-                        z = $2
-                        if r.source_control_type == "ade"
-                                label = z
-                                if label !~ /(\w+_\w+_\w+_\d\d\d\d\d\d\.\d\d\d\d\.\d\d\d\d)(;(.*))?$/
-                                        r.raise("could not parse label #{label} from #{repo_spec}", 500)
-                                end
-                                r.project_name = $1
-                                # 
-                                # Leave commit_id unset.  I considered using the label timestamp as an ersatz commit_id, but then when I list the transactions associated with
-                                # the label, I want to consider the transactions to be the commits.  So the commit_id in this case, if there is one, is the ADE transaction name.
-                                r.commit_id = $3
-                        elsif r.source_control_type == "svn"
-                                if z !~ /^([\.\w]+)\/([^;]*);([^;]*)(;([^;]*))?$/
-                                        r.raise("could not parse svn server/path;optional_branch;commit from #{repo_spec}", 500)
-                                end
-                                r.source_control_server = $1
-                                r.project_name = $2
-                                r.branch_name = $3
-                                r.commit_id = $5
-                        else
-                                # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
-                                if z !~ /^([-\w\.:]+);(.*)/
-                                        r.raise("did not see a host after type #{r.source_control_type} in #{repo_spec}", 500)
-                                end
-                                r.source_control_server = $1
-                                z = $2
-
-                                if z !~ /^([-\+@:\.\w\/]+);([-\w]*)$/
-                                        r.raise("cannot understand repo spec #{repo_spec} after type #{r.source_control_type} and server #{r.source_control_server} in #{z}", 500)
-                                end
-                                # git;git.osn.oraclecorp.com;osn/serverintegration;master
-                                # type;  host               ; proj                     ;branch
-                                project_name_path, r.branch_name = $1,$2
-                                pn = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
-                                r.project_name = pn.sub(/.git$/, '')          # this must preced from_repo call, because p4 uses project_name value to set p4_path
-                        end
+                        r = Repo.new
+                        r.source_control_type, r.source_control_server, r.project_name, r.branch_name, r.commit_id = parse_repo_and_possible_commit_id(repo_spec)
                         r.vcs = Version_control_system.from_repo(r)
                         if !r.branch_name || (r.branch_name == r.vcs.default_branch_name)
                                 r.branch_name = ""
@@ -165,6 +137,7 @@ class Repo < Error_holder
                         if !Repo.initialized
                                 Repo.initialized = true
                                 Repo.init_renamed_repos_hash
+                                Repo.init_disabled_repos_hash
                                 Repo.init_renamed_branches_hash
                         end
                 end
@@ -172,6 +145,12 @@ class Repo < Error_holder
                         Repo.renamed_repos = Hash.new
                         Global.get("renamed_repos", REPO_MV_DEFAULT).each_pair do | from, to |
                                 note_renamed_repo(from, to)
+                        end
+                end
+                def init_disabled_repos_hash()
+                        Repo.disabled_repos = Hash.new
+                        Global.get("disabled_repos", {}).each_pair do | from, to |
+                                note_disabled_repo(from)
                         end
                 end
                 def init_renamed_branches_hash()
@@ -194,7 +173,6 @@ class Repo < Error_holder
                         end
                         source_control_type = $1
                         z = $2
-                        
                         if source_control_type == "svn"
                                 if z !~ /([^\/]*)\/([^;]*);(.*)/
                                         self.raise("expected to find server/path;... at the head of #{z}")
@@ -209,7 +187,7 @@ class Repo < Error_holder
                                                 branch_name = $1
                                                 commit_id = $2
                                         else
-                                                self.raise("could not extract branch and commit ID from #{branch_and_commit} in #{z}")
+                                                branch_name = branch_and_commit
                                         end
                                         puts "parse_repo_and_possible_commit_id: source_control_type=#{source_control_type}, source_control_server=#{source_control_server}, project_name=#{project_name}" if U.trace
                                         return source_control_type, source_control_server, project_name, branch_name, commit_id
@@ -225,7 +203,7 @@ class Repo < Error_holder
                         end
 
                         # Note for p4, the host may include a colon + port (e.g., p4;p4plumtree.us.oracle.com:1666;//PT/portal/main/transformPortlet/src/com/plumtree/transform/utilities;)
-                        if z !~ /^([-\w\.:]+);(.*)/
+                        if z !~ /^([-\w@\.:]+);(.*)/
                                 if throw_if_not
                                         self.raise("did not see a host after type #{source_control_type} in #{original_parm}", 500)
                                 else
@@ -245,6 +223,7 @@ class Repo < Error_holder
                         project_name_path = $1
                         z = $2
                         project_name = project_name_path.sub(/^\/*/, '')   # remove leading slashes so we can construct a reasonable dir path later
+                        project_name.sub!(/.git$/, '')
                         puts "parse_repo_and_possible_commit_id: source_control_type=#{source_control_type}, source_control_server=#{source_control_server}, project_name=#{project_name}" if U.trace
                         if z && z =~ /(.*);(.*)/
                                 branch_name, commit_id = $1, $2
@@ -291,6 +270,18 @@ class Repo < Error_holder
                                 Global.data.h["renamed_repos"] = Hash.new if !Global.data.h.has_key?("renamed_repos")
 
                                 Global.data.h["renamed_repos"][from] = to
+                                Global.save
+                        end
+                end
+                def note_disabled_repo(repo_name, persist=false)
+                        Repo.init
+                        load_into_hash_a_regexp_anchored_to_boln_and_having_n_semicolon_delimited_components(Repo.disabled_repos, repo_name, 3, true)
+                        if persist
+                                Global.init_data
+
+                                Global.data.h["disabled_repos"] = Hash.new if !Global.data.h.has_key?("disabled_repos")
+
+                                Global.data.h["disabled_repos"][from] = to
                                 Global.save
                         end
                 end

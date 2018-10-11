@@ -1,4 +1,40 @@
+require_relative 'cspec'
 require_relative 'cspec_span_report_item'
+
+class Cspec_pair
+        attr_accessor :cspec1
+        attr_accessor :cspec2
+        def initialize(cspec1, cspec2)
+                self.cspec1 = cspec1
+                self.cspec2 = cspec2
+	end
+        def to_s()
+                if cspec1 && cspec2
+                        if cspec1.eql?(cspec2)
+                                "#{cspec1} did not change"
+                        else
+                                "#{cspec1} changed to #{cspec2.to_s.sub(/.*;/, "")}"
+                        end
+                elsif cspec2
+                        "#{cspec2} was added"
+                elsif cspec1
+                        "#{cspec1} was removed"
+                end
+        end
+        def <=>(other_cspec_pair)
+                self.to_s.<=>(other_cspec_pair.to_s)
+        end
+	class << self
+                def test()
+                        cspec1 = Cspec.new(Cspec::TEST_REPO_SPEC, "11111111111")
+                        cspec2 = Cspec.new(Cspec::TEST_REPO_SPEC, "22222222222")
+                        U.assert_eq("git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;;11111111111 did not change", Cspec_pair.new(cspec1, cspec1).to_s, "unchanged Cspec_pair")
+                        U.assert_eq("git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;;11111111111 changed to 22222222222", Cspec_pair.new(cspec1, cspec2).to_s, "changed Cspec_pair")
+                        U.assert_eq("git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;;11111111111 was added", Cspec_pair.new(nil, cspec1).to_s, "added component Cspec_pair")
+                        U.assert_eq("git;orahub.oraclecorp.com;faiza.bounetta/promotion-config;;11111111111 was removed", Cspec_pair.new(cspec1, nil).to_s, "removed component Cspec_pair")
+                end
+        end
+end
 
 class Cspec_set < Error_holder
         attr_accessor :top_commit
@@ -38,6 +74,29 @@ class Cspec_set < Error_holder
                 end
                 z
         end
+        # assemble a list of pairs of commits which show how the components making up a Cspec_set have evolved
+        #
+        # For each component represented by a cspec_set, there is a cspec.  Given self (a Cspec_set) and other_cspec_set,
+        # this routine will return a list of pairs of Cspec objects from these sets.
+        # 
+        # - components which didn't change are represented by a Cspec from each of the 2 Cspec_sets; these Cspec objects will be the same
+        # - components which changed are represented by a Cspec from each of the 2 Cspec_sets, each showing the head revision for its corresponding pcar
+        # - components which were added will be represented by [ nil, Cspec ]
+        # - components which were removed will be represented by [ Cspec, nil ]
+        def list_component_cspec_pairs(other_cspec_set)
+                commit_pairs = []
+                self.commits.each do | commit |
+                        previous_commit_for_same_component = commit.find_commit_for_same_component(other_cspec_set)
+                        commit_pairs << Cspec_pair.new(previous_commit_for_same_component, commit)
+                end
+                other_cspec_set.commits.each do | commit |
+                        following_commit_for_same_component = commit.find_commit_for_same_component(self)
+                        if ! following_commit_for_same_component
+                                commit_pairs << Cspec_pair.new(commit, nil)
+                        end
+                end
+                commit_pairs.sort
+        end
         def list_files_changed_since(other_cspec_set)
                 pairs = get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 report_item_set = Cspec_span_report_item_set.new
@@ -61,22 +120,31 @@ class Cspec_set < Error_holder
         def get_pairs_of_commits_with_matching_repo(other_cspec_set)
                 pairs = []
                 self.commits.each do | commit |
-                        
                         previous_commit_for_same_component = commit.find_commit_for_same_component(other_cspec_set)
                         if previous_commit_for_same_component
-                                pairs << [ previous_commit_for_same_component, commit ]
+                                if previous_commit_for_same_component.commit_id != commit.commit_id        # if there is no change, then we can ignore this component
+                                        puts "change occurred" if Cspec_set.trace_commit_pairs
+                                        pairs << [ previous_commit_for_same_component, commit ]
+                                else
+                                        puts "no change occurred" if Cspec_set.trace_commit_pairs
+                                end
                         end
                 end
+                puts "get_pairs_of_commits_with_matching_repo: pairs.length=#{pairs.length}" if Cspec_set.trace_commit_pairs
                 pairs
         end
         def list_bug_IDs_since(other_cspec_set)
                 report_item_set = list_changes_since(other_cspec_set)
                 bug_ID_report_item_set = Cspec_span_report_item_set.new
                 report_item_set.items.each do | report_item |
-                        bug_IDs = Cspec.grep_group1(report_item.item, Cspec_set.bug_id_regexp)
-                        if !bug_IDs.empty?
-                                report_item.item = bug_IDs
+                        if report_item.item == Cspec_span_report_item::INCOMPARABLE
                                 bug_ID_report_item_set.add(report_item)
+                        else
+                                bug_IDs = Cspec.grep_group1(report_item.item, Cspec_set.bug_id_regexp)
+                                if !bug_IDs.empty?
+                                        report_item.item = bug_IDs
+                                        bug_ID_report_item_set.add(report_item)
+                                end
                         end
                 end
                 bug_ID_report_item_set
@@ -138,6 +206,11 @@ class Cspec_set < Error_holder
                 cspec_set2 = Cspec_set.from_s(cspec_set_s2)
                 return cspec_set2.list_files_changed_since(cspec_set1)
         end
+        def Cspec_set.list_components_between(cspec_set_s1, cspec_set_s2)
+                cspec_set1 = Cspec_set.from_s(cspec_set_s1)
+                cspec_set2 = Cspec_set.from_s(cspec_set_s2)
+                return cspec_set2.list_component_cspec_pairs(cspec_set1)
+        end
         def Cspec_set.list_last_changes(repo_spec, n)
                 gr = Repo.from_spec(repo_spec)
                 # Example log entry:
@@ -173,6 +246,13 @@ class Cspec_set < Error_holder
                 Cspec_set.bug_id_regexp_val
         end
         def Cspec_set.from_file(json_fn)
+                if !File.exist?(json_fn)
+                        if File.exist?("#{U.initial_working_directory}/#{json_fn}")
+                                json_fn = "#{U.initial_working_directory}/#{json_fn}"
+                        else
+                                raise "could not find #{json_fn} in #{Dir.pwd}"
+                        end 
+                end
                 from_s(IO.read(json_fn))
         end
         def Cspec_set.from_file_or_url(json_path)
@@ -217,39 +297,6 @@ class Cspec_set < Error_holder
                                 end
                         end
                         cs
-                end
-                #
-                # remove incomplete Desktop cspec on Steve Roth's request, as the data is incomplete for the moment.  7/8/2018 (follow up 8/8/2018)
-                #
-                # We want to remove the following item:
-                # #<Cspec_set:0x0000000276ff78
-                # @dependency_commits=[],
-                # @top_commit=
-                #  #<Cspec:0x0000000276ec68
-                #   @comment=nil,
-                #   @commit_id="null",
-                #   @props=
-                #    {"name"=>"Desktop",
-                #     "buildnum"=>"null",
-                #     "buildurl"=>"",
-                #     "version"=>"1.0.39",
-                #     "scmtype"=>"git",
-                #     "git_branch"=>"master",
-                #     "git_sha"=>"null",
-                #     "git_repo"=>"desktop"},
-                #   @repo=
-                #    #<Repo:0x0000000276fd98
-                #     @branch_name="",
-                #     @global_data_prefix="git_repo_osn/desktop.",
-                #     @project_name="osn/desktop",
-                #     @source_control_server="git.osn.oraclecorp.com",
-                #     @source_control_type="git",
-                #     @vcs=
-                #      #<Git_version_control_system:0x0000000276f758
-                #       @repo=#<Repo:0x0000000276fd98 ...>,
-                #       @type="git">>>>
-                cspec_set_array.reject! do | cs |
-                        cs.top_commit.props["name"] == "Desktop" && cs.top_commit.props["git_sha"] == "null"
                 end
                 cs0 = cspec_set_array.shift
                 cspec_set_array.each do | csx |
@@ -339,6 +386,7 @@ class Cspec_set < Error_holder
                 report_item_set = Cspec_set.list_files_changed_between(compound_spec1, compound_spec2)
                 changed_files2 = report_item_set.all_items
                 changed_files = cc2.list_files_changed_since(cc1).all_items
+                cc2.list_component_cspec_pairs(cc1)
                 
                 U.assert_eq(changed_files, changed_files2, "vfy same result from wrapper 2b")
 
@@ -377,19 +425,78 @@ class Cspec_set < Error_holder
                 U.assert_eq(2, cs.top_commit.props.size, "test_reading_attributes.size for #{cs.top_commit.props}")
         end
         def Cspec_set.test_reading_steve_roth_v1()
-                cs = Cspec_set.from_s(U.read_file("public/test_steve_roth_v1.json"))
+                cs = Cspec_set.from_file("public/test_steve_roth_v1.json")
+                # came from http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/
                 component_count = 10
-                desktop_component_suppressed = true
-                if desktop_component_suppressed
-                        U.assert_eq("analytics", cs.top_commit.props["name"], "Steve Roth attribute on cspec 1")
-                        U.assert_eq(component_count - 1, cs.commits.length, "component count")
-                else
-                        U.assert_eq("Desktop",   cs.top_commit.props["name"], "Steve Roth attribute on cspec 1")
-                        U.assert_eq(component_count, cs.commits.length, "component count")
-                end
+                U.assert_eq("Desktop",   cs.top_commit.props["name"], "Steve Roth attribute on cspec 1")
+                U.assert_eq(component_count, cs.commits.length, "component count")
+                cs = Cspec_set.from_file("public/cec_18.4.1-1808081448_paas.json")
+                component_count = 11
+                U.assert_eq("Desktop",   cs.top_commit.props["name"], "Steve Roth attribute on cspec 2")
+                U.assert_eq(component_count, cs.commits.length, "component count 2")
+                cs = Cspec_set.from_file("public/cec_18.4.3-1808031643_paas.json")
+                component_count = 11
+                U.assert_eq("Desktop",   cs.top_commit.props["name"], "Steve Roth attribute on cspec 3")
+                U.assert_eq(component_count, cs.commits.length, "component count 3")
+        end
+        #def Cspec_set.test_cf_steve_roth_v23()
+        ### files pulled from under http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/
+        ##cs1 = Cspec_set.from_file("public/cec_18.3.5-1808091203_paas.json")
+        ##cs2 = Cspec_set.from_file("public/cec_18.4.1-1808081448_paas.json")
+        ##report_item_set = cs2.list_files_changed_since(cs1)
+        ##U.assert_eq(["blueprints/service/cec.json","provisioning/apns/com.oracle.webcenter.documents.p12","scripts/cecs/provisioning/python/common/common_constants.py","scripts/cecs/provisioning/python/pod/actions/privileged/oit_setup.sh","scripts/cecs/provisioning/python/pod/pod_health_check.py"], report_item_set.all_items, "steve_roth_v23 files changed")
+        ##report_item_set = cs2.list_bug_IDs_since(cs1)
+        ##z = report_item_set.all_items
+        ##U.assert_eq(1, z.length, "steve_roth_v23 bug IDs length")
+        ##U.assert_eq('28525388 - Fix health check script to pick payload of create/applypatch/precheckpatch only.', z[0].to_s, "steve_roth_v23 bug ID[0]")
+        ##report_item_set = cs2.list_changes_since(cs1)
+        ##U.assert_array_to_s_eq([
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;f2cedfe8a577962ccd8d03150ca3ec9b56ed734e",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;a4f3cd3e4df0084be5adaca4c3181fb7624babc1",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;66347117d2ad9247ea3a2481bbe226c40a086703",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;3b9310f6bdc367eb165ead92557f2859d5e95bca",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;310ca5f299c1ad159a07a05310aab6f083644265",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;af50effef6862b36055e9c573b2d4aa44ebe6b0d",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;ff47492f03f04cdd1057b2d9b6d83e18370480df",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;b967825c672a754f72cc9d1d5d69f21c404ff5c0",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;25b559910c839f131aae997984886fd717084c84",
+        ##"git;git.osn.oraclecorp.com;osn/cec_external;;2370045a5d438483ab53e62b509bdb881c58e273" ], report_item_set.all_items, "steve_roth_v23 changes")
+        #end
+        def Cspec_set.test_cf_steve_roth_v18_4_3()
+                # files pulled from under http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/
+                cs1 = Cspec_set.from_file("public/18.4.3-1808221348_paas.json")
+                cs2 = Cspec_set.from_file("public/18.4.3-1808241018_paas.json")
+                report_item_set = cs2.list_files_changed_since(cs1)
+                U.assert_eq(["blueprints/service/cec.json","provisioning/apns/com.oracle.webcenter.documents.p12","scripts/cecs/provisioning/python/common/common_constants.py","scripts/cecs/provisioning/python/pod/actions/privileged/oit_setup.sh","scripts/cecs/provisioning/python/pod/pod_health_check.py"], report_item_set.all_items, "steve_roth_v18_4_3 files changed")
+                report_item_set = cs2.list_bug_IDs_since(cs1)
+                z = report_item_set.all_items
+                U.assert_eq(1, z.length, "steve_roth_v18_4_3 bug IDs length")
+                U.assert_eq('28525388 - Fix health check script to pick payload of create/applypatch/precheckpatch only.', z[0].to_s, "steve_roth_v18_4_3 bug ID[0]")
+                report_item_set = cs2.list_changes_since(cs1)
+                U.assert_array_to_s_eq([
+                "git;git.osn.oraclecorp.com;osn/cec_external;;f2cedfe8a577962ccd8d03150ca3ec9b56ed734e",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;a4f3cd3e4df0084be5adaca4c3181fb7624babc1",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;66347117d2ad9247ea3a2481bbe226c40a086703",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;3b9310f6bdc367eb165ead92557f2859d5e95bca",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;310ca5f299c1ad159a07a05310aab6f083644265",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;af50effef6862b36055e9c573b2d4aa44ebe6b0d",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;ff47492f03f04cdd1057b2d9b6d83e18370480df",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;b967825c672a754f72cc9d1d5d69f21c404ff5c0",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;25b559910c839f131aae997984886fd717084c84",
+                "git;git.osn.oraclecorp.com;osn/cec_external;;2370045a5d438483ab53e62b509bdb881c58e273" ], report_item_set.all_items, "steve_roth_v18_4_3 changes")
+        end
+        def Cspec_set.test_cf_steve_roth_v23_Desktop_only()
+                # taken from  artifactory-slc.oraclecorp.com_artifactory_docs-release-local_com_oracle_opc_cec
+                cs1 = Cspec_set.from_file("public/cec_18.3.5-1808091203_paas_Desktop.json")
+                cs2 = Cspec_set.from_file("public/cec_18.4.1-1808081448_paas_Desktop.json")
+                report_item_set = cs2.list_files_changed_since(cs1)
+                U.assert_eq(true, report_item_set.empty?, "comparing same SHA should yield no changes")
         end
         def Cspec_set.test()
                 Repo.note_renamed_repo("git;git.osn.oraclecorp.com;osn/cec-server-integration", "git;git.osn.oraclecorp.com;osn/serverintegration")
+                test_cf_steve_roth_v23_Desktop_only()
+                #test_cf_steve_roth_v23()
+                test_cf_steve_roth_v18_4_3()
                 test_reading_steve_roth_v1()
                 test_json_export()
                 test_full_cspec_set_as_dep()                                
@@ -413,5 +520,6 @@ class Cspec_set < Error_holder
         end
         class << self
                 attr_accessor :bug_id_regexp_val
+                attr_accessor :trace_commit_pairs
         end
 end

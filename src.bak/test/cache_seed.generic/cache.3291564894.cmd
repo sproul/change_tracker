@@ -1,0 +1,1 @@
+$ct_root/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/orahub.oraclecorp.com/faiza.bounetta/promotion-config diff-tree --no-commit-id --name-only -r dc68aa99903505da966358f96c95f946901c664b

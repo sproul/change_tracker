@@ -1,0 +1,124 @@
+
+[
+    {
+      "name" : "Desktop",
+      "buildnum" : "5004",
+      "buildurl" : "http://slc09vag.us.oracle.com:8080/view/rd129/job/RD129_Engine/5004/",
+      "version" : "1.0.40",
+      "scmtype" : "git",
+      "git_branch" : "release/rd129",
+      "git_sha" : "cbb9a918f6beea1e0b70b9b33c74781f718a5906",
+      "git_repo" : "desktop.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/desktop.git;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906"
+    },
+    {
+      "name" : "analytics",
+      "buildnum" : "1296",
+      "buildurl" : "https://osnci.us.oracle.com/job/analytics.build.pl.master/1296/",
+      "version" : "1.0.1296",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "83aa0767f23a1a3f16e12e88e336ff9ffa79dc6d",
+      "git_repo" : "cef.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/cef.git;master;83aa0767f23a1a3f16e12e88e336ff9ffa79dc6d"
+    },
+    {
+      "name" : "caas",
+      "buildnum" : "4665",
+      "buildurl" : "https://osnci.us.oracle.com/job/caas.build.pl.master/4665/",
+      "version" : "1.0.4665",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "5bb391dfeaad0fcbb7e9f80fe79267a2f7921e5e",
+      "git_repo" : "caas.git",
+      "cspec" : "git;git.osn.oraclecorp.com;ccs/caas.git;master;5bb391dfeaad0fcbb7e9f80fe79267a2f7921e5e"
+    },
+    {
+      "name" : "cec",
+      "buildnum" : "1491",
+      "buildurl" : "https://osnci.us.oracle.com/job/cec.build.pl.master/1491/",
+      "version" : "1.0.1491",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "63054f760c210948e62a34e8f0bfc2c1c9b192c2",
+      "git_repo" : "cec.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/cec.git;master;63054f760c210948e62a34e8f0bfc2c1c9b192c2"
+    },
+    {
+      "name" : "docs",
+      "buildnum" : "2977",
+      "buildurl" : "https://osnci.us.oracle.com/job/docs.build.pl.master/2977/",
+      "version" : "1.0.2977",
+      "scmtype" : "svn",
+      "svn_branch" : "cloudtrunk-externalcompute",
+      "svn_revision" : "163236",
+      "svn_repo" : "adc4110308.us.oracle.com/svn/idc/products/cs",
+      "cspec" : "svn;adc4110308.us.oracle.com/svn/idc/products/cs;cloudtrunk-externalcompute;163236"
+    },
+    {
+      "name" : "pcar",
+      "buildnum" : "884",
+      "buildurl" : "https://osnci.us.oracle.com/job/upload-cec-pcar-foh-main/884/",
+      "version" : "1.0.884",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "8291b319842361ae6d86ced3eb048323dccde763",
+      "git_repo" : "cec_external.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/cec_external.git;master;8291b319842361ae6d86ced3eb048323dccde763"
+    },
+    {
+      "name" : "pipeline-common",
+      "buildnum" : "34",
+      "buildurl" : "https://osnci.us.oracle.com/job/pipeline-common.build.release.pl.master/34/",
+      "version" : "1.0.34",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "c36091dc8abeb7a9f364172c71eba28667a3257f",
+      "git_repo" : "pipeline-common.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/pipeline-common.git;master;c36091dc8abeb7a9f364172c71eba28667a3257f"
+    },
+    {
+      "name" : "servercommon",
+      "buildnum" : "427",
+      "buildurl" : "https://osnci.us.oracle.com/job/servercommon.build.pl.master/427/",
+      "version" : "1.0.427",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "f228aa5528592f15db1b7c390c19c77c366d73c9",
+      "git_repo" : "servercommon.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/servercommon.git;master;f228aa5528592f15db1b7c390c19c77c366d73c9"
+    },
+    {
+      "name" : "serverintegration",
+      "buildnum" : "2180",
+      "buildurl" : "https://osnci.us.oracle.com/job/serverintegration.build.pl.master/2180/",
+      "version" : "1.0.2180",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "2376431080bd7c691e1cbf9cf71329fa28b93d54",
+      "git_repo" : "serverintegration.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/serverintegration.git;master;2376431080bd7c691e1cbf9cf71329fa28b93d54"
+    },
+    {
+      "name" : "social",
+      "buildnum" : "1441",
+      "buildurl" : "https://osnci.us.oracle.com/job/social.build.pl.master/1441/",
+      "version" : "1.0.1441",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "3b30a86428332489fb1ea3e6f71f95c7b5d99464",
+      "git_repo" : "waggle.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/waggle.git;master;3b30a86428332489fb1ea3e6f71f95c7b5d99464"
+    },
+    {
+      "name" : "webclient",
+      "buildnum" : "10948",
+      "buildurl" : "https://osnci.us.oracle.com/job/webclient.build.pl.master/10948/",
+      "version" : "1.0.10948",
+      "scmtype" : "git",
+      "git_branch" : "master",
+      "git_sha" : "5e45c7e2db558d410b6857f76c44a2e1f48ce356",
+      "git_repo" : "webclient.git",
+      "cspec" : "git;git.osn.oraclecorp.com;osn/webclient.git;master;5e45c7e2db558d410b6857f76c44a2e1f48ce356"
+    }
+]

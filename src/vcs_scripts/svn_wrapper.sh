@@ -22,6 +22,8 @@ done
 
 # host-specific id_rsa file can be specified using .ssh/config:IdentifyFile=..., see
 # https://www.digitalocean.com/community/tutorials/how-to-configure-custom-connection-options-for-your-ssh-client
+#
+# To request access to svn cec repo, see https://adc4110308.us.oracle.com/repos/?group=svn_idc instructions (i.e., go to oim, group_name=svn_idc)
 
 svn $*
 

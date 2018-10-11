@@ -4,17 +4,18 @@ require_relative 'json_change_tracker'
 
 def test()
         U.test_mode = true
-        Json_change_tracker.init()
+        Json_change_tracker.init
         Cspec_set.test
-        ADE_label.test()
-        P4_version_control_system.test()
+        Cspec_pair.test
+        Json_change_tracker.test
+        Svn_version_control_system.test
+        ADE_label.test
+        P4_version_control_system.test
         Cspec.test
-        Svn_version_control_system.test()
         Repo.test
         U.test
         Global.test
         Cec_gradle_parser.test
-        Json_change_tracker.test
         puts "EOT"
         exit
 end
@@ -44,6 +45,9 @@ while ARGV.size > j do
         when "-list_bug_IDs_between"
                 puts Cspec_set.list_bug_IDs_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
+        when "-list_component_statuses"
+                puts Cspec_set.list_component_cspec_pairs(ARGV[j+1], ARGV[j+2]).to_json
+                exit
         when "-list_bug_IDs_betweenf"
                 puts Cspec_set.list_bug_IDs_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
                 exit
@@ -58,6 +62,9 @@ while ARGV.size > j do
                 exit
         when "-list_changes_between_no_depsf"
                 Cspec.list_changes_between(IO.read(ARGV[j+1]), IO.read(ARGV[j+2])).to_json
+                exit
+        when "-list_components_between"
+                puts Cspec_set.list_components_between(ARGV[j+1], ARGV[j+2]).to_json
                 exit
         when "-list_files_changed_between"
                 puts Cspec_set.list_files_changed_between(ARGV[j+1], ARGV[j+2]).to_json
@@ -93,13 +100,15 @@ while ARGV.size > j do
                 j += 1
                 U.rest_mock_dir = ARGV[j]
         when "-test"
-                test()
+                test
         when "-tad"
                 Cec_gradle_parser.trace_autodiscovery = true
         when "-test_clean"
                 Repo.test_clean
         when "-trace_autodiscovery"
                 Cec_gradle_parser.trace_autodiscovery = true
+        when /^(-trace_commit_pairs|-tcp)$/
+                Cspec_set.trace_commit_pairs = true
         when "-trc"
                 U.trace_http_rest_calls = true
         when "-tsc"
@@ -115,16 +124,10 @@ while ARGV.size > j do
         when /^-/
                 raise "did not understand flag #{ARGV[j]}"
         else
-                if !cms.json_fn1
-                        cms.json_fn1 = ARGV[j]
-                        if !File.exist?(cms.json_fn1)
-                                raise "could not find json file #{cms.json_fn1}"
-                        end
-                elsif !cms.json_fn2
-                        cms.json_fn2 = ARGV[j]
-                        if !File.exist?(cms.json_fn2)
-                                raise "could not find json file #{cms.json_fn2}"
-                        end
+                if !cms.json_path1
+                        cms.json_path1 = ARGV[j]
+                elsif !cms.json_path2
+                        cms.json_path2 = ARGV[j]
                 else
                         raise "did not understand \"#{ARGV[j]}\""
                 end

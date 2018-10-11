@@ -1,0 +1,3 @@
+scripts/cecs/config/autoinstall.cfg
+scripts/cecs/provisioning/python/pod/Pod.py
+scripts/cecs/provisioning/python/pod/rex_cecs.py

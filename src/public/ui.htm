@@ -9,6 +9,28 @@
     var op
     var output_style = "terse"
     
+    function scenario(cspec_set_s1, cspec_set_s2)
+    {
+        $('#textarea_cspec_set1').val(cspec_set_s1)
+        $('#textarea_cspec_set2').val(cspec_set_s2)
+    }
+    function watch_for_enter_to_submit(e)
+    {
+        if (e.key == '1')
+        {
+            scenario('http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json',
+            'http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json')
+        }
+        else if (e.key == '2')
+        {
+            scenario('http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json',
+            'http://artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json')
+        }
+        //if(e && e.keyCode == 13) for enter
+        return false
+    }
+    document.onkeypress = watch_for_enter_to_submit;
+
     function set_url_span(url)
     {
         var h = "URL to execute the query above:<br><a href='" + url + "'>" + url + "</a>"
@@ -76,9 +98,10 @@
         <input type="radio" name=output_style onclick='set_output_style("expanded")'> expanded<br>
     <hr>
         op: the operation
-        <input type=button value=list_bug_IDs_between onclick='submit_json("list_bug_IDs_between")'/>
-        <input type=button value=list_changes_between onclick='submit_json("list_changes_between")'/>
-        <input type=button value=list_files_changed_between onclick='submit_json("list_files_changed_between")'/>
+        <input type=button value=list_bug_IDs_between           onclick='submit_json("list_bug_IDs_between")'/>
+        <input type=button value=list_changes_between           onclick='submit_json("list_changes_between")'/>
+        <input type=button value=list_files_changed_between     onclick='submit_json("list_files_changed_between")'/>
+        <input type=button value=list_component_statuses        onclick='submit_json("list_component_cspec_pairs")'/>
     <br>
     <iframe id='ct_iframe' height="40% " width="100%"></iframe><br>
     <span id='url_span'></span>

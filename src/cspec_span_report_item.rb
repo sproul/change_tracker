@@ -1,4 +1,6 @@
 class Cspec_span_report_item
+        INCOMPARABLE = "incomparable" # signals Cspec cannot be compared to Cspec because either no matching pair, or (more commonly) no matching branch
+        
         OUTPUT_STYLE_TERSE = "terse"
         OUTPUT_STYLE_NORMAL = "normal"
         OUTPUT_STYLE_EXPANDED = "expanded"
@@ -25,7 +27,6 @@ class Cspec_span_report_item
         end
         def eql?(other)
                 if !self.cspec1.eql?(other.cspec1) || !self.cspec2.eql?(other.cspec2)
-                        puts "cspec no"
                         return false
                 end
                 if self.item.respond_to?(:length) && other.item.respond_to?(:length)
@@ -41,7 +42,6 @@ class Cspec_span_report_item
                         end
                         return true
                 end
-                puts "defering to item eql...#{self.item.eql?(other.item)}"
                 return self.item.eql?(other.item)
         end
         def to_jsonable_h(output_style=OUTPUT_STYLE_TERSE)
@@ -96,7 +96,11 @@ class Cspec_span_report_item_set
         def all_items()
                 all = []
                 items.each do | report_item |
-                        all = all.concat(report_item.item)
+                        if report_item.item.kind_of?(Array)
+                                all = all.concat(report_item.item)
+                        else
+                                all << report_item.item
+                        end
                 end
                 all
         end
@@ -129,6 +133,9 @@ class Cspec_span_report_item_set
         end
         def to_s()
                 self.to_json
+        end
+        def empty?()
+                items.empty?
         end
         class << self
                 attr_accessor :output_style

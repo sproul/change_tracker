@@ -1315,3 +1315,923 @@ Listening on 0.0.0.0:4567, CTRL+C to stop
 }
 Waiting for 2 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
 Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.62 - - [30/Aug/2018:08:04:35 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D&cspec_set2=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D HTTP/1.1" 200 4 0.0080
+10.148.119.62 - - [30/Aug/2018:08:04:37 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D&cspec_set2=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D HTTP/1.1" 200 4 0.0028
+10.148.119.62 - - [30/Aug/2018:08:04:38 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D&cspec_set2=%5B%7B%22name%22%3A%22Desktop%22%2C%22version%22%3A%221.1835ec.42%22%2C%22buildnum%22%3A%225004%22%2C%22buildurl%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22scmtype%22%3A%22git%22%2C%22git_branch%22%3A%22release/rd129%22%2C%22git_sha%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git_repo%22%3A%22desktop.git%22%2C%22scm.repo.type%22%3A%22git%22%2C%22git.repo.url%22%3A%22https%3A//alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git%22%2C%22git.repo.name%22%3A%22desktop.git%22%2C%22git.repo.commit.id%22%3A%22cbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22git.repo.branch%22%3A%22release/rd129%22%2C%22git.repo.prefix%22%3A%22https%3A//%22%2C%22git.repo.server%22%3A%22alm.oraclecorp.com%22%2C%22git.repo.path%22%3A%22odocs/s/odocs_desktop/scm/desktop.git%22%2C%22cspec%22%3A%22git%3Balm.oraclecorp.com%3Bodocs/s/odocs_desktop/scm/desktop.git%3Brelease/rd129%3Bcbb9a918f6beea1e0b70b9b33c74781f718a5906%22%2C%22jenkins.build-url%22%3A%22http%3A//slc09vag.us.oracle.com%3A8080/view/rd129/job/RD129_Engine/5004/%22%2C%22jenkins.build-id%22%3A%225004%22%2C%22jenkins.repostate%22%3A%22desktop.36446.cbb9a91%22%2C%22publish.timestamp%22%3A%22ThuJul1913%3A55%3A42PDT2018%22%2C%22publish.timestamp.epochsecs%22%3A%221532033742%22%2C%22scmchange.timestamp%22%3A%22TueMay2206%3A30%3A07PDT2018%22%2C%22scmchange.timestamp.epochsecs%22%3A%221526995807%22%7D%5D HTTP/1.1" 200 4 0.0024
+10.148.119.62 - - [30/Aug/2018:09:16:45 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0021
+10.245.2.171 - - [30/Aug/2018:09:19:18 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0012
+10.245.2.171 - - [30/Aug/2018:09:21:55 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0014
+10.245.2.171 - - [30/Aug/2018:09:28:38 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0012
+10.245.2.171 - - [30/Aug/2018:09:28:38 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:09:36:12 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0012
+10.245.2.171 - - [30/Aug/2018:09:36:12 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [30/Aug/2018:09:36:35 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:09:36:35 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [30/Aug/2018:09:37:21 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [30/Aug/2018:09:37:21 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [30/Aug/2018:09:37:21 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0011
+10.245.2.171 - - [30/Aug/2018:09:37:21 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:09:37:48 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0012
+10.245.2.171 - - [30/Aug/2018:09:37:48 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:09:37:48 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0009
+10.245.2.171 - - [30/Aug/2018:09:37:48 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:09:38:41 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0012
+10.245.2.171 - - [30/Aug/2018:09:38:41 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.148.119.62 - - [30/Aug/2018:09:38:41 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas_Desktop.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 4 0.0104
+10.245.2.171 - - [30/Aug/2018:09:38:44 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0012
+10.245.2.171 - - [30/Aug/2018:09:38:44 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0009
+10.148.119.62 - - [30/Aug/2018:09:38:44 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas_Desktop.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 4 0.0089
+10.245.2.171 - - [30/Aug/2018:09:38:46 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0013
+10.245.2.171 - - [30/Aug/2018:09:38:46 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.148.119.62 - - [30/Aug/2018:09:38:46 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas_Desktop.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 4 0.0093
+10.245.2.171 - - [30/Aug/2018:09:39:18 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:09:39:18 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.148.119.62 - - [30/Aug/2018:09:39:18 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 4 0.0164
+10.245.2.171 - - [30/Aug/2018:09:39:19 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [30/Aug/2018:09:39:19 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.148.119.62 - - [30/Aug/2018:09:39:19 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 4 0.0150
+10.245.2.171 - - [30/Aug/2018:09:39:23 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:09:39:23 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.148.119.62 - - [30/Aug/2018:09:39:23 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.3.5-1808091203_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 4 0.0157
+10.245.2.171 - - [30/Aug/2018:09:44:40 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [30/Aug/2018:09:44:40 -0700] "GET /cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4955 0.0010
+10.148.119.62 - - [30/Aug/2018:09:44:40 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4 0.0147
+10.245.2.171 - - [30/Aug/2018:09:44:45 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [30/Aug/2018:09:44:45 -0700] "GET /cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4955 0.0013
+10.148.119.62 - - [30/Aug/2018:09:44:45 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4 0.0338
+10.245.2.171 - - [30/Aug/2018:09:44:47 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [30/Aug/2018:09:44:47 -0700] "GET /cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4955 0.0012
+10.148.119.62 - - [30/Aug/2018:09:44:47 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4 0.0153
+10.245.2.171 - - [30/Aug/2018:09:44:51 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [30/Aug/2018:09:44:51 -0700] "GET /cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4955 0.0219
+10.148.119.62 - - [30/Aug/2018:09:44:51 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//slcipcm%3A4567/cec_18.4.1-1808081448_paas.json&cspec_set2=http%3A//slcipcm%3A4567/cec_18.4.3-1808031643_paas.json HTTP/1.1" 200 4 0.0357
+10.245.2.171 - - [30/Aug/2018:09:46:16 -0700] "GET /18.4.3-1808221348_paas.json HTTP/1.1" 200 13870 0.0010
+10.245.2.171 - - [30/Aug/2018:09:46:16 -0700] "GET /18.4.3-1808241018_paas.json HTTP/1.1" 200 13870 0.0009
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+[
+
+]
+10.148.119.62 - - [30/Aug/2018:09:46:17 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//slcipcm%3A4567/18.4.3-1808221348_paas.json&cspec_set2=http%3A//slcipcm%3A4567/18.4.3-1808241018_paas.json HTTP/1.1" 200 294 0.7188
+10.245.2.171 - - [30/Aug/2018:09:46:20 -0700] "GET /18.4.3-1808221348_paas.json HTTP/1.1" 200 13870 0.0017
+10.245.2.171 - - [30/Aug/2018:09:46:20 -0700] "GET /18.4.3-1808241018_paas.json HTTP/1.1" 200 13870 0.0011
+[
+  "blueprints/service/cec.json",
+  "provisioning/apns/com.oracle.webcenter.documents.p12",
+  "scripts/cecs/provisioning/python/common/common_constants.py",
+  "scripts/cecs/provisioning/python/pod/actions/privileged/oit_setup.sh",
+  "scripts/cecs/provisioning/python/pod/pod_health_check.py"
+]
+10.148.119.62 - - [30/Aug/2018:09:46:20 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//slcipcm%3A4567/18.4.3-1808221348_paas.json&cspec_set2=http%3A//slcipcm%3A4567/18.4.3-1808241018_paas.json HTTP/1.1" 200 1911 0.0913
+10.245.2.171 - - [30/Aug/2018:09:46:27 -0700] "GET /18.4.3-1808221348_paas.json HTTP/1.1" 200 13870 0.0016
+10.245.2.171 - - [30/Aug/2018:09:46:27 -0700] "GET /18.4.3-1808241018_paas.json HTTP/1.1" 200 13870 0.0010
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "f2cedfe8a577962ccd8d03150ca3ec9b56ed734e",
+    "comment": "Merge branch 'bug28462513' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "a4f3cd3e4df0084be5adaca4c3181fb7624babc1",
+    "comment": "Changing timeout to 1 min"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "66347117d2ad9247ea3a2481bbe226c40a086703",
+    "comment": "Adding timeout for sssd stop command"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "3b9310f6bdc367eb165ead92557f2859d5e95bca",
+    "comment": "Merge branch 'bug_28525388' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "310ca5f299c1ad159a07a05310aab6f083644265",
+    "comment": "minor fix"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "af50effef6862b36055e9c573b2d4aa44ebe6b0d",
+    "comment": "'Fix for review comments'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "ff47492f03f04cdd1057b2d9b6d83e18370480df",
+    "comment": "Removing cnsinfo detail from ui"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "b967825c672a754f72cc9d1d5d69f21c404ff5c0",
+    "comment": "Merge branch '28336159' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "25b559910c839f131aae997984886fd717084c84",
+    "comment": "Updating apns cert with correct password"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "2370045a5d438483ab53e62b509bdb881c58e273",
+    "comment": "Bug 28525388 - Fix health check script to pick payload of create/applypatch/precheckpatch only."
+  }
+]
+10.148.119.62 - - [30/Aug/2018:09:46:27 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//slcipcm%3A4567/18.4.3-1808221348_paas.json&cspec_set2=http%3A//slcipcm%3A4567/18.4.3-1808241018_paas.json HTTP/1.1" 200 99 0.0900
+[
+  "28525388 - Fix health check script to pick payload of create/applypatch/precheckpatch only."
+]
+10.148.119.62 - - [30/Aug/2018:10:02:56 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808241018/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808300646/paas.json HTTP/1.1" 500 7141 2.7084
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0024
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0019
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0017
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:43 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:46 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0209
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:12:34:47 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:34:49 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0021
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0012
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0009
+10.245.2.171 - - [30/Aug/2018:12:39:13 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0012
+10.245.2.171 - - [30/Aug/2018:12:39:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0015
+10.245.2.171 - - [30/Aug/2018:12:39:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0008
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0008
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [30/Aug/2018:12:39:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0016
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0019
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0011
+10.245.2.171 - - [30/Aug/2018:12:51:42 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0015
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [30/Aug/2018:12:51:45 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:12:51:46 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:51:48 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0012
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0012
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:23 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [30/Aug/2018:12:54:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0008
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:54:30 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [30/Aug/2018:12:56:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:12:56:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:13 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:13 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [30/Aug/2018:12:56:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:12:56:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:12:56:19 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0015
+10.148.119.62 - - [30/Aug/2018:14:17:26 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808241018/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808300646/paas.json HTTP/1.1" 200 4504 2.1299
+[
+  "component.properties",
+  "deps.gradle",
+  "paas/com/oracle/paas/e2e-dev-jsons/CEC/18.4.3.0.0-180803/CEC-18.4.3.0.0-180803.json",
+  "paas/com/oracle/paas/e2e-dev-jsons/CEC/18.4.3.0.0-180803/CEC-18.4.3.0.0-180803.pom",
+  "paas/com/oracle/paas/e2e-dev-jsons/CEC/18.4.3.0.0-180829/CEC-18.4.3.0.0-180829.json",
+  "paas/com/oracle/paas/e2e-dev-jsons/CEC/18.4.3.0.0-180829/CEC-18.4.3.0.0-180829.pom",
+  "paas/com/oracle/paas/e2e-dev-jsons/CECA/18.4.3.0.0-180803/CECA-18.4.3.0.0-180803.json",
+  "paas/com/oracle/paas/e2e-dev-jsons/CECA/18.4.3.0.0-180803/CECA-18.4.3.0.0-180803.pom",
+  "paas/com/oracle/paas/e2e-dev-jsons/CECA/18.4.3.0.0-180829/CECA-18.4.3.0.0-180829.json",
+  "paas/com/oracle/paas/e2e-dev-jsons/CECA/18.4.3.0.0-180829/CECA-18.4.3.0.0-180829.pom",
+  "cec_default.properties",
+  "scripts/cecs/config/autoinstall.cfg",
+  "scripts/cecs/provisioning/python/pod/Pod.py",
+  "scripts/cecs/provisioning/python/pod/pod_status.py",
+  "scripts/cecs/provisioning/python/pod/rex_cecs.py",
+  "tools/ops/custom-metrics/build.xml",
+  "tools/ops/custom-metrics/build/custom-metrics.zip",
+  "tools/ops/custom-metrics/read-me.txt",
+  "tools/ops/custom-metrics/resources/default.properties",
+  "tools/ops/custom-metrics/resources/lib/dms.jar",
+  "tools/ops/custom-metrics/resources/lib/javax.json-1.0.4.jar",
+  "tools/ops/custom-metrics/resources/lib/javax.json-api-1.0.jar",
+  "tools/ops/custom-metrics/resources/lib/ojdbc7.jar",
+  "tools/ops/custom-metrics/resources/lib/ojdbc7dms.jar",
+  "tools/ops/custom-metrics/resources/lib/ojdbc8.jar",
+  "tools/ops/custom-metrics/resources/lib/ojdbc8dms.jar",
+  "tools/ops/custom-metrics/resources/lib/ojdl.jar",
+  "tools/ops/custom-metrics/resources/lib/orai18n.jar",
+  "tools/ops/custom-metrics/resources/limits.properties",
+  "tools/ops/custom-metrics/resources/logging.properties",
+  "tools/ops/custom-metrics/resources/mail.properties",
+  "tools/ops/custom-metrics/resources/mail.py",
+  "tools/ops/custom-metrics/resources/pulse-logging.properties",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/BaseMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/Metrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/MetricsCollector.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/MetricResponse.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/MetricState.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/MetricsEnvironment.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/SQLResponse.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/SystemResponse.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/bean/SystemType.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/BaseMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/BaseMetricsComposite.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/ClassicMetricsComposite.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/Metrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/MetricsComposite.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/MetricsFactory.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/OCIMetricsComposite.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/impl/BackupMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/impl/FRAMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/impl/OCIBackupMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/impl/OverflowTSMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/core/impl/TenantsMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/impl/BackupMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/impl/FRAMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/impl/OverflowTSMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/impl/TenantsMetrics.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/pulse/MetricsPulse.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/report/ReportPublisher.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/report/ReportRenderer.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/threshold/MetricsThreshold.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/utils/DBUtils.java",
+  "tools/ops/custom-metrics/src/com/oracle/db/metrics/utils/Utils.java"
+]
+10.148.119.62 - - [30/Aug/2018:14:17:29 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808241018/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808300646/paas.json HTTP/1.1" 200 3588 0.1571
+[
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec;",
+    "commit_id": "ef32ba825cf887add976b68463ba04d510045ea2",
+    "comment": "add in SERVICE_TYPE to CEC devJSON"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec;",
+    "commit_id": "fa70f909ddab95da9c8a9aa681a40f427c0a8834",
+    "comment": "New version com.oracle.cecs.Desktop:manifest:1.0.41, initiated by http://slc09vag.us.oracle.com:8080/view/rd129/job/RD129_Engine/5004/ and updated (consumed) by https://osnci.us.oracle.com/job/cec.deptrigger.pl.master/1481/"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "2e32f0fe364f0853c52a031791ccf9aab56f534d",
+    "comment": "Merge branch 'custom-metrics' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "87b3b0ab784ccb48de038d90f6f91fb1241d58ff",
+    "comment": "Added report generation time into mail report."
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "0ac1d8a32a79c42112c4a80f4559f0a69afca97c",
+    "comment": "Merge branch 'master' of git.osn.oraclecorp.com:osn/cec_external"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "04ac5fcf49869526372f1fbca1bb2ea0584f593f",
+    "comment": "using 18.3.4 pidk"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "2f34de411a7def6d068afd29614298013261ffd4",
+    "comment": "Merge branch 'pod_dashboard_fix' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "4b602337fbe3da251bdebfb9b9801d8d290afe51",
+    "comment": "Fix pod dashboard output null modified timestamp"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "f95367cde3d9efe5982e44fa60b21f54a56a7ac9",
+    "comment": "Merge branch 'caasbug' into 'master'"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "97f00f15783bac0c88f53079062dcb905fbf5d26",
+    "comment": "bug 28509543"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "e1bae063467ab60b99f802c78f5808b7cb0e3242",
+    "comment": "Added metrics for OCI database"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "2fea2485dbead5d7b84d9d50f2168eb5d5059a17",
+    "comment": "Incorporated review comments"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "24d1ad20f33a3607f612c6125f1b5380cf188724",
+    "comment": "Fixed path of limits.properties file"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "adf65eef07996191b771a9054efeee62ffa9eac5",
+    "comment": "Added read-me file with SOP reference"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "47a31923fc0fc9eb968af18bd98e7d8c9e0e89cd",
+    "comment": "Refactored and Implemented review comments"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "2f4249a5d03352bffa3a99daf7580e3c1676eb05",
+    "comment": "Refactored and Implemented review comments"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "8de9a5fba195310507d9f0a337526fa1512657f9",
+    "comment": "Refactored and Implemented review comments"
+  },
+  {
+    "repo_spec": "git;git.osn.oraclecorp.com;osn/cec_external;",
+    "commit_id": "e84818274b619612eafb2d7b442cb64083639282",
+    "comment": "Custom Metrics framework"
+  }
+]
+10.148.119.62 - - [30/Aug/2018:14:17:32 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808241018/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808300646/paas.json HTTP/1.1" 200 16 0.1881
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0037
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0018
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0012
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0016
+10.245.2.171 - - [30/Aug/2018:16:09:13 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0013
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0014
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0013
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [30/Aug/2018:16:09:16 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [30/Aug/2018:16:09:17 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:16:09:17 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:16:09:19 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0344
+10.245.2.171 - - [30/Aug/2018:16:11:23 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0015
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [30/Aug/2018:16:11:26 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:11:27 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:16:11:29 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0016
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0011
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0011
+10.245.2.171 - - [30/Aug/2018:16:17:44 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0014
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:16:17:48 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [30/Aug/2018:16:17:49 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:17:51 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0014
+10.148.119.62 - - [30/Aug/2018:16:18:20 -0700] "GET /ui.htm HTTP/1.1" 200 4500 0.0013
+10.148.119.62 - - [30/Aug/2018:16:18:20 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0027
+10.148.119.62 - - [30/Aug/2018:16:18:21 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0023
+10.148.119.62 - - [30/Aug/2018:16:18:24 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 400 7860 0.0027
+10.148.119.62 - - [30/Aug/2018:16:19:20 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 400 7860 0.0026
+127.0.0.1 - - [30/Aug/2018:16:19:41 -0700] "GET /exit HTTP/1.1" 1 - 0.0059
+== Sinatra has ended his set (crowd applauds)
+[
+  "28509543"
+]
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.62 - - [30/Aug/2018:16:19:51 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 409 0.0084
+10.148.119.62 - - [30/Aug/2018:16:21:43 -0700] "GET /?pretty=true&output_style=normal&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 409 0.0025
+10.148.119.62 - - [30/Aug/2018:16:21:48 -0700] "GET /?pretty=true&output_style=expanded&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 409 0.0027
+10.148.119.62 - - [30/Aug/2018:16:22:03 -0700] "GET /?pretty=true&output_style=expanded&op=list_component_cspec_pairs&cspec_set1=%5B%7B%22a1%22%3A%221%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B6b5ed0226109d443732540fee698d5d794618b64%22%7D%2C%7B%22b2%22%3A%222%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3B35f9f10342391cae7fdd69f5f8ad590fba25251d%22%7D%2C%7B%22c3%22%3A%223%22%2C%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D&cspec_set2=%5B%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cec-server-integration%3Bmaster%3B06c85af5cfa00b0e8244d723517f8c3777d7b77e%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bccs/caas%3Bmaster%3Ba1466659536cf2225eadf56f43972a25e9ee1bed%22%7D%2C%7B%22cspec%22%3A%22git%3Bgit.osn.oraclecorp.com%3Bosn/cef%3Bmaster%3B749581bac1d93cda036d33fbbdbe95f7bd0987bf%22%7D%5D HTTP/1.1" 200 409 0.0221
+10.148.119.62 - - [30/Aug/2018:16:41:01 -0700] "GET /ui.htm HTTP/1.1" 200 4849 0.0016
+10.148.119.62 - - [30/Aug/2018:16:41:01 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0031
+10.148.119.62 - - [30/Aug/2018:16:41:02 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0019
+10.148.119.62 - - [30/Aug/2018:16:42:33 -0700] "GET /ui.htm HTTP/1.1" 200 4855 0.0018
+10.148.119.62 - - [30/Aug/2018:16:42:33 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0024
+10.148.119.62 - - [30/Aug/2018:16:42:34 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0016
+10.148.119.62 - - [30/Aug/2018:16:43:58 -0700] "GET /ui.htm HTTP/1.1" 200 4853 0.0016
+10.148.119.62 - - [30/Aug/2018:16:43:59 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0028
+10.148.119.62 - - [30/Aug/2018:16:43:59 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0013
+10.148.119.62 - - [30/Aug/2018:16:45:21 -0700] "GET /ui.htm HTTP/1.1" 200 4751 0.0016
+10.148.119.62 - - [30/Aug/2018:16:45:21 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0024
+10.148.119.62 - - [30/Aug/2018:16:45:22 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0011
+10.148.119.62 - - [30/Aug/2018:16:50:38 -0700] "GET /ui.htm HTTP/1.1" 200 5495 0.0017
+10.148.119.62 - - [30/Aug/2018:16:51:14 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.1325
+10.148.119.62 - - [30/Aug/2018:16:51:16 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.0313
+10.148.119.62 - - [30/Aug/2018:16:51:19 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.0425
+10.148.119.62 - - [30/Aug/2018:16:51:20 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2118 0.0368
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+["git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64 changed to 06c85af5cfa00b0e8244d723517f8c3777d7b77e","git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d changed to a1466659536cf2225eadf56f43972a25e9ee1bed","git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf changed to 749581bac1d93cda036d33fbbdbe95f7bd0987bf"]
+["git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64 changed to 06c85af5cfa00b0e8244d723517f8c3777d7b77e","git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d changed to a1466659536cf2225eadf56f43972a25e9ee1bed","git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf changed to 749581bac1d93cda036d33fbbdbe95f7bd0987bf"]
+["git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64 changed to 06c85af5cfa00b0e8244d723517f8c3777d7b77e","git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d changed to a1466659536cf2225eadf56f43972a25e9ee1bed","git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf changed to 749581bac1d93cda036d33fbbdbe95f7bd0987bf"]
+["git;git.osn.oraclecorp.com;osn/serverintegration;;6b5ed0226109d443732540fee698d5d794618b64 changed to 06c85af5cfa00b0e8244d723517f8c3777d7b77e","git;git.osn.oraclecorp.com;ccs/caas;;35f9f10342391cae7fdd69f5f8ad590fba25251d changed to a1466659536cf2225eadf56f43972a25e9ee1bed","git;git.osn.oraclecorp.com;osn/cef;;749581bac1d93cda036d33fbbdbe95f7bd0987bf changed to 749581bac1d93cda036d33fbbdbe95f7bd0987bf"]
+Invalid request: HTTP element QUERY_STRING is longer than the (1024 * 10) allowed length.
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/request.rb:84:in `execute'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/request.rb:84:in `parse'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:39:in `receive_data'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+
+Invalid request: HTTP element QUERY_STRING is longer than the (1024 * 10) allowed length.
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/request.rb:84:in `execute'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/request.rb:84:in `parse'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:39:in `receive_data'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+
+[
+
+]
+[
+
+]
+[
+
+]
+["git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 changed to cbb9a918f6beea1e0b70b9b33c74781f718a5906","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oracleco/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+rp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed"]
+10.148.119.62 - - [30/Aug/2018:16:51:46 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2118 0.0378
+10.148.119.62 - - [30/Aug/2018:16:53:20 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2118 0.0451
+10.148.119.62 - - [30/Aug/2018:16:53:21 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0017
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:31 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:34 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [30/Aug/2018:16:53:34 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [30/Aug/2018:16:53:34 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:34 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [30/Aug/2018:16:53:35 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [30/Aug/2018:16:53:37 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0014
+127.0.0.1 - - [30/Aug/2018:16:54:00 -0700] "GET /exit HTTP/1.1" 1 - 0.0062
+== Sinatra has ended his set (crowd applauds)
+
+["git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 changed to cbb9a918f6beea1e0b70b9b33c74781f718a5906","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed"]
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+2018-08-30 16:54:15 - ArgumentError - comparison of Cspec_pair with Cspec_pair failed:
+	/net/slcipcm/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:95:in `sort'
+	/net/slcipcm/scratch/nsproul/dp/git/change_tracker/src/cspec_set.rb:95:in `list_component_cspec_pairs'
+	/net/slcipcm/scratch/nsproul/dp/git/change_tracker/src/json_change_tracker.rb:97:in `go'
+	/home/nsproul/dp/git/change_tracker/src/http_handler.rb:76:in `block in <main>'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1610:in `block in compile!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `[]'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (3 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:993:in `route_eval'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:974:in `block (2 levels) in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1014:in `block in process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1012:in `process_route'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:972:in `block in route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `each'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:971:in `route!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1084:in `block in dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1081:in `dispatch!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `block in call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `block in invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1066:in `invoke'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:906:in `call!'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:894:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/xss_header.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/path_traversal.rb:16:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/json_csrf.rb:18:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/base.rb:49:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-protection-1.5.3/lib/rack/protection/frame_options.rb:31:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/logger.rb:15:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/commonlogger.rb:33:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:218:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:211:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/head.rb:13:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/methodoverride.rb:22:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/show_exceptions.rb:21:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:181:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:2021:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `block in call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1795:in `synchronize'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1486:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:86:in `block in pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `catch'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/connection.rb:84:in `pre_process'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+	/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+10.148.119.62 - - [30/Aug/2018:16:54:15 -0700] "GET /__sinatra__/500.png HTTP/1.1" 200 24378 0.0181
+10.148.119.62 - - [30/Aug/2018:16:54:16 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0014
+10.245.2.171 - - [30/Aug/2018:16:56:41 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0015
+10.245.2.171 - - [30/Aug/2018:16:59:04 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0012
+127.0.0.1 - - [30/Aug/2018:16:59:26 -0700] "GET /exit HTTP/1.1" 1 - 0.0064
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.62 - - [30/Aug/2018:16:59:40 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2118 0.0697
+10.148.119.62 - - [30/Aug/2018:16:59:41 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0014
+127.0.0.1 - - [30/Aug/2018:17:10:41 -0700] "GET /exit HTTP/1.1" 1 - 0.0061
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 changed to cbb9a918f6beea1e0b70b9b33c74781f718a5906","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+== Sinatra has ended his set (crowd applauds)
+/opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_tcp_server': no acceptor (port is in use or requires root privileges) (RuntimeError)
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/tcp_server.rb:16:in `connect'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:63:in `block in start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `call'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run_machine'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/eventmachine-1.0.3/lib/eventmachine.rb:187:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/backends/base.rb:73:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/thin-1.6.3/lib/thin/server.rb:162:in `start'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/rack-1.6.4/lib/rack/handler/thin.rb:19:in `run'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1505:in `start_server'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/base.rb:1443:in `run!'
+	from /opt/sensu/embedded/lib/ruby/gems/2.0.0/gems/sinatra-1.4.6/lib/sinatra/main.rb:25:in `block in <module:Sinatra>'
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+127.0.0.1 - - [30/Aug/2018:19:38:53 -0700] "GET /exit HTTP/1.1" 1 - 0.0110
+== Sinatra has ended his set (crowd applauds)
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+Stopping ...
+/home/nsproul/dp/git/change_tracker/src/http_handler.rb:24: warning: assigned but unused variable - url
+== Sinatra (v1.4.6) has taken the stage on 4567 for development with backup from Thin
+10.148.119.62 - - [30/Aug/2018:19:39:01 -0700] "GET /ui.htm HTTP/1.1" 200 5495 0.0060
+10.148.119.62 - - [30/Aug/2018:19:39:01 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0166
+10.148.119.62 - - [30/Aug/2018:19:39:02 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0017
+10.148.119.62 - - [30/Aug/2018:19:39:09 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 1127 0.0485
+10.148.119.62 - - [30/Aug/2018:19:39:22 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.0393
+10.148.119.62 - - [30/Aug/2018:19:39:33 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.1211
+10.148.119.93 - - [31/Aug/2018:10:19:54 -0700] "GET /ui.htm HTTP/1.1" 200 5495 0.0016
+10.148.119.93 - - [31/Aug/2018:10:19:54 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0024
+10.148.119.93 - - [31/Aug/2018:10:19:55 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0013
+10.148.119.93 - - [31/Aug/2018:10:20:04 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.1057
+10.148.119.93 - - [31/Aug/2018:10:20:36 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.0329
+Thin web server (v1.6.3 codename Protein Powder)
+Maximum connections set to 1024
+Listening on 0.0.0.0:4567, CTRL+C to stop
+["git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c did not change","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 did not change","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c did not change","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 did not change","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f did not change","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 did not change","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 did not change","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e did not change","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 did not change","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 did not change"]
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+[
+
+]
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+10.148.119.93 - - [31/Aug/2018:10:20:42 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.0344
+10.148.119.62 - - [31/Aug/2018:10:22:42 -0700] "GET /ui.htm HTTP/1.1" 304 - 0.0017
+10.148.119.62 - - [31/Aug/2018:10:35:53 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.0598
+10.148.119.62 - - [31/Aug/2018:10:39:42 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.0298
+10.245.2.171 - - [07/Sep/2018:20:16:18 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:19 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0010
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0013
+10.245.2.171 - - [07/Sep/2018:20:16:22 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0013
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:20:16:23 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:39 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0017
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0015
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0010
+10.245.2.171 - - [07/Sep/2018:22:48:41 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0009
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0015
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:22:48:44 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:22:48:45 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:48:45 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:22:53:45 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0020
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0013
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0010
+10.245.2.171 - - [07/Sep/2018:22:53:47 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0011
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:53:50 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:22:53:51 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:53:51 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:53:51 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0014
+10.245.2.171 - - [07/Sep/2018:22:53:51 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:22:57:55 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0022
+10.245.2.171 - - [07/Sep/2018:22:57:57 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [07/Sep/2018:22:57:57 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0014
+10.245.2.171 - - [07/Sep/2018:23:02:45 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0024
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:47 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0011
+10.245.2.171 - - [07/Sep/2018:23:02:49 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:23:02:49 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0009
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0011
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:23:02:50 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:07:10 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0008
+10.245.2.171 - - [07/Sep/2018:23:07:12 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0009
+10.245.2.171 - - [07/Sep/2018:23:07:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:14 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:14 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0010
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0015
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0012
+10.245.2.171 - - [07/Sep/2018:23:07:15 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:12:22 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0013
+10.245.2.171 - - [07/Sep/2018:23:12:24 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0014
+10.245.2.171 - - [07/Sep/2018:23:12:24 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [07/Sep/2018:23:14:46 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0026
+10.245.2.171 - - [07/Sep/2018:23:14:48 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0012
+10.245.2.171 - - [07/Sep/2018:23:14:48 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [07/Sep/2018:23:16:24 -0700] "GET /test_full_cspec_set_as_dep__deps.json HTTP/1.1" 200 323 0.0019
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0012
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0013
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.3.5-1808091203_paas.json HTTP/1.1" 200 13755 0.0010
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.4.1-1808081448_paas.json HTTP/1.1" 200 13694 0.0011
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.3.5-1808091203_paas_Desktop.json HTTP/1.1" 200 1331 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:26 -0700] "GET /cec_18.4.1-1808081448_paas_Desktop.json HTTP/1.1" 200 1332 0.0011
+10.245.2.171 - - [07/Sep/2018:23:16:28 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0012
+10.245.2.171 - - [07/Sep/2018:23:16:28 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0209
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0011
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set1_v2.json HTTP/1.1" 200 415 0.0010
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set2_v2.json HTTP/1.1" 200 332 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0011
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0010
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set1_v1.json HTTP/1.1" 200 322 0.0009
+10.245.2.171 - - [07/Sep/2018:23:16:29 -0700] "GET /test_cspec_set2_v1.json HTTP/1.1" 200 322 0.0009
+10.148.119.62 - - [07/Sep/2018:23:17:20 -0700] "GET /ui.htm HTTP/1.1" 200 5495 0.0016
+10.148.119.62 - - [07/Sep/2018:23:17:20 -0700] "GET /jquery-3.1.1.js HTTP/1.1" 200 267194 0.0030
+10.148.119.62 - - [07/Sep/2018:23:17:21 -0700] "GET /favicon.ico HTTP/1.1" 404 471 0.0013
+10.148.119.62 - - [07/Sep/2018:23:17:33 -0700] "GET /?pretty=true&output_style=terse&op=list_component_cspec_pairs&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 2081 0.1242
+10.148.119.62 - - [07/Sep/2018:23:17:42 -0700] "GET /?pretty=true&output_style=terse&op=list_changes_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.0441
+10.148.119.62 - - [07/Sep/2018:23:17:44 -0700] "GET /?pretty=true&output_style=terse&op=list_bug_IDs_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.0296
+10.148.119.62 - - [07/Sep/2018:23:17:46 -0700] "GET /?pretty=true&output_style=terse&op=list_files_changed_between&cspec_set1=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.1-1808151432/paas.json&cspec_set2=http%3A//artifactory-slc.oraclecorp.com/artifactory/docs-release-local/com/oracle/opc/cec/cec/18.4.3-1808221348/paas.json HTTP/1.1" 200 4 0.0422
+127.0.0.1 - - [07/Sep/2018:23:18:16 -0700] "GET /exit HTTP/1.1" 1 - 0.0070
+== Sinatra has ended his set (crowd applauds)
+
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+["git;git.osn.oraclecorp.com;ccs/caas;1841ec;82f09d7aa124ac9879cb4f00a4b38f52a62f77b9 was removed","git;git.osn.oraclecorp.com;ccs/caas;;b74641c81e38fee0d5837bd0caccf32eab46593c was added","git;git.osn.oraclecorp.com;osn/cec;1841ec;ed49291d8c05f0c84b0f035920d4005fd93b6c03 was removed","git;git.osn.oraclecorp.com;osn/cec;;698e5bf4f5a8382431bf18f107260524700f5c56 was added","git;git.osn.oraclecorp.com;osn/cec_external;1841ec;f603586269d9db605994f96e318bd4ca47905b39 was removed","git;git.osn.oraclecorp.com;osn/cec_external;;5c2068d128a081322f131a91c99dc4a3f075af1c was added","git;git.osn.oraclecorp.com;osn/cef;1841ec;fbfb90faf78a86e1892627546bca94dfbf4d1bc8 was removed","git;git.osn.oraclecorp.com;osn/cef;;dc30c2cfe396fef99c1c91672ef432403a80d848 was added","git;git.osn.oraclecorp.com;osn/pipeline-common;1841ec;7151f7701fea45b6394d60311bc14af8fe3d87db was removed","git;git.osn.oraclecorp.com;osn/pipeline-common;;c36091dc8abeb7a9f364172c71eba28667a3257f was added","git;git.osn.oraclecorp.com;osn/servercommon;1841ec;06479566738b953d120ff3ec45a91b5ca4359215 was removed","git;git.osn.oraclecorp.com;osn/servercommon;;fc7c96efa10483ea89eabf8638977df8c04f4b38 was added","git;git.osn.oraclecorp.com;osn/serverintegration;1841ec;c913a7a46c06282a7095657c222b3cac2f121964 was removed","git;git.osn.oraclecorp.com;osn/serverintegration;;1d5f2ab02f1ccb5f5ae95dd2efeb59c3a0fab515 was added","git;git.osn.oraclecorp.com;osn/waggle;1841ec;ca8ddcaec1ccc82ee14ac47c40f049202ccaf884 was removed","git;git.osn.oraclecorp.com;osn/waggle;;31929adc786e7fb2e27ffea69148952eff84f38e was added","git;git.osn.oraclecorp.com;osn/webclient;1841ec;6c33d3ba209c908f4cb5b067a2a4448e5a6e543b was removed","git;git.osn.oraclecorp.com;osn/webclient;;63ca9bdbd91716de97be39132303fdcaa5aaf0e2 was added","git;git@alm.oraclecorp.com:2222;odocs_desktop/desktop;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906 did not change","svn;adc4110308.us.oracle.com;svn/idc/products/cs;1841ec;163573 was removed","svn;adc4110308.us.oracle.com;svn/idc/products/cs;cloudtrunk-externalcompute;163576 was added"]
+[
+
+]
+[
+
+]
+[
+
+]
+Waiting for 1 connection(s) to finish, can take up to 30 sec, CTRL+C to stop now
+Stopping ...

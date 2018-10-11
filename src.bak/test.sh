@@ -41,8 +41,8 @@ if [ ! -f $TMP/CACHE_SEEDED_FOR_TESTS ]; then
 
         echo "Initializing cache data for test runs on this host:"
         (
-        echo "cd test/cache_seed"
-        cd       test/cache_seed
+        echo "cd test/cache_seed.generic"
+        cd       test/cache_seed.generic
         echo "cache.load -all"
         cache.load       -all
         if ! touch $TMP/CACHE_SEEDED_FOR_TESTS; then

@@ -105,7 +105,7 @@ class Change_tracker_app
         attr_accessor :v_info2
         
         def usage(msg)
-                puts "Usage: ruby change_mon_show.rb VERSION_JSON_FILE1 VERSION_JSON_FILE2: #{msg}"
+                puts "Usage: ruby cli_main.rb VERSION_JSON_FILE1 VERSION_JSON_FILE2: #{msg}"
                 exit
         end
         def go()

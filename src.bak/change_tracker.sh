@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: change_tracker.sh [-dry] json_fn1 json_fn2
+# Usage: change_tracker.sh [-dry] json_path1 json_path2
 # 
 # Given 2 JSON files containing source control version information for each of 2 packaged products, this utility will determine the source changes that occurred between these two packages and list the changed files.
 

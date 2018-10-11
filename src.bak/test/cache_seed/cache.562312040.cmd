@@ -1,1 +1,0 @@
-/home/nsproul/dp/git/change_tracker/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/git.osn.oraclecorp.com/osn/pipeline-common log "--pretty=format:%H %s" fb217f66d5875fe94cf15b82c8db84459754bfb6..fb217f66d5875fe94cf15b82c8db84459754bfb6

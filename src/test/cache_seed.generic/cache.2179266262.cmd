@@ -1,0 +1,1 @@
+$ct_root/src/vcs_scripts/git_wrapper.sh /scratch/change_tracker/git/git.osn.oraclecorp.com/osn/servercommon log """--pretty=format:%H"" ""%s""" 181eb334e117cdda5d2def998bf9c9af2f6e6233..181eb334e117cdda5d2def998bf9c9af2f6e6233

@@ -761,7 +761,7 @@ class U
                 def assert_array_to_s_eq(a1, a2, msg)
                         assert_eq(a1.length, a2.length, "#{msg} length ck")
                         0.upto(a1.length-1).each do | j |
-                                assert_eq(a1[j], a2[j], "#{msg} elt[#{j}]")
+                                assert_eq(a1[j].to_s, a2[j].to_s, "#{msg} elt[#{j}]")
                         end
                 end
                 def assert_json_eq(expected, actual, caller_msg, raise_if_fail=false)
@@ -853,7 +853,7 @@ class U
                                         end
                                         msg = "MISMATCH: #{caller_msg}"
                                         # treat everything as if it is multiline to make it easier for nmidnight to parse
-                                        msg += "\nexpected:\n#{expected}EOD\nactual:\n#{actual}EOD\n"
+                                        msg += "\nexpected:\n#{expected}\nactual:\n#{actual}\n"
                                         if expected.respond_to?(:lines) && expected.lines.count > 2
                                                 msg += "========================================================================================================"
                                                 msg += U.diff_possibly_ignoring_leading_white_space(expected, actual)
@@ -1158,6 +1158,14 @@ class U
                                 fn = U.initial_working_directory + "/" + fn
                         end
                         IO.read(fn)
+                end
+                def read_file_or_url(path)
+                        if File.exist?(path)
+                                read_file(path)
+                        else
+                                url = path
+                                rest_get(url)
+                        end
                 end
                 def write_file(fn, content, mkdir_p_if_needed = false)
                         if !fn.start_with?("/")

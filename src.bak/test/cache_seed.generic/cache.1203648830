@@ -1,0 +1,12 @@
+------------------------------------------------------------------------
+r158167 | pfilippo | 2017-11-15 13:05:27 -0800 (Wed, 15 Nov 2017) | 2 lines
+
+Merged revision(s) 158045, 158048, 158063, 158065, 158128 from products/cs/branches/cloudtrunk-externalcompute-notenantid:
+Initial attempt for dropping tenant ID and using serviceID as the unique identifier. CCS-34083 D: External compute: Drop tenant ID
+------------------------------------------------------------------------
+r158257 | ezarko | 2017-11-20 11:54:44 -0800 (Mon, 20 Nov 2017) | 3 lines
+
+Removed setCaaSSystemSchemaName, setCaaSTenantProperties, and updateSchema.
+
+
+------------------------------------------------------------------------

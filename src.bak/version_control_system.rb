@@ -90,10 +90,18 @@ class Git_version_control_system < Version_control_system
                 end
                 commits
         end
+        def add_git_user(arg)
+                arg.sub!(/USERNAME@/, "#{ENV['USER']}@")
+                if arg !~ /@/
+                        arg = "git@#{arg}"
+                end
+                arg = "ssh://#{arg}"
+                arg
+        end
         def codeline_disk_write(root_parent, root_dir, commit_id = nil)
                 username, pw = self.repo.get_credentials
                 if !username
-                        git_arg = "git@#{self.repo.source_control_server}:#{self.repo.project_name}.git"
+                        git_arg = add_git_user("#{self.repo.source_control_server}/#{self.repo.project_name}.git")
                 else
                         username_pw = "#{username}"
                         if pw != ""

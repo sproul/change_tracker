@@ -1,0 +1,30 @@
+
+[
+    {
+      "name" : "Desktop",
+      "version" : "1.1841ec.44",
+      "buildnum" : "5004",
+      "buildurl" : "http://slc09vag.us.oracle.com:8080/view/rd129/job/RD129_Engine/5004/",
+      "scmtype" : "git",
+      "git_branch" : "release/rd129",
+      "git_sha" : "cbb9a918f6beea1e0b70b9b33c74781f718a5906",
+      "git_repo" : "desktop.git",
+      "scm.repo.type" : "git",
+      "git.repo.url" : "https://alm.oraclecorp.com/odocs/s/odocs_desktop/scm/desktop.git",
+      "git.repo.name" : "desktop.git",
+      "git.repo.commit.id" : "cbb9a918f6beea1e0b70b9b33c74781f718a5906",
+      "git.repo.branch" : "release/rd129",
+      "git.repo.prefix" : "https://",
+      "git.repo.server" : "alm.oraclecorp.com",
+      "git.repo.path" : "odocs/s/odocs_desktop/scm/desktop.git",
+      "cspec" : "git;alm.oraclecorp.com;odocs/s/odocs_desktop/scm/desktop.git;release/rd129;cbb9a918f6beea1e0b70b9b33c74781f718a5906",
+      "jenkins.build-url" : "http://slc09vag.us.oracle.com:8080/view/rd129/job/RD129_Engine/5004/",
+      "jenkins.build-id" : "5004",
+      "jenkins.repostate" : "desktop.36446.cbb9a91",
+      "publish.timestamp" : "Wed Aug 8 12:41:52 PDT 2018",
+      "publish.timestamp.epochsecs" : "1533757312",
+      "scmchange.timestamp" : "Tue May 22 06:30:07 PDT 2018",
+      "scmchange.timestamp.epochsecs" : "1526995807"
+  }
+  ]
+  

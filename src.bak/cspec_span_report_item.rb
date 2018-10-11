@@ -130,6 +130,9 @@ class Cspec_span_report_item_set
         def to_s()
                 self.to_json
         end
+        def empty?()
+                items.empty?
+        end
         class << self
                 attr_accessor :output_style
                 attr_accessor :pretty

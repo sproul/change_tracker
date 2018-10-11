@@ -27,7 +27,7 @@ sub get_cached_output_path
 
   my $key = $s;
 
-  my $fn_base = `printf "$key" | cksum`;
+  my $fn_base = `printf "%s" "$key" | cksum`;
 
   Log("key=$key");
   chomp $fn_base;
